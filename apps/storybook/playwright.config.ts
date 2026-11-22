@@ -12,7 +12,11 @@ const all = {
 
 export default defineConfig({
   testDir: "e2e",
-  snapshotPathTemplate: "e2e/screenshots/{arg}-{projectName}{ext}",
+  snapshotPathTemplate: "e2e/screenshots/{arg}-{projectName}-{platform}{ext}",
+  // A missing baseline is recorded (a new scenario needs only its entry); an existing one must match within 0.5% of
+  // the pixels, as the Kotlin goldens do. Baselines are committed from CI's Linux run.
+  updateSnapshots: "missing",
+  expect: { toMatchSnapshot: { maxDiffPixelRatio: 0.005 } },
   fullyParallel: true,
   webServer: {
     command: "node serve.mjs",

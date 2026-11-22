@@ -54,6 +54,36 @@ describe("server rendering", () => {
   });
 });
 
+describe("the provider on the server, from attributes only", () => {
+  const out = squash(
+    renderToString(
+      html`<camo-provider skin="minimal" scheme="dark" window-size="compact" input="touch" platform="macos">
+        <camo-button text="Save"></camo-button>
+      </camo-provider>`,
+    ),
+  );
+
+  it("writes the whole theme, both schemes and the reduced-motion rule, with no script", () => {
+    expect(out).toContain("--camo-color-primary: #1b1b1b");
+    expect(out).toContain("--camo-color-primary: #e8e8e8");
+    expect(out).toContain("--camo-color-tertiary:");
+    expect(out).toContain("--camo-motion-duration-long: 300ms");
+    expect(out).toContain("prefers-reduced-motion: reduce");
+    expect(out).not.toContain("<script");
+  });
+
+  it("resets the content color and icon size for the subtree", () => {
+    expect(out).toContain(
+      ":host { color: var(--camo-content-color); --camo-content-color: var(--camo-color-on-surface); --camo-icon-size: 24px; }",
+    );
+  });
+
+  it("keeps the scheme and the environment attributes it was given", () => {
+    expect(out).toMatch(/<camo-provider[^>]*data-camo-scheme="dark"/);
+    expect(out).toMatch(/<camo-provider[^>]*window-size="compact"/);
+  });
+});
+
 describe("a dialog on the server", () => {
   const dialog = (skin: string): string =>
     squash(

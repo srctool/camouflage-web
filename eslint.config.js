@@ -44,6 +44,7 @@ export default tseslint.config(
       "packages/skin-*/src/index.ts",
       "packages/skin-*/src/register.ts",
       "packages/skin-*/src/theme.ts",
+      "packages/skin-*/src/accent.ts",
       "packages/skin-*/src/surface.ts",
       "packages/skin-*/src/feedback.ts",
     ],

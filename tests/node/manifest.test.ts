@@ -2,35 +2,17 @@ import { execFileSync } from "node:child_process";
 import { readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
+import { expectation } from "../../tools/contract.ts";
+import type { Contract } from "../../tools/contract.ts";
 import { checkManifest, unionAliases } from "../helpers/manifest.ts";
 import type { ComponentContract } from "../helpers/manifest.ts";
 
 type Manifest = Parameters<typeof checkManifest>[0];
 
-// What the base notes (CamoButton, CamoDialog) name, with the web conventions applied (components note, sections 3.1 to 3.3).
-const CONTRACTS: ComponentContract[] = [
-  {
-    tag: "camo-button",
-    className: "CamoButton",
-    attributes: {
-      text: null,
-      appearance: ["solid", "soft", "raised", "outline", "ghost", "link"],
-      tone: ["default", "error", "success", "warning", "info"],
-      disabled: null,
-      loading: null,
-    },
-    slots: ["prefix-icon", "suffix-icon"],
-    events: [],
-    forbidden: ["enabled"],
-  },
-  {
-    tag: "camo-dialog",
-    className: "CamoDialog",
-    attributes: { title: null, message: null, open: null },
-    slots: ["", "confirm", "dismiss"],
-    events: ["camo-close"],
-  },
-];
+// What the base notes name, from `contract/camouflage-contract.json`, with the web conventions applied (Components note,
+// sections 3.1 to 3.4): attributes in kebab-case, enum values lowercase, an inverted boolean, slots, custom events.
+const contract = JSON.parse(readFileSync("contract/camouflage-contract.json", "utf8")) as Contract;
+const CONTRACTS: ComponentContract[] = contract.components.map(expectation);
 
 let manifest: Manifest;
 let aliases: Map<string, string[]>;
@@ -53,11 +35,15 @@ beforeAll(() => {
     { stdio: "pipe" },
   );
   manifest = JSON.parse(readFileSync(join(outdir, "custom-elements.json"), "utf8")) as Manifest;
-  aliases = unionAliases(readFileSync("packages/core/src/skin/types.ts", "utf8"));
+  aliases = unionAliases(
+    ["skin", "theme"]
+      .map((dir) => readFileSync(`packages/core/src/${dir}/types.ts`, "utf8"))
+      .join("\n"),
+  );
 }, 60_000);
 
 describe("the manifest against the contract", () => {
-  it("matches for camo-button and camo-dialog", () => {
+  it("matches for every component in the contract", () => {
     expect(checkManifest(manifest, CONTRACTS, aliases)).toEqual([]);
   });
 

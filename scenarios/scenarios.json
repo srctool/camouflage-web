@@ -1,0 +1,109 @@
+{
+  "$schema": "./schema.json",
+  "version": 1,
+  "defaults": {
+    "skins": ["minimal", "cupertino"],
+    "modes": ["light", "dark"],
+    "textScales": [1, 2],
+    "directions": ["ltr", "rtl"]
+  },
+  "scenarios": [
+    {
+      "name": "button-solid",
+      "component": "button",
+      "props": { "text": "Save", "appearance": "solid" }
+    },
+    {
+      "name": "button-soft",
+      "component": "button",
+      "props": { "text": "Save", "appearance": "soft" }
+    },
+    {
+      "name": "button-raised",
+      "component": "button",
+      "props": { "text": "Save", "appearance": "raised" }
+    },
+    {
+      "name": "button-outline",
+      "component": "button",
+      "props": { "text": "Save", "appearance": "outline" }
+    },
+    {
+      "name": "button-ghost",
+      "component": "button",
+      "props": { "text": "Save", "appearance": "ghost" }
+    },
+    {
+      "name": "button-link",
+      "component": "button",
+      "props": { "text": "Save", "appearance": "link" }
+    },
+    {
+      "name": "button-solid-error",
+      "component": "button",
+      "props": { "text": "Delete", "appearance": "solid", "tone": "error" },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "button-solid-success",
+      "component": "button",
+      "props": { "text": "Done", "appearance": "solid", "tone": "success" },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "button-soft-warning",
+      "component": "button",
+      "props": { "text": "Careful", "appearance": "soft", "tone": "warning" },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "button-soft-info",
+      "component": "button",
+      "props": { "text": "Note", "appearance": "soft", "tone": "info" },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "button-disabled",
+      "component": "button",
+      "props": { "text": "Unavailable", "disabled": true },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "button-loading",
+      "component": "button",
+      "props": { "text": "Saving", "loading": true },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "button-icons",
+      "component": "button",
+      "props": { "text": "Next", "appearance": "outline" },
+      "content": { "prefix-icon": "<span>◀</span>", "suffix-icon": "<span>▶</span>" }
+    },
+    {
+      "name": "dialog-alert",
+      "component": "dialog",
+      "frame": "page",
+      "props": { "open": true, "title": "Delete item?", "message": "This can't be undone." },
+      "content": {
+        "confirm": "<camo-button text=\"Delete\" tone=\"error\"></camo-button>",
+        "dismiss": "<camo-button text=\"Cancel\" appearance=\"ghost\"></camo-button>"
+      }
+    },
+    {
+      "name": "dialog-no-title",
+      "component": "dialog",
+      "frame": "page",
+      "props": { "open": true, "message": "Saved." },
+      "content": { "confirm": "<camo-button text=\"OK\"></camo-button>" },
+      "textScales": [1],
+      "directions": ["ltr"]
+    }
+  ]
+}

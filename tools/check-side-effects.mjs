@@ -34,6 +34,10 @@ const probe = (specifier) => `
 for (const dir of readdirSync(packagesDir)) {
   const manifest = JSON.parse(readFileSync(join(packagesDir, dir, "package.json"), "utf8"));
   for (const [key, value] of Object.entries(manifest.exports ?? {})) {
+    // An entry marked `camouflage.bundlerOnly` is for build tools: a dependency of it ships ESM that Node cannot load.
+    if (manifest.camouflage?.bundlerOnly?.includes(key)) continue;
+    // An entry with no `default` is typings only (`./react`, `./vue`): there is nothing to import.
+    if (typeof value === "object" && value !== null && value.default === undefined) continue;
     const specifier = key === "." ? manifest.name : `${manifest.name}/${key.slice(2)}`;
     const effectful = key !== ".";
     let out;

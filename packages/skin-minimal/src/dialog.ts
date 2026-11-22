@@ -72,7 +72,7 @@ export const minimalDialog: Renderer<DialogState, DialogSlots, DialogStyle> = {
       actionsLayout: "end",
       actionGap: field("action-gap", theme.spacing.s),
       sectionGap: field("section-gap", theme.spacing.l),
-      elevation: theme.elevation.level0,
+      elevation: field("elevation", theme.elevation.level0),
       scrimAlpha: field("scrim-alpha", "40%"),
       container: c.surface,
       titleColor: c.onSurface,

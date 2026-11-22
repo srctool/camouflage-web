@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/srctool/camouflage/camouflage-contract.schema.json",
+  "title": "camouflage-contract.json",
+  "description": "What every Camouflage component is, in the base notes' own names: its parameters, slots, callbacks and component-theme fields. Tools read it (the generator, the MCP server, Studio) and each library checks itself against it. Version 1 is a draft shared with srctool/camouflage#64 and the generator; the web fields live under `web`, so Kotlin and Dart add theirs beside it.",
+  "type": "object",
+  "required": ["version", "components"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "const": 1
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/component"
+      }
+    }
+  },
+  "$defs": {
+    "component": {
+      "type": "object",
+      "required": ["name", "parameters"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "The contract name without the `Camo` prefix, in PascalCase: `Button`, `SegmentedControl`.",
+          "type": "string",
+          "pattern": "^[A-Z][A-Za-z0-9]*$"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/parameter"
+          }
+        },
+        "themeFields": {
+          "description": "The component theme (`ButtonTheme`): one entry per field, by its contract name.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/themeField"
+          }
+        }
+      }
+    },
+    "parameter": {
+      "type": "object",
+      "required": ["name", "kind"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "The contract name, camelCase.",
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "kind": {
+          "description": "`value` is data (text, a number, an enum, a boolean), `slot` is a widget or layout content, `callback` is an event the user causes.",
+          "enum": ["value", "slot", "callback"]
+        },
+        "type": {
+          "description": "For a value: `string`, `number`, `boolean` or `enum`.",
+          "enum": ["string", "number", "boolean", "enum"]
+        },
+        "values": {
+          "description": "For an enum: its values, in the contract's PascalCase (`Solid`); the web spells them lowercase kebab-case (`solid`).",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "default": {
+          "description": "The default, as JSON; absent means required or null.",
+          "type": ["string", "number", "boolean", "null"]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "defaultSlot": {
+          "description": "A single layout slot (`content`) is the default slot on the web.",
+          "type": "boolean"
+        }
+      }
+    },
+    "themeField": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "type": {
+          "type": "string"
+        },
+        "web": {
+          "description": "How the web carries the field: `variable` (the default) is a `--camo-<component>-<field>` custom property; `tokens` is a structured value (a text style, a set of colors) that the web takes from the global typography and color tokens; `gap` is a value that changes structure or behavior, which a CSS variable cannot (the renderer is pure JavaScript and reads no styles), so the web does not offer it yet.",
+          "enum": ["variable", "tokens", "gap"]
+        }
+      }
+    }
+  }
+}

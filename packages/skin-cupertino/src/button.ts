@@ -61,7 +61,7 @@ const STYLES = css`
     content: "";
     position: absolute;
     inset-block: calc((var(--b-height) - var(--b-touch-target)) / 2);
-    inset-inline: 0;
+    inset-inline: min(var(--camo-spacing-none), calc((100% - var(--b-touch-target)) / 2));
   }
   .spinner {
     position: absolute;
@@ -100,7 +100,7 @@ export const cupertinoButton: Renderer<ButtonState, ButtonSlots, ButtonStyle> = 
       iconGap: field("icon-gap", theme.spacing.s),
       touchTarget: field("touch-target", "48px"),
       borderWidth: field("border-width", "0px"),
-      raisedElevation: theme.elevation.level0,
+      raisedElevation: field("raised-elevation", theme.elevation.level0),
       solid: { container: c.primary, content: c.onPrimary },
       soft: tinted,
       raised: tinted,

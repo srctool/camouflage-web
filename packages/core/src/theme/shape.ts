@@ -1,62 +1,29 @@
+import {
+  COLOR_ROLES,
+  ELEVATION_ROLES,
+  MOTION_ROLES,
+  SHAPE_ROLES,
+  SPACING_ROLES,
+  TEXT_STYLE_FIELDS,
+  TYPE_ROLES,
+} from "./schema.ts";
 import { createTokens } from "./tokens.ts";
-import type { CamoColors, CamoTextStyle, CamoTheme } from "./types.ts";
+import type { CamoTheme } from "./types.ts";
 
-const colors: CamoColors = {
-  primary: "",
-  onPrimary: "",
-  primaryContainer: "",
-  onPrimaryContainer: "",
-  secondary: "",
-  onSecondary: "",
-  secondaryContainer: "",
-  onSecondaryContainer: "",
-  surface: "",
-  surfaceContainerLowest: "",
-  surfaceContainerLow: "",
-  surfaceContainer: "",
-  surfaceContainerHigh: "",
-  surfaceContainerHighest: "",
-  onSurface: "",
-  onSurfaceVariant: "",
-  outline: "",
-  outlineVariant: "",
-  error: "",
-  onError: "",
-  errorContainer: "",
-  onErrorContainer: "",
-  success: "",
-  onSuccess: "",
-  successContainer: "",
-  onSuccessContainer: "",
-  warning: "",
-  onWarning: "",
-  warningContainer: "",
-  onWarningContainer: "",
-  info: "",
-  onInfo: "",
-  infoContainer: "",
-  onInfoContainer: "",
-  scrim: "",
-};
-
-const text: CamoTextStyle = { family: "", size: "", lineHeight: "", weight: "", letterSpacing: "" };
+const blank = <K extends string>(names: readonly K[]): Record<K, string> =>
+  Object.fromEntries(names.map((n) => [n, ""])) as Record<K, string>;
 
 /** A complete theme with empty values: the shape the token references are derived from. */
-const shape: CamoTheme = {
-  colors,
-  shapes: { none: "", extraSmall: "", small: "", medium: "", large: "", extraLarge: "", full: "" },
-  spacing: { none: "", xxs: "", xs: "", s: "", m: "", l: "", xl: "", xxl: "" },
-  typography: {
-    labelLarge: text,
-    titleMedium: text,
-    titleLarge: text,
-    headlineSmall: text,
-    bodyMedium: text,
-    bodySmall: text,
-  },
-  motion: { durationShort: "", durationMedium: "", easingStandard: "", easingEmphasized: "" },
-  elevation: { level0: "", level1: "", level2: "", level3: "", level4: "", level5: "" },
-};
+const shape = {
+  colors: blank(COLOR_ROLES),
+  typography: Object.fromEntries(TYPE_ROLES.map((t) => [t, blank(TEXT_STYLE_FIELDS)])),
+  components: {},
+  shapes: blank(SHAPE_ROLES),
+  spacing: blank(SPACING_ROLES),
+  elevation: blank(ELEVATION_ROLES),
+  motion: blank(MOTION_ROLES),
+  tokenSets: {},
+} as unknown as CamoTheme;
 
 /**
  * The theme as references: `tokens.colors.primary` is `"var(--camo-color-primary)"`. A renderer's `theme` argument is

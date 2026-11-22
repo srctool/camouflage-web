@@ -18,7 +18,11 @@ const preview: Preview = {
   },
   initialGlobals: { skin: "minimal", scheme: "light" },
   decorators: [
-    (story, context) => html`
+    // The harness story brings its own provider (skin, scheme, direction and text scale come from the URL).
+    (story, context) =>
+      context.parameters["harness"] === true
+        ? story()
+        : html`
       <camo-provider
         skin=${String(context.globals["skin"])}
         scheme=${String(context.globals["scheme"])}

@@ -138,15 +138,28 @@ export interface DialogStyle {
 export type DialogSlots = "confirm" | "dismiss" | "content";
 
 /**
- * A skin: one required renderer per component, plus a surface treatment and interaction feedback. Only the spike's
- * renderers exist so far, so a skin is checked with `satisfies CamoSkin`, and the full contract (one required field
- * per component) arrives with W1. The gap is listed in `docs/spike-findings.md`.
+ * The renderer each component needs, by component name. A milestone that builds a component adds its line here, and
+ * from then on every complete skin must provide it: `defineSkin` and `satisfies CamoSkin` report the missing one by
+ * name. (Kotlin and Dart list all 54 at once; the web grows with its components, W2 to W9.)
  */
-export interface CamoSkin extends SkinParts {
-  /** For debugging and tests: "minimal". */
-  readonly name: string;
+export interface SkinComponents {
   readonly button: Renderer<ButtonState, ButtonSlots, ButtonStyle>;
   readonly dialog: Renderer<DialogState, DialogSlots, DialogStyle>;
+}
+
+/** A complete skin: a surface treatment, interaction feedback, and one required renderer per component. */
+export interface CamoSkin extends SkinParts, SkinComponents {
+  /** For debugging and tests: "minimal". */
+  readonly name: string;
+}
+
+/**
+ * A skin being written: every renderer is optional, so it compiles while a skin is half built (a new skin starts as
+ * the Minimal one with a few renderers replaced). It cannot be registered or published: `registerSkin` and the
+ * `skins` check need a `CamoSkin`, and `defineSkin` turns this into one or fails naming what is missing.
+ */
+export interface InProgressSkin extends SkinParts, Partial<SkinComponents> {
+  readonly name: string;
 }
 
 /** What a skin can ask of the environment (ADR-42), measured on the client and defaulted on the server. */
@@ -166,4 +179,6 @@ export interface CamoEnvironment {
   input: InputKind;
   platform: string;
   capabilities: CamoCapabilities;
+  /** `prefers-reduced-motion: reduce`, kept live. The theme's durations are already zero when it is set. */
+  reducedMotion: boolean;
 }

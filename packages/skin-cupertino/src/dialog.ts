@@ -72,7 +72,7 @@ export const cupertinoDialog: Renderer<DialogState, DialogSlots, DialogStyle> = 
       actionsLayout: "stacked",
       actionGap: field("action-gap", theme.spacing.s),
       sectionGap: field("section-gap", theme.spacing.m),
-      elevation: theme.elevation.level4,
+      elevation: field("elevation", theme.elevation.level4),
       scrimAlpha: field("scrim-alpha", "40%"),
       container: c.surfaceContainerHigh,
       titleColor: c.onSurface,

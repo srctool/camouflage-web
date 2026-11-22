@@ -2,6 +2,7 @@ import { LitElement, css, html } from "lit";
 import type { CSSResult, PropertyDeclarations, PropertyValues, TemplateResult } from "lit";
 import { attachActivation } from "../behavior/activation.ts";
 import { applyAria } from "../behavior/aria.ts";
+import { PressController } from "../behavior/press.ts";
 import { CamouflageController } from "../controller.ts";
 import type { Appearance, ButtonState, Tone } from "../skin/types.ts";
 import { cssBlock } from "../style.ts";
@@ -63,6 +64,8 @@ export class CamoButton extends LitElement {
 
   readonly #internals: ElementInternals = this.attachInternals();
   readonly #cx: CamouflageController = new CamouflageController(this);
+  // Reflects a press (pointer or key) as `data-camo-pressed`, which the skin's feedback styles select.
+  readonly #press: PressController = new PressController(this, () => this.disabled || this.loading);
 
   constructor() {
     super();
@@ -72,6 +75,7 @@ export class CamoButton extends LitElement {
     this.disabled = false;
     this.loading = false;
     attachActivation(this, () => this.disabled || this.loading);
+    void this.#press;
   }
 
   override willUpdate(changed: PropertyValues<this>): void {
@@ -108,11 +112,5 @@ export class CamoButton extends LitElement {
       style,
       skin,
     })}`;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    "camo-button": CamoButton;
   }
 }

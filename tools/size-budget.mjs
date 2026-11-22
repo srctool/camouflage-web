@@ -1,5 +1,6 @@
-// A size report of what an app would ship, per entry, bundled and minified with Rolldown, with gzip and brotli
-// sizes. Budgets are listed but only reported for now (W0); they become a failing check at W10.
+// A size check of what an app would ship, per entry, bundled and minified with Rolldown, with gzip and brotli sizes.
+// The budgets are gzip bytes, about 10% above the size at the time they were set, and a build over budget fails. A
+// milestone that adds components raises them in its own pull request, with the new size in the description.
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { brotliCompressSync, gzipSync } from "node:zlib";
@@ -7,10 +8,10 @@ import { rolldown } from "rolldown";
 
 const root = new URL("..", import.meta.url).pathname;
 const BUDGETS = {
-  "core (define)": 30_000,
-  "core + minimal": 45_000,
-  "core + minimal + cupertino": 60_000,
-  "minimal skin only": 12_000,
+  "core (define)": 13_000,
+  "core + minimal": 17_500,
+  "core + minimal + cupertino": 19_000,
+  "minimal skin only": 10_500,
 };
 const entries = {
   "core (define)": `import "@srctool/camouflage-core/define";`,
@@ -54,7 +55,7 @@ console.log(
   pad("budget(gz)", 11),
 );
 for (const r of rows) {
-  const flag = r.gzip > r.budget ? "  over budget (report only)" : "";
+  const flag = r.gzip > r.budget ? "  OVER BUDGET" : "";
   console.log(
     r.name.padEnd(30),
     pad(r.bytes, 9),
@@ -62,4 +63,9 @@ for (const r of rows) {
     pad(r.brotli, 9),
     pad(r.budget, 11) + flag,
   );
+}
+const over = rows.filter((r) => r.gzip > r.budget);
+if (over.length > 0) {
+  console.error(`\nSize check failed: ${over.map((r) => r.name).join(", ")} over budget.`);
+  process.exit(1);
 }

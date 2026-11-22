@@ -1,4 +1,5 @@
 import type { CamoThemeSet } from "../theme/types.ts";
+import { assertCompleteSkin } from "./define.ts";
 import type { CamoSkin } from "./types.ts";
 
 /** What a skin brings when it is registered: its starter theme, and whether it is the fallback. */
@@ -28,6 +29,8 @@ function registry(): Registry {
 
 /** Registers a skin by name, so `<camo-provider skin="cupertino">` can find it (the skin's `register` entry calls this). */
 export function registerSkin(skin: CamoSkin, registration: SkinRegistration): void {
+  // A skin the compiler never saw (plain JavaScript, an `as` cast) is checked here, so a half-built skin cannot register.
+  assertCompleteSkin(skin);
   const r = registry();
   r.skins.set(skin.name, { skin, ...registration });
   if (registration.fallback) r.fallback = skin.name;
