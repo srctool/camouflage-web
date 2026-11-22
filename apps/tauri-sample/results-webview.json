@@ -1,0 +1,38 @@
+{
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko)",
+  "features": {
+    "declarativeShadowDom": true,
+    "elementInternals": true,
+    "elementInternalsAria": true,
+    "formAssociated": true,
+    "dialogModal": true,
+    "dialogModalPseudo": true,
+    "popoverApi": true,
+    "anchorPositioning": true,
+    "backdropFilter": true,
+    "svgFilterInBackdrop": true,
+    "constructableStylesheets": true,
+    "has": true,
+    "colorMix": true,
+    "containerQueries": true,
+    "prefersReducedTransparency": true,
+    "prefersReducedMotion": true,
+    "prefersColorScheme": true,
+    "lightDark": true,
+    "cssNesting": true,
+    "logicalProperties": true,
+    "dialogClosedby": false,
+    "scrollbarStyling": true,
+    "viewTransitions": true,
+    "importMapsAndModules": true,
+    "cssLayers": true
+  },
+  "scenario": {
+    "url": "http://localhost:4173/dialog?skin=cupertino&scheme=light",
+    "hydrated": true,
+    "buttonFocusable": true,
+    "buttonSurface": "rgb(255, 59, 48)",
+    "dialogModal": true,
+    "dialogFocusOnAction": true
+  }
+}

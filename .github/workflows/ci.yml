@@ -1,0 +1,46 @@
+name: CI
+
+# Camouflage for web: typecheck, lint, the layer and side-effect checks, and the tests in Chromium, Firefox and WebKit
+# on every pull request (see the docs: Project Setup (web) and Testing).
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Check (typecheck, lint, layers, tests)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      # pnpm comes from the `packageManager` field, through Corepack.
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium firefox webkit
+      - run: pnpm build
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm layers
+      - run: pnpm side-effects
+      - run: pnpm test
+      # Report only until the release milestone (W10), when the budgets start to fail the build.
+      - run: pnpm size
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: test-failures
+          path: |
+            .vitest/attachments
+            **/test-results
+          if-no-files-found: ignore

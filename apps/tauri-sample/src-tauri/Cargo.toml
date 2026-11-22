@@ -1,0 +1,13 @@
+[package]
+name = "camouflage-tauri-sample"
+version = "0.0.0"
+edition = "2021"
+description = "Runs the Camouflage spike page and the feature probe in the platform's webview."
+publish = false
+
+[dependencies]
+tauri = { version = "2" }
+serde_json = "1"
+
+[build-dependencies]
+tauri-build = { version = "2" }

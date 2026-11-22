@@ -1,0 +1,23 @@
+{
+  "name": "@srctool/camouflage-ssr-sample",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p . && node build-client.mjs",
+    "start": "node dist/server.js",
+    "e2e": "playwright test"
+  },
+  "dependencies": {
+    "@lit-labs/ssr": "4.1.0",
+    "@lit-labs/ssr-client": "1.1.8",
+    "@srctool/camouflage-core": "workspace:*",
+    "@srctool/camouflage-skin-cupertino": "workspace:*",
+    "@srctool/camouflage-skin-minimal": "workspace:*",
+    "lit": "3.3.3"
+  },
+  "devDependencies": {
+    "@types/pngjs": "6.0.5",
+    "pixelmatch": "8.0.0",
+    "pngjs": "7.0.0"
+  }
+}

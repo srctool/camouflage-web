@@ -1,0 +1,43 @@
+{
+  "name": "@srctool/camouflage-skin-cupertino",
+  "version": "0.2.0-alpha.0",
+  "description": "The cupertino skin for Camouflage for web: renderers, surface treatment, interaction feedback and starter themes.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srctool/camouflage-web.git",
+    "directory": "packages/skin-cupertino"
+  },
+  "type": "module",
+  "sideEffects": [
+    "./dist/register.js",
+    "./src/register.ts"
+  ],
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./register": {
+      "source": "./src/register.ts",
+      "types": "./dist/register.d.ts",
+      "default": "./dist/register.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "@srctool/camouflage-core": "workspace:*",
+    "lit": "3.3.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

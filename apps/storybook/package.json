@@ -1,0 +1,21 @@
+{
+  "name": "@srctool/camouflage-storybook",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build -o dist",
+    "preview": "node serve.mjs",
+    "e2e": "playwright test"
+  },
+  "dependencies": {
+    "@srctool/camouflage-core": "workspace:*",
+    "@srctool/camouflage-skin-cupertino": "workspace:*",
+    "@srctool/camouflage-skin-minimal": "workspace:*",
+    "lit": "3.3.3"
+  },
+  "devDependencies": {
+    "@storybook/web-components-vite": "10.6.8",
+    "storybook": "10.6.8"
+  }
+}

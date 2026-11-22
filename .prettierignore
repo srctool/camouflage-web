@@ -1,0 +1,11 @@
+dist/
+build/
+.next/
+storybook-static/
+pnpm-lock.yaml
+coverage/
+test-results/
+playwright-report/
+**/__screenshots__/
+src-tauri/
+.vitest/

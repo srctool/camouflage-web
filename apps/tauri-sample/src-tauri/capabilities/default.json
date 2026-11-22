@@ -1,0 +1,8 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "The local sample server may report the probe result. Nothing else is allowed.",
+  "windows": ["main"],
+  "remote": { "urls": ["http://localhost:4173/*", "http://127.0.0.1:4173/*"] },
+  "permissions": ["allow-report"]
+}
