@@ -6,10 +6,12 @@ The third platform of [Camouflage](https://github.com/srctool/camouflage), next 
 written in TypeScript with [Lit](https://lit.dev), usable from any framework or plain HTML, from Tauri webviews, and
 with **server rendering**.
 
-> **Status: W0, the spike.** The skin model and server rendering are proven on `camo-provider`, `camo-button` and
-> `camo-dialog` in the Minimal and Cupertino skins. Everything else follows in the milestones W1 to W10. The
-> design notes are in the [contributor docs](https://camouflage-dev.srctool.com) (the "Web (planned)" sections);
-> the findings of the spike are in [docs/spike-findings.md](docs/spike-findings.md).
+> **Status: W1, the foundations.** The theme model (42 color roles, 15 text styles, component themes, token sets,
+> `fromSeed`, `validateTheme`), the provider and its environment, the skin contract with its behavior layer, the
+> scenario-driven test harness, the contract, manifest and typings checks, and the two skin packages are in place, on
+> `camo-provider`, `camo-button` and `camo-dialog`. Components follow in W2 to W9. The design notes are in the
+> [contributor docs](https://camouflage-dev.srctool.com) (the "Web (planned)" sections); the findings are in
+> [docs/spike-findings.md](docs/spike-findings.md) (W0) and [docs/w1-findings.md](docs/w1-findings.md).
 
 ## How it fits together
 
@@ -49,17 +51,29 @@ pnpm install
 pnpm exec playwright install chromium firefox webkit   # once
 ```
 
-| Command                                   | What it does                                                                 |
-| ----------------------------------------- | ---------------------------------------------------------------------------- |
-| `pnpm check`                              | everything CI runs: build, typecheck, lint, layers, side effects, tests      |
-| `pnpm build`                              | compiles every package to `dist/` (ESM and declarations)                     |
-| `pnpm typecheck`                          | type-checks the packages and the tests                                       |
-| `pnpm lint`                               | ESLint (Lit, TypeScript and the no-literals rule for renderers) and Prettier |
-| `pnpm layers`                             | `core` depends on no skin, and a skin only on `core`                         |
-| `pnpm side-effects`                       | each main entry loads in plain Node with no side effects                     |
-| `pnpm test`                               | Node tests (renderers, server rendering) and browser tests in three engines  |
-| `CAMO_BROWSERS=chromium,webkit pnpm test` | limits the browser tests, for a machine where one engine cannot start        |
-| `pnpm size`                               | gzip and brotli size of what an app would ship (report only until W10)       |
+| Command                                   | What it does                                                                                    |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `pnpm check`                              | everything CI runs: build, typecheck, lint, generated files, layers, skins, side effects, tests |
+| `pnpm themes` / `pnpm themes:check`       | write, or verify, the skins' starter themes (`tools/generate-starter-themes.ts`)                |
+| `pnpm typings` / `pnpm typings:check`     | write, or verify, the tag and event maps and the React and Vue typings                          |
+| `pnpm manifest`                           | write the Custom Elements Manifest into `packages/core`                                         |
+| `pnpm skins`                              | every skin is complete (a renderer for every component) and has a `register` entry              |
+| `pnpm build`                              | compiles every package to `dist/` (ESM and declarations)                                        |
+| `pnpm typecheck`                          | type-checks the packages and the tests                                                          |
+| `pnpm lint`                               | ESLint (Lit, TypeScript and the no-literals rule for renderers) and Prettier                    |
+| `pnpm layers`                             | `core` depends on no skin, and a skin only on `core`                                            |
+| `pnpm side-effects`                       | each main entry loads in plain Node with no side effects                                        |
+| `pnpm test`                               | Node tests (renderers, server rendering) and browser tests in three engines                     |
+| `CAMO_BROWSERS=chromium,webkit pnpm test` | limits the browser tests, for a machine where one engine cannot start                           |
+| `pnpm size`                               | gzip and brotli size of what an app would ship; fails over budget                               |
+
+## Documentation
+
+- [docs/testing.md](docs/testing.md): the scenario list, the screenshot runner, the conformance checks, the size budget.
+- [docs/contract.md](docs/contract.md): `camouflage-contract.json`, the manifest check and the generated typings.
+- [docs/adding-a-component.md](docs/adding-a-component.md): the checklist for a new component.
+- [docs/skins.md](docs/skins.md): how each skin renders what exists (dialect alignment).
+- [docs/browser-baseline.md](docs/browser-baseline.md), [docs/publishing.md](docs/publishing.md).
 
 ## Publishing
 
@@ -80,7 +94,7 @@ Apache-2.0.
 pnpm storybook                # dev server on :6006
 pnpm storybook:build          # static build in apps/storybook/dist
 cd apps/storybook && pnpm preview   # serves the build under /web/ on :6007
-cd apps/storybook && pnpm e2e       # renders every story per skin and scheme, saves screenshots
+cd apps/storybook && pnpm e2e       # renders every story per skin and scheme, and the scenario screenshots (docs/testing.md)
 ```
 
 ## Samples

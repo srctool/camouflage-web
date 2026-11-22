@@ -9,7 +9,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "build": "tsc -b",
+    "build": "tsc -b && pnpm manifest",
     "typecheck": "tsc -b && tsc -p tests --noEmit",
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
@@ -17,9 +17,15 @@
     "test:node": "vitest run --project node",
     "test:browser": "vitest run --project browser",
     "layers": "node tools/check-layers.mjs",
+    "skins": "node tools/check-skins.mjs",
     "side-effects": "node tools/check-side-effects.mjs",
+    "themes": "jiti tools/generate-starter-themes.ts",
+    "themes:check": "jiti tools/generate-starter-themes.ts --check",
+    "typings": "jiti tools/generate-typings.ts",
+    "typings:check": "jiti tools/generate-typings.ts --check",
+    "manifest": "jiti tools/write-manifest.ts",
     "size": "node tools/size-budget.mjs",
-    "check": "pnpm build && pnpm typecheck && pnpm lint && pnpm layers && pnpm side-effects && pnpm test",
+    "check": "pnpm build && pnpm typecheck && pnpm lint && pnpm themes:check && pnpm typings:check && pnpm layers && pnpm skins && pnpm side-effects && pnpm test",
     "storybook": "pnpm --filter @srctool/camouflage-storybook dev",
     "storybook:build": "pnpm --filter @srctool/camouflage-storybook build"
   },
@@ -33,6 +39,7 @@
     "@srctool/camouflage-skin-cupertino": "workspace:*",
     "@srctool/camouflage-skin-minimal": "workspace:*",
     "@types/node": "26.6.6",
+    "@types/react": "19.2.7",
     "@vitest/browser-playwright": "5.1.1",
     "axe-core": "4.14.1",
     "eslint": "10.15.0",
@@ -46,7 +53,8 @@
     "typescript": "6.0.3",
     "typescript-eslint": "8.73.0",
     "vite": "8.3.8",
-    "vitest": "5.1.1"
+    "vitest": "5.1.1",
+    "vue": "3.5.27"
   },
-  "customElements": "node_modules/.cache/camo-manifest/custom-elements.json"
+  "customElements": "node_modules/.cache/camo-manifest-typings/custom-elements.json"
 }

@@ -1,0 +1,281 @@
+{
+  "$schema": "./schema.json",
+  "version": 1,
+  "components": [
+    {
+      "name": "Provider",
+      "parameters": [
+        {
+          "name": "skin",
+          "kind": "value",
+          "type": "string"
+        },
+        {
+          "name": "scheme",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Light", "Dark"]
+        },
+        {
+          "name": "windowSize",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Compact", "Medium", "Expanded", "Large"]
+        },
+        {
+          "name": "input",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Touch", "Pointer"]
+        },
+        {
+          "name": "platform",
+          "kind": "value",
+          "type": "string"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ]
+    },
+    {
+      "name": "Button",
+      "parameters": [
+        {
+          "name": "text",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "onClick",
+          "kind": "callback"
+        },
+        {
+          "name": "appearance",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Solid", "Soft", "Raised", "Outline", "Ghost", "Link"],
+          "default": null
+        },
+        {
+          "name": "tone",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Default", "Error", "Success", "Warning", "Info"],
+          "default": "Default"
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "loading",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "prefixIcon",
+          "kind": "slot"
+        },
+        {
+          "name": "suffixIcon",
+          "kind": "slot"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "defaultAppearance",
+          "type": "Appearance",
+          "web": "gap"
+        },
+        {
+          "name": "height",
+          "type": "length"
+        },
+        {
+          "name": "minWidth",
+          "type": "length"
+        },
+        {
+          "name": "shape",
+          "type": "length"
+        },
+        {
+          "name": "padding",
+          "type": "length"
+        },
+        {
+          "name": "paddingWithIcon",
+          "type": "length"
+        },
+        {
+          "name": "textStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "iconSize",
+          "type": "length"
+        },
+        {
+          "name": "iconGap",
+          "type": "length"
+        },
+        {
+          "name": "borderWidth",
+          "type": "length"
+        },
+        {
+          "name": "raisedElevation",
+          "type": "length"
+        },
+        {
+          "name": "solidColors",
+          "type": "ButtonColors",
+          "web": "tokens"
+        },
+        {
+          "name": "softColors",
+          "type": "ButtonColors",
+          "web": "tokens"
+        },
+        {
+          "name": "raisedColors",
+          "type": "ButtonColors",
+          "web": "tokens"
+        },
+        {
+          "name": "outlineColors",
+          "type": "ButtonColors",
+          "web": "tokens"
+        },
+        {
+          "name": "ghostColors",
+          "type": "ButtonColors",
+          "web": "tokens"
+        },
+        {
+          "name": "linkColors",
+          "type": "ButtonColors",
+          "web": "tokens"
+        },
+        {
+          "name": "disabledContainerAlpha",
+          "type": "number"
+        },
+        {
+          "name": "disabledContentAlpha",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "name": "Dialog",
+      "parameters": [
+        {
+          "name": "title",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "message",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "open",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "confirm",
+          "kind": "slot",
+          "required": true
+        },
+        {
+          "name": "dismiss",
+          "kind": "slot"
+        },
+        {
+          "name": "onClose",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "shape",
+          "type": "length"
+        },
+        {
+          "name": "minWidth",
+          "type": "length"
+        },
+        {
+          "name": "maxWidth",
+          "type": "length"
+        },
+        {
+          "name": "padding",
+          "type": "length"
+        },
+        {
+          "name": "titleStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "messageStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "titleAlign",
+          "type": "keyword",
+          "web": "gap"
+        },
+        {
+          "name": "actionsLayout",
+          "type": "keyword",
+          "web": "gap"
+        },
+        {
+          "name": "showCloseButton",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "elevation",
+          "type": "length"
+        },
+        {
+          "name": "scrimAlpha",
+          "type": "number"
+        },
+        {
+          "name": "stackedScrim",
+          "type": "keyword",
+          "web": "gap"
+        },
+        {
+          "name": "colors",
+          "type": "DialogColors",
+          "web": "tokens"
+        }
+      ]
+    }
+  ]
+}

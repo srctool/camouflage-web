@@ -1,0 +1,186 @@
+[
+  {
+    "name": "purple-light",
+    "dark": false,
+    "issues": [],
+    "colorsOut": {
+      "primary": "#6750a4",
+      "onPrimary": "#ffffff",
+      "warning": "#835400"
+    }
+  },
+  {
+    "name": "purple-dark",
+    "dark": true,
+    "issues": [],
+    "colorsOut": {
+      "primary": "#cfbcff",
+      "onPrimary": "#381e72",
+      "warning": "#ffb957"
+    }
+  },
+  {
+    "name": "purple-tinted-light",
+    "dark": false,
+    "neutral": true,
+    "issues": [],
+    "colorsOut": {
+      "primary": "#6750a4",
+      "onPrimary": "#ffffff",
+      "warning": "#835400"
+    }
+  },
+  {
+    "name": "warning-on-itself",
+    "dark": false,
+    "colors": {
+      "onWarning": "@warning"
+    },
+    "issues": [
+      {
+        "kind": "LowContrast",
+        "pair": "onWarning/warning",
+        "ratio": 1.0,
+        "required": 4.5
+      }
+    ],
+    "colorsOut": {
+      "primary": "#6750a4",
+      "onPrimary": "#ffffff",
+      "warning": "#835400"
+    }
+  },
+  {
+    "name": "weak-outline",
+    "dark": false,
+    "colors": {
+      "outline": "#d0d0d0"
+    },
+    "issues": [
+      {
+        "kind": "LowContrast",
+        "pair": "outline/surface",
+        "ratio": 1.5424002833605304,
+        "required": 3.0
+      }
+    ],
+    "colorsOut": {
+      "primary": "#6750a4",
+      "onPrimary": "#ffffff",
+      "warning": "#835400"
+    }
+  },
+  {
+    "name": "weak-text",
+    "dark": false,
+    "colors": {
+      "onSurface": "#9a9a9a",
+      "onSurfaceVariant": "#b0b0b0"
+    },
+    "issues": [
+      {
+        "kind": "LowContrast",
+        "pair": "onSurface/surface",
+        "ratio": 2.813933027204481,
+        "required": 4.5
+      },
+      {
+        "kind": "LowContrast",
+        "pair": "onSurfaceVariant/surface",
+        "ratio": 2.16873306642071,
+        "required": 4.5
+      },
+      {
+        "kind": "LowContrast",
+        "pair": "onSurface/surfaceContainerLowest",
+        "ratio": 2.813933027204481,
+        "required": 4.5
+      },
+      {
+        "kind": "LowContrast",
+        "pair": "onSurfaceVariant/surfaceContainerLowest",
+        "ratio": 2.16873306642071,
+        "required": 4.5
+      },
+      {
+        "kind": "LowContrast",
+        "pair": "onSurface/surfaceContainerLow",
+        "ratio": 2.6727179066290185,
+        "required": 4.5
+      },
+      {
+        "kind": "LowContrast",
+        "pair": "onSurfaceVariant/surfaceContainerLow",
+        "ratio": 2.0598968224483913,
+        "required": 4.5
+      },
+      {
+        "kind": "LowContrast",
+        "pair": "onSurface/surfaceContainer",
+        "ratio": 2.5359415105631196,
+        "required": 4.5
+      },
+      {
+        "kind": "LowContrast",
+        "pair": "onSurfaceVariant/surfaceContainer",
+        "ratio": 1.9544815584793476,
+        "required": 4.5
+      },
+      {
+        "kind": "LowContrast",
+        "pair": "onSurface/surfaceContainerHigh",
+        "ratio": 2.4253224660730512,
+        "required": 4.5
+      },
+      {
+        "kind": "LowContrast",
+        "pair": "onSurfaceVariant/surfaceContainerHigh",
+        "ratio": 1.8692260896241386,
+        "required": 4.5
+      },
+      {
+        "kind": "LowContrast",
+        "pair": "onSurface/surfaceContainerHighest",
+        "ratio": 2.296577391040906,
+        "required": 4.5
+      },
+      {
+        "kind": "LowContrast",
+        "pair": "onSurfaceVariant/surfaceContainerHighest",
+        "ratio": 1.770000664334463,
+        "required": 4.5
+      }
+    ],
+    "colorsOut": {
+      "primary": "#6750a4",
+      "onPrimary": "#ffffff",
+      "warning": "#835400"
+    }
+  },
+  {
+    "name": "negative-values",
+    "dark": false,
+    "spacingM": -4,
+    "durationLong": -1,
+    "shapeSmall": -2,
+    "issues": [
+      {
+        "kind": "InvalidValue",
+        "token": "spacing.m"
+      },
+      {
+        "kind": "InvalidValue",
+        "token": "motion.durationLong"
+      },
+      {
+        "kind": "InvalidValue",
+        "token": "shapes.small"
+      }
+    ],
+    "colorsOut": {
+      "primary": "#6750a4",
+      "onPrimary": "#ffffff",
+      "warning": "#835400"
+    }
+  }
+]

@@ -182,12 +182,3 @@ export class CamoDialog extends LitElement {
       </dialog>`;
   }
 }
-
-declare global {
-  interface HTMLElementTagNameMap {
-    "camo-dialog": CamoDialog;
-  }
-  interface HTMLElementEventMap {
-    "camo-close": CustomEvent<CamoCloseDetail>;
-  }
-}

@@ -13,7 +13,7 @@ describe("camo-provider", () => {
     const provider = root.firstElementChild as CamoProvider;
     expect(cssVar(provider, "--camo-color-primary")).toBe(MINIMAL.light);
     expect(cssVar(provider, "--camo-shape-medium")).toBe("8px");
-    expect(cssVar(provider, "--camo-type-label-large-size")).toBe("14px");
+    expect(cssVar(provider, "--camo-type-label-large-size")).toBe("0.875rem");
   });
 
   it("switches the whole variable set with its scheme", async () => {

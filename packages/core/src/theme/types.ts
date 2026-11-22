@@ -1,10 +1,10 @@
 /**
- * The theme model (spike subset). A theme holds **values** (CSS strings), and the provider writes them as
+ * The theme model. A theme holds **values** (CSS strings), and the provider writes them as
  * `--camo-*` custom properties (ADR-43). Renderers never read these values: they read `tokens`, whose leaves
  * are `var(--camo-…)` references (see `tokens.ts`), so a theme change needs no re-render by the skin.
  */
 
-/** The color roles: the same names as `CamoColors` in Kotlin and Dart. */
+/** The 42 color roles in 7 groups: the same names as `CamoColors` in Kotlin and Dart. */
 export interface CamoColors {
   primary: string;
   onPrimary: string;
@@ -14,6 +14,10 @@ export interface CamoColors {
   onSecondary: string;
   secondaryContainer: string;
   onSecondaryContainer: string;
+  tertiary: string;
+  onTertiary: string;
+  tertiaryContainer: string;
+  onTertiaryContainer: string;
   surface: string;
   surfaceContainerLowest: string;
   surfaceContainerLow: string;
@@ -40,6 +44,9 @@ export interface CamoColors {
   onInfo: string;
   infoContainer: string;
   onInfoContainer: string;
+  inverseSurface: string;
+  inverseOnSurface: string;
+  inversePrimary: string;
   scrim: string;
 }
 
@@ -75,20 +82,30 @@ export interface CamoTextStyle {
   letterSpacing: string;
 }
 
-/** The text styles the spike's components use (the full scale arrives with W1). */
+/** The 15 text styles: five roles by three sizes, each complete with its weight. */
 export interface CamoTypography {
-  labelLarge: CamoTextStyle;
-  titleMedium: CamoTextStyle;
-  titleLarge: CamoTextStyle;
+  displayLarge: CamoTextStyle;
+  displayMedium: CamoTextStyle;
+  displaySmall: CamoTextStyle;
+  headlineLarge: CamoTextStyle;
+  headlineMedium: CamoTextStyle;
   headlineSmall: CamoTextStyle;
+  titleLarge: CamoTextStyle;
+  titleMedium: CamoTextStyle;
+  titleSmall: CamoTextStyle;
+  bodyLarge: CamoTextStyle;
   bodyMedium: CamoTextStyle;
   bodySmall: CamoTextStyle;
+  labelLarge: CamoTextStyle;
+  labelMedium: CamoTextStyle;
+  labelSmall: CamoTextStyle;
 }
 
 /** Durations and easings. Reduced motion zeroes the durations (the provider does this). */
 export interface CamoMotion {
   durationShort: string;
   durationMedium: string;
+  durationLong: string;
   easingStandard: string;
   easingEmphasized: string;
 }
@@ -103,14 +120,68 @@ export interface CamoElevation {
   level5: string;
 }
 
+/** A numbered color scale as brands name them (`brand[600]`): the step is the key, the value a CSS color. */
+export type CamoColorScale = Readonly<Record<string, string>>;
+
+/** A named scale of lengths (`radius-card`, `space-3`): the name is the key, the value a CSS length. */
+export type CamoDimensionScale = Readonly<Record<string, string>>;
+
+/**
+ * A brand's own tokens (ADR-32): `tokenSets.brand = { 50: "#f5f3ff", 600: "#7c3aed" }` becomes `--brand-50` and
+ * `--brand-600`, in the brand's own naming and unprefixed. A role or component theme refers to one with
+ * `var(--brand-600)`; a token set changes the UI only where something does.
+ */
+export type CamoTokenSets = Readonly<Record<string, CamoColorScale | CamoDimensionScale>>;
+
+/**
+ * Component themes: how one kind of component looks across the app. Every field is optional and a CSS value; the
+ * skin's `defaults(theme)` supplies the rest. Each field is the variable `--camo-<component>-<field>` (kebab-case).
+ */
+export interface CamoComponentThemes {
+  button?: ButtonTheme;
+  dialog?: DialogTheme;
+}
+
+/** The fields of a button's theme; a field the theme leaves out comes from the skin. */
+export interface ButtonTheme {
+  height?: string;
+  minWidth?: string;
+  padding?: string;
+  paddingWithIcon?: string;
+  iconSize?: string;
+  iconGap?: string;
+  shape?: string;
+  borderWidth?: string;
+  raisedElevation?: string;
+  /** Not in the base contract: the touch area Camouflage keeps around a smaller button (48px by default). */
+  touchTarget?: string;
+  disabledContentAlpha?: string;
+  disabledContainerAlpha?: string;
+}
+
+/** The fields of a dialog's theme. */
+export interface DialogTheme {
+  shape?: string;
+  minWidth?: string;
+  maxWidth?: string;
+  padding?: string;
+  elevation?: string;
+  scrimAlpha?: string;
+  /** Not in the base contract: the gap between actions, and between the title, message and content. */
+  actionGap?: string;
+  sectionGap?: string;
+}
+
 /** A complete theme for one color scheme. */
 export interface CamoTheme {
   colors: CamoColors;
+  typography: CamoTypography;
+  components: CamoComponentThemes;
   shapes: CamoShapes;
   spacing: CamoSpacing;
-  typography: CamoTypography;
-  motion: CamoMotion;
   elevation: CamoElevation;
+  motion: CamoMotion;
+  tokenSets: CamoTokenSets;
 }
 
 /** A theme for both color schemes, as a skin's starter theme and as a provider's `theme` property. */
@@ -121,7 +192,7 @@ export interface CamoThemeSet {
 
 /** A recursive partial: what `createCamoTheme` and a provider's `theme` property accept on top of a base. */
 export type PartialTheme<T> = {
-  [K in keyof T]?: T[K] extends string ? string : PartialTheme<T[K]>;
+  [K in keyof T]?: T[K] extends string | undefined ? string : PartialTheme<NonNullable<T[K]>>;
 };
 
 /** A partial theme per scheme. */

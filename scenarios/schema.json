@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/srctool/camouflage/scenarios.schema.json",
+  "title": "Camouflage screenshot scenarios",
+  "description": "One list of scenarios drives the screenshot suites of Kotlin (Roborazzi), Dart (Alchemist) and web (Playwright over Storybook), so the three can be compared name by name. A scenario is a component in one configuration; it expands over skins, modes, text scales and directions.",
+  "type": "object",
+  "required": ["version", "scenarios"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "const": 1 },
+    "defaults": {
+      "description": "The axes a scenario takes when it does not narrow them.",
+      "$ref": "#/$defs/axes"
+    },
+    "scenarios": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/scenario" }
+    }
+  },
+  "$defs": {
+    "axes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "skins": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "modes": { "type": "array", "items": { "enum": ["light", "dark"] }, "minItems": 1 },
+        "textScales": {
+          "type": "array",
+          "items": { "type": "number", "minimum": 0.5 },
+          "minItems": 1
+        },
+        "directions": { "type": "array", "items": { "enum": ["ltr", "rtl"] }, "minItems": 1 }
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "required": ["name", "component"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "Unique, lowercase, dash-separated: the first part of every file name (`button-solid-error`).",
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+        },
+        "component": {
+          "description": "The component's name without prefix (`button`); on the web the element is `camo-<component>`.",
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+        },
+        "props": {
+          "description": "The component's parameters by their contract names (camelCase in Kotlin and Dart, kebab-case attributes on the web). A string or number is a value, `true` is a present boolean, `false` is absent.",
+          "type": "object",
+          "additionalProperties": { "type": ["string", "number", "boolean"] }
+        },
+        "content": {
+          "description": "What goes in the slots: the key is the slot name (`\"\"` for the default slot), the value a plain string for text or HTML for the web; Kotlin and Dart map the same keys to their slot parameters.",
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "frame": {
+          "description": "`element` captures the component's own box; `page` captures a fixed viewport, for overlays that leave the flow.",
+          "enum": ["element", "page"]
+        },
+        "skins": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "modes": { "type": "array", "items": { "enum": ["light", "dark"] }, "minItems": 1 },
+        "textScales": {
+          "type": "array",
+          "items": { "type": "number", "minimum": 0.5 },
+          "minItems": 1
+        },
+        "directions": { "type": "array", "items": { "enum": ["ltr", "rtl"] }, "minItems": 1 }
+      }
+    }
+  }
+}

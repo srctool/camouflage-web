@@ -10,3 +10,8 @@ test-results/
 playwright-report/
 src-tauri/target/
 .vitest/
+
+# Screenshot baselines are committed from CI (Linux) only; local runs on other systems write their own, ignored.
+apps/storybook/e2e/screenshots/*-darwin.png
+apps/storybook/e2e/screenshots/*-win32.png
+packages/core/custom-elements.json

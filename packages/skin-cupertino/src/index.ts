@@ -1,3 +1,4 @@
+import { defineSkin } from "@srctool/camouflage-core";
 import type { CamoSkin } from "@srctool/camouflage-core";
 import { cupertinoButton } from "./button.ts";
 import { cupertinoDialog } from "./dialog.ts";
@@ -8,13 +9,15 @@ import { classic } from "./surface.ts";
  * The Cupertino skin (Classic material; Liquid Glass arrives in W8): Apple's system colors, 44 pt controls, a dimming
  * press, and alerts whose actions stack. The main entry has no side effects.
  */
-export const cupertinoSkin: CamoSkin = {
+export const cupertinoSkin: CamoSkin = defineSkin({
   name: "cupertino",
   surfaceTreatment: classic,
   feedback: opacity,
   button: cupertinoButton,
   dialog: cupertinoDialog,
-} satisfies CamoSkin;
+});
 
 export { cupertinoButton, cupertinoDialog, classic, opacity };
 export { cupertinoThemes } from "./theme.ts";
+export { SYSTEM_BLUE, cupertinoTheme } from "./accent.ts";
+export type { CupertinoThemeOptions } from "./accent.ts";

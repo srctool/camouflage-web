@@ -31,10 +31,13 @@ jobs:
       - run: pnpm build
       - run: pnpm typecheck
       - run: pnpm lint
+      - run: pnpm themes:check
+      - run: pnpm typings:check
       - run: pnpm layers
+      - run: pnpm skins
       - run: pnpm side-effects
       - run: pnpm test
-      # Report only until the release milestone (W10), when the budgets start to fail the build.
+      # Fails when an entry is over its gzip budget (tools/size-budget.mjs).
       - run: pnpm size
       - uses: actions/upload-artifact@v7
         if: failure()
@@ -43,4 +46,29 @@ jobs:
           path: |
             .vitest/attachments
             **/test-results
+          if-no-files-found: ignore
+
+  # The scenario screenshots (scenarios/scenarios.json, through Storybook) in all three browsers. A baseline that is not
+  # committed yet is recorded, not failed: download the `screenshots` artifact and commit the `-linux.png` files from it.
+  screenshots:
+    name: Screenshots (Chromium, Firefox, WebKit)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium firefox webkit
+      - run: pnpm build
+      - run: pnpm storybook:build
+      - run: pnpm --filter @srctool/camouflage-storybook e2e
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: screenshots
+          path: |
+            apps/storybook/e2e/screenshots
+            apps/storybook/test-results
           if-no-files-found: ignore

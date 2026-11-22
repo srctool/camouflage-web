@@ -23,17 +23,31 @@
       "source": "./src/define.ts",
       "types": "./dist/define.d.ts",
       "default": "./dist/define.js"
+    },
+    "./seed": {
+      "source": "./src/seed.ts",
+      "types": "./dist/seed.d.ts",
+      "default": "./dist/seed.js"
+    },
+    "./react": {
+      "types": "./typings/react.d.ts"
+    },
+    "./vue": {
+      "types": "./typings/vue.d.ts"
     }
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "typings",
+    "custom-elements.json"
   ],
   "scripts": {
     "build": "tsc -b"
   },
   "dependencies": {
     "@lit/context": "1.1.6",
+    "@material/material-color-utilities": "0.4.0",
     "lit": "3.3.3"
   },
   "devDependencies": {
@@ -42,5 +56,11 @@
   "publishConfig": {
     "access": "public",
     "provenance": true
-  }
+  },
+  "camouflage": {
+    "bundlerOnly": [
+      "./seed"
+    ]
+  },
+  "customElements": "custom-elements.json"
 }

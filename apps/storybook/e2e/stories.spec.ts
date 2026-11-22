@@ -18,7 +18,7 @@ for (const skin of ["minimal", "cupertino"]) {
         entries: Record<string, Entry>;
       };
       const ids = Object.values(index.entries)
-        .filter((e) => e.type === "story")
+        .filter((e) => e.type === "story" && !e.id.startsWith("harness-"))
         .map((e) => e.id);
       const errors: string[] = [];
       page.on("pageerror", (e) => errors.push(e.message));

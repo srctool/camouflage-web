@@ -24,6 +24,8 @@ export default defineConfig({
         test: {
           name: "node",
           environment: "node",
+          // `@material/material-color-utilities` ships ESM with extensionless imports, which Node cannot load; Vite can.
+          server: { deps: { inline: ["@material/material-color-utilities"] } },
           include: ["tests/node/**/*.test.ts", "tools/**/*.test.ts"],
         },
       },

@@ -4,27 +4,14 @@ import type { CSSResult, PropertyDeclarations, PropertyValues, TemplateResult } 
 import { environmentContext, skinContext, themeContext } from "../context.ts";
 import type { ThemeInfo } from "../context.ts";
 import { defaultEnvironment, warnOnce } from "../controller.ts";
+import { measure, watchEnvironment, withMeasured } from "../environment.ts";
+import type { Measured } from "../environment.ts";
 import { fallbackSkin, registeredSkinNames, resolveSkin, starterTheme } from "../skin/registry.ts";
-import type { CamoEnvironment, CamoSkin } from "../skin/types.ts";
-import { schemeStylesheet, themeDeclarations } from "../theme/css.ts";
+import type { CamoEnvironment, CamoSkin, InputKind, WindowSize } from "../skin/types.ts";
+import { CONTENT_RESET, schemeStylesheet, themeDeclarations } from "../theme/css.ts";
 import { createCamoTheme } from "../theme/merge.ts";
 import type { CamoScheme, CamoThemeSet, PartialThemeSet } from "../theme/types.ts";
 import { cssBlock } from "../style.ts";
-
-/** The breakpoints of ADR-41 in CSS pixels. */
-const MEDIUM = 600;
-const EXPANDED = 840;
-const LARGE = 1200;
-
-function windowSizeOf(width: number): CamoEnvironment["windowSize"] {
-  return width >= LARGE
-    ? "large"
-    : width >= EXPANDED
-      ? "expanded"
-      : width >= MEDIUM
-        ? "medium"
-        : "compact";
-}
 
 /**
  * `<camo-provider>`: the skin, the theme and the environment for its subtree.
@@ -37,6 +24,14 @@ function windowSizeOf(width: number): CamoEnvironment["windowSize"] {
  *
  * Inheritance follows the base Provider note: a nested provider changes only what it sets. A skin switch brings
  * the new skin's starter theme unless an explicit theme is in force above.
+ *
+ * @tagname camo-provider
+ * @slot - The subtree the skin, theme and environment apply to.
+ * @attr {string} skin - The name of a registered skin; `.skin` takes the skin object and wins.
+ * @attr {"light"|"dark"} scheme - The color scheme for the subtree; absent follows the provider above, then `prefers-color-scheme`.
+ * @attr {"compact"|"medium"|"expanded"|"large"} window-size - The server's guess at the window size; the client measures it.
+ * @attr {"touch"|"pointer"} input - The server's guess at the input kind; the client measures it.
+ * @attr {string} platform - The platform name the skins may read (`web`, or the host platform inside Tauri).
  */
 export class CamoProvider extends LitElement {
   static override properties: PropertyDeclarations = {
@@ -47,7 +42,7 @@ export class CamoProvider extends LitElement {
     input: { type: String },
     platform: { type: String },
     effectiveScheme: { type: String, attribute: "data-camo-scheme", reflect: true },
-    measured: { state: true },
+    measured: { state: true, attribute: false },
   };
 
   static override styles: CSSResult = css`
@@ -59,11 +54,11 @@ export class CamoProvider extends LitElement {
   declare skin: CamoSkin | string | null;
   declare scheme: CamoScheme | null;
   declare theme: PartialThemeSet | null;
-  declare windowSize: CamoEnvironment["windowSize"] | null;
-  declare input: CamoEnvironment["input"] | null;
+  declare windowSize: WindowSize | null;
+  declare input: InputKind | null;
   declare platform: string | null;
   declare effectiveScheme: CamoScheme | null;
-  declare measured: Partial<CamoEnvironment> | null;
+  declare measured: Measured | null;
 
   readonly #skinProvider = new ContextProvider(this, { context: skinContext });
   readonly #themeProvider = new ContextProvider(this, { context: themeContext });
@@ -76,7 +71,7 @@ export class CamoProvider extends LitElement {
   });
 
   #themeCss = "";
-  #resizeObserver: ResizeObserver | undefined;
+  #stopWatching: (() => void) | undefined;
 
   constructor() {
     super();
@@ -151,22 +146,22 @@ export class CamoProvider extends LitElement {
           scheme: this.effectiveScheme,
         } satisfies ThemeInfo);
       }
-      this.#themeCss = schemeStylesheet(
+      this.#themeCss = `${schemeStylesheet(
         themeDeclarations(effective.light),
         themeDeclarations(effective.dark),
-      );
+      )}\n${CONTENT_RESET}`;
     }
 
-    // The environment: the parent's, the server defaults and attributes, then what the client measured.
+    // The environment: the parent's, the server defaults and attributes, then what the client measured. The
+    // attributes win over a measurement only until the client has one (it corrects the server's guesses).
     const base = this.#parentEnvironment.value ?? defaultEnvironment;
-    const environment: CamoEnvironment = {
+    const attributes: CamoEnvironment = {
       ...base,
       ...(this.windowSize !== null ? { windowSize: this.windowSize } : {}),
       ...(this.input !== null ? { input: this.input } : {}),
       ...(this.platform !== null ? { platform: this.platform } : {}),
-      ...this.measured,
-      capabilities: { ...base.capabilities, ...this.measured?.capabilities },
     };
+    const environment = withMeasured(attributes, this.measured);
     const previous = this.#environmentProvider.value;
     if (previous === undefined || JSON.stringify(previous) !== JSON.stringify(environment)) {
       this.#environmentProvider.setValue(environment);
@@ -175,53 +170,25 @@ export class CamoProvider extends LitElement {
 
   override connectedCallback(): void {
     super.connectedCallback();
-    // Measured on the client only; the server uses attributes and defaults.
-    if (typeof window === "undefined" || typeof ResizeObserver === "undefined") return;
-    this.#resizeObserver = new ResizeObserver(() => this.#measure());
-    this.#resizeObserver.observe(document.documentElement);
+    // Measured on the client only. The server has no sources that answer, so it keeps its attributes and defaults.
     this.#measure();
+    this.#stopWatching = watchEnvironment(() => this.#measure());
   }
 
   override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this.#resizeObserver?.disconnect();
-    this.#resizeObserver = undefined;
+    this.#stopWatching?.();
+    this.#stopWatching = undefined;
   }
 
   #measure(): void {
-    const windowSize = windowSizeOf(window.innerWidth);
-    const input: CamoEnvironment["input"] = window.matchMedia("(pointer: coarse)").matches
-      ? "touch"
-      : "pointer";
-    const backdropBlur = typeof CSS !== "undefined" && CSS.supports("backdrop-filter", "blur(1px)");
-    const reduceTransparency = window.matchMedia("(prefers-reduced-transparency: reduce)").matches;
+    const next = measure();
     const previous = this.measured;
-    if (
-      previous?.windowSize === windowSize &&
-      previous.input === input &&
-      previous.capabilities?.backdropBlur === backdropBlur &&
-      previous.capabilities.reduceTransparency === reduceTransparency
-    ) {
-      return;
-    }
-    this.measured = {
-      windowSize,
-      input,
-      capabilities: {
-        ...defaultEnvironment.capabilities,
-        backdropBlur,
-        reduceTransparency,
-      },
-    };
+    if (previous !== null && JSON.stringify(previous) === JSON.stringify(next)) return;
+    this.measured = next;
   }
 
   override render(): TemplateResult {
     return html`${cssBlock(this.#themeCss)}<slot></slot>`;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    "camo-provider": CamoProvider;
   }
 }
