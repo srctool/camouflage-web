@@ -1,0 +1,83 @@
+{
+  "chromium": {
+    "version": "159.0.8154.6",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "features": {
+      "declarativeShadowDom": true,
+      "elementInternals": true,
+      "elementInternalsAria": true,
+      "formAssociated": true,
+      "dialogModal": true,
+      "dialogModalPseudo": true,
+      "popoverApi": true,
+      "anchorPositioning": true,
+      "backdropFilter": true,
+      "svgFilterInBackdrop": true,
+      "constructableStylesheets": true,
+      "has": true,
+      "colorMix": true,
+      "containerQueries": true,
+      "prefersReducedTransparency": true,
+      "prefersReducedMotion": true,
+      "prefersColorScheme": true,
+      "lightDark": true,
+      "cssNesting": true,
+      "logicalProperties": true,
+      "dialogClosedby": true,
+      "scrollbarStyling": true,
+      "viewTransitions": true,
+      "importMapsAndModules": true,
+      "cssLayers": true
+    },
+    "scenario": {
+      "url": "http://localhost:4173/dialog?skin=cupertino&scheme=light",
+      "hydrated": true,
+      "buttonFocusable": true,
+      "buttonSurface": "rgb(255, 59, 48)",
+      "dialogModal": true,
+      "dialogFocusOnAction": true
+    }
+  },
+  "firefox": {
+    "error": "Error: browserType.launch: Failed to launch the browser process."
+  },
+  "webkit": {
+    "version": "27.2",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Safari/605.1.15",
+    "features": {
+      "declarativeShadowDom": true,
+      "elementInternals": true,
+      "elementInternalsAria": true,
+      "formAssociated": true,
+      "dialogModal": true,
+      "dialogModalPseudo": true,
+      "popoverApi": true,
+      "anchorPositioning": true,
+      "backdropFilter": true,
+      "svgFilterInBackdrop": true,
+      "constructableStylesheets": true,
+      "has": true,
+      "colorMix": true,
+      "containerQueries": true,
+      "prefersReducedTransparency": true,
+      "prefersReducedMotion": true,
+      "prefersColorScheme": true,
+      "lightDark": true,
+      "cssNesting": true,
+      "logicalProperties": true,
+      "dialogClosedby": true,
+      "scrollbarStyling": true,
+      "viewTransitions": true,
+      "importMapsAndModules": true,
+      "cssLayers": true
+    },
+    "scenario": {
+      "url": "http://localhost:4173/dialog?skin=cupertino&scheme=light",
+      "hydrated": true,
+      "buttonFocusable": true,
+      "buttonSurface": "rgb(255, 59, 48)",
+      "dialogModal": true,
+      "dialogFocusOnAction": true
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "@srctool/camouflage-core",
+  "version": "0.2.0-alpha.0",
+  "description": "Camouflage for web: the theme, the provider, the skin contract, the behavior layer and the components (no look of their own).",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srctool/camouflage-web.git",
+    "directory": "packages/core"
+  },
+  "type": "module",
+  "sideEffects": [
+    "./dist/define.js",
+    "./src/define.ts"
+  ],
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./define": {
+      "source": "./src/define.ts",
+      "types": "./dist/define.d.ts",
+      "default": "./dist/define.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "@lit/context": "1.1.6",
+    "lit": "3.3.3"
+  },
+  "devDependencies": {
+    "@lit-labs/ssr": "4.1.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

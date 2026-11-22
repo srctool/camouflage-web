@@ -1,0 +1,94 @@
+name: Release (npm)
+
+# Push a tag <package>-v<version> on main to publish packages/<package>:
+#   git tag core-v0.2.0-alpha.1 && git push origin core-v0.2.0-alpha.1
+# The package is the folder under packages/ (core, skin-minimal, skin-cupertino); the version must equal the one in that
+# package.json, and before parity with Kotlin and Dart only 0.x.y-alpha.N is accepted (tools/release-check.mjs).
+#
+# Authentication is npm trusted publishing (GitHub OIDC): no npm token is stored anywhere. The owner enables it once per
+# package on npmjs.com (Settings, Trusted Publisher: GitHub Actions, organization srctool, repository camouflage-web,
+# workflow filename release.yml, environment npm). See docs/publishing.md.
+#
+# DRY RUN: until the release milestone (W10) the publish step is `npm publish --dry-run`. Set DRY_RUN to "false" then.
+# Run it by hand from the Actions tab (workflow_dispatch) with a tag name to rehearse without pushing a tag.
+# Publish core before the skins: a skin depends on that exact core version.
+on:
+  push:
+    tags:
+      - "*-v[0-9]+.[0-9]+.[0-9]+*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to rehearse, for example core-v0.2.0-alpha.0 (a dry run, nothing is published)"
+        required: true
+
+permissions:
+  contents: read
+  id-token: write # npm trusted publishing and provenance
+
+concurrency:
+  group: release-${{ github.ref_name }}-${{ inputs.tag }}
+  cancel-in-progress: false
+
+env:
+  DRY_RUN: "true"
+
+jobs:
+  release:
+    name: Release ${{ inputs.tag || github.ref_name }}
+    # Only the organization repository publishes; tags pushed to forks do nothing.
+    if: github.repository == 'srctool/camouflage-web'
+    runs-on: ubuntu-24.04
+    # If the trusted publisher on npm names an environment, it must be "npm".
+    environment: npm
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24 # trusted publishing needs npm 11.5.1 or newer, which Node 24 ships
+          registry-url: https://registry.npmjs.org
+
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Resolve the package from the tag
+        id: release
+        env:
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          node tools/release-check.mjs "$TAG"
+          if [[ "${{ github.event_name }}" == "push" ]] && ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "::error::$TAG isn't on main. Tag the merge commit on main."
+            exit 1
+          fi
+
+      - name: Verify (build, types, layers, side effects, node tests)
+        run: |
+          pnpm build
+          pnpm typecheck
+          pnpm layers
+          pnpm side-effects
+          pnpm test:node
+
+      # pnpm packs the package and rewrites workspace:* to the exact version; npm publishes the tarball.
+      - name: Pack
+        working-directory: ${{ steps.release.outputs.dir }}
+        run: pnpm pack --pack-destination "$RUNNER_TEMP/pack"
+
+      - name: Show what would be published
+        run: |
+          tarball="$(ls "$RUNNER_TEMP"/pack/*.tgz)"
+          echo "$tarball"
+          tar -tf "$tarball" | head -50
+
+      - name: Publish (dry run until W10)
+        run: |
+          tarball="$(ls "$RUNNER_TEMP"/pack/*.tgz)"
+          flags=(--access public --tag "${{ steps.release.outputs.dist_tag }}" --provenance)
+          if [[ "$DRY_RUN" == "true" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            flags+=(--dry-run)
+          fi
+          npm publish "$tarball" "${flags[@]}"

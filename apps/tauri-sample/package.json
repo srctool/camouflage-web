@@ -1,0 +1,13 @@
+{
+  "name": "@srctool/camouflage-tauri-sample",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "probe:browsers": "node probe-browsers.mjs",
+    "probe:webview": "cargo run --manifest-path src-tauri/Cargo.toml"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1",
+    "web-features": "^3.47.0"
+  }
+}
