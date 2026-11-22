@@ -41,6 +41,213 @@
       ]
     },
     {
+      "name": "Text",
+      "parameters": [
+        {
+          "name": "text",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "variant",
+          "kind": "value",
+          "type": "enum",
+          "values": [
+            "DisplayLarge",
+            "DisplayMedium",
+            "DisplaySmall",
+            "HeadlineLarge",
+            "HeadlineMedium",
+            "HeadlineSmall",
+            "TitleLarge",
+            "TitleMedium",
+            "TitleSmall",
+            "BodyLarge",
+            "BodyMedium",
+            "BodySmall",
+            "LabelLarge",
+            "LabelMedium",
+            "LabelSmall"
+          ],
+          "default": "BodyMedium"
+        },
+        {
+          "name": "color",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "maxLines",
+          "kind": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "overflow",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Clip", "Ellipsis"],
+          "default": "Clip"
+        },
+        {
+          "name": "textAlign",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Start", "Center", "End"],
+          "default": "Start"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ]
+    },
+    {
+      "name": "Icon",
+      "parameters": [
+        {
+          "name": "name",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "size",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "tint",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "autoMirror",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "original",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "size",
+          "type": "length",
+          "web": "gap"
+        },
+        {
+          "name": "color",
+          "type": "color",
+          "web": "gap"
+        }
+      ]
+    },
+    {
+      "name": "Surface",
+      "parameters": [
+        {
+          "name": "level",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Lowest", "Low", "Surface", "Container", "High", "Highest"],
+          "default": "Surface"
+        },
+        {
+          "name": "shape",
+          "kind": "value",
+          "type": "enum",
+          "values": ["None", "ExtraSmall", "Small", "Medium", "Large", "ExtraLarge", "Full"],
+          "default": "None"
+        },
+        {
+          "name": "elevation",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Level0", "Level1", "Level2", "Level3", "Level4", "Level5"],
+          "default": "Level0"
+        },
+        {
+          "name": "border",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "borderWidth",
+          "type": "length"
+        },
+        {
+          "name": "borderColor",
+          "type": "color"
+        }
+      ]
+    },
+    {
+      "name": "Divider",
+      "parameters": [
+        {
+          "name": "orientation",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Horizontal", "Vertical"],
+          "default": "Horizontal"
+        },
+        {
+          "name": "inset",
+          "kind": "value",
+          "type": "enum",
+          "values": ["None", "Start", "Middle"],
+          "default": "None"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "thickness",
+          "type": "length"
+        },
+        {
+          "name": "color",
+          "type": "color"
+        },
+        {
+          "name": "startInset",
+          "type": "length"
+        },
+        {
+          "name": "endInset",
+          "type": "length"
+        }
+      ]
+    },
+    {
       "name": "Button",
       "parameters": [
         {
@@ -162,6 +369,122 @@
         },
         {
           "name": "linkColors",
+          "type": "ButtonColors",
+          "web": "tokens"
+        },
+        {
+          "name": "disabledContainerAlpha",
+          "type": "number"
+        },
+        {
+          "name": "disabledContentAlpha",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "name": "IconButton",
+      "parameters": [
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "onClick",
+          "kind": "callback"
+        },
+        {
+          "name": "appearance",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Solid", "Soft", "Raised", "Outline", "Ghost", "Link"],
+          "default": null
+        },
+        {
+          "name": "tone",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Default", "Error", "Success", "Warning", "Info"],
+          "default": "Default"
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "toggle",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "checked",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "loading",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "tooltip",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "icon",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "defaultAppearance",
+          "type": "Appearance",
+          "web": "gap"
+        },
+        {
+          "name": "containerSize",
+          "type": "length"
+        },
+        {
+          "name": "shape",
+          "type": "length"
+        },
+        {
+          "name": "iconSize",
+          "type": "length"
+        },
+        {
+          "name": "solidColors",
+          "type": "ButtonColors",
+          "web": "tokens"
+        },
+        {
+          "name": "softColors",
+          "type": "ButtonColors",
+          "web": "tokens"
+        },
+        {
+          "name": "outlineColors",
+          "type": "ButtonColors",
+          "web": "tokens"
+        },
+        {
+          "name": "ghostColors",
+          "type": "ButtonColors",
+          "web": "tokens"
+        },
+        {
+          "name": "checkedColors",
           "type": "ButtonColors",
           "web": "tokens"
         },

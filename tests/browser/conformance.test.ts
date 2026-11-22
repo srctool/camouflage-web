@@ -24,7 +24,10 @@ describe("every scenario variant", () => {
       expect(element.shadowRoot, "the element rendered a shadow root").not.toBeNull();
       expect(element.shadowRoot!.childNodes.length).toBeGreaterThan(0);
       expect(await axeViolations(root, variant.skin)).toEqual([]);
-      if (variant.scenario.component === "button" && variant.scenario.props?.["disabled"] !== true)
+      if (
+        ["button", "icon-button"].includes(variant.scenario.component) &&
+        variant.scenario.props?.["disabled"] !== true
+      )
         expect(reachesTouchTarget(element), "a 48 px touch area").toBe(true);
     });
   }

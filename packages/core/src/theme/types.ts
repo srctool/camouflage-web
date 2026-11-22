@@ -138,8 +138,36 @@ export type CamoTokenSets = Readonly<Record<string, CamoColorScale | CamoDimensi
  * skin's `defaults(theme)` supplies the rest. Each field is the variable `--camo-<component>-<field>` (kebab-case).
  */
 export interface CamoComponentThemes {
+  surface?: SurfaceTheme;
+  divider?: DividerTheme;
   button?: ButtonTheme;
+  iconButton?: IconButtonTheme;
   dialog?: DialogTheme;
+}
+
+/** The fields of a surface's theme. */
+export interface SurfaceTheme {
+  borderWidth?: string;
+  borderColor?: string;
+}
+
+/** The fields of a divider's theme. */
+export interface DividerTheme {
+  thickness?: string;
+  color?: string;
+  startInset?: string;
+  endInset?: string;
+}
+
+/** The fields of an icon button's theme. */
+export interface IconButtonTheme {
+  containerSize?: string;
+  shape?: string;
+  iconSize?: string;
+  /** Not in the base contract: the touch area kept around the container (48px by default). */
+  touchTarget?: string;
+  disabledContentAlpha?: string;
+  disabledContainerAlpha?: string;
 }
 
 /** The fields of a button's theme; a field the theme leaves out comes from the skin. */

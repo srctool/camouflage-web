@@ -1,5 +1,8 @@
 import type {
   ButtonTheme,
+  DividerTheme,
+  IconButtonTheme,
+  SurfaceTheme,
   CamoColors,
   CamoComponentThemes,
   CamoElevation,
@@ -130,6 +133,21 @@ export const MOTION_ROLES: readonly (keyof CamoMotion & string)[] = keys<CamoMot
 
 /** The fields each component theme takes. A component joins this table when its milestone builds it. */
 export const COMPONENT_FIELDS: { [C in keyof CamoComponentThemes]-?: readonly string[] } = {
+  surface: keys<SurfaceTheme>({ borderWidth: true, borderColor: true }),
+  divider: keys<DividerTheme>({
+    thickness: true,
+    color: true,
+    startInset: true,
+    endInset: true,
+  }),
+  iconButton: keys<IconButtonTheme>({
+    containerSize: true,
+    shape: true,
+    iconSize: true,
+    touchTarget: true,
+    disabledContentAlpha: true,
+    disabledContainerAlpha: true,
+  }),
   button: keys<ButtonTheme>({
     height: true,
     minWidth: true,

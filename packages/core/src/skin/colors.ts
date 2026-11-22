@@ -8,7 +8,7 @@ const CLEAR = "transparent";
  * family otherwise (the contract's `colorsFor`, the same rule in Kotlin and Dart). Pure.
  */
 export function buttonColorsFor(
-  style: ButtonStyle,
+  style: Pick<ButtonStyle, Appearance>,
   appearance: Appearance,
   tone: Tone,
   theme: CamoTheme,

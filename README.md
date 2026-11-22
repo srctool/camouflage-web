@@ -6,12 +6,13 @@ The third platform of [Camouflage](https://github.com/srctool/camouflage), next 
 written in TypeScript with [Lit](https://lit.dev), usable from any framework or plain HTML, from Tauri webviews, and
 with **server rendering**.
 
-> **Status: W1, the foundations.** The theme model (42 color roles, 15 text styles, component themes, token sets,
-> `fromSeed`, `validateTheme`), the provider and its environment, the skin contract with its behavior layer, the
-> scenario-driven test harness, the contract, manifest and typings checks, and the two skin packages are in place, on
-> `camo-provider`, `camo-button` and `camo-dialog`. Components follow in W2 to W9. The design notes are in the
-> [contributor docs](https://camouflage-dev.srctool.com) (the "Web (planned)" sections); the findings are in
-> [docs/spike-findings.md](docs/spike-findings.md) (W0) and [docs/w1-findings.md](docs/w1-findings.md).
+> **Status: W2, the primitives and actions.** `camo-text`, `camo-icon` (with `registerIcons`), `camo-surface`,
+> `camo-divider`, `camo-button` and `camo-icon-button` are built in both skins, with `camo-provider` and `camo-dialog`, on
+> **W1's foundations**: the theme model, the provider and its environment, the skin contract and behavior layer, the
+> scenario-driven test harness, and the contract, manifest and typings checks. More components follow in W3 to W9. The
+> design notes are in the [contributor docs](https://camouflage-dev.srctool.com) (the "Web (planned)" sections); the
+> findings are in [docs/spike-findings.md](docs/spike-findings.md) (W0), [docs/w1-findings.md](docs/w1-findings.md) and
+> [docs/w2-findings.md](docs/w2-findings.md).
 
 ## How it fits together
 
@@ -73,6 +74,7 @@ pnpm exec playwright install chromium firefox webkit   # once
 - [docs/contract.md](docs/contract.md): `camouflage-contract.json`, the manifest check and the generated typings.
 - [docs/adding-a-component.md](docs/adding-a-component.md): the checklist for a new component.
 - [docs/skins.md](docs/skins.md): how each skin renders what exists (dialect alignment).
+- [docs/w2-findings.md](docs/w2-findings.md): what the primitives settled.
 - [docs/browser-baseline.md](docs/browser-baseline.md), [docs/publishing.md](docs/publishing.md).
 
 ## Publishing

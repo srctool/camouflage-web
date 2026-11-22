@@ -33,7 +33,15 @@ export default defineConfig({
         extends: false,
         resolve: { conditions },
         // Declared up front: a dependency optimized in the middle of a run reloads the page and breaks the test.
-        optimizeDeps: { include: ["axe-core", "lit", "lit/static-html.js", "@lit/context"] },
+        optimizeDeps: {
+          include: [
+            "axe-core",
+            "lit",
+            "lit/static-html.js",
+            "lit/directives/unsafe-svg.js",
+            "@lit/context",
+          ],
+        },
         test: {
           name: "browser",
           include: ["tests/browser/**/*.test.ts"],

@@ -28,7 +28,7 @@ interface Manifest {
 export function unionAliases(source: string): Map<string, string[]> {
   const aliases = new Map<string, string[]>();
   for (const [, name, body] of source.matchAll(
-    /export type (\w+) =\s*((?:"[\w-]+"\s*\|?\s*)+);/g,
+    /export type (\w+) =\s*\|?\s*((?:"[\w-]+"\s*\|?\s*)+);/g,
   )) {
     aliases.set(
       name!,

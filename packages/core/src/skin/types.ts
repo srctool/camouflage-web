@@ -42,6 +42,8 @@ export interface SurfaceTreatment {
     shape: string;
     elevation: string;
     border?: string | undefined;
+    /** A region that holds content flowing in blocks (a surface), not one centered control (a button). */
+    block?: boolean;
     theme: CamoTheme;
   }): TemplateResult;
 }
@@ -137,13 +139,153 @@ export interface DialogStyle {
 
 export type DialogSlots = "confirm" | "dismiss" | "content";
 
+// --- W2: text, icon, surface, divider, icon button -------------------------------------------------------------
+
+/** The 15 type roles, in the contract's order. */
+export type TextVariant =
+  | "display-large"
+  | "display-medium"
+  | "display-small"
+  | "headline-large"
+  | "headline-medium"
+  | "headline-small"
+  | "title-large"
+  | "title-medium"
+  | "title-small"
+  | "body-large"
+  | "body-medium"
+  | "body-small"
+  | "label-large"
+  | "label-medium"
+  | "label-small";
+
+export type TextOverflow = "clip" | "ellipsis";
+export type TextAlign = "start" | "center" | "end";
+
+export interface TextState {
+  text: string;
+  variant: TextVariant;
+  /** A CSS color, or null for the content color the container set. */
+  color: string | null;
+  /** 0 is unlimited. */
+  maxLines: number;
+  overflow: TextOverflow;
+  textAlign: TextAlign;
+}
+
+export interface TextStyle {
+  /** What a link inside the text looks like (rich text is slotted markup: `<a>`, `<strong>`, `<em>`). */
+  linkColor: string;
+  linkDecoration: "underline" | "none";
+}
+
+export type TextSlots = "content";
+
+export interface IconState {
+  /** The resolved artwork, or null when the icon is drawn from slotted SVG. */
+  artwork: IconArtwork | null;
+  /** A CSS length, or null for the ambient icon size. */
+  size: string | null;
+  /** A CSS color, or null for the ambient content color. */
+  tint: string | null;
+  /** Mirrors in right-to-left (a back arrow, a chevron). */
+  autoMirror: boolean;
+  /** A multicolor asset: never tinted. */
+  original: boolean;
+}
+
+/** An icon as `registerIcons` stores it: SVG content drawn in a `viewBox` (24 square by default). */
+export interface IconArtwork {
+  /** The inside of an `<svg>`: paths and shapes. Trusted markup, supplied by the app. */
+  svg: string;
+  viewBox: string;
+}
+
+export interface IconStyle {
+  /** The size an icon takes when nothing around it sets one. */
+  defaultSize: string;
+}
+
+export type IconSlots = "content";
+
+export type SurfaceLevel = "lowest" | "low" | "surface" | "container" | "high" | "highest";
+export type ShapeName =
+  "none" | "extra-small" | "small" | "medium" | "large" | "extra-large" | "full";
+export type ElevationName = "level0" | "level1" | "level2" | "level3" | "level4" | "level5";
+
+export interface SurfaceState {
+  level: SurfaceLevel;
+  shape: ShapeName;
+  elevation: ElevationName;
+  border: boolean;
+}
+
+export interface SurfaceStyle {
+  borderWidth: string;
+  borderColor: string;
+}
+
+export type SurfaceSlots = "content";
+
+export type DividerOrientation = "horizontal" | "vertical";
+export type DividerInset = "none" | "start" | "middle";
+
+export interface DividerState {
+  orientation: DividerOrientation;
+  inset: DividerInset;
+}
+
+export interface DividerStyle {
+  thickness: string;
+  color: string;
+  startInset: string;
+  endInset: string;
+}
+
+export type DividerSlots = never;
+
+export interface IconButtonState {
+  label: string;
+  appearance: Appearance;
+  tone: Tone;
+  disabled: boolean;
+  loading: boolean;
+  /** A toggle button (favorite, bookmark), and whether it is on. */
+  toggle: boolean;
+  checked: boolean;
+  tooltip: string | null;
+}
+
+export interface IconButtonStyle {
+  defaultAppearance: Appearance;
+  containerSize: string;
+  shape: string;
+  iconSize: string;
+  touchTarget: string;
+  borderWidth: string;
+  solid: ButtonColors;
+  soft: ButtonColors;
+  outline: ButtonColors;
+  ghost: ButtonColors;
+  checked: ButtonColors;
+  disabledContainerAlpha: string;
+  disabledContentAlpha: string;
+}
+
+export type IconButtonSlots = "icon";
+
 /**
  * The renderer each component needs, by component name. A milestone that builds a component adds its line here, and
  * from then on every complete skin must provide it: `defineSkin` and `satisfies CamoSkin` report the missing one by
  * name. (Kotlin and Dart list all 54 at once; the web grows with its components, W2 to W9.)
  */
 export interface SkinComponents {
+  readonly text: Renderer<TextState, TextSlots, TextStyle>;
+  readonly icon: Renderer<IconState, IconSlots, IconStyle>;
+  readonly surface: Renderer<SurfaceState, SurfaceSlots, SurfaceStyle>;
+  readonly divider: Renderer<DividerState, DividerSlots, DividerStyle>;
   readonly button: Renderer<ButtonState, ButtonSlots, ButtonStyle>;
+  readonly iconButton: Renderer<IconButtonState, IconButtonSlots, IconButtonStyle>;
   readonly dialog: Renderer<DialogState, DialogSlots, DialogStyle>;
 }
 

@@ -63,3 +63,21 @@ export function sentinelStyle<T extends object>(style: T, sentinel = "SENTINEL")
   };
   return walk(style) as T;
 }
+
+/** The arguments for any renderer of the W2 components: a state, the skin's own defaults, no slots to name. */
+export function argsFor<K extends "text" | "icon" | "surface" | "divider" | "iconButton">(
+  skin: CamoSkin,
+  name: K,
+  state: Parameters<CamoSkin[K]["render"]>[0]["state"],
+): Parameters<CamoSkin[K]["render"]>[0] {
+  const renderer = skin[name] as unknown as {
+    defaults(t: typeof tokens): unknown;
+  };
+  return {
+    state,
+    slots: { content: "", icon: "" },
+    theme: tokens,
+    style: renderer.defaults(tokens),
+    skin,
+  } as unknown as Parameters<CamoSkin[K]["render"]>[0];
+}
