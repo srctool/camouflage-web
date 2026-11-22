@@ -1,0 +1,12 @@
+node_modules/
+dist/
+build/
+.next/
+storybook-static/
+*.tsbuildinfo
+coverage/
+.DS_Store
+test-results/
+playwright-report/
+src-tauri/target/
+.vitest/
