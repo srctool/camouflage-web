@@ -3,6 +3,9 @@ import "@srctool/camouflage-skin-minimal/register";
 import "@srctool/camouflage-skin-cupertino/register";
 import { html } from "lit";
 import type { Preview } from "@storybook/web-components-vite";
+import { registerDemoIcons } from "../../../scenarios/icons.ts";
+
+registerDemoIcons();
 
 // Every story renders inside a provider; the toolbar picks the skin and the scheme, so one story covers each mode.
 const preview: Preview = {

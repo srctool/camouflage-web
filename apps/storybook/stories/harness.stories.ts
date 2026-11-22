@@ -2,6 +2,7 @@ import { setEnvironmentSources } from "@srctool/camouflage-core";
 import { html } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
+import { registerDemoIcons } from "../../../scenarios/icons.ts";
 import { scenarioMarkup } from "../../../scenarios/expand.ts";
 import type { Direction, Mode, Scenario } from "../../../scenarios/expand.ts";
 
@@ -55,6 +56,7 @@ const meta: Meta = {
     if (raw === null)
       return html`<p>Pass <code>?scenario=&lt;json&gt;</code> (see scenarios/).</p>`;
     const request = JSON.parse(raw) as HarnessRequest;
+    registerDemoIcons();
     applyTestMode(request.testMode);
     // The text scale is the user's font-size setting, which every type size follows (they are `rem`).
     document.documentElement.style.fontSize = `${request.textScale * 100}%`;

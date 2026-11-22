@@ -2,12 +2,14 @@ import axe from "axe-core";
 import type { RunOptions } from "axe-core";
 import { scenarioMarkup } from "../../scenarios/expand.ts";
 import type { Variant } from "../../scenarios/expand.ts";
+import { registerDemoIcons } from "../../scenarios/icons.ts";
 import { mount, settled } from "../browser/helpers.ts";
 
 /** Mounts a scenario variant as the harness does (provider, scheme, direction, text scale) and waits until it settled. */
 export async function mountVariant(
   variant: Variant,
 ): Promise<{ root: HTMLElement; element: HTMLElement }> {
+  registerDemoIcons();
   document.documentElement.style.fontSize = `${variant.textScale * 100}%`;
   const root = mount(
     `<div dir="${variant.direction}"><camo-provider skin="${variant.skin}" scheme="${variant.mode}" style="display:block;padding:24px;background:var(--camo-color-surface);color:var(--camo-color-on-surface)">${scenarioMarkup(variant.scenario)}</camo-provider></div>`,

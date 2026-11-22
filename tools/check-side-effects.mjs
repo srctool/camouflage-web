@@ -27,7 +27,7 @@ const probe = (specifier) => `
   await import(${JSON.stringify(specifier)});
   const added = Object.getOwnPropertyNames(globalThis).filter((k) => !before.has(k));
   const out = { added, window: typeof globalThis.window, document: typeof globalThis.document,
-    elements: typeof customElements === "undefined" ? [] : ["camo-provider", "camo-button", "camo-dialog"].filter((t) => customElements.get(t)) };
+    elements: typeof customElements === "undefined" ? [] : ["camo-provider", "camo-button", "camo-dialog", "camo-text", "camo-icon", "camo-surface", "camo-divider", "camo-icon-button"].filter((t) => customElements.get(t)) };
   console.log(JSON.stringify(out));
 `;
 

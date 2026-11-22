@@ -31,3 +31,9 @@ export const Outline: Story = { args: { appearance: "outline" } };
 export const Error: Story = { args: { tone: "error", text: "Delete" } };
 export const Loading: Story = { args: { loading: true, text: "Saving" } };
 export const Disabled: Story = { args: { disabled: true, text: "Unavailable" } };
+export const WithIcons: Story = {
+  render: () => html`<camo-button text="Add" appearance="outline"
+    ><camo-icon slot="prefix-icon" name="add"></camo-icon
+    ><camo-icon slot="suffix-icon" name="arrow-back" auto-mirror></camo-icon
+  ></camo-button>`,
+};

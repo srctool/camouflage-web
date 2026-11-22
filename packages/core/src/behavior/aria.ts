@@ -6,6 +6,10 @@ export interface AriaState {
   label?: string | null;
   disabled?: boolean;
   busy?: boolean;
+  /** Decorative: left out of the accessibility tree (an icon with no label, a divider). */
+  hidden?: boolean;
+  /** A toggle button's state: `true` or `false` makes it a toggle, `null` or absent does not. */
+  pressed?: boolean | null;
 }
 
 const MARKER = "data-camo-ssr-aria";
@@ -31,11 +35,17 @@ export function applyAria(host: HTMLElement, internals: ElementInternals, aria: 
   internals.ariaLabel = aria.label ?? null;
   internals.ariaDisabled = aria.disabled ? "true" : null;
   internals.ariaBusy = aria.busy ? "true" : null;
+  internals.ariaHidden = aria.hidden ? "true" : null;
+  internals.ariaPressed =
+    aria.pressed === undefined || aria.pressed === null ? null : String(aria.pressed);
   const attributes: Record<string, string | null> = {
     role: aria.role,
     "aria-label": aria.label ?? null,
     "aria-disabled": aria.disabled ? "true" : null,
     "aria-busy": aria.busy ? "true" : null,
+    "aria-hidden": aria.hidden ? "true" : null,
+    "aria-pressed":
+      aria.pressed === undefined || aria.pressed === null ? null : String(aria.pressed),
   };
   if (isServer) {
     const mirrored: string[] = [];

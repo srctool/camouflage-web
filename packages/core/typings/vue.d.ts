@@ -6,7 +6,15 @@ import type {
   CamoCloseDetail,
   CamoScheme,
   CamoSkin,
+  DividerInset,
+  DividerOrientation,
+  ElevationName,
   InputKind,
+  ShapeName,
+  SurfaceLevel,
+  TextAlign,
+  TextOverflow,
+  TextVariant,
   Tone,
   WindowSize,
 } from "@srctool/camouflage-core";
@@ -30,6 +38,34 @@ declare module "vue" {
         onCamoClose?: (event: CustomEvent<CamoCloseDetail>) => void;
       }
     >;
+    CamoDivider: DefineComponent<
+      HTMLAttributes & {
+        orientation?: DividerOrientation;
+        inset?: DividerInset;
+      }
+    >;
+    CamoIcon: DefineComponent<
+      HTMLAttributes & {
+        name?: string;
+        label?: string;
+        size?: string | null;
+        tint?: string | null;
+        "auto-mirror"?: boolean;
+        original?: boolean;
+      }
+    >;
+    CamoIconButton: DefineComponent<
+      HTMLAttributes & {
+        label?: string;
+        appearance?: Appearance | null;
+        tone?: Tone;
+        disabled?: boolean;
+        toggle?: boolean;
+        checked?: boolean;
+        loading?: boolean;
+        tooltip?: string | null;
+      }
+    >;
     CamoProvider: DefineComponent<
       HTMLAttributes & {
         skin?: CamoSkin | string | null;
@@ -37,6 +73,24 @@ declare module "vue" {
         "window-size"?: WindowSize | null;
         input?: InputKind | null;
         platform?: string | null;
+      }
+    >;
+    CamoSurface: DefineComponent<
+      HTMLAttributes & {
+        level?: SurfaceLevel;
+        shape?: ShapeName;
+        elevation?: ElevationName;
+        border?: boolean;
+      }
+    >;
+    CamoText: DefineComponent<
+      HTMLAttributes & {
+        text?: string;
+        variant?: TextVariant;
+        color?: string | null;
+        "max-lines"?: number;
+        overflow?: TextOverflow;
+        "text-align"?: TextAlign;
       }
     >;
   }

@@ -4,7 +4,7 @@ import { cupertinoSkin } from "@srctool/camouflage-skin-cupertino";
 import { minimalSkin } from "@srctool/camouflage-skin-minimal";
 import { html } from "lit";
 import { describe, expect, it } from "vitest";
-import { buttonArgs, dialogArgs } from "../helpers/args.ts";
+import { argsFor, buttonArgs, dialogArgs } from "../helpers/args.ts";
 import { assertPure, findLiteral, findPhysicalProperty } from "../helpers/conformance.ts";
 import { flatten } from "../helpers/flatten.ts";
 import { renderToString, squash } from "../helpers/ssr.ts";
@@ -58,7 +58,78 @@ describe.each<[string, CamoSkin]>([
   ["minimal", minimalSkin],
   ["cupertino", cupertinoSkin],
 ])("%s renderers follow the rules", (_name, skin) => {
+  const art = { svg: "<path d='M0 0'/>", viewBox: "0 0 24 24" };
   const outputs = (): { name: string; markup: string; css: string }[] => [
+    {
+      name: "text",
+      markup: flatten(
+        skin.text.render(
+          argsFor(skin, "text", {
+            text: "Hi",
+            variant: "body-medium",
+            color: null,
+            maxLines: 2,
+            overflow: "ellipsis",
+            textAlign: "center",
+          }),
+        ),
+      ),
+      css: cssText(skin.text.styles),
+    },
+    {
+      name: "icon",
+      markup: flatten(
+        skin.icon.render(
+          argsFor(skin, "icon", {
+            artwork: art,
+            size: null,
+            tint: null,
+            autoMirror: true,
+            original: false,
+          }),
+        ),
+      ),
+      css: cssText(skin.icon.styles),
+    },
+    {
+      name: "surface",
+      markup: flatten(
+        skin.surface.render(
+          argsFor(skin, "surface", {
+            level: "low",
+            shape: "large",
+            elevation: "level2",
+            border: true,
+          }),
+        ),
+      ),
+      css: cssText(skin.surface.styles),
+    },
+    {
+      name: "divider",
+      markup: flatten(
+        skin.divider.render(argsFor(skin, "divider", { orientation: "vertical", inset: "middle" })),
+      ),
+      css: cssText(skin.divider.styles),
+    },
+    {
+      name: "iconButton",
+      markup: flatten(
+        skin.iconButton.render(
+          argsFor(skin, "iconButton", {
+            label: "Close",
+            appearance: "soft",
+            tone: "error",
+            disabled: false,
+            loading: true,
+            toggle: true,
+            checked: true,
+            tooltip: "Close",
+          }),
+        ),
+      ),
+      css: cssText(skin.iconButton.styles),
+    },
     {
       name: "button",
       markup: flatten(
@@ -83,6 +154,11 @@ describe.each<[string, CamoSkin]>([
   it("render the same markup twice, and the same page on the server twice", () => {
     assertPure(() => flatten(skin.button.render(buttonArgs(skin))));
     assertPure(() => flatten(skin.dialog.render(dialogArgs(skin))));
+    assertPure(() =>
+      outputs()
+        .map((o) => o.markup)
+        .join("|"),
+    );
     const page = (): string =>
       squash(
         renderToString(

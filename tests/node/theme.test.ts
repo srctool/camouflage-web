@@ -268,7 +268,13 @@ describe("createCamoTheme", () => {
   it("takes component themes for the components that exist, and only their fields", () => {
     const theme = createCamoTheme(base, { components: { button: { height: "48px" } } });
     expect(theme.components.button).toEqual({ height: "48px" });
-    expect(Object.keys(COMPONENT_FIELDS)).toEqual(["button", "dialog"]);
+    expect(Object.keys(COMPONENT_FIELDS)).toEqual([
+      "surface",
+      "divider",
+      "iconButton",
+      "button",
+      "dialog",
+    ]);
     expect(() =>
       createCamoTheme(base, { components: { button: { hieght: "48px" } } } as never),
     ).toThrow('Unknown theme key "components.button.hieght".');

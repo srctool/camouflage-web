@@ -5,10 +5,23 @@ import type {
   Appearance,
   CamoButton,
   CamoDialog,
+  CamoDivider,
+  CamoIcon,
+  CamoIconButton,
   CamoProvider,
   CamoScheme,
   CamoSkin,
+  CamoSurface,
+  CamoText,
+  DividerInset,
+  DividerOrientation,
+  ElevationName,
   InputKind,
+  ShapeName,
+  SurfaceLevel,
+  TextAlign,
+  TextOverflow,
+  TextVariant,
   Tone,
   WindowSize,
 } from "@srctool/camouflage-core";
@@ -36,6 +49,37 @@ declare module "react" {
           open?: boolean;
         }
       >;
+      "camo-divider": CamoElement<
+        CamoDivider,
+        {
+          orientation?: DividerOrientation;
+          inset?: DividerInset;
+        }
+      >;
+      "camo-icon": CamoElement<
+        CamoIcon,
+        {
+          name?: string;
+          label?: string;
+          size?: string | null;
+          tint?: string | null;
+          "auto-mirror"?: boolean;
+          original?: boolean;
+        }
+      >;
+      "camo-icon-button": CamoElement<
+        CamoIconButton,
+        {
+          label?: string;
+          appearance?: Appearance | null;
+          tone?: Tone;
+          disabled?: boolean;
+          toggle?: boolean;
+          checked?: boolean;
+          loading?: boolean;
+          tooltip?: string | null;
+        }
+      >;
       "camo-provider": CamoElement<
         CamoProvider,
         {
@@ -44,6 +88,26 @@ declare module "react" {
           "window-size"?: WindowSize | null;
           input?: InputKind | null;
           platform?: string | null;
+        }
+      >;
+      "camo-surface": CamoElement<
+        CamoSurface,
+        {
+          level?: SurfaceLevel;
+          shape?: ShapeName;
+          elevation?: ElevationName;
+          border?: boolean;
+        }
+      >;
+      "camo-text": CamoElement<
+        CamoText,
+        {
+          text?: string;
+          variant?: TextVariant;
+          color?: string | null;
+          "max-lines"?: number;
+          overflow?: TextOverflow;
+          "text-align"?: TextAlign;
         }
       >;
     }

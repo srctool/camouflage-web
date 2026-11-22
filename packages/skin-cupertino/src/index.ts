@@ -1,6 +1,11 @@
 import { defineSkin } from "@srctool/camouflage-core";
 import type { CamoSkin } from "@srctool/camouflage-core";
 import { cupertinoButton } from "./button.ts";
+import { cupertinoDivider } from "./divider.ts";
+import { cupertinoIcon } from "./icon.ts";
+import { cupertinoIconButton } from "./icon-button.ts";
+import { cupertinoSurface } from "./surface-component.ts";
+import { cupertinoText } from "./text.ts";
 import { cupertinoDialog } from "./dialog.ts";
 import { opacity } from "./feedback.ts";
 import { classic } from "./surface.ts";
@@ -13,11 +18,26 @@ export const cupertinoSkin: CamoSkin = defineSkin({
   name: "cupertino",
   surfaceTreatment: classic,
   feedback: opacity,
+  text: cupertinoText,
+  icon: cupertinoIcon,
+  surface: cupertinoSurface,
+  divider: cupertinoDivider,
   button: cupertinoButton,
+  iconButton: cupertinoIconButton,
   dialog: cupertinoDialog,
 });
 
-export { cupertinoButton, cupertinoDialog, classic, opacity };
+export {
+  cupertinoText,
+  cupertinoIcon,
+  cupertinoSurface,
+  cupertinoDivider,
+  cupertinoButton,
+  cupertinoIconButton,
+  cupertinoDialog,
+  classic,
+  opacity,
+};
 export { cupertinoThemes } from "./theme.ts";
 export { SYSTEM_BLUE, cupertinoTheme } from "./accent.ts";
 export type { CupertinoThemeOptions } from "./accent.ts";

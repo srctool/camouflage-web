@@ -4,7 +4,15 @@ type ComponentName = keyof SkinComponents;
 
 // Every key of `SkinComponents`, once. The type below fails to compile when a component is added to the interface and
 // not to this list, so the runtime check can never fall behind the contract.
-const names = ["button", "dialog"] as const satisfies readonly ComponentName[];
+const names = [
+  "text",
+  "icon",
+  "surface",
+  "divider",
+  "button",
+  "iconButton",
+  "dialog",
+] as const satisfies readonly ComponentName[];
 type Missing = Exclude<ComponentName, (typeof names)[number]>;
 const _complete: [Missing] extends [never] ? true : never = true;
 void _complete;

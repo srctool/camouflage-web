@@ -36,3 +36,8 @@ function buildTokens(value: unknown, path: readonly string[]): unknown {
 export function createTokens(shape: CamoTheme): CamoTheme {
   return buildTokens(shape, []) as CamoTheme;
 }
+
+/** `body-medium` or `extra-small` to `bodyMedium` or `extraSmall`: a contract value to a theme role. */
+export function camelOf(name: string): string {
+  return name.replace(/-([a-z0-9])/g, (_, c: string) => c.toUpperCase());
+}

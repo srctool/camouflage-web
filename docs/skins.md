@@ -22,6 +22,14 @@ ring for keyboard focus). 40 px buttons, radius 8, a 48 px touch area.
 | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Dialog    | radius `large` (12), `surface` with a 1px `outlineVariant` hairline, no shadow, 280 to 560 wide, `titleLarge` and `bodyMedium`, **actions at the end** (dismiss then confirm) |
 
+| Component   | Minimal                                                                                                                |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Text        | the theme's type role, content color, links in `primary` and **underlined**                                            |
+| Icon        | 24 px unless the container sets `--camo-icon-size`, drawn in the content color                                         |
+| Surface     | flat: the level's `surface*` role, the shape role, no shadow; `border` is 1px `outlineVariant`                         |
+| Divider     | 1px `outlineVariant`; `start` and `middle` insets of `spacing.l`                                                       |
+| Icon button | 40 container, radius `full`, 24 px icon, 48 px touch area, **Ghost** by default; on (toggle) is `surfaceContainerHigh` |
+
 ## Cupertino (Classic)
 
 Apple's system colors from the HIG tables, SF type, iOS radii, **Classic** surface (an opaque fill with a soft shadow) and
@@ -47,11 +55,29 @@ Apple's system colors from the HIG tables, SF type, iOS radii, **Classic** surfa
 | Button    | 44 tall, radius `medium` (12), 20 px icons, no border                                                                                                                |
 | Dialog    | an alert: 270 wide, radius `large` (14), `surfaceContainerHigh`, a **centered** title in `titleMedium`, message in `bodySmall`, **actions stacked** (confirm on top) |
 
+| Component   | Cupertino                                                                                                       |
+| ----------- | --------------------------------------------------------------------------------------------------------------- |
+| Text        | the theme's type role, links in the accent with **no underline**                                                |
+| Icon        | 24 px, as Minimal                                                                                               |
+| Surface     | Classic: an opaque fill with a soft shadow that grows with elevation; `border` is a 0.5px hairline              |
+| Divider     | a 0.5px hairline                                                                                                |
+| Icon button | 44 container in the accent, 48 px touch area, Ghost by default; soft, outline and on are the tinted accent fill |
+
 The same `<camo-dialog>` markup gives side-by-side actions under Minimal and stacked ones under Cupertino; that is the
 contract's point, tested in the server-rendering and browser tests.
+
+## Material (W8): what the W2 components need
+
+Surface levels are Material's `surfaceContainer*` roles one to one, and elevation is a shadow (Paper), so Material needs
+only `defaults(theme)` for Surface and Divider, and the Classic treatment. Material's icon button maps Solid to Filled,
+Soft to Filled tonal, Outline to Outlined and Ghost to Standard (the base note's table), with `onSurfaceVariant` icons.
+Carbon and Fluent have no Surface level of their own: Carbon's layers and Fluent's neutral backgrounds 1 to 6 are mapped
+onto the same six levels by the skin.
 
 ## Known gaps
 
 - Several of Apple's published colors are below WCAG AA contrast (white on systemBlue is 4.0:1). The skin keeps them as
   published; `tests/node/theme.test.ts` lists the known pairs, the same list as the Dart skin's test, and fails on a new one.
+- The icon theme's `size` and `color` (the root icon style) are not variables: the provider sets 24 px and the content
+  color, and a skin changes them in its renderers.
 - `actionsLayout`, `titleAlign` and `defaultAppearance` are chosen by the skin, not by a theme variable (see `docs/contract.md`).

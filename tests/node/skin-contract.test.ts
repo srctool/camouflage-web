@@ -24,7 +24,15 @@ void _dialog;
 
 describe("the skin contract", () => {
   it("lists every component the contract has a renderer for", () => {
-    expect([...COMPONENT_NAMES]).toEqual(["button", "dialog"]);
+    expect([...COMPONENT_NAMES]).toEqual([
+      "text",
+      "icon",
+      "surface",
+      "divider",
+      "button",
+      "iconButton",
+      "dialog",
+    ]);
     expect(missingRenderers(minimalSkin)).toEqual([]);
     expect(missingRenderers(cupertinoSkin)).toEqual([]);
   });
@@ -40,7 +48,7 @@ describe("the skin contract", () => {
   it("names every missing part, and a missing name", () => {
     const bare = { name: "bare" } as unknown as InProgressSkin;
     expect(() => assertCompleteSkin(bare)).toThrow(
-      'Skin "bare" is incomplete: missing surfaceTreatment, feedback, button, dialog.',
+      'Skin "bare" is incomplete: missing surfaceTreatment, feedback, text, icon, surface, divider, button, iconButton, dialog.',
     );
     const unnamed = { ...minimalSkin, name: "" } as CamoSkin;
     expect(() => assertCompleteSkin(unnamed)).toThrow("(unnamed)");

@@ -8,10 +8,10 @@ import { rolldown } from "rolldown";
 
 const root = new URL("..", import.meta.url).pathname;
 const BUDGETS = {
-  "core (define)": 13_000,
-  "core + minimal": 17_500,
-  "core + minimal + cupertino": 19_000,
-  "minimal skin only": 10_500,
+  "core (define)": 13_500,
+  "core + minimal": 19_500,
+  "core + minimal + cupertino": 21_000,
+  "minimal skin only": 12_000,
 };
 const entries = {
   "core (define)": `import "@srctool/camouflage-core/define";`,

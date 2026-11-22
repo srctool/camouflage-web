@@ -41,6 +41,7 @@ describe("camouflage-contract.json", () => {
   // Fields the web adds to the base contract, on purpose.
   const WEB_ONLY: Record<string, string[]> = {
     button: ["touchTarget"],
+    iconButton: ["touchTarget"],
     dialog: ["actionGap", "sectionGap"],
   };
   // A button's component-theme field `padding` is its style field `paddingInline` (a logical property), and so on.
@@ -49,7 +50,7 @@ describe("camouflage-contract.json", () => {
   };
 
   it("gives each component's theme fields to the theme and to the skins' defaults", () => {
-    for (const c of contract.components.filter((x) => x.themeFields !== undefined)) {
+    for (const c of contract.components.filter((x) => expectation(x).themeFields.length > 0)) {
       const key = c.name.charAt(0).toLowerCase() + c.name.slice(1);
       const { themeFields } = expectation(c);
       const web = [...(COMPONENT_FIELDS as Record<string, readonly string[]>)[key]!].sort();
@@ -76,7 +77,11 @@ describe("camouflage-contract.json", () => {
         .map((c) => [c.name, expectation(c).themeGaps]),
     );
     expect(gaps).toEqual({
+      Icon: ["size", "color"],
+      Surface: [],
+      Divider: [],
       Button: ["defaultAppearance"],
+      IconButton: ["defaultAppearance"],
       Dialog: ["titleAlign", "actionsLayout", "showCloseButton", "stackedScrim"],
     });
   });

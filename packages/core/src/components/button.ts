@@ -100,7 +100,7 @@ export class CamoButton extends LitElement {
     const style = renderer.defaults(tokens);
     const state: ButtonState = {
       text: this.text,
-      appearance: this.appearance ?? style.defaultAppearance,
+      appearance: this.appearance || style.defaultAppearance,
       tone: this.tone,
       disabled: this.disabled,
       loading: this.loading,

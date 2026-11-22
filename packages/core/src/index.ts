@@ -4,6 +4,13 @@
 export type {} from "./elements.ts";
 export { CamoProvider } from "./provider/camo-provider.ts";
 export { CamoButton } from "./components/button.ts";
+export { CamoText } from "./components/text.ts";
+export { CamoIcon } from "./components/icon.ts";
+export { CamoSurface } from "./components/surface.ts";
+export { CamoDivider } from "./components/divider.ts";
+export { CamoIconButton } from "./components/icon-button.ts";
+export { registerIcons, registeredIconNames, resolveIcon } from "./icons.ts";
+export type { IconDefinition } from "./icons.ts";
 export { CamoDialog } from "./components/dialog.ts";
 export type { CamoCloseDetail } from "./components/dialog.ts";
 export { showCamoDialog } from "./components/overlay.ts";
@@ -49,6 +56,15 @@ export {
 export type { SkinRegistration } from "./skin/registry.ts";
 export { cssBlock, cssText, textStyleCss } from "./style.ts";
 export { buttonColorsFor } from "./skin/colors.ts";
+export {
+  dividerBase,
+  iconBase,
+  iconButtonBase,
+  iconButtonColorsFor,
+  surfaceBase,
+  surfaceColor,
+  textBase,
+} from "./skin/primitives.ts";
 export { createCamoTheme } from "./theme/merge.ts";
 export {
   applyTheme,

@@ -1,7 +1,9 @@
 import { html } from "lit";
 import { describe, expect, it } from "vitest";
 import { renderToString, squash } from "../helpers/ssr.ts";
+import { registerDemoIcons } from "../../scenarios/icons.ts";
 
+registerDemoIcons();
 await import("@srctool/camouflage-core/define");
 await import("@srctool/camouflage-skin-minimal/register");
 await import("@srctool/camouflage-skin-cupertino/register");
@@ -123,5 +125,68 @@ describe("a component with no provider", () => {
   it("uses the registered fallback skin (Minimal) and logs once", () => {
     const out = squash(renderToString(html`<camo-button text="Alone"></camo-button>`));
     expect(out).toContain("--b-height: var(--camo-button-height, 40px)");
+  });
+});
+
+describe("the W2 components on the server", () => {
+  const page = (skin: string): string =>
+    squash(
+      renderToString(
+        html`<camo-provider skin=${skin} scheme="light">
+          <camo-surface level="low" shape="large" elevation="level2" border>
+            <camo-text variant="title-medium" max-lines="2" overflow="ellipsis" text="Hello"></camo-text>
+            <camo-text variant="body-small">Read the <a href="#terms">terms</a></camo-text>
+            <camo-divider inset="start"></camo-divider>
+            <camo-icon name="close" label="Close"></camo-icon>
+            <camo-icon name="close"></camo-icon>
+            <camo-icon-button label="Favorite" toggle checked tooltip="Favorite">
+              <camo-icon name="heart"></camo-icon>
+            </camo-icon-button>
+          </camo-surface>
+        </camo-provider>`,
+      ),
+    );
+
+  it.each(["minimal", "cupertino"])(
+    "renders every one into declarative shadow DOM under %s",
+    (skin) => {
+      const out = page(skin);
+      for (const tag of [
+        "camo-surface",
+        "camo-text",
+        "camo-divider",
+        "camo-icon",
+        "camo-icon-button",
+      ])
+        expect(out, tag).toContain(`<${tag}`);
+      expect(out).not.toContain("<script");
+    },
+  );
+
+  it("carries role, name and state as attributes in the first bytes", () => {
+    const out = page("minimal");
+    expect(out).toMatch(/<camo-icon[^>]*role="img"[^>]*aria-label="Close"/);
+    expect(out).toMatch(/<camo-icon[^>]*role="presentation"[^>]*aria-hidden="true"/);
+    expect(out).toMatch(
+      /<camo-icon-button[^>]*role="button"[^>]*aria-label="Favorite"[^>]*aria-pressed="true"/,
+    );
+    expect(out).toMatch(/<camo-divider[^>]*aria-hidden="true"/);
+    expect(out).toMatch(/<camo-surface[^>]*role="generic"/);
+  });
+
+  it("draws a registered icon as inline SVG, and the same markup differs per skin", () => {
+    const minimal = page("minimal");
+    expect(minimal).toContain("<svg");
+    expect(minimal).toContain('viewBox="0 0 24 24"');
+    // Minimal's icon button container is 40 and Cupertino's is 44, from the same markup.
+    expect(minimal).toContain("--b-size: var(--camo-icon-button-container-size, 40px)");
+    expect(page("cupertino")).toContain("--b-size: var(--camo-icon-button-container-size, 44px)");
+  });
+
+  it("paints the surface level and styles a link in the skin's way", () => {
+    const out = page("minimal");
+    expect(out).toContain("var(--camo-color-surface-container-low)");
+    expect(out).toContain("--t-link-decoration: underline");
+    expect(page("cupertino")).toContain("--t-link-decoration: none");
   });
 });

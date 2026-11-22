@@ -11,86 +11,136 @@
     {
       "name": "button-solid",
       "component": "button",
-      "props": { "text": "Save", "appearance": "solid" }
+      "props": {
+        "text": "Save",
+        "appearance": "solid"
+      }
     },
     {
       "name": "button-soft",
       "component": "button",
-      "props": { "text": "Save", "appearance": "soft" }
+      "props": {
+        "text": "Save",
+        "appearance": "soft"
+      }
     },
     {
       "name": "button-raised",
       "component": "button",
-      "props": { "text": "Save", "appearance": "raised" }
+      "props": {
+        "text": "Save",
+        "appearance": "raised"
+      }
     },
     {
       "name": "button-outline",
       "component": "button",
-      "props": { "text": "Save", "appearance": "outline" }
+      "props": {
+        "text": "Save",
+        "appearance": "outline"
+      }
     },
     {
       "name": "button-ghost",
       "component": "button",
-      "props": { "text": "Save", "appearance": "ghost" }
+      "props": {
+        "text": "Save",
+        "appearance": "ghost"
+      }
     },
     {
       "name": "button-link",
       "component": "button",
-      "props": { "text": "Save", "appearance": "link" }
+      "props": {
+        "text": "Save",
+        "appearance": "link"
+      }
     },
     {
       "name": "button-solid-error",
       "component": "button",
-      "props": { "text": "Delete", "appearance": "solid", "tone": "error" },
+      "props": {
+        "text": "Delete",
+        "appearance": "solid",
+        "tone": "error"
+      },
       "textScales": [1],
       "directions": ["ltr"]
     },
     {
       "name": "button-solid-success",
       "component": "button",
-      "props": { "text": "Done", "appearance": "solid", "tone": "success" },
+      "props": {
+        "text": "Done",
+        "appearance": "solid",
+        "tone": "success"
+      },
       "textScales": [1],
       "directions": ["ltr"]
     },
     {
       "name": "button-soft-warning",
       "component": "button",
-      "props": { "text": "Careful", "appearance": "soft", "tone": "warning" },
+      "props": {
+        "text": "Careful",
+        "appearance": "soft",
+        "tone": "warning"
+      },
       "textScales": [1],
       "directions": ["ltr"]
     },
     {
       "name": "button-soft-info",
       "component": "button",
-      "props": { "text": "Note", "appearance": "soft", "tone": "info" },
+      "props": {
+        "text": "Note",
+        "appearance": "soft",
+        "tone": "info"
+      },
       "textScales": [1],
       "directions": ["ltr"]
     },
     {
       "name": "button-disabled",
       "component": "button",
-      "props": { "text": "Unavailable", "disabled": true },
+      "props": {
+        "text": "Unavailable",
+        "disabled": true
+      },
       "textScales": [1],
       "directions": ["ltr"]
     },
     {
       "name": "button-loading",
       "component": "button",
-      "props": { "text": "Saving", "loading": true },
+      "props": {
+        "text": "Saving",
+        "loading": true
+      },
       "textScales": [1],
       "directions": ["ltr"]
     },
     {
       "name": "button-icons",
       "component": "button",
-      "props": { "text": "Next", "appearance": "outline" },
-      "content": { "prefix-icon": "<span>◀</span>", "suffix-icon": "<span>▶</span>" }
+      "props": {
+        "text": "Next",
+        "appearance": "outline"
+      },
+      "content": {
+        "prefix-icon": "<span>\u25c0</span>",
+        "suffix-icon": "<span>\u25b6</span>"
+      }
     },
     {
       "name": "dialog-alert",
       "component": "dialog",
       "frame": "page",
-      "props": { "open": true, "title": "Delete item?", "message": "This can't be undone." },
+      "props": {
+        "open": true,
+        "title": "Delete item?",
+        "message": "This can't be undone."
+      },
       "content": {
         "confirm": "<camo-button text=\"Delete\" tone=\"error\"></camo-button>",
         "dismiss": "<camo-button text=\"Cancel\" appearance=\"ghost\"></camo-button>"
@@ -100,10 +150,609 @@
       "name": "dialog-no-title",
       "component": "dialog",
       "frame": "page",
-      "props": { "open": true, "message": "Saved." },
-      "content": { "confirm": "<camo-button text=\"OK\"></camo-button>" },
+      "props": {
+        "open": true,
+        "message": "Saved."
+      },
+      "content": {
+        "confirm": "<camo-button text=\"OK\"></camo-button>"
+      },
       "textScales": [1],
       "directions": ["ltr"]
+    },
+    {
+      "name": "text-display-large",
+      "component": "text",
+      "props": {
+        "text": "The quick brown fox",
+        "variant": "display-large"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-display-medium",
+      "component": "text",
+      "props": {
+        "text": "The quick brown fox",
+        "variant": "display-medium"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-display-small",
+      "component": "text",
+      "props": {
+        "text": "The quick brown fox",
+        "variant": "display-small"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-headline-large",
+      "component": "text",
+      "props": {
+        "text": "The quick brown fox",
+        "variant": "headline-large"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-headline-medium",
+      "component": "text",
+      "props": {
+        "text": "The quick brown fox",
+        "variant": "headline-medium"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-headline-small",
+      "component": "text",
+      "props": {
+        "text": "The quick brown fox",
+        "variant": "headline-small"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-title-large",
+      "component": "text",
+      "props": {
+        "text": "The quick brown fox",
+        "variant": "title-large"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-title-medium",
+      "component": "text",
+      "props": {
+        "text": "The quick brown fox",
+        "variant": "title-medium"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-title-small",
+      "component": "text",
+      "props": {
+        "text": "The quick brown fox",
+        "variant": "title-small"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-body-large",
+      "component": "text",
+      "props": {
+        "text": "The quick brown fox",
+        "variant": "body-large"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-body-medium",
+      "component": "text",
+      "props": {
+        "text": "The quick brown fox",
+        "variant": "body-medium"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-body-small",
+      "component": "text",
+      "props": {
+        "text": "The quick brown fox",
+        "variant": "body-small"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-label-large",
+      "component": "text",
+      "props": {
+        "text": "The quick brown fox",
+        "variant": "label-large"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-label-medium",
+      "component": "text",
+      "props": {
+        "text": "The quick brown fox",
+        "variant": "label-medium"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-label-small",
+      "component": "text",
+      "props": {
+        "text": "The quick brown fox",
+        "variant": "label-small"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-rich",
+      "component": "text",
+      "props": {
+        "variant": "body-large"
+      },
+      "content": {
+        "": "I agree to the <strong>Terms</strong> and the <a href=\"#privacy\">Privacy Policy</a>."
+      }
+    },
+    {
+      "name": "text-ellipsis",
+      "component": "text",
+      "props": {
+        "text": "A long line of text that does not fit in two lines when the text is scaled up, and so it is cut off with an ellipsis at the end of the second line, however wide the box is.",
+        "variant": "body-medium",
+        "max-lines": 2,
+        "overflow": "ellipsis"
+      }
+    },
+    {
+      "name": "text-clip",
+      "component": "text",
+      "props": {
+        "text": "A long line of text that does not fit in one line when the text is scaled up, and so it is clipped.",
+        "variant": "body-medium",
+        "max-lines": 1,
+        "overflow": "clip"
+      },
+      "modes": ["light"]
+    },
+    {
+      "name": "text-center",
+      "component": "text",
+      "props": {
+        "text": "Centered",
+        "variant": "title-medium",
+        "text-align": "center"
+      },
+      "modes": ["light"]
+    },
+    {
+      "name": "text-color",
+      "component": "text",
+      "props": {
+        "text": "Saved",
+        "variant": "label-large",
+        "color": "var(--camo-color-success)"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-empty",
+      "component": "text",
+      "props": {
+        "variant": "body-medium"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "icon-registered",
+      "component": "icon",
+      "props": {
+        "name": "search",
+        "label": "Search"
+      }
+    },
+    {
+      "name": "icon-size-tint",
+      "component": "icon",
+      "props": {
+        "name": "heart-filled",
+        "size": "48px",
+        "tint": "var(--camo-color-error)"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "icon-mirrored",
+      "component": "icon",
+      "props": {
+        "name": "arrow-back",
+        "label": "Back"
+      },
+      "textScales": [1],
+      "modes": ["light"]
+    },
+    {
+      "name": "icon-not-mirrored",
+      "component": "icon",
+      "props": {
+        "name": "search"
+      },
+      "textScales": [1],
+      "modes": ["light"],
+      "directions": ["rtl"]
+    },
+    {
+      "name": "icon-original",
+      "component": "icon",
+      "props": {
+        "name": "swatch",
+        "size": "48px"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "icon-inline-svg",
+      "component": "icon",
+      "content": {
+        "": "<svg viewBox=\"0 0 24 24\"><path d=\"M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z\"/></svg>"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "icon-missing",
+      "component": "icon",
+      "props": {
+        "name": "does-not-exist"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "surface-lowest",
+      "component": "surface",
+      "props": {
+        "level": "lowest",
+        "shape": "large"
+      },
+      "content": {
+        "": "<camo-text text=\"On this surface\" variant=\"body-large\"></camo-text>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "surface-low",
+      "component": "surface",
+      "props": {
+        "level": "low",
+        "shape": "large"
+      },
+      "content": {
+        "": "<camo-text text=\"On this surface\" variant=\"body-large\"></camo-text>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "surface-surface",
+      "component": "surface",
+      "props": {
+        "level": "surface",
+        "shape": "large"
+      },
+      "content": {
+        "": "<camo-text text=\"On this surface\" variant=\"body-large\"></camo-text>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "surface-container",
+      "component": "surface",
+      "props": {
+        "level": "container",
+        "shape": "large"
+      },
+      "content": {
+        "": "<camo-text text=\"On this surface\" variant=\"body-large\"></camo-text>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "surface-high",
+      "component": "surface",
+      "props": {
+        "level": "high",
+        "shape": "large"
+      },
+      "content": {
+        "": "<camo-text text=\"On this surface\" variant=\"body-large\"></camo-text>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "surface-highest",
+      "component": "surface",
+      "props": {
+        "level": "highest",
+        "shape": "large"
+      },
+      "content": {
+        "": "<camo-text text=\"On this surface\" variant=\"body-large\"></camo-text>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "surface-elevated",
+      "component": "surface",
+      "props": {
+        "level": "low",
+        "shape": "large",
+        "elevation": "level3"
+      },
+      "content": {
+        "": "<div style=\"padding:16px\"><camo-text text=\"Elevated\" variant=\"title-medium\"></camo-text></div>"
+      }
+    },
+    {
+      "name": "surface-border",
+      "component": "surface",
+      "props": {
+        "level": "surface",
+        "shape": "medium",
+        "border": true
+      },
+      "content": {
+        "": "<div style=\"padding:16px\"><camo-text text=\"A panel\" variant=\"title-medium\"></camo-text></div>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "divider-horizontal",
+      "component": "divider",
+      "modes": ["light"],
+      "textScales": [1]
+    },
+    {
+      "name": "divider-inset-start",
+      "component": "divider",
+      "props": {
+        "inset": "start"
+      },
+      "modes": ["light"],
+      "textScales": [1]
+    },
+    {
+      "name": "divider-inset-middle",
+      "component": "divider",
+      "props": {
+        "inset": "middle"
+      },
+      "modes": ["light"],
+      "textScales": [1]
+    },
+    {
+      "name": "divider-vertical",
+      "component": "divider",
+      "props": {
+        "orientation": "vertical"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "button-prefix-icon",
+      "component": "button",
+      "props": {
+        "text": "Add",
+        "appearance": "solid"
+      },
+      "content": {
+        "prefix-icon": "<camo-icon name=\"add\"></camo-icon>"
+      }
+    },
+    {
+      "name": "button-icon-loading",
+      "component": "button",
+      "props": {
+        "text": "Saving",
+        "appearance": "outline",
+        "loading": true
+      },
+      "content": {
+        "prefix-icon": "<camo-icon name=\"add\"></camo-icon>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "icon-button-solid",
+      "component": "icon-button",
+      "props": {
+        "label": "Favorite",
+        "appearance": "solid"
+      },
+      "content": {
+        "": "<camo-icon name=\"heart\"></camo-icon>"
+      }
+    },
+    {
+      "name": "icon-button-soft",
+      "component": "icon-button",
+      "props": {
+        "label": "Favorite",
+        "appearance": "soft"
+      },
+      "content": {
+        "": "<camo-icon name=\"heart\"></camo-icon>"
+      }
+    },
+    {
+      "name": "icon-button-outline",
+      "component": "icon-button",
+      "props": {
+        "label": "Favorite",
+        "appearance": "outline"
+      },
+      "content": {
+        "": "<camo-icon name=\"heart\"></camo-icon>"
+      }
+    },
+    {
+      "name": "icon-button-ghost",
+      "component": "icon-button",
+      "props": {
+        "label": "Favorite",
+        "appearance": "ghost"
+      },
+      "content": {
+        "": "<camo-icon name=\"heart\"></camo-icon>"
+      }
+    },
+    {
+      "name": "icon-button-default",
+      "component": "icon-button",
+      "props": {
+        "label": "Close"
+      },
+      "content": {
+        "": "<camo-icon name=\"close\"></camo-icon>"
+      }
+    },
+    {
+      "name": "icon-button-error",
+      "component": "icon-button",
+      "props": {
+        "label": "Delete",
+        "appearance": "soft",
+        "tone": "error"
+      },
+      "content": {
+        "": "<camo-icon name=\"close\"></camo-icon>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "icon-button-toggle-off",
+      "component": "icon-button",
+      "props": {
+        "label": "Favorite",
+        "toggle": true
+      },
+      "content": {
+        "": "<camo-icon name=\"heart\"></camo-icon>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "icon-button-toggle-on",
+      "component": "icon-button",
+      "props": {
+        "label": "Favorite",
+        "toggle": true,
+        "checked": true
+      },
+      "content": {
+        "": "<camo-icon name=\"heart-filled\"></camo-icon>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "icon-button-disabled",
+      "component": "icon-button",
+      "props": {
+        "label": "Favorite",
+        "disabled": true
+      },
+      "content": {
+        "": "<camo-icon name=\"heart\"></camo-icon>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "icon-button-loading",
+      "component": "icon-button",
+      "props": {
+        "label": "Favorite",
+        "loading": true
+      },
+      "content": {
+        "": "<camo-icon name=\"heart\"></camo-icon>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "icon-button-back",
+      "component": "icon-button",
+      "props": {
+        "label": "Back"
+      },
+      "content": {
+        "": "<camo-icon name=\"arrow-back\"></camo-icon>"
+      },
+      "textScales": [1]
     }
   ]
 }
