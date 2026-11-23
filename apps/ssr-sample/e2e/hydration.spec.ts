@@ -28,7 +28,14 @@ async function shot(
     // Hydrated: every camo element has upgraded and finished its first update.
     await page.evaluate(async () => {
       await Promise.all(
-        ["camo-provider", "camo-button", "camo-dialog"].map((t) => customElements.whenDefined(t)),
+        [
+          "camo-provider",
+          "camo-button",
+          "camo-dialog",
+          "camo-text-field",
+          "camo-checkbox",
+          "camo-date-picker",
+        ].map((t) => customElements.whenDefined(t)),
       );
       const all = [...document.querySelectorAll("*")].filter(
         (e): e is Element & { updateComplete: Promise<boolean> } => "updateComplete" in e,
@@ -100,5 +107,52 @@ for (const skin of ["minimal", "cupertino"]) {
     // but nothing may move.
     const count = differing(before.png, after.png);
     expect(count, `${count} pixels differ when the dialog became modal`).toBeLessThan(50);
+  });
+}
+
+for (const skin of ["minimal", "cupertino"]) {
+  test(`the ${skin} inputs hydrate without moving, and keep their values`, async ({
+    browser,
+  }, testInfo) => {
+    const before = await shot(browser, `/inputs?skin=${skin}&scheme=light&nojs`, false);
+    // With scripts off the inputs are already there: values, labels and state, written by the server.
+    const html = await before.page.content();
+    expect(html).toContain('value="ada@example.com"');
+    expect(html).toMatch(/<camo-checkbox[^>]*aria-checked="true"/);
+    const after = await shot(browser, `/inputs?skin=${skin}&scheme=light`, true);
+    const state = await after.page.evaluate(() => ({
+      email: (document.querySelector("camo-text-field") as unknown as { value: string }).value,
+      checked: (document.querySelector("camo-checkbox") as unknown as { checked: boolean }).checked,
+      plan: (document.querySelector("camo-radio-group") as unknown as { value: string }).value,
+      volume: (document.querySelector("camo-slider") as unknown as { value: number }).value,
+      form: [...new FormData(document.querySelector("form")!).entries()].map(
+        ([k, v]) => `${k}=${String(v)}`,
+      ),
+    }));
+    expect(state).toMatchObject({
+      email: "ada@example.com",
+      checked: true,
+      plan: "pro",
+      volume: 30,
+    });
+    expect(state.form).toEqual(
+      expect.arrayContaining([
+        "email=ada@example.com",
+        "terms=on",
+        "wifi=on",
+        "plan=pro",
+        "volume=30",
+        "qty=3",
+        "when=2026-11-18",
+        "at=14:30",
+      ]),
+    );
+    writeFileSync(testInfo.outputPath("server-render.png"), before.png);
+    writeFileSync(testInfo.outputPath("hydrated.png"), after.png);
+    const count = differing(before.png, after.png);
+    expect(
+      count,
+      `${count} pixels differ between the server render and the hydrated inputs`,
+    ).toBeLessThan(50);
   });
 }

@@ -1,5 +1,18 @@
 import { defineSkin } from "@srctool/camouflage-core";
 import type { CamoSkin } from "@srctool/camouflage-core";
+import {
+  cupertinoTextField,
+  cupertinoSearchField,
+  cupertinoCheckbox,
+  cupertinoSwitch,
+  cupertinoRadio,
+  cupertinoSegmentedControl,
+  cupertinoSegment,
+  cupertinoSlider,
+  cupertinoStepper,
+  cupertinoCalendar,
+  cupertinoTimePicker,
+} from "./inputs.ts";
 import { cupertinoButton } from "./button.ts";
 import { cupertinoDivider } from "./divider.ts";
 import { cupertinoIcon } from "./icon.ts";
@@ -24,6 +37,17 @@ export const cupertinoSkin: CamoSkin = defineSkin({
   divider: cupertinoDivider,
   button: cupertinoButton,
   iconButton: cupertinoIconButton,
+  textField: cupertinoTextField,
+  searchField: cupertinoSearchField,
+  checkbox: cupertinoCheckbox,
+  switch: cupertinoSwitch,
+  radio: cupertinoRadio,
+  segmentedControl: cupertinoSegmentedControl,
+  segment: cupertinoSegment,
+  slider: cupertinoSlider,
+  stepper: cupertinoStepper,
+  calendar: cupertinoCalendar,
+  timePicker: cupertinoTimePicker,
   dialog: cupertinoDialog,
 });
 
@@ -34,6 +58,17 @@ export {
   cupertinoDivider,
   cupertinoButton,
   cupertinoIconButton,
+  cupertinoTextField,
+  cupertinoSearchField,
+  cupertinoCheckbox,
+  cupertinoSwitch,
+  cupertinoRadio,
+  cupertinoSegmentedControl,
+  cupertinoSegment,
+  cupertinoSlider,
+  cupertinoStepper,
+  cupertinoCalendar,
+  cupertinoTimePicker,
   cupertinoDialog,
   classic,
   opacity,

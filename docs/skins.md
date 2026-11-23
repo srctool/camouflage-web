@@ -30,6 +30,19 @@ ring for keyboard focus). 40 px buttons, radius 8, a 48 px touch area.
 | Divider     | 1px `outlineVariant`; `start` and `middle` insets of `spacing.l`                                                       |
 | Icon button | 40 container, radius `full`, 24 px icon, 48 px touch area, **Ghost** by default; on (toggle) is `surfaceContainerHigh` |
 
+| Component         | Minimal                                                                                                                    |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Text field        | label **above**, 44 tall, radius 8, 1px `outline` border, primary border and ring when focused, `error` in the error color |
+| Search field      | 44 tall pill (`shapes.full`), `surfaceContainerHigh`, a magnifier and an automatic clear button                            |
+| Checkbox          | 18 box, radius 2, 2px border, primary fill and an `onPrimary` check; label **after** the box                               |
+| Switch            | 44 by 24 track, a 12 (off) or 16 (on) thumb, primary when on; label **before** the switch                                  |
+| Radio             | 20 ring, a 10 dot; label after the ring                                                                                    |
+| Segmented control | 40 tall, radius 8, 1px outline, `surfaceContainer` track, `secondaryContainer` selection, no check icon                    |
+| Slider            | 4 track, a 20 thumb, stop marks, a value bubble while dragging                                                             |
+| Stepper           | inline: minus, value, plus in a 40 tall outlined box                                                                       |
+| Calendar          | 40 days (48 touch), a filled circle for the selection, `primaryContainer` for the range, a ring for today                  |
+| Time picker       | **fields**: two number fields and an AM and PM control                                                                     |
+
 ## Cupertino (Classic)
 
 Apple's system colors from the HIG tables, SF type, iOS radii, **Classic** surface (an opaque fill with a soft shadow) and
@@ -63,6 +76,18 @@ Apple's system colors from the HIG tables, SF type, iOS radii, **Classic** surfa
 | Divider     | a 0.5px hairline                                                                                                |
 | Icon button | 44 container in the accent, 48 px touch area, Ghost by default; soft, outline and on are the tinted accent fill |
 
+| Component         | Cupertino                                                                                                                |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Text field        | 44 tall, radius 12, a hairline border; the same engine and ids as Minimal                                                |
+| Search field      | 36 tall, radius 12, an 18 magnifier                                                                                      |
+| Checkbox          | a 22 round box (`shapes.full`), the check at the **end** of the row (label first)                                        |
+| Switch            | the iOS 51 by 31 track with a 27 thumb that does not change size; label before                                           |
+| Radio             | a **checkmark list**: no ring, a check at the end of the selected row                                                    |
+| Segmented control | 32 tall, a filled track with the selected segment lifted                                                                 |
+| Slider            | 4 track, a 28 thumb, no value bubble                                                                                     |
+| Stepper           | inline, 32 tall                                                                                                          |
+| Time picker       | **wheels**: three scroll-snapped columns (hour, minute, AM and PM) with a selection band; each is one adjustable control |
+
 The same `<camo-dialog>` markup gives side-by-side actions under Minimal and stacked ones under Cupertino; that is the
 contract's point, tested in the server-rendering and browser tests.
 
@@ -80,4 +105,7 @@ onto the same six levels by the skin.
   published; `tests/node/theme.test.ts` lists the known pairs, the same list as the Dart skin's test, and fails on a new one.
 - The icon theme's `size` and `color` (the root icon style) are not variables: the provider sets 24 px and the content
   color, and a skin changes them in its renderers.
+- Theme fields that change structure (`labelPlacement`, `labelPosition`, `showCheckIcon`, `showStopMarks`, `showValueLabel`, the
+  stepper's `layout`, `showOutsideDays`, the time picker's `style`) are chosen by the skin; see `docs/contract.md`.
+- Cupertino has no date wheel yet: its single date is the calendar.
 - `actionsLayout`, `titleAlign` and `defaultAppearance` are chosen by the skin, not by a theme variable (see `docs/contract.md`).

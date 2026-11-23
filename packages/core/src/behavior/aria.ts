@@ -10,6 +10,18 @@ export interface AriaState {
   hidden?: boolean;
   /** A toggle button's state: `true` or `false` makes it a toggle, `null` or absent does not. */
   pressed?: boolean | null;
+  /** A checkbox, radio or switch: `true`, `false`, or `"mixed"` for a checkbox that is neither. */
+  checked?: boolean | "mixed" | null;
+  /** The control's value fails its rules. */
+  invalid?: boolean;
+  required?: boolean;
+  /** A second line of help: a description, a supporting text (not part of the name). */
+  description?: string | null;
+  /** A slider or spinbutton's value, range and its text. */
+  value?: { now: number; min: number; max: number; text?: string | null };
+  orientation?: "horizontal" | "vertical";
+  /** Place in a set: "2 of 3". */
+  position?: { index: number; size: number };
 }
 
 const MARKER = "data-camo-ssr-aria";
@@ -36,6 +48,18 @@ export function applyAria(host: HTMLElement, internals: ElementInternals, aria: 
   internals.ariaDisabled = aria.disabled ? "true" : null;
   internals.ariaBusy = aria.busy ? "true" : null;
   internals.ariaHidden = aria.hidden ? "true" : null;
+  internals.ariaChecked =
+    aria.checked === undefined || aria.checked === null ? null : String(aria.checked);
+  internals.ariaInvalid = aria.invalid ? "true" : null;
+  internals.ariaRequired = aria.required ? "true" : null;
+  internals.ariaDescription = aria.description ?? null;
+  internals.ariaValueNow = aria.value === undefined ? null : String(aria.value.now);
+  internals.ariaValueMin = aria.value === undefined ? null : String(aria.value.min);
+  internals.ariaValueMax = aria.value === undefined ? null : String(aria.value.max);
+  internals.ariaValueText = aria.value?.text ?? null;
+  internals.ariaOrientation = aria.orientation ?? null;
+  internals.ariaPosInSet = aria.position === undefined ? null : String(aria.position.index);
+  internals.ariaSetSize = aria.position === undefined ? null : String(aria.position.size);
   internals.ariaPressed =
     aria.pressed === undefined || aria.pressed === null ? null : String(aria.pressed);
   const attributes: Record<string, string | null> = {
@@ -44,6 +68,18 @@ export function applyAria(host: HTMLElement, internals: ElementInternals, aria: 
     "aria-disabled": aria.disabled ? "true" : null,
     "aria-busy": aria.busy ? "true" : null,
     "aria-hidden": aria.hidden ? "true" : null,
+    "aria-checked":
+      aria.checked === undefined || aria.checked === null ? null : String(aria.checked),
+    "aria-invalid": aria.invalid ? "true" : null,
+    "aria-required": aria.required ? "true" : null,
+    "aria-description": aria.description ?? null,
+    "aria-valuenow": aria.value === undefined ? null : String(aria.value.now),
+    "aria-valuemin": aria.value === undefined ? null : String(aria.value.min),
+    "aria-valuemax": aria.value === undefined ? null : String(aria.value.max),
+    "aria-valuetext": aria.value?.text ?? null,
+    "aria-orientation": aria.orientation ?? null,
+    "aria-posinset": aria.position === undefined ? null : String(aria.position.index),
+    "aria-setsize": aria.position === undefined ? null : String(aria.position.size),
     "aria-pressed":
       aria.pressed === undefined || aria.pressed === null ? null : String(aria.pressed),
   };

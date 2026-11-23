@@ -1,5 +1,15 @@
 import type {
   ButtonTheme,
+  TextFieldTheme,
+  SearchFieldTheme,
+  CheckboxTheme,
+  SwitchTheme,
+  RadioTheme,
+  SegmentedControlTheme,
+  SliderTheme,
+  StepperTheme,
+  CalendarTheme,
+  TimePickerTheme,
   DividerTheme,
   IconButtonTheme,
   SurfaceTheme,
@@ -133,6 +143,33 @@ export const MOTION_ROLES: readonly (keyof CamoMotion & string)[] = keys<CamoMot
 
 /** The fields each component theme takes. A component joins this table when its milestone builds it. */
 export const COMPONENT_FIELDS: { [C in keyof CamoComponentThemes]-?: readonly string[] } = {
+  textField: keys<TextFieldTheme>({
+    height: true,
+    shape: true,
+    borderWidth: true,
+    padding: true,
+    iconSize: true,
+  }),
+  searchField: keys<SearchFieldTheme>({ height: true, shape: true, padding: true, iconSize: true }),
+  checkbox: keys<CheckboxTheme>({ boxSize: true, shape: true, borderWidth: true, labelGap: true }),
+  switch: keys<SwitchTheme>({
+    trackWidth: true,
+    trackHeight: true,
+    thumbSizeOff: true,
+    thumbSizeOn: true,
+    labelGap: true,
+  }),
+  radio: keys<RadioTheme>({ size: true, dotSize: true, borderWidth: true, labelGap: true }),
+  segmentedControl: keys<SegmentedControlTheme>({
+    height: true,
+    shape: true,
+    borderWidth: true,
+    iconSize: true,
+  }),
+  slider: keys<SliderTheme>({ trackHeight: true, thumbSize: true }),
+  stepper: keys<StepperTheme>({ height: true, shape: true, valueMinWidth: true, iconSize: true }),
+  calendar: keys<CalendarTheme>({ daySize: true, shape: true }),
+  timePicker: keys<TimePickerTheme>({ digitSize: true, shape: true }),
   surface: keys<SurfaceTheme>({ borderWidth: true, borderColor: true }),
   divider: keys<DividerTheme>({
     thickness: true,

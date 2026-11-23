@@ -138,11 +138,97 @@ export type CamoTokenSets = Readonly<Record<string, CamoColorScale | CamoDimensi
  * skin's `defaults(theme)` supplies the rest. Each field is the variable `--camo-<component>-<field>` (kebab-case).
  */
 export interface CamoComponentThemes {
+  textField?: TextFieldTheme;
+  searchField?: SearchFieldTheme;
+  checkbox?: CheckboxTheme;
+  switch?: SwitchTheme;
+  radio?: RadioTheme;
+  segmentedControl?: SegmentedControlTheme;
+  slider?: SliderTheme;
+  stepper?: StepperTheme;
+  calendar?: CalendarTheme;
+  timePicker?: TimePickerTheme;
   surface?: SurfaceTheme;
   divider?: DividerTheme;
   button?: ButtonTheme;
   iconButton?: IconButtonTheme;
   dialog?: DialogTheme;
+}
+
+/** The fields of a textField theme. */
+export interface TextFieldTheme {
+  height?: string;
+  shape?: string;
+  borderWidth?: string;
+  padding?: string;
+  iconSize?: string;
+}
+
+/** The fields of a searchField theme. */
+export interface SearchFieldTheme {
+  height?: string;
+  shape?: string;
+  padding?: string;
+  iconSize?: string;
+}
+
+/** The fields of a checkbox theme. */
+export interface CheckboxTheme {
+  boxSize?: string;
+  shape?: string;
+  borderWidth?: string;
+  labelGap?: string;
+}
+
+/** The fields of a switch theme. */
+export interface SwitchTheme {
+  trackWidth?: string;
+  trackHeight?: string;
+  thumbSizeOff?: string;
+  thumbSizeOn?: string;
+  labelGap?: string;
+}
+
+/** The fields of a radio theme. */
+export interface RadioTheme {
+  size?: string;
+  dotSize?: string;
+  borderWidth?: string;
+  labelGap?: string;
+}
+
+/** The fields of a segmentedControl theme. */
+export interface SegmentedControlTheme {
+  height?: string;
+  shape?: string;
+  borderWidth?: string;
+  iconSize?: string;
+}
+
+/** The fields of a slider theme. */
+export interface SliderTheme {
+  trackHeight?: string;
+  thumbSize?: string;
+}
+
+/** The fields of a stepper theme. */
+export interface StepperTheme {
+  height?: string;
+  shape?: string;
+  valueMinWidth?: string;
+  iconSize?: string;
+}
+
+/** The fields of a calendar theme. */
+export interface CalendarTheme {
+  daySize?: string;
+  shape?: string;
+}
+
+/** The fields of a timePicker theme. */
+export interface TimePickerTheme {
+  digitSize?: string;
+  shape?: string;
 }
 
 /** The fields of a surface's theme. */

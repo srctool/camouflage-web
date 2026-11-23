@@ -25,7 +25,7 @@ describe("every scenario variant", () => {
       expect(element.shadowRoot!.childNodes.length).toBeGreaterThan(0);
       expect(await axeViolations(root, variant.skin)).toEqual([]);
       if (
-        ["button", "icon-button"].includes(variant.scenario.component) &&
+        ["button", "icon-button", "checkbox", "switch"].includes(variant.scenario.component) &&
         variant.scenario.props?.["disabled"] !== true
       )
         expect(reachesTouchTarget(element), "a 48 px touch area").toBe(true);

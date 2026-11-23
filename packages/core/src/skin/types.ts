@@ -1,4 +1,5 @@
-import type { CSSResultGroup, TemplateResult } from "lit";
+import type { CSSResultGroup } from "lit";
+import type { nothing, TemplateResult } from "lit";
 import type { CamoTextStyle, CamoTheme } from "../theme/types.ts";
 
 /** What a component asks a renderer to draw (the contract's `Renderer`, base Skin Contract §3). */
@@ -22,7 +23,15 @@ export interface RenderArgs<State, Slots extends string, Style> {
   style: Style;
   /** The host skin's surface treatment and feedback, so a renderer paints and responds like its skin. */
   skin: SkinParts;
+  /**
+   * Nodes core built and the renderer only places: the editable `<input>` of a field, a stepper's buttons. They carry
+   * their own behavior, so a skin never recreates them and never formats what they show.
+   */
+  nodes?: Nodes;
 }
+
+/** Pre-built nodes by name (`input`, `decrease`, …); `nothing` when a node does not apply now (a clear button). */
+export type Nodes = { readonly [name: string]: TemplateResult | typeof nothing };
 
 /** The names of the native `<slot>` elements a renderer may place. */
 export type SlotNames<S extends string> = { readonly [K in S]: string };
@@ -274,6 +283,235 @@ export interface IconButtonStyle {
 
 export type IconButtonSlots = "icon";
 
+// --- W3: inputs ------------------------------------------------------------------------------------------------
+
+export type LabelPlacement = "above" | "floating";
+export type ButtonType = "button" | "submit" | "reset";
+export type GroupOrientation = "vertical" | "horizontal";
+/** When a form's fields validate. */
+export type ValidateMode = "disabled" | "always" | "on-user-interaction" | "on-unfocus";
+/** Where a picker's panel opens: below the field, from the bottom, or by the window width. */
+export type Presentation = "auto" | "popup" | "sheet";
+export type HourCycle = "12" | "24";
+export type LabelPosition = "start" | "end";
+
+export interface TextFieldState {
+  label: string | null;
+  placeholder: string | null;
+  supportingText: string | null;
+  /** A message: the field is in the error state and the message replaces the supporting text. */
+  error: string | null;
+  prefixText: string | null;
+  suffixText: string | null;
+  disabled: boolean;
+  focused: boolean;
+  multiline: boolean;
+  required: boolean;
+  /** Nothing typed: a floating label rests inside the field, and prefix and suffix texts are hidden. */
+  isEmpty: boolean;
+  /** The attribute, else the skin's default. */
+  labelPlacement: LabelPlacement;
+}
+
+export interface TextFieldStyle {
+  labelPlacement: LabelPlacement;
+  height: string;
+  shape: string;
+  borderWidth: string;
+  padding: string;
+  iconSize: string;
+}
+
+export type TextFieldSlots = "prefix-icon" | "suffix-icon";
+
+export interface SearchFieldState {
+  disabled: boolean;
+  focused: boolean;
+  isEmpty: boolean;
+}
+
+export interface SearchFieldStyle {
+  height: string;
+  shape: string;
+  padding: string;
+  iconSize: string;
+}
+
+export type SearchFieldSlots = "leading" | "trailing";
+
+/** A checkbox, a switch or a radio: a box with a label, a description and an error. */
+export interface ToggleState {
+  checked: boolean;
+  /** A checkbox that is neither on nor off. */
+  indeterminate: boolean;
+  label: string | null;
+  description: string | null;
+  error: string | null;
+  disabled: boolean;
+}
+
+export interface CheckboxStyle {
+  boxSize: string;
+  shape: string;
+  borderWidth: string;
+  labelGap: string;
+  labelPosition: LabelPosition;
+}
+
+export interface SwitchStyle {
+  trackWidth: string;
+  trackHeight: string;
+  thumbSizeOff: string;
+  thumbSizeOn: string;
+  labelGap: string;
+  labelPosition: LabelPosition;
+}
+
+export interface RadioStyle {
+  size: string;
+  dotSize: string;
+  borderWidth: string;
+  labelGap: string;
+  labelPosition: LabelPosition;
+}
+
+/** The label of a toggle is the `label` value, or rich content in the default slot. */
+export type ToggleSlots = "label";
+
+export interface SegmentedControlState {
+  disabled: boolean;
+  multiple: boolean;
+}
+
+export interface SegmentedControlStyle {
+  height: string;
+  shape: string;
+  borderWidth: string;
+  iconSize: string;
+  showCheckIcon: boolean;
+}
+
+export type SegmentedControlSlots = "content";
+
+export type SegmentPosition = "first" | "middle" | "last" | "only";
+
+export interface SegmentState {
+  selected: boolean;
+  disabled: boolean;
+  multiple: boolean;
+  position: SegmentPosition;
+  label: string | null;
+  icon: IconArtwork | null;
+}
+
+export type SegmentStyle = SegmentedControlStyle;
+export type SegmentSlots = "content";
+
+export interface SliderState {
+  /** 0 to 1 along the track. */
+  fraction: number;
+  /** The number of stops, ends included, or 0 for a continuous slider. */
+  stops: number;
+  disabled: boolean;
+  dragging: boolean;
+  valueText: string | null;
+}
+
+export interface SliderStyle {
+  trackHeight: string;
+  thumbSize: string;
+  showStopMarks: boolean;
+  showValueLabel: boolean;
+}
+
+export type SliderSlots = never;
+
+export interface StepperState {
+  valueText: string;
+  disabled: boolean;
+  error: boolean;
+  focused: boolean;
+}
+
+export interface StepperStyle {
+  layout: "inline" | "split";
+  height: string;
+  shape: string;
+  valueMinWidth: string;
+  iconSize: string;
+}
+
+export type StepperSlots = never;
+
+/** One day of a calendar grid. */
+export interface CalendarDay {
+  /** `2026-11-22`. */
+  iso: string;
+  day: number;
+  /** The day's full name for screen readers: "Sunday, 22 November 2026". */
+  label: string;
+  inMonth: boolean;
+  enabled: boolean;
+  selected: boolean;
+  today: boolean;
+  /** Where in a range: `start`, `middle`, `end`, or `none`. */
+  range: "none" | "start" | "middle" | "end";
+  /** The one day in the tab order. */
+  tabbable: boolean;
+}
+
+export interface CalendarState {
+  monthLabel: string;
+  /** Short and long weekday names, starting at the first day of the week. */
+  weekdays: { short: string; long: string }[];
+  weeks: CalendarDay[][];
+  canPrevious: boolean;
+  canNext: boolean;
+  previousLabel: string;
+  nextLabel: string;
+  /** What the buttons do; the renderer binds them and decides nothing. */
+  actions: {
+    select(iso: string): void;
+    previous(): void;
+    next(): void;
+  };
+}
+
+export interface CalendarStyle {
+  daySize: string;
+  shape: string;
+  showOutsideDays: boolean;
+}
+
+export type CalendarSlots = never;
+
+export interface TimePickerState {
+  hour: number;
+  minute: number;
+  is24Hour: boolean;
+  period: "am" | "pm";
+  /** The values each column offers (hours as the user reads them: 1 to 12, or 0 to 23). */
+  hours: number[];
+  minutes: number[];
+  periodLabels: { am: string; pm: string };
+  hourLabel: string;
+  minuteLabel: string;
+  actions: {
+    setHour(hour: number): void;
+    setMinute(minute: number): void;
+    setPeriod(period: "am" | "pm"): void;
+  };
+}
+
+export interface TimePickerStyle {
+  /** The picker's form: number fields, or scrolling wheels. */
+  style: "fields" | "wheel";
+  digitSize: string;
+  shape: string;
+}
+
+export type TimePickerSlots = never;
+
 /**
  * The renderer each component needs, by component name. A milestone that builds a component adds its line here, and
  * from then on every complete skin must provide it: `defineSkin` and `satisfies CamoSkin` report the missing one by
@@ -286,6 +524,21 @@ export interface SkinComponents {
   readonly divider: Renderer<DividerState, DividerSlots, DividerStyle>;
   readonly button: Renderer<ButtonState, ButtonSlots, ButtonStyle>;
   readonly iconButton: Renderer<IconButtonState, IconButtonSlots, IconButtonStyle>;
+  readonly textField: Renderer<TextFieldState, TextFieldSlots, TextFieldStyle>;
+  readonly searchField: Renderer<SearchFieldState, SearchFieldSlots, SearchFieldStyle>;
+  readonly checkbox: Renderer<ToggleState, ToggleSlots, CheckboxStyle>;
+  readonly switch: Renderer<ToggleState, ToggleSlots, SwitchStyle>;
+  readonly radio: Renderer<ToggleState, ToggleSlots, RadioStyle>;
+  readonly segmentedControl: Renderer<
+    SegmentedControlState,
+    SegmentedControlSlots,
+    SegmentedControlStyle
+  >;
+  readonly segment: Renderer<SegmentState, SegmentSlots, SegmentStyle>;
+  readonly slider: Renderer<SliderState, SliderSlots, SliderStyle>;
+  readonly stepper: Renderer<StepperState, StepperSlots, StepperStyle>;
+  readonly calendar: Renderer<CalendarState, CalendarSlots, CalendarStyle>;
+  readonly timePicker: Renderer<TimePickerState, TimePickerSlots, TimePickerStyle>;
   readonly dialog: Renderer<DialogState, DialogSlots, DialogStyle>;
 }
 

@@ -6,13 +6,14 @@ The third platform of [Camouflage](https://github.com/srctool/camouflage), next 
 written in TypeScript with [Lit](https://lit.dev), usable from any framework or plain HTML, from Tauri webviews, and
 with **server rendering**.
 
-> **Status: W2, the primitives and actions.** `camo-text`, `camo-icon` (with `registerIcons`), `camo-surface`,
-> `camo-divider`, `camo-button` and `camo-icon-button` are built in both skins, with `camo-provider` and `camo-dialog`, on
-> **W1's foundations**: the theme model, the provider and its environment, the skin contract and behavior layer, the
-> scenario-driven test harness, and the contract, manifest and typings checks. More components follow in W3 to W9. The
-> design notes are in the [contributor docs](https://camouflage-dev.srctool.com) (the "Web (planned)" sections); the
-> findings are in [docs/spike-findings.md](docs/spike-findings.md) (W0), [docs/w1-findings.md](docs/w1-findings.md) and
-> [docs/w2-findings.md](docs/w2-findings.md).
+> **Status: W3, the inputs.** Text and search field, checkbox, switch, radio, segmented control, slider, stepper, form,
+> calendar, date picker and time picker, all form-associated, join W2's `camo-text`, `camo-icon`, `camo-surface`,
+> `camo-divider`, `camo-button` and `camo-icon-button`, with `camo-provider` and `camo-dialog`, on **W1's foundations**:
+> the theme model, the provider and its environment, the skin contract and behavior layer, the scenario-driven test
+> harness, and the contract, manifest and typings checks. More components follow in W4 to W9. The design notes are in the
+> [contributor docs](https://camouflage-dev.srctool.com) (the "Web (planned)" sections); the findings are in
+> [docs/spike-findings.md](docs/spike-findings.md) (W0), [docs/w1-findings.md](docs/w1-findings.md),
+> [docs/w2-findings.md](docs/w2-findings.md) and [docs/w3-findings.md](docs/w3-findings.md).
 
 ## How it fits together
 
@@ -75,6 +76,7 @@ pnpm exec playwright install chromium firefox webkit   # once
 - [docs/adding-a-component.md](docs/adding-a-component.md): the checklist for a new component.
 - [docs/skins.md](docs/skins.md): how each skin renders what exists (dialect alignment).
 - [docs/w2-findings.md](docs/w2-findings.md): what the primitives settled.
+- [docs/w3-findings.md](docs/w3-findings.md): what the inputs settled (forms, validation, pickers, the gaps).
 - [docs/browser-baseline.md](docs/browser-baseline.md), [docs/publishing.md](docs/publishing.md).
 
 ## Publishing

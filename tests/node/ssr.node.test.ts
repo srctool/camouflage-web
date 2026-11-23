@@ -190,3 +190,97 @@ describe("the W2 components on the server", () => {
     expect(page("cupertino")).toContain("--t-link-decoration: none");
   });
 });
+
+describe("the W3 inputs on the server", () => {
+  const page = (skin: string): string =>
+    squash(
+      renderToString(
+        html`<camo-provider skin=${skin} scheme="light">
+          <camo-text-field name="email" label="Email" value="ada@example.com" supporting-text="Helper" prefix-text="+62"></camo-text-field>
+          <camo-text-field label="Bad" error="Wrong" label-placement="floating"></camo-text-field>
+          <camo-search-field value="cam"></camo-search-field>
+          <camo-checkbox label="Remember" checked description="On this device"></camo-checkbox>
+          <camo-switch label="Wi-Fi" checked></camo-switch>
+          <camo-radio-group label="Plan" value="pro">
+            <camo-radio value="free" label="Free"></camo-radio>
+            <camo-radio value="pro" label="Pro" checked></camo-radio>
+          </camo-radio-group>
+          <camo-segmented-control label="Range" value="week">
+            <camo-segment value="day" label="Day"></camo-segment>
+            <camo-segment value="week" label="Week" selected></camo-segment>
+          </camo-segmented-control>
+          <camo-slider label="Volume" min="0" max="100" value="30"></camo-slider>
+          <camo-stepper label="Quantity" min="1" max="10" value="3"></camo-stepper>
+          <camo-calendar value="2026-11-18" today="2026-11-22" locale="en-US"></camo-calendar>
+          <camo-date-picker label="Birth" value="2026-11-18" locale="en-US"></camo-date-picker>
+          <camo-time-picker label="Pickup" value="14:30" locale="en-US"></camo-time-picker>
+        </camo-provider>`,
+      ),
+    );
+
+  it.each(["minimal", "cupertino"])(
+    "renders every one into declarative shadow DOM under %s, with no script",
+    (skin) => {
+      const out = page(skin);
+      for (const tag of [
+        "camo-text-field",
+        "camo-search-field",
+        "camo-checkbox",
+        "camo-switch",
+        "camo-radio-group",
+        "camo-radio",
+        "camo-segmented-control",
+        "camo-segment",
+        "camo-slider",
+        "camo-stepper",
+        "camo-calendar",
+        "camo-date-picker",
+        "camo-time-picker",
+      ])
+        expect(out, tag).toContain(`<${tag}`);
+      expect(out).not.toContain("<script");
+    },
+  );
+
+  it("puts the editable value and the label links in the first bytes", () => {
+    const out = page("minimal");
+    expect(out).toMatch(/<input[^>]*id="input"[^>]*value="ada@example.com"/);
+    expect(out).toContain('aria-labelledby="label"');
+    expect(out).toContain('aria-describedby="supporting"');
+    expect(out).toContain('aria-describedby="error"');
+    expect(out).toContain("Helper");
+    expect(out).toContain("Wrong");
+    expect(out).toMatch(/<input[^>]*type="search"[^>]*value="cam"/);
+    expect(out).toMatch(/value="Nov 18, 2026"/);
+    expect(out).toMatch(/value="2:30\s?PM"/);
+  });
+
+  it("carries role, name and state as attributes", () => {
+    const out = page("minimal");
+    expect(out).toMatch(
+      /<camo-checkbox[^>]*role="checkbox"[^>]*aria-label="Remember"[^>]*aria-checked="true"/,
+    );
+    expect(out).toMatch(/<camo-switch[^>]*role="switch"[^>]*aria-checked="true"/);
+    expect(out).toMatch(/<camo-radio-group[^>]*role="radiogroup"[^>]*aria-label="Plan"/);
+    expect(out).toMatch(
+      /<camo-slider[^>]*role="slider"[^>]*aria-valuenow="30"[^>]*aria-valuemin="0"[^>]*aria-valuemax="100"/,
+    );
+    expect(out).toMatch(/<camo-stepper[^>]*role="group"[^>]*aria-label="Quantity"/);
+    expect(out).toContain('role="spinbutton"');
+    expect(out).toContain('aria-label="Quantity"');
+  });
+
+  it("renders the calendar month with full dates, and differs per skin where the skins differ", () => {
+    const out = page("minimal");
+    expect(out).toContain("November 2026");
+    expect(out).toContain('aria-label="Wednesday, November 18, 2026"');
+    expect(out).toContain('data-date="2026-11-18"');
+    // The same markup, a different skin: Minimal's checkbox label follows the box, Cupertino's switch is wider.
+    expect(page("minimal")).toContain("--s-track-width: var(--camo-switch-track-width, 44px)");
+    expect(page("cupertino")).toContain("--s-track-width: var(--camo-switch-track-width, 51px)");
+  });
+
+  it("gives the same page twice the same bytes", () => {
+    expect(page("cupertino")).toBe(page("cupertino"));
+  });
+});

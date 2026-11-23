@@ -51,10 +51,21 @@ export function kebab(name: string): string {
 
 // A parameter that defaults to true cannot be a bare HTML boolean, so it is inverted (Components note, 3.2). A new
 // inversion is a decision, so it is listed here and an unlisted one fails.
-const INVERTED: Record<string, string> = { enabled: "disabled", singleLine: "multiline" };
+const INVERTED: Record<string, string> = {
+  enabled: "disabled",
+  singleLine: "multiline",
+  allowTyping: "readonly",
+};
 
 // A callback that is a native event, and so needs no custom one (Components note, 3.4).
-const NATIVE_EVENTS = new Set(["onClick", "onFocusChanged", "onValueChange"]);
+const NATIVE_EVENTS = new Set([
+  "onClick",
+  "onFocusChanged",
+  "onValueChange",
+  "onValueChangeFinished",
+  "onCheckedChange",
+  "onSelectionChange",
+]);
 
 /** What the web must provide for one contract component. */
 export function expectation(component: ContractComponent): WebExpectation {

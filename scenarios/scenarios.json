@@ -753,6 +753,548 @@
         "": "<camo-icon name=\"arrow-back\"></camo-icon>"
       },
       "textScales": [1]
+    },
+    {
+      "name": "text-field-label",
+      "component": "text-field",
+      "props": {
+        "label": "Email",
+        "value": "ada@example.com",
+        "name": "email"
+      }
+    },
+    {
+      "name": "text-field-floating",
+      "component": "text-field",
+      "props": {
+        "label": "Email",
+        "value": "ada@example.com",
+        "label-placement": "floating"
+      }
+    },
+    {
+      "name": "text-field-floating-empty",
+      "component": "text-field",
+      "props": {
+        "label": "Email",
+        "label-placement": "floating"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-field-placeholder",
+      "component": "text-field",
+      "props": {
+        "label": "Name",
+        "placeholder": "Ada Lovelace"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-field-supporting",
+      "component": "text-field",
+      "props": {
+        "label": "Username",
+        "value": "ada",
+        "supporting-text": "Letters and digits only"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-field-error",
+      "component": "text-field",
+      "props": {
+        "label": "Email",
+        "value": "ada@",
+        "error": "Enter a valid email"
+      }
+    },
+    {
+      "name": "text-field-affixes",
+      "component": "text-field",
+      "props": {
+        "label": "Phone",
+        "value": "8123456789",
+        "prefix-text": "+62",
+        "suffix-text": "id"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-field-icon",
+      "component": "text-field",
+      "props": {
+        "label": "Search term",
+        "value": "camouflage"
+      },
+      "content": {
+        "prefix-icon": "<camo-icon name=\"search\"></camo-icon>",
+        "suffix-icon": "<camo-field-action label=\"Clear\"><camo-icon name=\"close\"></camo-icon></camo-field-action>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-field-multiline",
+      "component": "text-field",
+      "props": {
+        "label": "Notes",
+        "multiline": true,
+        "value": "Line one"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-field-secure",
+      "component": "text-field",
+      "props": {
+        "label": "Password",
+        "secure": true,
+        "value": "hunter2"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-field-disabled",
+      "component": "text-field",
+      "props": {
+        "label": "Email",
+        "value": "ada@example.com",
+        "disabled": true
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "text-field-required",
+      "component": "text-field",
+      "props": {
+        "label": "Email",
+        "required": true
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "search-field",
+      "component": "search-field",
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "search-field-value",
+      "component": "search-field",
+      "props": {
+        "value": "camouflage"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "search-field-disabled",
+      "component": "search-field",
+      "props": {
+        "value": "camouflage",
+        "disabled": true
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "checkbox-off",
+      "component": "checkbox",
+      "props": {
+        "label": "Remember me"
+      }
+    },
+    {
+      "name": "checkbox-on",
+      "component": "checkbox",
+      "props": {
+        "label": "Remember me",
+        "checked": true
+      }
+    },
+    {
+      "name": "checkbox-indeterminate",
+      "component": "checkbox",
+      "props": {
+        "label": "Select all",
+        "indeterminate": true
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "checkbox-description",
+      "component": "checkbox",
+      "props": {
+        "label": "Newsletter",
+        "description": "One email a month",
+        "checked": true
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "checkbox-error",
+      "component": "checkbox",
+      "props": {
+        "label": "I agree to the terms",
+        "error": "You must accept to continue"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "checkbox-disabled",
+      "component": "checkbox",
+      "props": {
+        "label": "Unavailable",
+        "checked": true,
+        "disabled": true
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "checkbox-rich",
+      "component": "checkbox",
+      "content": {
+        "": "I agree to the <strong>Terms</strong> and <em>Privacy Policy</em>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "checkbox-bare",
+      "component": "checkbox",
+      "props": {
+        "checked": true
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "switch-off",
+      "component": "switch",
+      "props": {
+        "label": "Wi-Fi"
+      }
+    },
+    {
+      "name": "switch-on",
+      "component": "switch",
+      "props": {
+        "label": "Wi-Fi",
+        "checked": true
+      }
+    },
+    {
+      "name": "switch-description",
+      "component": "switch",
+      "props": {
+        "label": "Low power mode",
+        "description": "Uses less battery",
+        "checked": true
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "switch-disabled",
+      "component": "switch",
+      "props": {
+        "label": "Airplane mode",
+        "disabled": true
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "radio-group",
+      "component": "radio-group",
+      "props": {
+        "label": "Plan",
+        "value": "pro"
+      },
+      "content": {
+        "": "<camo-radio value=\"free\" label=\"Free\"></camo-radio><camo-radio value=\"pro\" label=\"Pro\" description=\"For teams\"></camo-radio><camo-radio value=\"max\" label=\"Max\" disabled></camo-radio>"
+      }
+    },
+    {
+      "name": "radio-group-error",
+      "component": "radio-group",
+      "props": {
+        "label": "Plan",
+        "error": "Choose a plan"
+      },
+      "content": {
+        "": "<camo-radio value=\"free\" label=\"Free\"></camo-radio><camo-radio value=\"pro\" label=\"Pro\" description=\"For teams\"></camo-radio><camo-radio value=\"max\" label=\"Max\" disabled></camo-radio>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "radio-group-horizontal",
+      "component": "radio-group",
+      "props": {
+        "label": "Plan",
+        "value": "free",
+        "orientation": "horizontal"
+      },
+      "content": {
+        "": "<camo-radio value=\"free\" label=\"Free\"></camo-radio><camo-radio value=\"pro\" label=\"Pro\" description=\"For teams\"></camo-radio><camo-radio value=\"max\" label=\"Max\" disabled></camo-radio>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "segmented-control",
+      "component": "segmented-control",
+      "props": {
+        "label": "Range",
+        "value": "week"
+      },
+      "content": {
+        "": "<camo-segment value=\"day\" label=\"Day\"></camo-segment><camo-segment value=\"week\" label=\"Week\"></camo-segment><camo-segment value=\"month\" label=\"Month\"></camo-segment>"
+      }
+    },
+    {
+      "name": "segmented-control-icons",
+      "component": "segmented-control",
+      "props": {
+        "label": "View",
+        "value": "list"
+      },
+      "content": {
+        "": "<camo-segment value=\"list\" icon=\"search\" content-description=\"List\"></camo-segment><camo-segment value=\"grid\" icon=\"add\" content-description=\"Grid\"></camo-segment>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "segmented-control-disabled",
+      "component": "segmented-control",
+      "props": {
+        "label": "Range",
+        "value": "day",
+        "disabled": true
+      },
+      "content": {
+        "": "<camo-segment value=\"day\" label=\"Day\"></camo-segment><camo-segment value=\"week\" label=\"Week\"></camo-segment><camo-segment value=\"month\" label=\"Month\"></camo-segment>"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "slider-continuous",
+      "component": "slider",
+      "props": {
+        "label": "Volume",
+        "value": 0.4
+      }
+    },
+    {
+      "name": "slider-steps",
+      "component": "slider",
+      "props": {
+        "label": "Rating",
+        "min": 0,
+        "max": 10,
+        "step": 2,
+        "value": 6
+      }
+    },
+    {
+      "name": "slider-disabled",
+      "component": "slider",
+      "props": {
+        "label": "Volume",
+        "value": 0.7,
+        "disabled": true
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "stepper",
+      "component": "stepper",
+      "props": {
+        "label": "Quantity",
+        "min": 1,
+        "max": 10,
+        "value": 2
+      }
+    },
+    {
+      "name": "stepper-error",
+      "component": "stepper",
+      "props": {
+        "label": "Quantity",
+        "min": 1,
+        "max": 10,
+        "value": 2,
+        "error": "Too many"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "stepper-disabled",
+      "component": "stepper",
+      "props": {
+        "label": "Quantity",
+        "min": 1,
+        "max": 10,
+        "value": 2,
+        "disabled": true
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "stepper-decimals",
+      "component": "stepper",
+      "props": {
+        "label": "Weight",
+        "min": 0,
+        "max": 5,
+        "step": 0.25,
+        "decimals": 2,
+        "value": 1.5
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "calendar",
+      "component": "calendar",
+      "props": {
+        "today": "2026-11-22",
+        "locale": "en-US",
+        "month": "2026-11",
+        "value": "2026-11-18"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "calendar-range",
+      "component": "calendar",
+      "props": {
+        "today": "2026-11-22",
+        "locale": "en-US",
+        "month": "2026-11",
+        "range": true,
+        "start": "2026-11-10",
+        "end": "2026-11-16"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "calendar-limits",
+      "component": "calendar",
+      "props": {
+        "today": "2026-11-22",
+        "locale": "en-US",
+        "month": "2026-11",
+        "value": "2026-11-18",
+        "min": "2026-11-05",
+        "max": "2026-11-25"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "calendar-monday",
+      "component": "calendar",
+      "props": {
+        "today": "2026-11-22",
+        "locale": "en-GB",
+        "month": "2026-11",
+        "value": "2026-11-18"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "date-picker",
+      "component": "date-picker",
+      "props": {
+        "label": "Birth date",
+        "locale": "en-US",
+        "value": "2026-11-18"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "date-picker-empty",
+      "component": "date-picker",
+      "props": {
+        "label": "Birth date",
+        "placeholder": "Pick a date",
+        "locale": "en-US"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "date-picker-error",
+      "component": "date-picker",
+      "props": {
+        "label": "Birth date",
+        "locale": "en-US",
+        "error": "Pick a date"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "time-picker",
+      "component": "time-picker",
+      "props": {
+        "label": "Pickup",
+        "locale": "en-US",
+        "value": "14:30"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "time-picker-24",
+      "component": "time-picker",
+      "props": {
+        "label": "Pickup",
+        "locale": "en-GB",
+        "value": "14:30"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
     }
   ]
 }

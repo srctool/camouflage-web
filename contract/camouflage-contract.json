@@ -287,6 +287,13 @@
           "default": false
         },
         {
+          "name": "type",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Button", "Submit", "Reset"],
+          "default": "Button"
+        },
+        {
           "name": "prefixIcon",
           "kind": "slot"
         },
@@ -495,6 +502,1217 @@
         {
           "name": "disabledContentAlpha",
           "type": "number"
+        }
+      ]
+    },
+    {
+      "name": "TextField",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "placeholder",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "supportingText",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "error",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "prefixText",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "suffixText",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "singleLine",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "secure",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "labelPlacement",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Above", "Floating"],
+          "default": null
+        },
+        {
+          "name": "name",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "required",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "prefixIcon",
+          "kind": "slot"
+        },
+        {
+          "name": "suffixIcon",
+          "kind": "slot"
+        },
+        {
+          "name": "onValueChange",
+          "kind": "callback"
+        },
+        {
+          "name": "onFocusChanged",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "labelPlacement",
+          "type": "LabelPlacement",
+          "web": "gap"
+        },
+        {
+          "name": "height",
+          "type": "length"
+        },
+        {
+          "name": "shape",
+          "type": "length"
+        },
+        {
+          "name": "borderWidth",
+          "type": "length"
+        },
+        {
+          "name": "padding",
+          "type": "length"
+        },
+        {
+          "name": "iconSize",
+          "type": "length"
+        }
+      ]
+    },
+    {
+      "name": "SearchField",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "placeholder",
+          "kind": "value",
+          "type": "string",
+          "default": "Search"
+        },
+        {
+          "name": "clearLabel",
+          "kind": "value",
+          "type": "string",
+          "default": "Clear search"
+        },
+        {
+          "name": "name",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "leading",
+          "kind": "slot"
+        },
+        {
+          "name": "trailing",
+          "kind": "slot"
+        },
+        {
+          "name": "onValueChange",
+          "kind": "callback"
+        },
+        {
+          "name": "onSearch",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "height",
+          "type": "length"
+        },
+        {
+          "name": "shape",
+          "type": "length"
+        },
+        {
+          "name": "padding",
+          "type": "length"
+        },
+        {
+          "name": "iconSize",
+          "type": "length"
+        }
+      ]
+    },
+    {
+      "name": "Checkbox",
+      "parameters": [
+        {
+          "name": "checked",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "indeterminate",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "description",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "error",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": "on"
+        },
+        {
+          "name": "name",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "required",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onCheckedChange",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "boxSize",
+          "type": "length"
+        },
+        {
+          "name": "shape",
+          "type": "length"
+        },
+        {
+          "name": "borderWidth",
+          "type": "length"
+        },
+        {
+          "name": "labelGap",
+          "type": "length"
+        },
+        {
+          "name": "labelPosition",
+          "type": "LabelPosition",
+          "web": "gap"
+        }
+      ]
+    },
+    {
+      "name": "Switch",
+      "parameters": [
+        {
+          "name": "checked",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "description",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "error",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": "on"
+        },
+        {
+          "name": "name",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "required",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onCheckedChange",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "trackWidth",
+          "type": "length"
+        },
+        {
+          "name": "trackHeight",
+          "type": "length"
+        },
+        {
+          "name": "thumbSizeOff",
+          "type": "length"
+        },
+        {
+          "name": "thumbSizeOn",
+          "type": "length"
+        },
+        {
+          "name": "labelGap",
+          "type": "length"
+        },
+        {
+          "name": "labelPosition",
+          "type": "LabelPosition",
+          "web": "gap"
+        }
+      ]
+    },
+    {
+      "name": "Radio",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "description",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "checked",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "size",
+          "type": "length"
+        },
+        {
+          "name": "dotSize",
+          "type": "length"
+        },
+        {
+          "name": "borderWidth",
+          "type": "length"
+        },
+        {
+          "name": "labelGap",
+          "type": "length"
+        },
+        {
+          "name": "labelPosition",
+          "type": "LabelPosition",
+          "web": "gap"
+        }
+      ]
+    },
+    {
+      "name": "RadioGroup",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "error",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "orientation",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Vertical", "Horizontal"],
+          "default": "Vertical"
+        },
+        {
+          "name": "name",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "required",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onValueChange",
+          "kind": "callback"
+        }
+      ]
+    },
+    {
+      "name": "SegmentedControl",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "multiple",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "name",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onSelectionChange",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "height",
+          "type": "length"
+        },
+        {
+          "name": "shape",
+          "type": "length"
+        },
+        {
+          "name": "borderWidth",
+          "type": "length"
+        },
+        {
+          "name": "iconSize",
+          "type": "length"
+        },
+        {
+          "name": "showCheckIcon",
+          "type": "boolean",
+          "web": "gap"
+        }
+      ]
+    },
+    {
+      "name": "Segment",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "icon",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "contentDescription",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ]
+    },
+    {
+      "name": "Slider",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "min",
+          "kind": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "max",
+          "kind": "value",
+          "type": "number",
+          "default": 1
+        },
+        {
+          "name": "step",
+          "kind": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "name",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "onValueChange",
+          "kind": "callback"
+        },
+        {
+          "name": "onValueChangeFinished",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "trackHeight",
+          "type": "length"
+        },
+        {
+          "name": "thumbSize",
+          "type": "length"
+        },
+        {
+          "name": "showStopMarks",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "showValueLabel",
+          "type": "boolean",
+          "web": "gap"
+        }
+      ]
+    },
+    {
+      "name": "Stepper",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "min",
+          "kind": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "max",
+          "kind": "value",
+          "type": "number"
+        },
+        {
+          "name": "step",
+          "kind": "value",
+          "type": "number",
+          "default": 1
+        },
+        {
+          "name": "decimals",
+          "kind": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "decreaseLabel",
+          "kind": "value",
+          "type": "string",
+          "default": "Decrease"
+        },
+        {
+          "name": "increaseLabel",
+          "kind": "value",
+          "type": "string",
+          "default": "Increase"
+        },
+        {
+          "name": "allowTyping",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "error",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "required",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "name",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "onValueChange",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "layout",
+          "type": "StepperLayout",
+          "web": "gap"
+        },
+        {
+          "name": "height",
+          "type": "length"
+        },
+        {
+          "name": "shape",
+          "type": "length"
+        },
+        {
+          "name": "valueMinWidth",
+          "type": "length"
+        },
+        {
+          "name": "iconSize",
+          "type": "length"
+        }
+      ]
+    },
+    {
+      "name": "Form",
+      "parameters": [
+        {
+          "name": "validateMode",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Disabled", "Always", "OnUserInteraction", "OnUnfocus"],
+          "default": "Disabled"
+        },
+        {
+          "name": "requiredMessage",
+          "kind": "value",
+          "type": "string",
+          "default": "This field is required."
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onSubmit",
+          "kind": "callback"
+        },
+        {
+          "name": "onInvalid",
+          "kind": "callback"
+        },
+        {
+          "name": "onChanged",
+          "kind": "callback"
+        }
+      ]
+    },
+    {
+      "name": "Calendar",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "range",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "start",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "end",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "min",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "max",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "maxLength",
+          "kind": "value",
+          "type": "number"
+        },
+        {
+          "name": "month",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "locale",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "firstDayOfWeek",
+          "kind": "value",
+          "type": "number"
+        },
+        {
+          "name": "today",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "name",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "onValueChange",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "daySize",
+          "type": "length"
+        },
+        {
+          "name": "shape",
+          "type": "length"
+        },
+        {
+          "name": "showOutsideDays",
+          "type": "boolean",
+          "web": "gap"
+        }
+      ]
+    },
+    {
+      "name": "DatePicker",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "range",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "start",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "end",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "placeholder",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "supportingText",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "error",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "min",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "max",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "maxLength",
+          "kind": "value",
+          "type": "number"
+        },
+        {
+          "name": "presentation",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Auto", "Popup", "Sheet"],
+          "default": "Auto"
+        },
+        {
+          "name": "instant",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "locale",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "okLabel",
+          "kind": "value",
+          "type": "string",
+          "default": "OK"
+        },
+        {
+          "name": "cancelLabel",
+          "kind": "value",
+          "type": "string",
+          "default": "Cancel"
+        },
+        {
+          "name": "doneLabel",
+          "kind": "value",
+          "type": "string",
+          "default": "Done"
+        },
+        {
+          "name": "clearLabel",
+          "kind": "value",
+          "type": "string",
+          "default": "Clear"
+        },
+        {
+          "name": "name",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "required",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "onValueChange",
+          "kind": "callback"
+        }
+      ]
+    },
+    {
+      "name": "TimePicker",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "placeholder",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "supportingText",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "error",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "minuteStep",
+          "kind": "value",
+          "type": "number",
+          "default": 1
+        },
+        {
+          "name": "hourCycle",
+          "kind": "value",
+          "type": "enum",
+          "values": ["12", "24"],
+          "default": null
+        },
+        {
+          "name": "min",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "max",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "presentation",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Auto", "Popup", "Sheet"],
+          "default": "Auto"
+        },
+        {
+          "name": "instant",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "locale",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "okLabel",
+          "kind": "value",
+          "type": "string",
+          "default": "OK"
+        },
+        {
+          "name": "cancelLabel",
+          "kind": "value",
+          "type": "string",
+          "default": "Cancel"
+        },
+        {
+          "name": "name",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "required",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "onValueChange",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "style",
+          "type": "TimePickerStyle",
+          "web": "gap"
+        },
+        {
+          "name": "digitSize",
+          "type": "length"
+        },
+        {
+          "name": "shape",
+          "type": "length"
+        }
+      ]
+    },
+    {
+      "name": "FieldAction",
+      "parameters": [
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "onClick",
+          "kind": "callback"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
         }
       ]
     },

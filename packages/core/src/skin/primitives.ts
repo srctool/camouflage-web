@@ -292,8 +292,8 @@ export const iconButtonBase: Base<IconButtonState, IconButtonSlots, IconButtonSt
       border-radius: var(--camo-shape-small);
       background: var(--camo-color-inverse-surface);
       color: var(--camo-color-inverse-on-surface);
-      font: var(--camo-typography-label-small-weight) var(--camo-typography-label-small-size) /
-        var(--camo-typography-label-small-line-height) var(--camo-typography-label-small-family);
+      font: var(--camo-type-label-small-weight) var(--camo-type-label-small-size) /
+        var(--camo-type-label-small-line-height) var(--camo-type-label-small-family);
       white-space: nowrap;
       opacity: 0;
       pointer-events: none;

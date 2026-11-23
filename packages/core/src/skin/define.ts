@@ -11,6 +11,17 @@ const names = [
   "divider",
   "button",
   "iconButton",
+  "textField",
+  "searchField",
+  "checkbox",
+  "switch",
+  "radio",
+  "segmentedControl",
+  "segment",
+  "slider",
+  "stepper",
+  "calendar",
+  "timePicker",
   "dialog",
 ] as const satisfies readonly ComponentName[];
 type Missing = Exclude<ComponentName, (typeof names)[number]>;
