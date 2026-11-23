@@ -12,7 +12,11 @@ describe("the generated typings", () => {
   it("name every element of the manifest in the tag map, and no other", () => {
     const map = read("packages/core/src/elements.ts");
     for (const el of elements) expect(map).toContain(`"${el.tagName}": ${el.name};`);
-    expect([...map.matchAll(/^\s{4}"(camo-[\w-]+)": \w+;/gm)].map((m) => m[1]).sort()).toEqual(
+    const tags = map.slice(
+      map.indexOf("HTMLElementTagNameMap"),
+      map.indexOf("HTMLElementEventMap"),
+    );
+    expect([...tags.matchAll(/^\s{4}"(camo-[\w-]+)": \w+;/gm)].map((m) => m[1]).sort()).toEqual(
       elements.map((e) => e.tagName).sort(),
     );
   });

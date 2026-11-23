@@ -3,26 +3,47 @@
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
 import type {
   Appearance,
+  ButtonType,
   CamoButton,
+  CamoCalendar,
+  CamoCheckbox,
+  CamoDatePicker,
   CamoDialog,
   CamoDivider,
+  CamoFieldAction,
+  CamoForm,
   CamoIcon,
   CamoIconButton,
   CamoProvider,
+  CamoRadio,
+  CamoRadioGroup,
   CamoScheme,
+  CamoSearchField,
+  CamoSegment,
+  CamoSegmentedControl,
   CamoSkin,
+  CamoSlider,
+  CamoStepper,
   CamoSurface,
+  CamoSwitch,
   CamoText,
+  CamoTextField,
+  CamoTimePicker,
   DividerInset,
   DividerOrientation,
   ElevationName,
+  GroupOrientation,
+  HourCycle,
   InputKind,
+  LabelPlacement,
+  Presentation,
   ShapeName,
   SurfaceLevel,
   TextAlign,
   TextOverflow,
   TextVariant,
   Tone,
+  ValidateMode,
   WindowSize,
 } from "@srctool/camouflage-core";
 
@@ -39,6 +60,71 @@ declare module "react" {
           tone?: Tone;
           disabled?: boolean;
           loading?: boolean;
+          type?: ButtonType;
+        }
+      >;
+      "camo-calendar": CamoElement<
+        CamoCalendar,
+        {
+          value?: string | null;
+          range?: boolean;
+          start?: string | null;
+          end?: string | null;
+          min?: string | null;
+          max?: string | null;
+          "max-length"?: number | null;
+          month?: string | null;
+          locale?: string | null;
+          "first-day-of-week"?: number | null;
+          today?: string | null;
+          disabled?: boolean;
+          name?: string;
+          cursor?: string | null;
+          paged?: string | null;
+        }
+      >;
+      "camo-checkbox": CamoElement<
+        CamoCheckbox,
+        {
+          checked?: boolean;
+          indeterminate?: boolean;
+          label?: string | null;
+          description?: string | null;
+          error?: string;
+          value?: string;
+          disabled?: boolean;
+          required?: boolean;
+          name?: string;
+        }
+      >;
+      "camo-date-picker": CamoElement<
+        CamoDatePicker,
+        {
+          value?: string | null;
+          range?: boolean;
+          start?: string | null;
+          end?: string | null;
+          label?: string | null;
+          placeholder?: string | null;
+          "supporting-text"?: string | null;
+          error?: string;
+          min?: string | null;
+          max?: string | null;
+          "max-length"?: number | null;
+          presentation?: Presentation;
+          instant?: boolean;
+          locale?: string | null;
+          disabled?: boolean;
+          required?: boolean;
+          name?: string;
+          "done-label"?: string;
+          "clear-label"?: string;
+          draft?: { value: string | null; start: string | null; end: string | null };
+          "label-placement"?: LabelPlacement | null;
+          "ok-label"?: string;
+          "cancel-label"?: string;
+          open?: boolean;
+          focused?: boolean;
         }
       >;
       "camo-dialog": CamoElement<
@@ -54,6 +140,20 @@ declare module "react" {
         {
           orientation?: DividerOrientation;
           inset?: DividerInset;
+        }
+      >;
+      "camo-field-action": CamoElement<
+        CamoFieldAction,
+        {
+          label?: string;
+          disabled?: boolean;
+        }
+      >;
+      "camo-form": CamoElement<
+        CamoForm,
+        {
+          "validate-mode"?: ValidateMode;
+          "required-message"?: string;
         }
       >;
       "camo-icon": CamoElement<
@@ -90,6 +190,95 @@ declare module "react" {
           platform?: string | null;
         }
       >;
+      "camo-radio": CamoElement<
+        CamoRadio,
+        {
+          value?: string;
+          label?: string | null;
+          description?: string | null;
+          checked?: boolean;
+          disabled?: boolean;
+        }
+      >;
+      "camo-radio-group": CamoElement<
+        CamoRadioGroup,
+        {
+          value?: string;
+          label?: string | null;
+          error?: string;
+          orientation?: GroupOrientation;
+          disabled?: boolean;
+          required?: boolean;
+          name?: string;
+        }
+      >;
+      "camo-search-field": CamoElement<
+        CamoSearchField,
+        {
+          value?: string;
+          placeholder?: string | null;
+          "clear-label"?: string;
+          disabled?: boolean;
+          name?: string;
+          autocomplete?: string | null;
+          inputmode?: string | null;
+          focused?: boolean;
+        }
+      >;
+      "camo-segment": CamoElement<
+        CamoSegment,
+        {
+          value?: string;
+          label?: string | null;
+          icon?: string | null;
+          "content-description"?: string | null;
+          disabled?: boolean;
+          selected?: boolean;
+        }
+      >;
+      "camo-segmented-control": CamoElement<
+        CamoSegmentedControl,
+        {
+          value?: string;
+          multiple?: boolean;
+          label?: string | null;
+          disabled?: boolean;
+          name?: string;
+        }
+      >;
+      "camo-slider": CamoElement<
+        CamoSlider,
+        {
+          value?: number;
+          min?: number;
+          max?: number;
+          step?: number;
+          label?: string | null;
+          disabled?: boolean;
+          name?: string;
+          dragging?: boolean;
+        }
+      >;
+      "camo-stepper": CamoElement<
+        CamoStepper,
+        {
+          value?: number;
+          min?: number;
+          max?: number;
+          step?: number;
+          decimals?: number;
+          label?: string | null;
+          "decrease-label"?: string;
+          "increase-label"?: string;
+          readonly?: boolean;
+          error?: string;
+          disabled?: boolean;
+          required?: boolean;
+          name?: string;
+          focused?: boolean;
+          draft?: string | null;
+        }
+      >;
       "camo-surface": CamoElement<
         CamoSurface,
         {
@@ -97,6 +286,19 @@ declare module "react" {
           shape?: ShapeName;
           elevation?: ElevationName;
           border?: boolean;
+        }
+      >;
+      "camo-switch": CamoElement<
+        CamoSwitch,
+        {
+          checked?: boolean;
+          label?: string | null;
+          description?: string | null;
+          error?: string;
+          value?: string;
+          disabled?: boolean;
+          required?: boolean;
+          name?: string;
         }
       >;
       "camo-text": CamoElement<
@@ -108,6 +310,54 @@ declare module "react" {
           "max-lines"?: number;
           overflow?: TextOverflow;
           "text-align"?: TextAlign;
+        }
+      >;
+      "camo-text-field": CamoElement<
+        CamoTextField,
+        {
+          value?: string;
+          label?: string | null;
+          placeholder?: string | null;
+          "supporting-text"?: string | null;
+          error?: string;
+          "prefix-text"?: string | null;
+          "suffix-text"?: string | null;
+          multiline?: boolean;
+          secure?: boolean;
+          disabled?: boolean;
+          required?: boolean;
+          name?: string;
+          "label-placement"?: LabelPlacement | null;
+          type?: string;
+          autocomplete?: string | null;
+          inputmode?: string | null;
+          focused?: boolean;
+        }
+      >;
+      "camo-time-picker": CamoElement<
+        CamoTimePicker,
+        {
+          value?: string | null;
+          label?: string | null;
+          placeholder?: string | null;
+          "supporting-text"?: string | null;
+          error?: string;
+          "minute-step"?: number;
+          "hour-cycle"?: HourCycle | null;
+          min?: string | null;
+          max?: string | null;
+          presentation?: Presentation;
+          instant?: boolean;
+          locale?: string | null;
+          disabled?: boolean;
+          required?: boolean;
+          name?: string;
+          draft?: { hour: number; minute: number };
+          "label-placement"?: LabelPlacement | null;
+          "ok-label"?: string;
+          "cancel-label"?: string;
+          open?: boolean;
+          focused?: boolean;
         }
       >;
     }

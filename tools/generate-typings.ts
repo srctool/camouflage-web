@@ -29,15 +29,18 @@ interface Model {
   imports: { element: string; attributes: string[]; events: string[] };
 }
 
+const NATIVE = new Set(["input", "change", "click", "focus", "blur", "submit", "reset"]);
+
 function model(d: ManifestDeclaration): Model {
   const attributes = (d.attributes ?? [])
     // `data-camo-scheme` is the provider's reflected output, not something a consumer sets.
     .filter((a) => !a.name.startsWith("data-"))
     .map((a) => ({ name: a.name, type: attributeType(a), description: a.description ?? "" }));
-  const events = (d.events ?? []).map((e) => ({
-    name: e.name,
-    type: e.type?.text ?? "CustomEvent",
-  }));
+  // The platform's own events (`input`, `change`, …) keep their DOM types: documenting them in the manifest must not
+  // retype them in the global map.
+  const events = (d.events ?? [])
+    .filter((e) => !NATIVE.has(e.name))
+    .map((e) => ({ name: e.name, type: e.type?.text ?? "CustomEvent" }));
   const imports = {
     element: d.name,
     attributes: attributes.flatMap((a) => typeNames(a.type)),
@@ -62,7 +65,9 @@ function globals(models: Model[]): string {
     ...models.map((m) => `    "${m.tag}": ${m.className};`),
     "  }",
     "  interface HTMLElementEventMap {",
-    ...models.flatMap((m) => m.events.map((e) => `    "${e.name}": ${e.type};`)),
+    ...[...new Map(models.flatMap((m) => m.events).map((e) => [e.name, e])).values()].map(
+      (e) => `    "${e.name}": ${e.type};`,
+    ),
     "  }",
     "}\n",
     "export {};",

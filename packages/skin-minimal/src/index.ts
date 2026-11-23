@@ -1,5 +1,18 @@
 import { defineSkin } from "@srctool/camouflage-core";
 import type { CamoSkin } from "@srctool/camouflage-core";
+import {
+  minimalTextField,
+  minimalSearchField,
+  minimalCheckbox,
+  minimalSwitch,
+  minimalRadio,
+  minimalSegmentedControl,
+  minimalSegment,
+  minimalSlider,
+  minimalStepper,
+  minimalCalendar,
+  minimalTimePicker,
+} from "./inputs.ts";
 import { minimalButton } from "./button.ts";
 import { minimalDivider } from "./divider.ts";
 import { minimalIcon } from "./icon.ts";
@@ -24,6 +37,17 @@ export const minimalSkin: CamoSkin = defineSkin({
   divider: minimalDivider,
   button: minimalButton,
   iconButton: minimalIconButton,
+  textField: minimalTextField,
+  searchField: minimalSearchField,
+  checkbox: minimalCheckbox,
+  switch: minimalSwitch,
+  radio: minimalRadio,
+  segmentedControl: minimalSegmentedControl,
+  segment: minimalSegment,
+  slider: minimalSlider,
+  stepper: minimalStepper,
+  calendar: minimalCalendar,
+  timePicker: minimalTimePicker,
   dialog: minimalDialog,
 });
 
@@ -34,6 +58,17 @@ export {
   minimalDivider,
   minimalButton,
   minimalIconButton,
+  minimalTextField,
+  minimalSearchField,
+  minimalCheckbox,
+  minimalSwitch,
+  minimalRadio,
+  minimalSegmentedControl,
+  minimalSegment,
+  minimalSlider,
+  minimalStepper,
+  minimalCalendar,
+  minimalTimePicker,
   minimalDialog,
   flat,
   fade,

@@ -82,6 +82,16 @@ describe("camouflage-contract.json", () => {
       Divider: [],
       Button: ["defaultAppearance"],
       IconButton: ["defaultAppearance"],
+      TextField: ["labelPlacement"],
+      SearchField: [],
+      Checkbox: ["labelPosition"],
+      Switch: ["labelPosition"],
+      Radio: ["labelPosition"],
+      SegmentedControl: ["showCheckIcon"],
+      Slider: ["showStopMarks", "showValueLabel"],
+      Stepper: ["layout"],
+      Calendar: ["showOutsideDays"],
+      TimePicker: ["style"],
       Dialog: ["titleAlign", "actionsLayout", "showCloseButton", "stackedScrim"],
     });
   });

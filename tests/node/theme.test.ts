@@ -269,6 +269,16 @@ describe("createCamoTheme", () => {
     const theme = createCamoTheme(base, { components: { button: { height: "48px" } } });
     expect(theme.components.button).toEqual({ height: "48px" });
     expect(Object.keys(COMPONENT_FIELDS)).toEqual([
+      "textField",
+      "searchField",
+      "checkbox",
+      "switch",
+      "radio",
+      "segmentedControl",
+      "slider",
+      "stepper",
+      "calendar",
+      "timePicker",
       "surface",
       "divider",
       "iconButton",
@@ -278,8 +288,8 @@ describe("createCamoTheme", () => {
     expect(() =>
       createCamoTheme(base, { components: { button: { hieght: "48px" } } } as never),
     ).toThrow('Unknown theme key "components.button.hieght".');
-    expect(() => createCamoTheme(base, { components: { slider: { x: "1" } } } as never)).toThrow(
-      'Unknown theme key "components.slider".',
+    expect(() => createCamoTheme(base, { components: { tabs: { x: "1" } } } as never)).toThrow(
+      'Unknown theme key "components.tabs".',
     );
   });
 

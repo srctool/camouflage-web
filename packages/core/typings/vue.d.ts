@@ -3,19 +3,28 @@
 import type { DefineComponent, HTMLAttributes } from "vue";
 import type {
   Appearance,
+  ButtonType,
+  CamoBeforeChangeDetail,
   CamoCloseDetail,
+  CamoInvalidDetail,
   CamoScheme,
   CamoSkin,
+  CamoSubmitDetail,
   DividerInset,
   DividerOrientation,
   ElevationName,
+  GroupOrientation,
+  HourCycle,
   InputKind,
+  LabelPlacement,
+  Presentation,
   ShapeName,
   SurfaceLevel,
   TextAlign,
   TextOverflow,
   TextVariant,
   Tone,
+  ValidateMode,
   WindowSize,
 } from "@srctool/camouflage-core";
 
@@ -28,6 +37,71 @@ declare module "vue" {
         tone?: Tone;
         disabled?: boolean;
         loading?: boolean;
+        type?: ButtonType;
+      }
+    >;
+    CamoCalendar: DefineComponent<
+      HTMLAttributes & {
+        value?: string | null;
+        range?: boolean;
+        start?: string | null;
+        end?: string | null;
+        min?: string | null;
+        max?: string | null;
+        "max-length"?: number | null;
+        month?: string | null;
+        locale?: string | null;
+        "first-day-of-week"?: number | null;
+        today?: string | null;
+        disabled?: boolean;
+        name?: string;
+        cursor?: string | null;
+        paged?: string | null;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
+    CamoCheckbox: DefineComponent<
+      HTMLAttributes & {
+        checked?: boolean;
+        indeterminate?: boolean;
+        label?: string | null;
+        description?: string | null;
+        error?: string;
+        value?: string;
+        disabled?: boolean;
+        required?: boolean;
+        name?: string;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
+    CamoDatePicker: DefineComponent<
+      HTMLAttributes & {
+        value?: string | null;
+        range?: boolean;
+        start?: string | null;
+        end?: string | null;
+        label?: string | null;
+        placeholder?: string | null;
+        "supporting-text"?: string | null;
+        error?: string;
+        min?: string | null;
+        max?: string | null;
+        "max-length"?: number | null;
+        presentation?: Presentation;
+        instant?: boolean;
+        locale?: string | null;
+        disabled?: boolean;
+        required?: boolean;
+        name?: string;
+        "done-label"?: string;
+        "clear-label"?: string;
+        draft?: { value: string | null; start: string | null; end: string | null };
+        "label-placement"?: LabelPlacement | null;
+        "ok-label"?: string;
+        "cancel-label"?: string;
+        open?: boolean;
+        focused?: boolean;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
       }
     >;
     CamoDialog: DefineComponent<
@@ -42,6 +116,21 @@ declare module "vue" {
       HTMLAttributes & {
         orientation?: DividerOrientation;
         inset?: DividerInset;
+      }
+    >;
+    CamoFieldAction: DefineComponent<
+      HTMLAttributes & {
+        label?: string;
+        disabled?: boolean;
+      }
+    >;
+    CamoForm: DefineComponent<
+      HTMLAttributes & {
+        "validate-mode"?: ValidateMode;
+        "required-message"?: string;
+        onCamoInvalid?: (event: CustomEvent<CamoInvalidDetail>) => void;
+        onCamoSubmit?: (event: CustomEvent<CamoSubmitDetail>) => void;
+        onCamoChanged?: (event: CustomEvent) => void;
       }
     >;
     CamoIcon: DefineComponent<
@@ -75,12 +164,113 @@ declare module "vue" {
         platform?: string | null;
       }
     >;
+    CamoRadio: DefineComponent<
+      HTMLAttributes & {
+        value?: string;
+        label?: string | null;
+        description?: string | null;
+        checked?: boolean;
+        disabled?: boolean;
+      }
+    >;
+    CamoRadioGroup: DefineComponent<
+      HTMLAttributes & {
+        value?: string;
+        label?: string | null;
+        error?: string;
+        orientation?: GroupOrientation;
+        disabled?: boolean;
+        required?: boolean;
+        name?: string;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
+    CamoSearchField: DefineComponent<
+      HTMLAttributes & {
+        value?: string;
+        placeholder?: string | null;
+        "clear-label"?: string;
+        disabled?: boolean;
+        name?: string;
+        autocomplete?: string | null;
+        inputmode?: string | null;
+        focused?: boolean;
+        onCamoSearch?: (event: CustomEvent<{ query: string }>) => void;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
+    CamoSegment: DefineComponent<
+      HTMLAttributes & {
+        value?: string;
+        label?: string | null;
+        icon?: string | null;
+        "content-description"?: string | null;
+        disabled?: boolean;
+        selected?: boolean;
+      }
+    >;
+    CamoSegmentedControl: DefineComponent<
+      HTMLAttributes & {
+        value?: string;
+        multiple?: boolean;
+        label?: string | null;
+        disabled?: boolean;
+        name?: string;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
+    CamoSlider: DefineComponent<
+      HTMLAttributes & {
+        value?: number;
+        min?: number;
+        max?: number;
+        step?: number;
+        label?: string | null;
+        disabled?: boolean;
+        name?: string;
+        dragging?: boolean;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
+    CamoStepper: DefineComponent<
+      HTMLAttributes & {
+        value?: number;
+        min?: number;
+        max?: number;
+        step?: number;
+        decimals?: number;
+        label?: string | null;
+        "decrease-label"?: string;
+        "increase-label"?: string;
+        readonly?: boolean;
+        error?: string;
+        disabled?: boolean;
+        required?: boolean;
+        name?: string;
+        focused?: boolean;
+        draft?: string | null;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
     CamoSurface: DefineComponent<
       HTMLAttributes & {
         level?: SurfaceLevel;
         shape?: ShapeName;
         elevation?: ElevationName;
         border?: boolean;
+      }
+    >;
+    CamoSwitch: DefineComponent<
+      HTMLAttributes & {
+        checked?: boolean;
+        label?: string | null;
+        description?: string | null;
+        error?: string;
+        value?: string;
+        disabled?: boolean;
+        required?: boolean;
+        name?: string;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
       }
     >;
     CamoText: DefineComponent<
@@ -91,6 +281,54 @@ declare module "vue" {
         "max-lines"?: number;
         overflow?: TextOverflow;
         "text-align"?: TextAlign;
+      }
+    >;
+    CamoTextField: DefineComponent<
+      HTMLAttributes & {
+        value?: string;
+        label?: string | null;
+        placeholder?: string | null;
+        "supporting-text"?: string | null;
+        error?: string;
+        "prefix-text"?: string | null;
+        "suffix-text"?: string | null;
+        multiline?: boolean;
+        secure?: boolean;
+        disabled?: boolean;
+        required?: boolean;
+        name?: string;
+        "label-placement"?: LabelPlacement | null;
+        type?: string;
+        autocomplete?: string | null;
+        inputmode?: string | null;
+        focused?: boolean;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
+    CamoTimePicker: DefineComponent<
+      HTMLAttributes & {
+        value?: string | null;
+        label?: string | null;
+        placeholder?: string | null;
+        "supporting-text"?: string | null;
+        error?: string;
+        "minute-step"?: number;
+        "hour-cycle"?: HourCycle | null;
+        min?: string | null;
+        max?: string | null;
+        presentation?: Presentation;
+        instant?: boolean;
+        locale?: string | null;
+        disabled?: boolean;
+        required?: boolean;
+        name?: string;
+        draft?: { hour: number; minute: number };
+        "label-placement"?: LabelPlacement | null;
+        "ok-label"?: string;
+        "cancel-label"?: string;
+        open?: boolean;
+        focused?: boolean;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
       }
     >;
   }

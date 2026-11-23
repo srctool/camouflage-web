@@ -4,7 +4,7 @@ import { attachActivation } from "../behavior/activation.ts";
 import { applyAria } from "../behavior/aria.ts";
 import { PressController } from "../behavior/press.ts";
 import { CamouflageController } from "../controller.ts";
-import type { Appearance, ButtonState, Tone } from "../skin/types.ts";
+import type { Appearance, ButtonState, ButtonType, Tone } from "../skin/types.ts";
 import { cssBlock } from "../style.ts";
 import { tokens } from "../theme/shape.ts";
 
@@ -26,6 +26,7 @@ const SLOTS = { "prefix-icon": "prefix-icon", "suffix-icon": "suffix-icon" } as 
  * @attr {"default"|"error"|"success"|"warning"|"info"} tone - The colour family.
  * @attr {boolean} disabled - Blocks clicks and focus (the contract's `enabled`, inverted).
  * @attr {boolean} loading - Shows progress in place of the text, keeps focus, sets `aria-busy`.
+ * @attr {"button"|"submit"|"reset"} type - Inside a `camo-form`, `submit` validates and submits it, and `reset` resets it.
  */
 export class CamoButton extends LitElement {
   static override properties: PropertyDeclarations = {
@@ -34,6 +35,7 @@ export class CamoButton extends LitElement {
     tone: { type: String, reflect: true },
     disabled: { type: Boolean, reflect: true },
     loading: { type: Boolean, reflect: true },
+    type: { type: String, reflect: true },
   };
 
   static override styles: CSSResult = css`
@@ -61,6 +63,8 @@ export class CamoButton extends LitElement {
   /** The contract's `enabled`, inverted: absent means enabled. */
   declare disabled: boolean;
   declare loading: boolean;
+  /** What a click does inside a `camo-form`: nothing (`button`), submit it, or reset it. */
+  declare type: ButtonType;
 
   readonly #internals: ElementInternals = this.attachInternals();
   readonly #cx: CamouflageController = new CamouflageController(this);
@@ -74,6 +78,7 @@ export class CamoButton extends LitElement {
     this.tone = "default";
     this.disabled = false;
     this.loading = false;
+    this.type = "button";
     attachActivation(this, () => this.disabled || this.loading);
     void this.#press;
   }
