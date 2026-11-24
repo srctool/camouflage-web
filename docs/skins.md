@@ -43,6 +43,18 @@ ring for keyboard focus). 40 px buttons, radius 8, a 48 px touch area.
 | Calendar          | 40 days (48 touch), a filled circle for the selection, `primaryContainer` for the range, a ring for today                  |
 | Time picker       | **fields**: two number fields and an AM and PM control                                                                     |
 
+| Component    | Minimal (structure and overlays)                                                                                                  |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| Card         | raised by default: `surface` with a 1px `outlineVariant` hairline and no shadow; radius 8; a 2px primary border when selected     |
+| List item    | 56, 72 and 88 tall by its texts, 24 icons, hairlines **inset** from where the text starts; a selected row is `secondaryContainer` |
+| List section | edge to edge, a title above and a footer below                                                                                    |
+| Accordion    | a chevron at the **end**, 56 tall header, no fill when open                                                                       |
+| Skeleton     | a shimmer from `surfaceContainerHighest` to `surfaceContainerLow` over 1500 ms; static under reduced motion                       |
+| Bottom sheet | radius 28 top corners, `surfaceContainerLow`, a 32 by 4 handle, title at the start, up to 640 wide                                |
+| Menu         | radius 8, `surfaceContainer`, 44 rows, a check at the **end** of a checked item, level 2 depth                                    |
+| Tooltip      | `inverseSurface`, radius 4, `bodySmall`, 8 px from the anchor                                                                     |
+| Top bar      | 56 tall, the title at the **start**, a hairline once content has scrolled under it, no large title                                |
+
 ## Cupertino (Classic)
 
 Apple's system colors from the HIG tables, SF type, iOS radii, **Classic** surface (an opaque fill with a soft shadow) and
@@ -87,6 +99,16 @@ Apple's system colors from the HIG tables, SF type, iOS radii, **Classic** surfa
 | Slider            | 4 track, a 28 thumb, no value bubble                                                                                     |
 | Stepper           | inline, 32 tall                                                                                                          |
 | Time picker       | **wheels**: three scroll-snapped columns (hour, minute, AM and PM) with a selection band; each is one adjustable control |
+
+| Component    | Cupertino (structure and overlays)                                                                                                      |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Card         | `surfaceContainerLowest` on the grouped background, radius 14, no border; a selected card has a 2px accent border and a **check badge** |
+| List item    | 48, 64 and 80 tall, 28 icons, hairlines inset                                                                                           |
+| List section | **inset grouped**: a 16 px margin and a rounded panel, the title above and the footer below in small caps-weight text                   |
+| Accordion    | a chevron at the **start** (a disclosure), 44 tall header                                                                               |
+| Bottom sheet | radius 14 top corners, a 36 by 5 handle, the title **centered**                                                                         |
+| Menu         | radius 14, a deeper shadow (level 3), 200 wide at least, a check at the **start** of a checked item                                     |
+| Top bar      | 44 tall, the small title **centered**, and a **large title** under the bar that collapses as the offset grows (44 px)                   |
 
 The same `<camo-dialog>` markup gives side-by-side actions under Minimal and stacked ones under Cupertino; that is the
 contract's point, tested in the server-rendering and browser tests.

@@ -33,12 +33,6 @@ const STYLES = css`
     min-width: 0;
     visibility: var(--b-content-visibility);
   }
-  :host(:has([slot="prefix-icon"])) .content {
-    padding-inline-start: var(--b-padding-icon);
-  }
-  :host(:has([slot="suffix-icon"])) .content {
-    padding-inline-end: var(--b-padding-icon);
-  }
   .label {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -47,6 +41,13 @@ const STYLES = css`
   }
   slot {
     display: contents;
+  }
+  /* A button with an icon is padded less on that side: the icon pulls itself toward the edge (no :has on the host). */
+  ::slotted([slot="prefix-icon"]) {
+    margin-inline-start: calc(var(--b-padding-icon) - var(--b-padding));
+  }
+  ::slotted([slot="suffix-icon"]) {
+    margin-inline-end: calc(var(--b-padding-icon) - var(--b-padding));
   }
   ::slotted(*) {
     flex: none;

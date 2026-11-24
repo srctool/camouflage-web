@@ -6,10 +6,13 @@ import type {
   ButtonType,
   CamoBeforeChangeDetail,
   CamoCloseDetail,
+  CamoExpandedDetail,
   CamoInvalidDetail,
+  CamoQueryDetail,
   CamoScheme,
   CamoSkin,
   CamoSubmitDetail,
+  Detent,
   DividerInset,
   DividerOrientation,
   ElevationName,
@@ -18,7 +21,10 @@ import type {
   InputKind,
   LabelPlacement,
   Presentation,
+  SelectOption,
   ShapeName,
+  SkeletonLeading,
+  SkeletonVariant,
   SurfaceLevel,
   TextAlign,
   TextOverflow,
@@ -30,6 +36,31 @@ import type {
 
 declare module "vue" {
   interface GlobalComponents {
+    CamoAccordion: DefineComponent<
+      HTMLAttributes & {
+        title?: string;
+        subtitle?: string | null;
+        expanded?: boolean;
+        disabled?: boolean;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+        onCamoExpandedChange?: (event: CustomEvent<CamoExpandedDetail>) => void;
+      }
+    >;
+    CamoAccordionGroup: DefineComponent<
+      HTMLAttributes & {
+        "single-expand"?: boolean;
+      }
+    >;
+    CamoBottomSheet: DefineComponent<
+      HTMLAttributes & {
+        title?: string;
+        open?: boolean;
+        detent?: Detent;
+        persistent?: boolean;
+        drag?: number;
+        onCamoClose?: (event: CustomEvent<CamoCloseDetail>) => void;
+      }
+    >;
     CamoButton: DefineComponent<
       HTMLAttributes & {
         text?: string;
@@ -58,6 +89,16 @@ declare module "vue" {
         cursor?: string | null;
         paged?: string | null;
         onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
+    CamoCard: DefineComponent<
+      HTMLAttributes & {
+        appearance?: Appearance | null;
+        tone?: Tone;
+        clickable?: boolean;
+        selectable?: boolean;
+        selected?: boolean;
+        disabled?: boolean;
       }
     >;
     CamoCheckbox: DefineComponent<
@@ -155,6 +196,74 @@ declare module "vue" {
         tooltip?: string | null;
       }
     >;
+    CamoListItem: DefineComponent<
+      HTMLAttributes & {
+        headline?: string;
+        supporting?: string | null;
+        overline?: string | null;
+        clickable?: boolean;
+        selected?: boolean;
+        disabled?: boolean;
+      }
+    >;
+    CamoListSection: DefineComponent<
+      HTMLAttributes & {
+        title?: string;
+        footer?: string | null;
+        level?: SurfaceLevel;
+      }
+    >;
+    CamoMenu: DefineComponent<
+      HTMLAttributes & {
+        open?: boolean;
+        onCamoOpen?: (event: Event) => void;
+        onCamoClose?: (event: CustomEvent) => void;
+      }
+    >;
+    CamoMenuDivider: DefineComponent<HTMLAttributes & {}>;
+    CamoMenuGroup: DefineComponent<
+      HTMLAttributes & {
+        exclusive?: boolean;
+      }
+    >;
+    CamoMenuItem: DefineComponent<
+      HTMLAttributes & {
+        text?: string;
+        "trailing-text"?: string | null;
+        tone?: Tone;
+        checkable?: boolean;
+        checked?: boolean;
+        disabled?: boolean;
+      }
+    >;
+    CamoOption: DefineComponent<
+      HTMLAttributes & {
+        value?: string;
+        label?: string;
+        supporting?: string | null;
+        disabled?: boolean;
+      }
+    >;
+    CamoPagedList: DefineComponent<
+      HTMLAttributes & {
+        label?: string | null;
+        refreshable?: boolean;
+        "prefetch-distance"?: number;
+        "initial-skeleton-count"?: number;
+        "more-skeleton-count"?: number;
+        "empty-title"?: string;
+        "empty-message"?: string;
+        "error-title"?: string;
+        "retry-label"?: string;
+        "loading-label"?: string;
+        "loading-more-label"?: string;
+        pull?: number;
+        onName?: (event: Event) => void;
+        onCamoLoadMore?: (event: CustomEvent) => void;
+        onCamoRetry?: (event: CustomEvent) => void;
+        onCamoRefresh?: (event: CustomEvent) => void;
+      }
+    >;
     CamoProvider: DefineComponent<
       HTMLAttributes & {
         skin?: CamoSkin | string | null;
@@ -217,6 +326,51 @@ declare module "vue" {
         disabled?: boolean;
         name?: string;
         onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
+    CamoSelect: DefineComponent<
+      HTMLAttributes & {
+        value?: string;
+        label?: string | null;
+        placeholder?: string | null;
+        "supporting-text"?: string | null;
+        error?: string;
+        presentation?: Presentation;
+        searchable?: boolean;
+        "selected-label"?: string | null;
+        loading?: boolean;
+        "search-debounce"?: number;
+        "auto-menu-max-options"?: number;
+        disabled?: boolean;
+        required?: boolean;
+        name?: string;
+        query?: string;
+        found?: readonly SelectOption[];
+        "label-placement"?: LabelPlacement | null;
+        instant?: boolean;
+        locale?: string | null;
+        min?: string | null;
+        max?: string | null;
+        "ok-label"?: string;
+        "cancel-label"?: string;
+        open?: boolean;
+        focused?: boolean;
+        onCamoLoadMore?: (event: Event) => void;
+        onCamoOpen?: (event: Event) => void;
+        onCamoQuery?: (event: CustomEvent<CamoQueryDetail>) => void;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
+    CamoSkeleton: DefineComponent<
+      HTMLAttributes & {
+        variant?: SkeletonVariant;
+        shape?: ShapeName;
+        width?: string | null;
+        height?: string | null;
+        lines?: number;
+        "last-line-fraction"?: number;
+        size?: string | null;
+        leading?: SkeletonLeading;
       }
     >;
     CamoSlider: DefineComponent<
@@ -329,6 +483,24 @@ declare module "vue" {
         open?: boolean;
         focused?: boolean;
         onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
+    CamoTooltip: DefineComponent<
+      HTMLAttributes & {
+        text?: string;
+        "show-delay"?: number;
+        "hide-delay"?: number;
+        disabled?: boolean;
+        open?: boolean;
+        visible?: boolean;
+      }
+    >;
+    CamoTopBar: DefineComponent<
+      HTMLAttributes & {
+        title?: string;
+        "scroll-offset"?: number;
+        "scroll-target"?: string | null;
+        hidden?: boolean;
       }
     >;
   }

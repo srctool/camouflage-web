@@ -18,6 +18,19 @@ import { minimalDivider } from "./divider.ts";
 import { minimalIcon } from "./icon.ts";
 import { minimalIconButton } from "./icon-button.ts";
 import { minimalSurface } from "./surface-component.ts";
+import {
+  minimalCard,
+  minimalListItem,
+  minimalListSection,
+  minimalAccordion,
+  minimalSkeleton,
+  minimalPagedList,
+  minimalBottomSheet,
+  minimalMenu,
+  minimalMenuItem,
+  minimalTooltip,
+  minimalTopBar,
+} from "./structure.ts";
 import { minimalText } from "./text.ts";
 import { minimalDialog } from "./dialog.ts";
 import { fade } from "./feedback.ts";
@@ -37,6 +50,17 @@ export const minimalSkin: CamoSkin = defineSkin({
   divider: minimalDivider,
   button: minimalButton,
   iconButton: minimalIconButton,
+  card: minimalCard,
+  listItem: minimalListItem,
+  listSection: minimalListSection,
+  accordion: minimalAccordion,
+  skeleton: minimalSkeleton,
+  pagedList: minimalPagedList,
+  bottomSheet: minimalBottomSheet,
+  menu: minimalMenu,
+  menuItem: minimalMenuItem,
+  tooltip: minimalTooltip,
+  topBar: minimalTopBar,
   textField: minimalTextField,
   searchField: minimalSearchField,
   checkbox: minimalCheckbox,
@@ -70,6 +94,17 @@ export {
   minimalCalendar,
   minimalTimePicker,
   minimalDialog,
+  minimalCard,
+  minimalListItem,
+  minimalListSection,
+  minimalAccordion,
+  minimalSkeleton,
+  minimalPagedList,
+  minimalBottomSheet,
+  minimalMenu,
+  minimalMenuItem,
+  minimalTooltip,
+  minimalTopBar,
   flat,
   fade,
 };

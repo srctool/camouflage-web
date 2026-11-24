@@ -17,6 +17,8 @@ export interface Scenario extends Axes {
   name: string;
   component: string;
   props?: Record<string, PropValue>;
+  /** Values that are not text (a list, an object), assigned as element properties after it renders. */
+  properties?: Record<string, unknown>;
   content?: Record<string, string>;
   frame?: "element" | "page";
 }
@@ -95,4 +97,11 @@ export function scenarioMarkup(scenario: Scenario): string {
     .join("");
   const tag = `camo-${scenario.component}`;
   return `<${tag}${attributes === "" ? "" : ` ${attributes}`}>${slotted}</${tag}>`;
+}
+
+/** Assigns a scenario's `properties` to its element (the web's way of passing a list or an object). */
+export function applyProperties(root: ParentNode, scenario: Scenario): void {
+  if (scenario.properties === undefined) return;
+  const element = root.querySelector(`camo-${scenario.component}`);
+  if (element !== null) Object.assign(element, scenario.properties);
 }

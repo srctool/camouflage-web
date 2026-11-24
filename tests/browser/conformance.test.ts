@@ -23,10 +23,21 @@ describe("every scenario variant", () => {
       const { root, element } = await mountVariant(variant);
       expect(element.shadowRoot, "the element rendered a shadow root").not.toBeNull();
       expect(element.shadowRoot!.childNodes.length).toBeGreaterThan(0);
-      expect(await axeViolations(root, variant.skin)).toEqual([]);
+      // axe reads roles from attributes, and a component states its own through ElementInternals, so a rule that checks
+      // a role against its children or its attributes would fail what a screen reader sees as right: a menu's items
+      // (slotted `camo-menu-item`s) and the anchor that says it has a popup. Those two rules are left out for a menu.
+      const ignore =
+        variant.scenario.component === "menu"
+          ? ["aria-required-children", "aria-allowed-attr"]
+          : [];
+      expect(await axeViolations(root, variant.skin, ignore)).toEqual([]);
       if (
-        ["button", "icon-button", "checkbox", "switch"].includes(variant.scenario.component) &&
-        variant.scenario.props?.["disabled"] !== true
+        ["button", "icon-button", "checkbox", "switch", "list-item"].includes(
+          variant.scenario.component,
+        ) &&
+        variant.scenario.props?.["disabled"] !== true &&
+        (variant.scenario.component !== "list-item" ||
+          variant.scenario.props?.["clickable"] === true)
       )
         expect(reachesTouchTarget(element), "a 48 px touch area").toBe(true);
     });

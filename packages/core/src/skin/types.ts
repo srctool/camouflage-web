@@ -291,7 +291,7 @@ export type GroupOrientation = "vertical" | "horizontal";
 /** When a form's fields validate. */
 export type ValidateMode = "disabled" | "always" | "on-user-interaction" | "on-unfocus";
 /** Where a picker's panel opens: below the field, from the bottom, or by the window width. */
-export type Presentation = "auto" | "popup" | "sheet";
+export type Presentation = "auto" | "popup" | "menu" | "sheet";
 export type HourCycle = "12" | "24";
 export type LabelPosition = "start" | "end";
 
@@ -512,6 +512,243 @@ export interface TimePickerStyle {
 
 export type TimePickerSlots = never;
 
+// --- W4: structure and overlays ----------------------------------------------------------------------------------
+
+export interface CardState {
+  appearance: Appearance;
+  tone: Tone;
+  clickable: boolean;
+  disabled: boolean;
+  /** A selectable card (a plan, a payment method) is `true` or `false`; otherwise `null`. */
+  selected: boolean | null;
+}
+
+export interface CardStyle {
+  defaultAppearance: Appearance;
+  shape: string;
+  contentPadding: string;
+  borderWidth: string;
+  raisedElevation: string;
+  selectedBorderWidth: string;
+  selectedBorderColor: string;
+  showSelectedCheck: boolean;
+  solid: ButtonColors;
+  soft: ButtonColors;
+  raised: ButtonColors;
+  outline: ButtonColors;
+}
+
+export type CardSlots = "content";
+
+export type ListDividers = "none" | "full" | "inset";
+
+export interface ListItemState {
+  headline: string;
+  supporting: string | null;
+  overline: string | null;
+  /** 1 to 3: the row's height class, from how many texts it has. */
+  lines: 1 | 2 | 3;
+  clickable: boolean;
+  selected: boolean;
+  disabled: boolean;
+}
+
+export interface ListItemStyle {
+  minHeightOneLine: string;
+  minHeightTwoLines: string;
+  minHeightThreeLines: string;
+  contentPadding: string;
+  leadingGap: string;
+  trailingGap: string;
+  iconSize: string;
+  sectionShape: string;
+  dividers: ListDividers;
+}
+
+export type ListItemSlots = "leading" | "trailing";
+
+export interface ListSectionState {
+  title: string | null;
+  footer: string | null;
+  level: SurfaceLevel;
+}
+
+export interface ListSectionStyle {
+  sectionShape: string;
+  dividers: ListDividers;
+  /** Inset grouped (iOS): the rows sit in a rounded panel with a margin; else edge to edge. */
+  inset: boolean;
+}
+
+export type ListSectionSlots = "content";
+
+export interface AccordionState {
+  title: string;
+  subtitle: string | null;
+  expanded: boolean;
+  disabled: boolean;
+  actions: { toggle(): void };
+}
+
+export interface AccordionStyle {
+  indicator: "chevron" | "plus-minus";
+  indicatorPosition: "end" | "start";
+  headerMinHeight: string;
+  contentPadding: string;
+}
+
+export type AccordionSlots = "leading" | "content";
+
+export type SkeletonVariant = "block" | "text" | "circle" | "list-item";
+export type SkeletonLeading = "circle" | "square" | "none";
+
+export interface SkeletonState {
+  variant: SkeletonVariant;
+  shape: ShapeName;
+  width: string | null;
+  height: string | null;
+  lines: number;
+  lastLineFraction: number;
+  size: string | null;
+  leading: SkeletonLeading;
+  /** Milliseconds into the cycle now, so every skeleton on the page shimmers in step. */
+  phase: number;
+}
+
+export interface SkeletonStyle {
+  animation: "shimmer" | "pulse" | "none";
+  baseColor: string;
+  highlightColor: string;
+  cycleDuration: string;
+  textLineGap: string;
+}
+
+export type SkeletonSlots = never;
+
+export type PagedLoad = "none" | "initial" | "refresh" | "more";
+
+export interface PagedListState {
+  /** The list's accessible name. */
+  label: string | null;
+  loading: PagedLoad;
+  endReached: boolean;
+  errorScope: "first-page" | "next-page" | null;
+  errorMessage: string | null;
+  isEmpty: boolean;
+  /** A pull to refresh is in progress or the state says `refresh`. */
+  refreshing: boolean;
+  /** How far the pull has gone, 0 to 1. */
+  pull: number;
+  texts: {
+    emptyTitle: string;
+    emptyMessage: string;
+    errorTitle: string;
+    retryLabel: string;
+    loadingLabel: string;
+    loadingMoreLabel: string;
+  };
+  actions: { retry(): void };
+}
+
+export interface PagedListStyle {
+  gap: string;
+  indicatorSize: string;
+}
+
+export type PagedListSlots = "empty" | "error";
+
+export type Detent = "auto" | "medium" | "large";
+
+export interface BottomSheetState {
+  title: string | null;
+  dismissible: boolean;
+  /** 0 resting to 1 dragged fully down. */
+  dragProgress: number;
+  detent: Detent;
+  actions: { close(): void };
+}
+
+export interface BottomSheetStyle {
+  shape: string;
+  maxWidth: string;
+  contentPadding: string;
+  scrimAlpha: string;
+  handleWidth: string;
+  handleHeight: string;
+  showHandle: boolean;
+  titleAlign: "start" | "center";
+  showCloseButton: boolean;
+}
+
+export type BottomSheetSlots = "content";
+
+export interface MenuState {
+  open: boolean;
+}
+
+export interface MenuStyle {
+  shape: string;
+  minWidth: string;
+  maxWidth: string;
+  contentPadding: string;
+  elevation: string;
+  itemHeight: string;
+  iconSize: string;
+}
+
+export type MenuSlots = "entries";
+
+export interface MenuItemState {
+  text: string;
+  trailingText: string | null;
+  tone: Tone;
+  disabled: boolean;
+  /** `menuitem`, or a checkable `checkbox` or an exclusive-group `radio`. */
+  kind: "menuitem" | "checkbox" | "radio";
+  checked: boolean;
+}
+
+export interface MenuItemStyle {
+  itemHeight: string;
+  iconSize: string;
+  checkPosition: "leading" | "trailing";
+}
+
+export type MenuItemSlots = "leading-icon";
+
+export interface TooltipState {
+  text: string;
+  visible: boolean;
+}
+
+export interface TooltipStyle {
+  shape: string;
+  padding: string;
+  offset: string;
+  maxWidth: string;
+}
+
+export type TooltipSlots = never;
+
+export interface TopBarState {
+  title: string;
+  /** How far the content has scrolled under the bar, in px. */
+  scrollOffset: number;
+  scrolled: boolean;
+  visible: boolean;
+}
+
+export interface TopBarStyle {
+  titleAlign: "start" | "center";
+  divider: "never" | "when-scrolled" | "always";
+  /** A large title under the bar that collapses into it as the content scrolls (iOS). */
+  largeTitle: boolean;
+  height: string;
+  iconSize: string;
+}
+
+export type TopBarSlots = "navigation" | "actions" | "title-content";
+
 /**
  * The renderer each component needs, by component name. A milestone that builds a component adds its line here, and
  * from then on every complete skin must provide it: `defineSkin` and `satisfies CamoSkin` report the missing one by
@@ -539,6 +776,17 @@ export interface SkinComponents {
   readonly stepper: Renderer<StepperState, StepperSlots, StepperStyle>;
   readonly calendar: Renderer<CalendarState, CalendarSlots, CalendarStyle>;
   readonly timePicker: Renderer<TimePickerState, TimePickerSlots, TimePickerStyle>;
+  readonly card: Renderer<CardState, CardSlots, CardStyle>;
+  readonly listItem: Renderer<ListItemState, ListItemSlots, ListItemStyle>;
+  readonly listSection: Renderer<ListSectionState, ListSectionSlots, ListSectionStyle>;
+  readonly accordion: Renderer<AccordionState, AccordionSlots, AccordionStyle>;
+  readonly skeleton: Renderer<SkeletonState, SkeletonSlots, SkeletonStyle>;
+  readonly pagedList: Renderer<PagedListState, PagedListSlots, PagedListStyle>;
+  readonly bottomSheet: Renderer<BottomSheetState, BottomSheetSlots, BottomSheetStyle>;
+  readonly menu: Renderer<MenuState, MenuSlots, MenuStyle>;
+  readonly menuItem: Renderer<MenuItemState, MenuItemSlots, MenuItemStyle>;
+  readonly tooltip: Renderer<TooltipState, TooltipSlots, TooltipStyle>;
+  readonly topBar: Renderer<TopBarState, TopBarSlots, TopBarStyle>;
   readonly dialog: Renderer<DialogState, DialogSlots, DialogStyle>;
 }
 

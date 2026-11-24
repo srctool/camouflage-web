@@ -20,5 +20,8 @@ A checklist, in order. Each step is checked by something that fails if it is ski
 6. **Generate.** `pnpm typings` (tag map, event map, React and Vue), `pnpm manifest`.
 7. **Check.** `pnpm check`, then the Storybook screenshots (`docs/testing.md`) and commit the `-linux.png` baselines from CI.
 8. **Size.** If `pnpm size` fails, raise the budget in the same pull request, and say the new size.
-9. **Docs.** The component's note: what the spike or the milestone settled, and any gap in the contract (a theme field the web
-   cannot carry).
+9. **Slotted content.** Style what is slotted with `::slotted(...)` from the shadow root. Do not select on the host's children
+   with `:host(:has(...))` (Chromium does not support it, and a server has no children to see); a gap or an indent that depends
+   on a slot belongs to the slotted element (`::slotted([slot="leading"]) { margin-inline-end: … }`).
+10. **Docs.** The component's note: what the spike or the milestone settled, and any gap in the contract (a theme field the web
+    cannot carry).

@@ -26,6 +26,8 @@ describe("the custom properties the source names", () => {
     "--camo-icon-size",
     "--camo-veil",
     "--camo-icon-default-size",
+    "--camo-li-divider",
+    "--camo-li-inset",
   ]);
 
   it("all exist", () => {

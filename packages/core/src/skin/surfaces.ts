@@ -4,7 +4,7 @@ import type { SurfaceTreatment } from "./types.ts";
 const FILL =
   "display: inline-flex; flex: 1 1 auto; align-items: center; justify-content: center; box-sizing: border-box;";
 
-const BLOCK = "display: block; box-sizing: border-box; overflow: hidden;";
+const BLOCK = "display: block; box-sizing: border-box; inline-size: 100%; overflow: hidden;";
 
 /** Flat: a color, a shape, a hairline when asked, and no shadow (Minimal, Carbon). */
 export const flat: SurfaceTreatment = {

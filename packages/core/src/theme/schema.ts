@@ -1,5 +1,13 @@
 import type {
   ButtonTheme,
+  CardTheme,
+  ListItemTheme,
+  AccordionTheme,
+  SkeletonTheme,
+  BottomSheetTheme,
+  MenuTheme,
+  TooltipTheme,
+  TopBarTheme,
   TextFieldTheme,
   SearchFieldTheme,
   CheckboxTheme,
@@ -143,6 +151,49 @@ export const MOTION_ROLES: readonly (keyof CamoMotion & string)[] = keys<CamoMot
 
 /** The fields each component theme takes. A component joins this table when its milestone builds it. */
 export const COMPONENT_FIELDS: { [C in keyof CamoComponentThemes]-?: readonly string[] } = {
+  card: keys<CardTheme>({
+    shape: true,
+    contentPadding: true,
+    borderWidth: true,
+    raisedElevation: true,
+    selectedBorderWidth: true,
+  }),
+  listItem: keys<ListItemTheme>({
+    minHeightOneLine: true,
+    minHeightTwoLines: true,
+    minHeightThreeLines: true,
+    contentPadding: true,
+    leadingGap: true,
+    trailingGap: true,
+    iconSize: true,
+    sectionShape: true,
+  }),
+  accordion: keys<AccordionTheme>({ headerMinHeight: true, contentPadding: true }),
+  skeleton: keys<SkeletonTheme>({
+    baseColor: true,
+    highlightColor: true,
+    cycleDuration: true,
+    textLineGap: true,
+  }),
+  bottomSheet: keys<BottomSheetTheme>({
+    shape: true,
+    maxWidth: true,
+    contentPadding: true,
+    scrimAlpha: true,
+    handleWidth: true,
+    handleHeight: true,
+  }),
+  menu: keys<MenuTheme>({
+    shape: true,
+    minWidth: true,
+    maxWidth: true,
+    contentPadding: true,
+    elevation: true,
+    itemHeight: true,
+    iconSize: true,
+  }),
+  tooltip: keys<TooltipTheme>({ shape: true, padding: true, offset: true, maxWidth: true }),
+  topBar: keys<TopBarTheme>({ height: true, iconSize: true }),
   textField: keys<TextFieldTheme>({
     height: true,
     shape: true,

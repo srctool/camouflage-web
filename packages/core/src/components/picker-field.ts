@@ -1,5 +1,5 @@
 import { LitElement, css, html, nothing } from "lit";
-import type { CSSResult, PropertyDeclarations, TemplateResult } from "lit";
+import type { CSSResultGroup, PropertyDeclarations, TemplateResult } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { CamoControl } from "../behavior/control.ts";
 import type { ControlValue } from "../behavior/control.ts";
@@ -39,7 +39,7 @@ export abstract class CamoPickerField extends CamoControl {
     focused: { state: true },
   };
 
-  static override styles: CSSResult = css`
+  static override styles: CSSResultGroup = css`
     :host {
       display: inline-block;
     }
@@ -149,9 +149,15 @@ export abstract class CamoPickerField extends CamoControl {
     (this.renderRoot?.querySelector<HTMLElement>(".camo-input") ?? this).focus(options);
   }
 
-  get #sheet(): boolean {
+  /** Whether the panel opens from the bottom: by `presentation`, and for `auto` by the window width. */
+  protected usesSheet(): boolean {
     if (this.presentation !== "auto") return this.presentation === "sheet";
     return this.cx.environment.windowSize === "compact";
+  }
+
+  /** Whether the popup is at least as wide as the field (a select's menu). */
+  protected matchesFieldWidth(): boolean {
+    return false;
   }
 
   async show(): Promise<void> {
@@ -183,8 +189,9 @@ export abstract class CamoPickerField extends CamoControl {
   }
 
   #position(popup: HTMLElement): void {
-    if (this.#sheet) return;
+    if (this.usesSheet()) return;
     const anchor = this.getBoundingClientRect();
+    if (this.matchesFieldWidth()) popup.style.minInlineSize = `${anchor.width}px`;
     const width = popup.offsetWidth;
     const height = popup.offsetHeight;
     const rtl = getComputedStyle(this).direction === "rtl";
@@ -302,7 +309,7 @@ export abstract class CamoPickerField extends CamoControl {
       ? skin.surfaceTreatment.decorate({
           child: html`<div class="panel">${this.renderPanel()}</div>`,
           color: tokens.colors.surfaceContainerHigh,
-          shape: this.#sheet
+          shape: this.usesSheet()
             ? `${tokens.shapes.extraLarge} ${tokens.shapes.extraLarge} 0 0`
             : tokens.shapes.large,
           elevation: tokens.elevation.level3,
@@ -319,7 +326,7 @@ export abstract class CamoPickerField extends CamoControl {
       nodes: { input: html`${this.renderInput()}${icon}` },
     })}
     <div
-      class="camo-popup ${this.#sheet ? "sheet" : ""}"
+      class="camo-popup ${this.usesSheet() ? "sheet" : ""}"
       popover="auto"
       role="dialog"
       aria-label=${this.panelLabel()}

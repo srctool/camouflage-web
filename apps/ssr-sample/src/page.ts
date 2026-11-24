@@ -74,6 +74,26 @@ export function inputsPage(skin: string, scheme: string): TemplateResult {
   </camo-provider>`;
 }
 
+/**
+ * The structure page: containers, lists, a top bar and a select, server-rendered and then hydrated. Server rendering
+ * cannot read an element's children, so what depends on them (a select's chosen label, the segments) is written down.
+ */
+export function structurePage(skin: string, scheme: string): TemplateResult {
+  return html`<camo-provider skin=${skin} scheme=${scheme} class="page">
+    <camo-top-bar title="Inbox">
+      <camo-icon-button slot="navigation" label="Back"><camo-icon name="arrow-back"></camo-icon></camo-icon-button>
+    </camo-top-bar>
+    <camo-card appearance="outline" clickable selectable selected><camo-text text="Pro plan"></camo-text></camo-card>
+    <camo-list-section title="Network" footer="Wi-Fi uses less battery">
+      <camo-list-item headline="Wi-Fi" supporting="Home" clickable></camo-list-item>
+      <camo-list-item headline="Bluetooth" supporting="On" clickable></camo-list-item>
+    </camo-list-section>
+    <camo-accordion title="Shipping" subtitle="2 to 4 days" expanded>Ships in two days.</camo-accordion>
+    <camo-skeleton variant="list-item" lines="2"></camo-skeleton>
+    <camo-select label="Country" value="id" selected-label="Indonesia"><camo-option value="id" label="Indonesia"></camo-option></camo-select>
+  </camo-provider>`;
+}
+
 /** A dialog page: the same dialog markup under both skins, one after the other (the server renders them open). */
 export function dialogPage(skin: string, scheme: string): TemplateResult {
   return html`<camo-provider skin=${skin} scheme=${scheme} class="page">${confirmation()}</camo-provider>`;

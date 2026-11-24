@@ -18,6 +18,19 @@ import { cupertinoDivider } from "./divider.ts";
 import { cupertinoIcon } from "./icon.ts";
 import { cupertinoIconButton } from "./icon-button.ts";
 import { cupertinoSurface } from "./surface-component.ts";
+import {
+  cupertinoCard,
+  cupertinoListItem,
+  cupertinoListSection,
+  cupertinoAccordion,
+  cupertinoSkeleton,
+  cupertinoPagedList,
+  cupertinoBottomSheet,
+  cupertinoMenu,
+  cupertinoMenuItem,
+  cupertinoTooltip,
+  cupertinoTopBar,
+} from "./structure.ts";
 import { cupertinoText } from "./text.ts";
 import { cupertinoDialog } from "./dialog.ts";
 import { opacity } from "./feedback.ts";
@@ -37,6 +50,17 @@ export const cupertinoSkin: CamoSkin = defineSkin({
   divider: cupertinoDivider,
   button: cupertinoButton,
   iconButton: cupertinoIconButton,
+  card: cupertinoCard,
+  listItem: cupertinoListItem,
+  listSection: cupertinoListSection,
+  accordion: cupertinoAccordion,
+  skeleton: cupertinoSkeleton,
+  pagedList: cupertinoPagedList,
+  bottomSheet: cupertinoBottomSheet,
+  menu: cupertinoMenu,
+  menuItem: cupertinoMenuItem,
+  tooltip: cupertinoTooltip,
+  topBar: cupertinoTopBar,
   textField: cupertinoTextField,
   searchField: cupertinoSearchField,
   checkbox: cupertinoCheckbox,
@@ -70,6 +94,17 @@ export {
   cupertinoCalendar,
   cupertinoTimePicker,
   cupertinoDialog,
+  cupertinoCard,
+  cupertinoListItem,
+  cupertinoListSection,
+  cupertinoAccordion,
+  cupertinoSkeleton,
+  cupertinoPagedList,
+  cupertinoBottomSheet,
+  cupertinoMenu,
+  cupertinoMenuItem,
+  cupertinoTooltip,
+  cupertinoTopBar,
   classic,
   opacity,
 };
