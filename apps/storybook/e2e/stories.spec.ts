@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 
 type Entry = { id: string; type: string };
@@ -11,19 +12,22 @@ test("the index lists the stories under /web/", async ({ request }) => {
   expect(Object.keys(index.entries).length).toBeGreaterThanOrEqual(8);
 });
 
+// One test per story, so a growing catalogue never runs one test past its timeout (it did at W4 and W5, in the slower
+// engines). The index is read from the built Storybook the server serves.
+const built = JSON.parse(readFileSync(new URL("../dist/index.json", import.meta.url), "utf8")) as {
+  entries: Record<string, Entry>;
+};
+const ids = Object.values(built.entries)
+  .filter((e) => e.type === "story" && !e.id.startsWith("harness-"))
+  .map((e) => e.id);
+
 for (const skin of ["minimal", "cupertino"]) {
   for (const scheme of ["light", "dark"]) {
-    test(`every story renders under ${skin}, ${scheme}`, async ({ page, request }, info) => {
-      const index = (await (await request.get("/web/index.json")).json()) as {
-        entries: Record<string, Entry>;
-      };
-      const ids = Object.values(index.entries)
-        .filter((e) => e.type === "story" && !e.id.startsWith("harness-"))
-        .map((e) => e.id);
-      const errors: string[] = [];
-      page.on("pageerror", (e) => errors.push(e.message));
-      page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
-      for (const id of ids) {
+    for (const id of ids) {
+      test(`story ${id} renders under ${skin}, ${scheme}`, async ({ page }, info) => {
+        const errors: string[] = [];
+        page.on("pageerror", (e) => errors.push(e.message));
+        page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
         await page.goto(
           `/web/iframe.html?id=${id}&viewMode=story&globals=skin:${skin};scheme:${scheme}`,
         );
@@ -31,8 +35,8 @@ for (const skin of ["minimal", "cupertino"]) {
         await page.evaluate(() => customElements.whenDefined("camo-button"));
         await page.waitForTimeout(150);
         await page.screenshot({ path: info.outputPath(`${id}-${skin}-${scheme}.png`) });
-      }
-      expect(errors).toEqual([]);
-    });
+        expect(errors).toEqual([]);
+      });
+    }
   }
 }
