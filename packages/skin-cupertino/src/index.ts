@@ -31,6 +31,21 @@ import {
   cupertinoTooltip,
   cupertinoTopBar,
 } from "./structure.ts";
+import {
+  cupertinoProgressBar,
+  cupertinoProgressCircle,
+  cupertinoSnackbar,
+  cupertinoBanner,
+} from "./status.ts";
+import { cupertinoChip, cupertinoBadge, cupertinoAvatar, cupertinoFab } from "./display.ts";
+import {
+  cupertinoTabs,
+  cupertinoTab,
+  cupertinoNavItem,
+  cupertinoNavigationBar,
+  cupertinoNavigationRail,
+  cupertinoNavigationDrawer,
+} from "./navigation.ts";
 import { cupertinoText } from "./text.ts";
 import { cupertinoDialog } from "./dialog.ts";
 import { opacity } from "./feedback.ts";
@@ -73,6 +88,20 @@ export const cupertinoSkin: CamoSkin = defineSkin({
   calendar: cupertinoCalendar,
   timePicker: cupertinoTimePicker,
   dialog: cupertinoDialog,
+  progressBar: cupertinoProgressBar,
+  progressCircle: cupertinoProgressCircle,
+  snackbar: cupertinoSnackbar,
+  banner: cupertinoBanner,
+  chip: cupertinoChip,
+  badge: cupertinoBadge,
+  avatar: cupertinoAvatar,
+  fab: cupertinoFab,
+  tabs: cupertinoTabs,
+  tab: cupertinoTab,
+  navItem: cupertinoNavItem,
+  navigationBar: cupertinoNavigationBar,
+  navigationRail: cupertinoNavigationRail,
+  navigationDrawer: cupertinoNavigationDrawer,
 });
 
 export {
@@ -105,6 +134,20 @@ export {
   cupertinoMenuItem,
   cupertinoTooltip,
   cupertinoTopBar,
+  cupertinoProgressBar,
+  cupertinoProgressCircle,
+  cupertinoSnackbar,
+  cupertinoBanner,
+  cupertinoChip,
+  cupertinoBadge,
+  cupertinoAvatar,
+  cupertinoFab,
+  cupertinoTabs,
+  cupertinoTab,
+  cupertinoNavItem,
+  cupertinoNavigationBar,
+  cupertinoNavigationRail,
+  cupertinoNavigationDrawer,
   classic,
   opacity,
 };

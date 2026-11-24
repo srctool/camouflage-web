@@ -31,6 +31,21 @@ import {
   minimalTooltip,
   minimalTopBar,
 } from "./structure.ts";
+import {
+  minimalProgressBar,
+  minimalProgressCircle,
+  minimalSnackbar,
+  minimalBanner,
+} from "./status.ts";
+import { minimalChip, minimalBadge, minimalAvatar, minimalFab } from "./display.ts";
+import {
+  minimalTabs,
+  minimalTab,
+  minimalNavItem,
+  minimalNavigationBar,
+  minimalNavigationRail,
+  minimalNavigationDrawer,
+} from "./navigation.ts";
 import { minimalText } from "./text.ts";
 import { minimalDialog } from "./dialog.ts";
 import { fade } from "./feedback.ts";
@@ -73,6 +88,20 @@ export const minimalSkin: CamoSkin = defineSkin({
   calendar: minimalCalendar,
   timePicker: minimalTimePicker,
   dialog: minimalDialog,
+  progressBar: minimalProgressBar,
+  progressCircle: minimalProgressCircle,
+  snackbar: minimalSnackbar,
+  banner: minimalBanner,
+  chip: minimalChip,
+  badge: minimalBadge,
+  avatar: minimalAvatar,
+  fab: minimalFab,
+  tabs: minimalTabs,
+  tab: minimalTab,
+  navItem: minimalNavItem,
+  navigationBar: minimalNavigationBar,
+  navigationRail: minimalNavigationRail,
+  navigationDrawer: minimalNavigationDrawer,
 });
 
 export {
@@ -105,6 +134,20 @@ export {
   minimalMenuItem,
   minimalTooltip,
   minimalTopBar,
+  minimalProgressBar,
+  minimalProgressCircle,
+  minimalSnackbar,
+  minimalBanner,
+  minimalChip,
+  minimalBadge,
+  minimalAvatar,
+  minimalFab,
+  minimalTabs,
+  minimalTab,
+  minimalNavItem,
+  minimalNavigationBar,
+  minimalNavigationRail,
+  minimalNavigationDrawer,
   flat,
   fade,
 };

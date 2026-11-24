@@ -128,8 +128,8 @@
         "appearance": "outline"
       },
       "content": {
-        "prefix-icon": "<span>\u25c0</span>",
-        "suffix-icon": "<span>\u25b6</span>"
+        "prefix-icon": "<span>◀</span>",
+        "suffix-icon": "<span>▶</span>"
       }
     },
     {
@@ -1775,7 +1775,7 @@
         "open": true
       },
       "content": {
-        "": "<camo-button slot=\"anchor\" text=\"Actions\" appearance=\"outline\"></camo-button><camo-menu-item text=\"Copy\" trailing-text=\"\u2318C\"></camo-menu-item><camo-menu-item text=\"Paste\" trailing-text=\"\u2318V\"></camo-menu-item><camo-menu-divider></camo-menu-divider><camo-menu-group exclusive><camo-menu-item text=\"Newest\" checkable checked></camo-menu-item><camo-menu-item text=\"Oldest\" checkable></camo-menu-item></camo-menu-group><camo-menu-divider></camo-menu-divider><camo-menu-item text=\"Delete\" tone=\"error\"></camo-menu-item><camo-menu-item text=\"Archive\" disabled></camo-menu-item>"
+        "": "<camo-button slot=\"anchor\" text=\"Actions\" appearance=\"outline\"></camo-button><camo-menu-item text=\"Copy\" trailing-text=\"⌘C\"></camo-menu-item><camo-menu-item text=\"Paste\" trailing-text=\"⌘V\"></camo-menu-item><camo-menu-divider></camo-menu-divider><camo-menu-group exclusive><camo-menu-item text=\"Newest\" checkable checked></camo-menu-item><camo-menu-item text=\"Oldest\" checkable></camo-menu-item></camo-menu-group><camo-menu-divider></camo-menu-divider><camo-menu-item text=\"Delete\" tone=\"error\"></camo-menu-item><camo-menu-item text=\"Archive\" disabled></camo-menu-item>"
       },
       "frame": "page"
     },
@@ -1783,7 +1783,7 @@
       "name": "menu-closed",
       "component": "menu",
       "content": {
-        "": "<camo-button slot=\"anchor\" text=\"Actions\" appearance=\"outline\"></camo-button><camo-menu-item text=\"Copy\" trailing-text=\"\u2318C\"></camo-menu-item><camo-menu-item text=\"Paste\" trailing-text=\"\u2318V\"></camo-menu-item><camo-menu-divider></camo-menu-divider><camo-menu-group exclusive><camo-menu-item text=\"Newest\" checkable checked></camo-menu-item><camo-menu-item text=\"Oldest\" checkable></camo-menu-item></camo-menu-group><camo-menu-divider></camo-menu-divider><camo-menu-item text=\"Delete\" tone=\"error\"></camo-menu-item><camo-menu-item text=\"Archive\" disabled></camo-menu-item>"
+        "": "<camo-button slot=\"anchor\" text=\"Actions\" appearance=\"outline\"></camo-button><camo-menu-item text=\"Copy\" trailing-text=\"⌘C\"></camo-menu-item><camo-menu-item text=\"Paste\" trailing-text=\"⌘V\"></camo-menu-item><camo-menu-divider></camo-menu-divider><camo-menu-group exclusive><camo-menu-item text=\"Newest\" checkable checked></camo-menu-item><camo-menu-item text=\"Oldest\" checkable></camo-menu-item></camo-menu-group><camo-menu-divider></camo-menu-divider><camo-menu-item text=\"Delete\" tone=\"error\"></camo-menu-item><camo-menu-item text=\"Archive\" disabled></camo-menu-item>"
       },
       "modes": ["light"],
       "textScales": [1],
@@ -1891,6 +1891,579 @@
       "modes": ["light"],
       "textScales": [1],
       "directions": ["ltr"]
+    },
+    {
+      "name": "progress-bar-determinate",
+      "component": "progress-bar",
+      "props": {
+        "progress": 0.4,
+        "label": "Uploading photo"
+      },
+      "textScales": [1]
+    },
+    {
+      "name": "progress-bar-indeterminate",
+      "component": "progress-bar",
+      "props": {
+        "label": "Loading"
+      },
+      "textScales": [1]
+    },
+    {
+      "name": "progress-bar-error",
+      "component": "progress-bar",
+      "props": {
+        "progress": 0.7,
+        "tone": "error",
+        "label": "Upload failed"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "progress-circle-determinate",
+      "component": "progress-circle",
+      "props": {
+        "progress": 0.6,
+        "label": "Uploading"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "progress-circle-indeterminate",
+      "component": "progress-circle",
+      "props": {
+        "label": "Loading"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "progress-circle-small",
+      "component": "progress-circle",
+      "props": {
+        "progress": 0.3,
+        "size": "small",
+        "label": "Loading"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "progress-circle-large",
+      "component": "progress-circle",
+      "props": {
+        "progress": 0.8,
+        "size": "large",
+        "tone": "success",
+        "label": "Done"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "snackbar",
+      "component": "snackbar",
+      "props": {
+        "message": "Message archived",
+        "action": "Undo"
+      },
+      "frame": "page",
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "snackbar-error",
+      "component": "snackbar",
+      "props": {
+        "message": "Couldn't send the message",
+        "action": "Retry",
+        "tone": "error",
+        "with-dismiss": true
+      },
+      "frame": "page",
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "snackbar-long",
+      "component": "snackbar",
+      "props": {
+        "message": "Your changes were saved and will sync the next time you are online, on every device you use."
+      },
+      "frame": "page",
+      "textScales": [1, 2],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "banner-info",
+      "component": "banner",
+      "props": {
+        "title": "Trial ends in 3 days",
+        "message": "Upgrade to keep your projects and your history."
+      },
+      "content": {
+        "": "<camo-button slot=\"actions\" appearance=\"ghost\" text=\"Upgrade\"></camo-button>"
+      }
+    },
+    {
+      "name": "banner-success",
+      "component": "banner",
+      "props": {
+        "tone": "success",
+        "message": "Your changes were saved."
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "banner-warning",
+      "component": "banner",
+      "props": {
+        "tone": "warning",
+        "title": "Storage almost full",
+        "message": "You have used 95% of your storage."
+      },
+      "content": {
+        "": "<camo-button slot=\"actions\" appearance=\"ghost\" text=\"Upgrade\"></camo-button>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "banner-error-solid",
+      "component": "banner",
+      "props": {
+        "tone": "error",
+        "appearance": "solid",
+        "message": "Couldn't sync",
+        "dismissible": true
+      },
+      "content": {
+        "": "<camo-button slot=\"actions\" appearance=\"ghost\" text=\"Retry\"></camo-button>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "banner-warning-outline",
+      "component": "banner",
+      "props": {
+        "tone": "warning",
+        "appearance": "outline",
+        "message": "Check your connection."
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "banner-no-icon",
+      "component": "banner",
+      "props": {
+        "message": "A plain message."
+      },
+      "content": {
+        "": "<span slot=\"icon\"></span>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "chip-action",
+      "component": "chip",
+      "props": {
+        "label": "Add to calendar",
+        "clickable": true
+      },
+      "textScales": [1, 2]
+    },
+    {
+      "name": "chip-filter",
+      "component": "chip",
+      "props": {
+        "label": "Open now",
+        "selectable": true
+      },
+      "textScales": [1]
+    },
+    {
+      "name": "chip-filter-selected",
+      "component": "chip",
+      "props": {
+        "label": "Open now",
+        "selectable": true,
+        "selected": true
+      },
+      "textScales": [1]
+    },
+    {
+      "name": "chip-input",
+      "component": "chip",
+      "props": {
+        "label": "ada@example.com",
+        "removable": true
+      },
+      "textScales": [1]
+    },
+    {
+      "name": "chip-tag",
+      "component": "chip",
+      "props": {
+        "label": "Paid",
+        "appearance": "soft",
+        "tone": "success"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "chip-leading",
+      "component": "chip",
+      "props": {
+        "label": "Favorites",
+        "clickable": true
+      },
+      "content": {
+        "leading": "<camo-icon name=\"heart\"></camo-icon>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "chip-disabled",
+      "component": "chip",
+      "props": {
+        "label": "Unavailable",
+        "selectable": true,
+        "disabled": true
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "chip-group",
+      "component": "chip-group",
+      "props": {
+        "label": "Filters",
+        "multiple": true
+      },
+      "content": {
+        "": "<camo-chip value=\"open\" label=\"Open now\"></camo-chip><camo-chip value=\"top\" label=\"Top rated\"></camo-chip><camo-chip value=\"cheap\" label=\"Cheap\"></camo-chip>"
+      },
+      "textScales": [1, 2]
+    },
+    {
+      "name": "chip-group-single",
+      "component": "chip-group",
+      "props": {
+        "label": "Sort",
+        "value": "new",
+        "required": true
+      },
+      "content": {
+        "": "<camo-chip value=\"new\" label=\"Newest\"></camo-chip><camo-chip value=\"old\" label=\"Oldest\"></camo-chip>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "badge-count",
+      "component": "badge",
+      "props": {
+        "count": 3
+      },
+      "textScales": [1, 2],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "badge-dot",
+      "component": "badge",
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "badge-max",
+      "component": "badge",
+      "props": {
+        "count": 120
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "badge-soft",
+      "component": "badge",
+      "props": {
+        "count": 5,
+        "appearance": "soft",
+        "tone": "info"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "badged-box",
+      "component": "badged-box",
+      "content": {
+        "": "<camo-icon-button label=\"Notifications\"><camo-icon name=\"heart\"></camo-icon></camo-icon-button><camo-badge slot=\"badge\" count=\"3\"></camo-badge>"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "avatar-initials",
+      "component": "avatar",
+      "props": {
+        "name": "Dwiki Riyadi"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "avatar-large-presence",
+      "component": "avatar",
+      "props": {
+        "name": "Ada Lovelace",
+        "size": "large",
+        "presence": "online"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "avatar-small",
+      "component": "avatar",
+      "props": {
+        "name": "Grace Hopper",
+        "size": "small"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "avatar-icon",
+      "component": "avatar",
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "avatar-square",
+      "component": "avatar",
+      "props": {
+        "name": "Katherine Johnson",
+        "shape": "square",
+        "presence": "busy"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "avatar-image",
+      "component": "avatar",
+      "props": {
+        "name": "Photo"
+      },
+      "content": {
+        "image": "<img src=\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 10 10%27%3E%3Crect width=%2710%27 height=%2710%27 fill=%27%2300897b%27/%3E%3Ccircle cx=%275%27 cy=%274%27 r=%272%27 fill=%27white%27/%3E%3C/svg%3E\" alt=\"\">"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "avatar-group",
+      "component": "avatar-group",
+      "props": {
+        "max": 3
+      },
+      "content": {
+        "": "<camo-avatar name=\"Ada Lovelace\"></camo-avatar><camo-avatar name=\"Grace Hopper\"></camo-avatar><camo-avatar name=\"Katherine Johnson\"></camo-avatar><camo-avatar name=\"Alan Turing\"></camo-avatar><camo-avatar name=\"Margaret Hamilton\"></camo-avatar>"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "fab",
+      "component": "fab",
+      "props": {
+        "content-description": "Compose"
+      },
+      "content": {
+        "icon": "<camo-icon name=\"edit\"></camo-icon>"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "fab-extended",
+      "component": "fab",
+      "props": {
+        "content-description": "Compose",
+        "text": "Compose"
+      },
+      "content": {
+        "icon": "<camo-icon name=\"edit\"></camo-icon>"
+      },
+      "textScales": [1, 2],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "fab-collapsed",
+      "component": "fab",
+      "props": {
+        "content-description": "Compose",
+        "text": "Compose",
+        "collapsed": true
+      },
+      "content": {
+        "icon": "<camo-icon name=\"edit\"></camo-icon>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "fab-soft",
+      "component": "fab",
+      "props": {
+        "content-description": "Add",
+        "appearance": "soft"
+      },
+      "content": {
+        "icon": "<camo-icon name=\"add\"></camo-icon>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "fab-disabled",
+      "component": "fab",
+      "props": {
+        "content-description": "Compose",
+        "disabled": true
+      },
+      "content": {
+        "icon": "<camo-icon name=\"edit\"></camo-icon>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "tabs",
+      "component": "tabs",
+      "props": {
+        "label": "Product",
+        "value": "reviews"
+      },
+      "content": {
+        "": "<camo-tab value=\"overview\" label=\"Overview\"></camo-tab><camo-tab value=\"reviews\" label=\"Reviews\"></camo-tab><camo-tab value=\"specs\" label=\"Specs\"></camo-tab>"
+      }
+    },
+    {
+      "name": "tabs-icons",
+      "component": "tabs",
+      "props": {
+        "label": "Library",
+        "value": "songs"
+      },
+      "content": {
+        "": "<camo-tab value=\"songs\" label=\"Songs\" icon=\"heart\"></camo-tab><camo-tab value=\"albums\" label=\"Albums\" icon=\"star\"></camo-tab><camo-tab value=\"artists\" label=\"Artists\" icon=\"person\"></camo-tab>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "tabs-scrollable",
+      "component": "tabs",
+      "props": {
+        "label": "Sections",
+        "value": "b",
+        "scrollable": true
+      },
+      "content": {
+        "": "<camo-tab value=\"a\" label=\"Section A\"></camo-tab><camo-tab value=\"b\" label=\"Section B\"></camo-tab><camo-tab value=\"c\" label=\"Section C\"></camo-tab><camo-tab value=\"d\" label=\"Section D\"></camo-tab><camo-tab value=\"e\" label=\"Section E\"></camo-tab><camo-tab value=\"f\" label=\"Section F\"></camo-tab>"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "tabs-quiet",
+      "component": "tabs",
+      "props": {
+        "label": "Details",
+        "value": "overview",
+        "appearance": "ghost"
+      },
+      "content": {
+        "": "<camo-tab value=\"overview\" label=\"Overview\"></camo-tab><camo-tab value=\"reviews\" label=\"Reviews\"></camo-tab><camo-tab value=\"specs\" label=\"Specs\"></camo-tab>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "tabs-badge",
+      "component": "tabs",
+      "props": {
+        "label": "Inbox",
+        "value": "all"
+      },
+      "content": {
+        "": "<camo-tab value=\"all\" label=\"All\"></camo-tab><camo-tab value=\"unread\" label=\"Unread\"><camo-badge slot=\"badge\" count=\"4\"></camo-badge></camo-tab>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "navigation-bar",
+      "component": "navigation-bar",
+      "props": {
+        "label": "Main",
+        "value": "home"
+      },
+      "content": {
+        "": "<camo-nav-item value=\"home\" label=\"Home\" icon=\"home\" selected-icon=\"home-filled\"></camo-nav-item><camo-nav-item value=\"inbox\" label=\"Inbox\" icon=\"inbox\"><camo-badge slot=\"badge\" count=\"3\"></camo-badge></camo-nav-item><camo-nav-item value=\"saved\" label=\"Saved\" icon=\"star\"></camo-nav-item><camo-nav-item value=\"settings\" label=\"Settings\" icon=\"settings\"></camo-nav-item>"
+      }
+    },
+    {
+      "name": "navigation-rail",
+      "component": "navigation-rail",
+      "props": {
+        "label": "Main",
+        "value": "inbox"
+      },
+      "content": {
+        "header": "<camo-fab content-description=\"Compose\"><camo-icon slot=\"icon\" name=\"edit\"></camo-icon></camo-fab>",
+        "": "<camo-nav-item value=\"home\" label=\"Home\" icon=\"home\" selected-icon=\"home-filled\"></camo-nav-item><camo-nav-item value=\"inbox\" label=\"Inbox\" icon=\"inbox\"><camo-badge slot=\"badge\" count=\"3\"></camo-badge></camo-nav-item><camo-nav-item value=\"saved\" label=\"Saved\" icon=\"star\"></camo-nav-item><camo-nav-item value=\"settings\" label=\"Settings\" icon=\"settings\"></camo-nav-item>"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "navigation-drawer",
+      "component": "navigation-drawer",
+      "props": {
+        "label": "Mail",
+        "value": "inbox"
+      },
+      "content": {
+        "": "<camo-nav-section title=\"Mail\"><camo-nav-item value=\"inbox\" label=\"Inbox\" icon=\"inbox\"></camo-nav-item><camo-nav-item value=\"saved\" label=\"Saved\" icon=\"star\"></camo-nav-item></camo-nav-section><camo-nav-section title=\"Account\"><camo-nav-item value=\"profile\" label=\"Profile\" icon=\"person\"></camo-nav-item><camo-nav-item value=\"settings\" label=\"Settings\" icon=\"settings\"></camo-nav-item></camo-nav-section>"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "modal-drawer",
+      "component": "modal-drawer",
+      "props": {
+        "open": true,
+        "label": "Navigation",
+        "value": "inbox"
+      },
+      "content": {
+        "": "<camo-nav-item value=\"inbox\" label=\"Inbox\" icon=\"inbox\"></camo-nav-item><camo-nav-item value=\"saved\" label=\"Saved\" icon=\"star\"></camo-nav-item><camo-nav-item value=\"settings\" label=\"Settings\" icon=\"settings\"></camo-nav-item>"
+      },
+      "frame": "page",
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
     }
   ]
 }

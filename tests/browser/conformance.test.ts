@@ -31,15 +31,16 @@ describe("every scenario variant", () => {
           ? ["aria-required-children", "aria-allowed-attr"]
           : [];
       expect(await axeViolations(root, variant.skin, ignore)).toEqual([]);
+      // A control keeps a 48 px touch area. A list row or a chip only when it can be pressed.
+      const props = variant.scenario.props ?? {};
+      const pressable = props["clickable"] === true || props["selectable"] === true;
+      const component = variant.scenario.component;
       if (
-        ["button", "icon-button", "checkbox", "switch", "list-item"].includes(
-          variant.scenario.component,
-        ) &&
-        variant.scenario.props?.["disabled"] !== true &&
-        (variant.scenario.component !== "list-item" ||
-          variant.scenario.props?.["clickable"] === true)
+        ["button", "icon-button", "checkbox", "switch", "fab"].includes(component) ||
+        (["list-item", "chip"].includes(component) && pressable)
       )
-        expect(reachesTouchTarget(element), "a 48 px touch area").toBe(true);
+        if (props["disabled"] !== true)
+          expect(reachesTouchTarget(element), "a 48 px touch area").toBe(true);
     });
   }
 });

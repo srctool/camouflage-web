@@ -22,6 +22,12 @@ export interface AriaState {
   orientation?: "horizontal" | "vertical";
   /** Place in a set: "2 of 3". */
   position?: { index: number; size: number };
+  /** A tab or option's selection (`aria-selected`). */
+  selected?: boolean | null;
+  /** The item that is the current page in a navigation (`aria-current="page"`). */
+  current?: "page" | null;
+  /** A live region: `status` and `alert` roles imply it; this sets the politeness explicitly. */
+  live?: "polite" | "assertive" | null;
 }
 
 const MARKER = "data-camo-ssr-aria";
@@ -62,6 +68,10 @@ export function applyAria(host: HTMLElement, internals: ElementInternals, aria: 
   internals.ariaSetSize = aria.position === undefined ? null : String(aria.position.size);
   internals.ariaPressed =
     aria.pressed === undefined || aria.pressed === null ? null : String(aria.pressed);
+  internals.ariaSelected =
+    aria.selected === undefined || aria.selected === null ? null : String(aria.selected);
+  internals.ariaCurrent = aria.current ?? null;
+  internals.ariaLive = aria.live ?? null;
   const attributes: Record<string, string | null> = {
     role: aria.role,
     "aria-label": aria.label ?? null,
@@ -82,6 +92,10 @@ export function applyAria(host: HTMLElement, internals: ElementInternals, aria: 
     "aria-setsize": aria.position === undefined ? null : String(aria.position.size),
     "aria-pressed":
       aria.pressed === undefined || aria.pressed === null ? null : String(aria.pressed),
+    "aria-selected":
+      aria.selected === undefined || aria.selected === null ? null : String(aria.selected),
+    "aria-current": aria.current ?? null,
+    "aria-live": aria.live ?? null,
   };
   if (isServer) {
     const mirrored: string[] = [];

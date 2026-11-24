@@ -23,5 +23,8 @@ A checklist, in order. Each step is checked by something that fails if it is ski
 9. **Slotted content.** Style what is slotted with `::slotted(...)` from the shadow root. Do not select on the host's children
    with `:host(:has(...))` (Chromium does not support it, and a server has no children to see); a gap or an indent that depends
    on a slot belongs to the slotted element (`::slotted([slot="leading"]) { margin-inline-end: … }`).
-10. **Docs.** The component's note: what the spike or the milestone settled, and any gap in the contract (a theme field the web
+10. **SVG in templates.** A template nested inside an `<svg>` (the spokes of a spinner, one per `map` item) must be an `svg` template
+    (`import { svg } from "lit"`), or the browser makes `HTMLUnknownElement`s that draw nothing; a test that only looks for
+    elements and animations passes anyway, so check that they are `SVGElement`s.
+11. **Docs.** The component's note: what the spike or the milestone settled, and any gap in the contract (a theme field the web
     cannot carry).

@@ -3,6 +3,8 @@
 import type { DefineComponent, HTMLAttributes } from "vue";
 import type {
   Appearance,
+  AvatarShape,
+  AvatarSize,
   ButtonType,
   CamoBeforeChangeDetail,
   CamoCloseDetail,
@@ -12,6 +14,7 @@ import type {
   CamoScheme,
   CamoSkin,
   CamoSubmitDetail,
+  ChipLayout,
   Detent,
   DividerInset,
   DividerOrientation,
@@ -20,7 +23,9 @@ import type {
   HourCycle,
   InputKind,
   LabelPlacement,
+  Presence,
   Presentation,
+  ProgressSize,
   SelectOption,
   ShapeName,
   SkeletonLeading,
@@ -49,6 +54,43 @@ declare module "vue" {
     CamoAccordionGroup: DefineComponent<
       HTMLAttributes & {
         "single-expand"?: boolean;
+      }
+    >;
+    CamoAvatar: DefineComponent<
+      HTMLAttributes & {
+        name?: string | null;
+        initials?: string | null;
+        size?: AvatarSize;
+        shape?: AvatarShape | null;
+        presence?: Presence | null;
+        loaded?: boolean;
+      }
+    >;
+    CamoAvatarGroup: DefineComponent<
+      HTMLAttributes & {
+        max?: number;
+        size?: AvatarSize;
+        total?: number;
+      }
+    >;
+    CamoBadge: DefineComponent<
+      HTMLAttributes & {
+        count?: number | null;
+        max?: number;
+        tone?: Tone | null;
+        appearance?: Appearance | null;
+        "content-description"?: string | null;
+      }
+    >;
+    CamoBadgedBox: DefineComponent<HTMLAttributes & {}>;
+    CamoBanner: DefineComponent<
+      HTMLAttributes & {
+        message?: string;
+        title?: string;
+        tone?: Tone;
+        appearance?: Appearance | null;
+        dismissible?: boolean;
+        onCamoDismiss?: (event: CustomEvent) => void;
       }
     >;
     CamoBottomSheet: DefineComponent<
@@ -115,6 +157,32 @@ declare module "vue" {
         onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
       }
     >;
+    CamoChip: DefineComponent<
+      HTMLAttributes & {
+        label?: string;
+        value?: string;
+        clickable?: boolean;
+        selectable?: boolean;
+        selected?: boolean;
+        removable?: boolean;
+        appearance?: Appearance | null;
+        tone?: Tone;
+        disabled?: boolean;
+        onCamoRemove?: (event: CustomEvent) => void;
+      }
+    >;
+    CamoChipGroup: DefineComponent<
+      HTMLAttributes & {
+        value?: string;
+        multiple?: boolean;
+        layout?: ChipLayout;
+        label?: string | null;
+        required?: boolean;
+        disabled?: boolean;
+        name?: string;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
     CamoDatePicker: DefineComponent<
       HTMLAttributes & {
         value?: string | null;
@@ -157,6 +225,17 @@ declare module "vue" {
       HTMLAttributes & {
         orientation?: DividerOrientation;
         inset?: DividerInset;
+      }
+    >;
+    CamoFab: DefineComponent<
+      HTMLAttributes & {
+        "content-description"?: string;
+        text?: string | null;
+        collapsed?: boolean;
+        hidden?: boolean;
+        appearance?: Appearance | null;
+        tone?: Tone;
+        disabled?: boolean;
       }
     >;
     CamoFieldAction: DefineComponent<
@@ -236,6 +315,60 @@ declare module "vue" {
         disabled?: boolean;
       }
     >;
+    CamoModalDrawer: DefineComponent<
+      HTMLAttributes & {
+        open?: boolean;
+        value?: string;
+        label?: string | null;
+        drag?: number;
+        onCamoClose?: (event: CustomEvent<CamoCloseDetail>) => void;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+        onCamoReselect?: (event: CustomEvent) => void;
+      }
+    >;
+    CamoNavItem: DefineComponent<
+      HTMLAttributes & {
+        value?: string;
+        label?: string;
+        icon?: string | null;
+        "selected-icon"?: string | null;
+        disabled?: boolean;
+        selected?: boolean;
+      }
+    >;
+    CamoNavSection: DefineComponent<
+      HTMLAttributes & {
+        title?: string;
+      }
+    >;
+    CamoNavigationBar: DefineComponent<
+      HTMLAttributes & {
+        value?: string;
+        label?: string | null;
+        hidden?: boolean;
+        disabled?: boolean;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+        onCamoReselect?: (event: CustomEvent) => void;
+      }
+    >;
+    CamoNavigationDrawer: DefineComponent<
+      HTMLAttributes & {
+        value?: string;
+        label?: string | null;
+        disabled?: boolean;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+        onCamoReselect?: (event: CustomEvent) => void;
+      }
+    >;
+    CamoNavigationRail: DefineComponent<
+      HTMLAttributes & {
+        value?: string;
+        label?: string | null;
+        disabled?: boolean;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+        onCamoReselect?: (event: CustomEvent) => void;
+      }
+    >;
     CamoOption: DefineComponent<
       HTMLAttributes & {
         value?: string;
@@ -262,6 +395,21 @@ declare module "vue" {
         onCamoLoadMore?: (event: CustomEvent) => void;
         onCamoRetry?: (event: CustomEvent) => void;
         onCamoRefresh?: (event: CustomEvent) => void;
+      }
+    >;
+    CamoProgressBar: DefineComponent<
+      HTMLAttributes & {
+        progress?: number | null;
+        tone?: Tone;
+        label?: string | null;
+      }
+    >;
+    CamoProgressCircle: DefineComponent<
+      HTMLAttributes & {
+        progress?: number | null;
+        tone?: Tone;
+        size?: ProgressSize;
+        label?: string | null;
       }
     >;
     CamoProvider: DefineComponent<
@@ -386,6 +534,17 @@ declare module "vue" {
         onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
       }
     >;
+    CamoSnackbar: DefineComponent<
+      HTMLAttributes & {
+        message?: string;
+        action?: string | null;
+        tone?: Tone;
+        "with-dismiss"?: boolean | null;
+        onName?: (event: CustomEvent) => void;
+        onCamoAction?: (event: CustomEvent) => void;
+        onCamoDismiss?: (event: CustomEvent) => void;
+      }
+    >;
     CamoStepper: DefineComponent<
       HTMLAttributes & {
         value?: number;
@@ -424,6 +583,26 @@ declare module "vue" {
         disabled?: boolean;
         required?: boolean;
         name?: string;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
+    CamoTab: DefineComponent<
+      HTMLAttributes & {
+        value?: string;
+        label?: string | null;
+        icon?: string | null;
+        "content-description"?: string | null;
+        disabled?: boolean;
+        selected?: boolean;
+      }
+    >;
+    CamoTabs: DefineComponent<
+      HTMLAttributes & {
+        value?: string;
+        scrollable?: boolean;
+        appearance?: Appearance | null;
+        label?: string | null;
+        disabled?: boolean;
         onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
       }
     >;

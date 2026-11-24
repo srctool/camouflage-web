@@ -749,6 +749,408 @@ export interface TopBarStyle {
 
 export type TopBarSlots = "navigation" | "actions" | "title-content";
 
+// --- W5: feedback, data display and navigation ------------------------------------------------------------------
+
+export type ProgressSize = "small" | "medium" | "large";
+
+export interface ProgressState {
+  /** 0 to 1 (clamped), or null while the amount is unknown. */
+  progress: number | null;
+  tone: Tone;
+}
+
+export interface ProgressBarStyle {
+  barHeight: string;
+  /** The gap between the active part and the rest of the track (Material's look; 0 for a flat bar). */
+  trackGap: string;
+  shape: string;
+  cycleDuration: string;
+  showStopIndicator: boolean;
+  active: string;
+  track: string;
+}
+
+export type ProgressBarSlots = never;
+
+export interface ProgressCircleState extends ProgressState {
+  size: ProgressSize;
+}
+
+export interface ProgressCircleStyle {
+  circleStroke: string;
+  circleSizeSmall: string;
+  circleSizeMedium: string;
+  circleSizeLarge: string;
+  cycleDuration: string;
+  /** `ring` draws an arc on a track; `spokes` a ring of fading spokes (iOS's activity indicator, for the unknown amount). */
+  indeterminate: "ring" | "spokes";
+  active: string;
+  track: string;
+}
+
+export type ProgressCircleSlots = never;
+
+export type SnackbarPosition = "bottom" | "top";
+export type SnackbarAlignment = "start" | "center" | "end";
+
+export interface SnackbarState {
+  message: string;
+  action: string | null;
+  tone: Tone;
+  withDismiss: boolean;
+  showToneIcon: boolean;
+  position: SnackbarPosition;
+  /** The tone's status icon (registered `tone-<tone>` icons, else the built-in ones); null for the default tone. */
+  toneIcon: IconArtwork | null;
+}
+
+export interface SnackbarStyle {
+  shape: string;
+  maxWidth: string;
+  margin: string;
+  minHeight: string;
+  padding: string;
+  elevation: string;
+  position: SnackbarPosition;
+  alignment: SnackbarAlignment;
+  showDismiss: boolean;
+  showToneIcon: boolean;
+  textStyle: CamoTextStyle;
+  actionStyle: CamoTextStyle;
+  iconSize: string;
+  /** For the default tone; a status tone takes its family. */
+  container: string;
+  content: string;
+  action: string;
+}
+
+/** The action and the dismiss button are nodes core builds (`action`, `dismiss`); the icon is `toneIcon`. */
+export type SnackbarSlots = never;
+
+export interface BannerState {
+  title: string | null;
+  message: string;
+  tone: Tone;
+  appearance: Appearance;
+  dismissible: boolean;
+  toneIcon: IconArtwork;
+}
+
+/** Colors of one banner appearance: the container, the text and icon, the accent bar and the border. */
+export interface BannerColors {
+  container: string;
+  content: string;
+  accent: string;
+  border?: string;
+}
+
+export interface BannerStyle {
+  defaultAppearance: Appearance;
+  shape: string;
+  padding: string;
+  iconSize: string;
+  accentBorder: boolean;
+  accentWidth: string;
+  borderWidth: string;
+  titleStyle: CamoTextStyle;
+  messageStyle: CamoTextStyle;
+  soft: BannerColors;
+  solid: BannerColors;
+  outline: BannerColors;
+}
+
+export type BannerSlots = "icon" | "actions";
+
+export type ChipKind = "action" | "filter" | "input" | "tag";
+/** How a chip group lays its chips out: rows that wrap, or one scrolling row. */
+export type ChipLayout = "wrap" | "scroll";
+
+export interface ChipState {
+  label: string;
+  kind: ChipKind;
+  selected: boolean;
+  appearance: Appearance;
+  tone: Tone;
+  disabled: boolean;
+  /** An input chip, or a removable filter: the remove node is placed after the label. */
+  removable: boolean;
+}
+
+export interface ChipStyle {
+  defaultAppearance: Appearance;
+  height: string;
+  shape: string;
+  paddingInline: string;
+  /** The tighter side next to a leading icon, the check or the remove button. */
+  iconPadding: string;
+  iconGap: string;
+  iconSize: string;
+  borderWidth: string;
+  textStyle: CamoTextStyle;
+  touchTarget: string;
+  groupSpacing: string;
+  showCheckWhenSelected: boolean;
+  outline: ButtonColors;
+  soft: ButtonColors;
+  solid: ButtonColors;
+  /** The colors of a selected filter chip. */
+  selectedColors: ButtonColors;
+}
+
+export type ChipSlots = "leading";
+
+export interface BadgeState {
+  /** The count's text ("3", "99+"), or null for a dot. */
+  text: string | null;
+  tone: Tone;
+  appearance: Appearance;
+}
+
+export interface BadgeStyle {
+  defaultAppearance: Appearance;
+  defaultTone: Tone;
+  dotSize: string;
+  height: string;
+  minWidth: string;
+  padding: string;
+  borderWidth: string;
+  /** How far the badge's center sits from the anchor's top-end corner; a negative value moves it outward. */
+  offset: string;
+  textStyle: CamoTextStyle;
+  solid: ButtonColors;
+  soft: ButtonColors;
+  outline: ButtonColors;
+}
+
+export type BadgeSlots = never;
+
+export type AvatarSize = "small" | "medium" | "large";
+export type AvatarShape = "circle" | "rounded" | "square";
+export type Presence = "online" | "away" | "busy" | "offline";
+
+export interface AvatarState {
+  /** One or two letters, or null for the person icon. */
+  initials: string | null;
+  /** The name's 32-bit hash, which picks the background; null for the icon. */
+  colorSeed: number | null;
+  size: AvatarSize;
+  shape: AvatarShape;
+  presence: Presence | null;
+  /** The slotted image loaded; until then the initials show. */
+  imageLoaded: boolean;
+}
+
+export interface AvatarStyle {
+  shape: AvatarShape;
+  roundedShape: string;
+  sizeSmall: string;
+  sizeMedium: string;
+  sizeLarge: string;
+  presenceSize: string;
+  ringWidth: string;
+  groupOverlap: string;
+  textStyleSmall: CamoTextStyle;
+  textStyleMedium: CamoTextStyle;
+  textStyleLarge: CamoTextStyle;
+  /** Backgrounds picked by the name's hash. */
+  palette: ButtonColors[];
+  /** The person icon and a group's "+N". */
+  neutral: ButtonColors;
+  presenceColors: Record<Presence, string>;
+  ringColor: string;
+}
+
+export type AvatarSlots = "image";
+
+export type FabSize = "small" | "regular" | "large";
+
+export interface FabState {
+  text: string | null;
+  extended: boolean;
+  expanded: boolean;
+  visible: boolean;
+  appearance: Appearance;
+  tone: Tone;
+  disabled: boolean;
+}
+
+export interface FabStyle {
+  defaultAppearance: Appearance;
+  size: FabSize;
+  sizeSmall: string;
+  sizeRegular: string;
+  sizeLarge: string;
+  extendedHeight: string;
+  shapeSmall: string;
+  shapeRegular: string;
+  shapeLarge: string;
+  iconSizeRegular: string;
+  iconSizeLarge: string;
+  iconGap: string;
+  extendedPadding: string;
+  elevation: string;
+  textStyle: CamoTextStyle;
+  touchTarget: string;
+  soft: ButtonColors;
+  solid: ButtonColors;
+  raised: ButtonColors;
+}
+
+export type FabSlots = "icon";
+
+/** The colors of a tab bar: the surface, the selected and the other tabs, the indicator and the hairline. */
+export interface TabsColors {
+  container: string;
+  selected: string;
+  unselected: string;
+  /** The line under the selected tab. */
+  indicator: string;
+  /** The pill behind the selected tab, when the bar is segmented. */
+  thumb: string;
+  divider: string;
+}
+
+export interface TabsStyle {
+  defaultAppearance: Appearance;
+  /** `underline`: a line under the selected tab. `segmented`: a pill behind it (iOS), for a bar that does not scroll. */
+  kind: "underline" | "segmented";
+  height: string;
+  heightWithIcon: string;
+  indicatorHeight: string;
+  indicatorWidth: "content" | "tab";
+  minTabWidth: string;
+  showDivider: boolean;
+  iconSize: string;
+  iconGap: string;
+  tabPadding: string;
+  shape: string;
+  labelStyle: CamoTextStyle;
+  solid: TabsColors;
+  ghost: TabsColors;
+}
+
+export interface TabsState {
+  scrollable: boolean;
+  appearance: Appearance;
+  count: number;
+}
+
+export type TabsSlots = "content";
+
+export interface TabState {
+  selected: boolean;
+  disabled: boolean;
+  label: string | null;
+  icon: IconArtwork | null;
+  scrollable: boolean;
+  appearance: Appearance;
+  /** The container draws one sliding indicator; until it has measured (and on the server) the tab draws its own. */
+  indicated: boolean;
+}
+
+export type TabSlots = "badge" | "content";
+
+export type NavIndicator = "pill" | "line" | "dot" | "fill" | "none";
+export type LabelVisibility = "always" | "selected" | "never";
+export type NavPlacement = "bar" | "rail" | "drawer";
+export type RailAlignment = "top" | "center";
+
+/** How an item looks inside one kind of navigation chrome. */
+export interface NavItemLook {
+  indicator: NavIndicator;
+  indicatorWidth: string;
+  indicatorHeight: string;
+  indicatorShape: string;
+  itemHeight: string;
+  iconSize: string;
+  iconGap: string;
+  labelStyle: CamoTextStyle;
+  /** The label's place: below the icon (bar, rail) or beside it (drawer). */
+  direction: "column" | "row";
+  showLabels: LabelVisibility;
+  indicatorColor: string;
+  selectedIcon: string;
+  selectedLabel: string;
+  icon: string;
+  label: string;
+}
+
+export interface NavItemState {
+  selected: boolean;
+  disabled: boolean;
+  label: string;
+  placement: NavPlacement;
+  icon: IconArtwork | null;
+  selectedIcon: IconArtwork | null;
+}
+
+export interface NavItemStyle {
+  bar: NavItemLook;
+  rail: NavItemLook;
+  drawer: NavItemLook;
+}
+
+export type NavItemSlots = "icon" | "selected-icon" | "badge";
+
+export interface NavigationBarState {
+  visible: boolean;
+}
+
+export interface NavigationBarStyle {
+  placement: "pinned" | "floating";
+  height: string;
+  floatingMargin: string;
+  floatingShape: string;
+  iconSize: string;
+  indicatorWidth: string;
+  indicatorHeight: string;
+  indicatorShape: string;
+  container: string;
+  divider: string;
+  /** The hairline above the bar. */
+  hairline: string;
+}
+
+export type NavigationBarSlots = "content";
+
+export interface NavigationRailState {
+  alignment: RailAlignment;
+}
+
+export interface NavigationRailStyle {
+  alignment: RailAlignment;
+  width: string;
+  itemSpacing: string;
+  iconSize: string;
+  indicatorWidth: string;
+  indicatorHeight: string;
+  container: string;
+  divider: string;
+  /** The hairline on the end edge. */
+  hairline: string;
+}
+
+export type NavigationRailSlots = "header" | "content";
+
+export interface NavigationDrawerState {
+  modal: boolean;
+}
+
+export interface NavigationDrawerStyle {
+  width: string;
+  itemHeight: string;
+  itemShape: string;
+  modalShape: string;
+  scrimAlpha: string;
+  container: string;
+  modalContainer: string;
+  divider: string;
+  /** The hairline on the end edge of a permanent drawer. */
+  hairline: string;
+}
+
+export type NavigationDrawerSlots = "header" | "content";
+
 /**
  * The renderer each component needs, by component name. A milestone that builds a component adds its line here, and
  * from then on every complete skin must provide it: `defineSkin` and `satisfies CamoSkin` report the missing one by
@@ -788,6 +1190,24 @@ export interface SkinComponents {
   readonly tooltip: Renderer<TooltipState, TooltipSlots, TooltipStyle>;
   readonly topBar: Renderer<TopBarState, TopBarSlots, TopBarStyle>;
   readonly dialog: Renderer<DialogState, DialogSlots, DialogStyle>;
+  readonly progressBar: Renderer<ProgressState, ProgressBarSlots, ProgressBarStyle>;
+  readonly progressCircle: Renderer<ProgressCircleState, ProgressCircleSlots, ProgressCircleStyle>;
+  readonly snackbar: Renderer<SnackbarState, SnackbarSlots, SnackbarStyle>;
+  readonly banner: Renderer<BannerState, BannerSlots, BannerStyle>;
+  readonly chip: Renderer<ChipState, ChipSlots, ChipStyle>;
+  readonly badge: Renderer<BadgeState, BadgeSlots, BadgeStyle>;
+  readonly avatar: Renderer<AvatarState, AvatarSlots, AvatarStyle>;
+  readonly fab: Renderer<FabState, FabSlots, FabStyle>;
+  readonly tabs: Renderer<TabsState, TabsSlots, TabsStyle>;
+  readonly tab: Renderer<TabState, TabSlots, TabsStyle>;
+  readonly navItem: Renderer<NavItemState, NavItemSlots, NavItemStyle>;
+  readonly navigationBar: Renderer<NavigationBarState, NavigationBarSlots, NavigationBarStyle>;
+  readonly navigationRail: Renderer<NavigationRailState, NavigationRailSlots, NavigationRailStyle>;
+  readonly navigationDrawer: Renderer<
+    NavigationDrawerState,
+    NavigationDrawerSlots,
+    NavigationDrawerStyle
+  >;
 }
 
 /** A complete skin: a surface treatment, interaction feedback, and one required renderer per component. */

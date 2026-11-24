@@ -47,6 +47,7 @@ describe("camouflage-contract.json", () => {
   // A button's component-theme field `padding` is its style field `paddingInline` (a logical property), and so on.
   const STYLE_KEY: Record<string, Record<string, string>> = {
     button: { padding: "paddingInline", paddingWithIcon: "paddingInlineWithIcon" },
+    chip: { padding: "paddingInline" },
   };
 
   it("gives each component's theme fields to the theme and to the skins' defaults", () => {
@@ -101,6 +102,25 @@ describe("camouflage-contract.json", () => {
       Tooltip: [],
       TopBar: ["titleAlign", "divider", "largeTitle"],
       Dialog: ["titleAlign", "actionsLayout", "showCloseButton", "stackedScrim"],
+      ProgressBar: ["showStopIndicator"],
+      ProgressCircle: [],
+      Snackbar: [
+        "position",
+        "alignment",
+        "showDismiss",
+        "showToneIcon",
+        "durationShort",
+        "durationLong",
+      ],
+      Banner: ["defaultAppearance", "accentBorder", "toneIcons"],
+      Chip: ["defaultAppearance", "showCheckWhenSelected"],
+      Badge: ["defaultAppearance", "defaultTone"],
+      Avatar: ["shape"],
+      Fab: ["defaultAppearance", "size"],
+      Tabs: ["defaultAppearance", "indicatorWidth", "showDivider"],
+      NavigationBar: ["placement", "indicator", "showLabels", "hideAnimation"],
+      NavigationRail: ["alignment", "indicator", "showLabels"],
+      NavigationDrawer: ["indicator"],
     });
   });
 });

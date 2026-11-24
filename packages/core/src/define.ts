@@ -23,6 +23,22 @@ import { CamoMenu, CamoMenuItem, CamoMenuDivider, CamoMenuGroup } from "./compon
 import { CamoTooltip } from "./components/tooltip.ts";
 import { CamoTopBar } from "./components/top-bar.ts";
 import { CamoSelect, CamoOption } from "./components/select.ts";
+import { CamoProgressBar, CamoProgressCircle } from "./components/progress.ts";
+import { CamoSnackbar } from "./components/snackbar.ts";
+import { CamoBanner } from "./components/banner.ts";
+import { CamoChip, CamoChipGroup } from "./components/chip.ts";
+import { CamoBadge, CamoBadgedBox } from "./components/badge.ts";
+import { CamoAvatar, CamoAvatarGroup } from "./components/avatar.ts";
+import { CamoFab } from "./components/fab.ts";
+import { CamoTab, CamoTabs } from "./components/tabs.ts";
+import {
+  CamoModalDrawer,
+  CamoNavItem,
+  CamoNavSection,
+  CamoNavigationBar,
+  CamoNavigationDrawer,
+  CamoNavigationRail,
+} from "./components/navigation.ts";
 import { CamoButton } from "./components/button.ts";
 import { CamoDivider } from "./components/divider.ts";
 import { CamoIcon } from "./components/icon.ts";
@@ -73,3 +89,22 @@ defineElement("camo-tooltip", CamoTooltip);
 defineElement("camo-top-bar", CamoTopBar);
 defineElement("camo-select", CamoSelect);
 defineElement("camo-option", CamoOption);
+defineElement("camo-progress-bar", CamoProgressBar);
+defineElement("camo-progress-circle", CamoProgressCircle);
+defineElement("camo-snackbar", CamoSnackbar);
+defineElement("camo-banner", CamoBanner);
+defineElement("camo-chip", CamoChip);
+defineElement("camo-chip-group", CamoChipGroup);
+defineElement("camo-badge", CamoBadge);
+defineElement("camo-badged-box", CamoBadgedBox);
+defineElement("camo-avatar", CamoAvatar);
+defineElement("camo-avatar-group", CamoAvatarGroup);
+defineElement("camo-fab", CamoFab);
+defineElement("camo-tab", CamoTab);
+defineElement("camo-tabs", CamoTabs);
+defineElement("camo-nav-item", CamoNavItem);
+defineElement("camo-nav-section", CamoNavSection);
+defineElement("camo-navigation-bar", CamoNavigationBar);
+defineElement("camo-navigation-rail", CamoNavigationRail);
+defineElement("camo-navigation-drawer", CamoNavigationDrawer);
+defineElement("camo-modal-drawer", CamoModalDrawer);

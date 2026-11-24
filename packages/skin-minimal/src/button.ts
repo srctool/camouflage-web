@@ -105,8 +105,9 @@ export const minimalButton: Renderer<ButtonState, ButtonSlots, ButtonStyle> = {
       soft: { container: c.surfaceContainerHigh, content: c.onSurface },
       raised: { container: c.surface, content: c.onSurface, border: c.outline },
       outline: { container: clear, content: c.primary, border: c.outlineVariant },
-      ghost: { container: clear, content: c.primary },
-      link: { container: clear, content: c.primary },
+      // A container that sets `--camo-action-color` (a banner, a snackbar) retints quiet buttons inside it.
+      ghost: { container: clear, content: `var(--camo-action-color, ${c.primary})` },
+      link: { container: clear, content: `var(--camo-action-color, ${c.primary})` },
       disabledContainerAlpha: field("disabled-container-alpha", "12%"),
       disabledContentAlpha: field("disabled-content-alpha", "38%"),
     };

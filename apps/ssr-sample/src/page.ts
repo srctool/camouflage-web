@@ -94,6 +94,40 @@ export function structurePage(skin: string, scheme: string): TemplateResult {
   </camo-provider>`;
 }
 
+/**
+ * The feedback and navigation page: progress, a banner, chips, a badge, avatars, a FAB, tabs and a navigation bar,
+ * server-rendered and then hydrated. Server rendering cannot read an element's children, so the selected tab and item
+ * carry `selected`, and nothing here animates (an indeterminate bar would differ from frame to frame).
+ */
+export function feedbackPage(skin: string, scheme: string): TemplateResult {
+  return html`<camo-provider skin=${skin} scheme=${scheme} class="page">
+    <camo-progress-bar progress="0.4" label="Uploading"></camo-progress-bar>
+    <camo-progress-circle progress="0.6" label="Syncing"></camo-progress-circle>
+    <camo-banner tone="warning" title="Storage almost full" message="You have used 95% of your storage.">
+      <camo-button slot="actions" appearance="ghost" text="Manage"></camo-button>
+    </camo-banner>
+    <div style="display:flex;gap:8px;align-items:center">
+      <camo-chip label="Open now" selectable selected></camo-chip>
+      <camo-chip label="ada@example.com" removable></camo-chip>
+      <camo-chip label="Paid" appearance="soft" tone="success"></camo-chip>
+      <camo-badged-box><camo-icon-button label="Notifications"><camo-icon name="heart"></camo-icon></camo-icon-button><camo-badge slot="badge" count="3"></camo-badge></camo-badged-box>
+      <camo-avatar name="Dwiki Riyadi" presence="online"></camo-avatar>
+      <camo-avatar-group max="3"><camo-avatar name="Ada Lovelace"></camo-avatar><camo-avatar name="Grace Hopper"></camo-avatar></camo-avatar-group>
+      <camo-fab content-description="Compose" text="Compose"><camo-icon slot="icon" name="edit"></camo-icon></camo-fab>
+    </div>
+    <camo-tabs label="Product" value="reviews">
+      <camo-tab value="overview" label="Overview"></camo-tab>
+      <camo-tab value="reviews" label="Reviews" selected></camo-tab>
+      <camo-tab value="specs" label="Specs"></camo-tab>
+    </camo-tabs>
+    <camo-navigation-bar label="Main" value="home">
+      <camo-nav-item value="home" label="Home" icon="home" selected></camo-nav-item>
+      <camo-nav-item value="inbox" label="Inbox" icon="inbox"></camo-nav-item>
+      <camo-nav-item value="saved" label="Saved" icon="star"></camo-nav-item>
+    </camo-navigation-bar>
+  </camo-provider>`;
+}
+
 /** A dialog page: the same dialog markup under both skins, one after the other (the server renders them open). */
 export function dialogPage(skin: string, scheme: string): TemplateResult {
   return html`<camo-provider skin=${skin} scheme=${scheme} class="page">${confirmation()}</camo-provider>`;

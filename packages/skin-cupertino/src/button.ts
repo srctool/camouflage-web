@@ -106,8 +106,9 @@ export const cupertinoButton: Renderer<ButtonState, ButtonSlots, ButtonStyle> = 
       soft: tinted,
       raised: tinted,
       outline: tinted,
-      ghost: { container: clear, content: c.primary },
-      link: { container: clear, content: c.primary },
+      // A container that sets `--camo-action-color` (a banner, a snackbar) retints quiet buttons inside it.
+      ghost: { container: clear, content: `var(--camo-action-color, ${c.primary})` },
+      link: { container: clear, content: `var(--camo-action-color, ${c.primary})` },
       disabledContainerAlpha: field("disabled-container-alpha", "12%"),
       disabledContentAlpha: field("disabled-content-alpha", "38%"),
     };
