@@ -55,6 +55,7 @@ const INVERTED: Record<string, string> = {
   enabled: "disabled",
   singleLine: "multiline",
   allowTyping: "readonly",
+  visible: "hidden",
 };
 
 // A callback that is a native event, and so needs no custom one (Components note, 3.4).

@@ -1,6 +1,6 @@
 import axe from "axe-core";
 import type { RunOptions } from "axe-core";
-import { scenarioMarkup } from "../../scenarios/expand.ts";
+import { applyProperties, scenarioMarkup } from "../../scenarios/expand.ts";
 import type { Variant } from "../../scenarios/expand.ts";
 import { registerDemoIcons } from "../../scenarios/icons.ts";
 import { mount, settled } from "../browser/helpers.ts";
@@ -14,6 +14,7 @@ export async function mountVariant(
   const root = mount(
     `<div dir="${variant.direction}"><camo-provider skin="${variant.skin}" scheme="${variant.mode}" style="display:block;padding:24px;background:var(--camo-color-surface);color:var(--camo-color-on-surface)">${scenarioMarkup(variant.scenario)}</camo-provider></div>`,
   );
+  applyProperties(root, variant.scenario);
   await settled(root);
   const element = root.querySelector<HTMLElement>(`camo-${variant.scenario.component}`)!;
   return { root, element };
@@ -29,9 +30,16 @@ export function resetTextScale(): void {
  * which are below WCAG AA contrast (the Dart skin documents the same list), so `color-contrast` is left out for it;
  * every other rule applies to every skin.
  */
-export async function axeViolations(root: HTMLElement, skin: string): Promise<string[]> {
-  const options: RunOptions =
-    skin === "cupertino" ? { rules: { "color-contrast": { enabled: false } } } : {};
+export async function axeViolations(
+  root: HTMLElement,
+  skin: string,
+  ignore: readonly string[] = [],
+): Promise<string[]> {
+  const rules: Record<string, { enabled: boolean }> = Object.fromEntries(
+    ignore.map((r) => [r, { enabled: false }]),
+  );
+  if (skin === "cupertino") rules["color-contrast"] = { enabled: false };
+  const options: RunOptions = { rules };
   // An inactive component is exempt from the contrast rule (WCAG 1.4.3), and axe cannot see a component's disabled
   // state (it is on `ElementInternals`), so a `[disabled]` host and what is inside it are left out.
   const results = await axe.run({ include: [root], exclude: ["[disabled]"] }, options);

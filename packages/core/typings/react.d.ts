@@ -4,8 +4,12 @@ import type { DetailedHTMLProps, HTMLAttributes } from "react";
 import type {
   Appearance,
   ButtonType,
+  CamoAccordion,
+  CamoAccordionGroup,
+  CamoBottomSheet,
   CamoButton,
   CamoCalendar,
+  CamoCard,
   CamoCheckbox,
   CamoDatePicker,
   CamoDialog,
@@ -14,6 +18,14 @@ import type {
   CamoForm,
   CamoIcon,
   CamoIconButton,
+  CamoListItem,
+  CamoListSection,
+  CamoMenu,
+  CamoMenuDivider,
+  CamoMenuGroup,
+  CamoMenuItem,
+  CamoOption,
+  CamoPagedList,
   CamoProvider,
   CamoRadio,
   CamoRadioGroup,
@@ -21,6 +33,8 @@ import type {
   CamoSearchField,
   CamoSegment,
   CamoSegmentedControl,
+  CamoSelect,
+  CamoSkeleton,
   CamoSkin,
   CamoSlider,
   CamoStepper,
@@ -29,6 +43,9 @@ import type {
   CamoText,
   CamoTextField,
   CamoTimePicker,
+  CamoTooltip,
+  CamoTopBar,
+  Detent,
   DividerInset,
   DividerOrientation,
   ElevationName,
@@ -37,7 +54,10 @@ import type {
   InputKind,
   LabelPlacement,
   Presentation,
+  SelectOption,
   ShapeName,
+  SkeletonLeading,
+  SkeletonVariant,
   SurfaceLevel,
   TextAlign,
   TextOverflow,
@@ -47,11 +67,36 @@ import type {
   WindowSize,
 } from "@srctool/camouflage-core";
 
-type CamoElement<T extends HTMLElement, A> = DetailedHTMLProps<HTMLAttributes<T>, T> & A;
+type CamoElement<T extends HTMLElement, A = unknown> = DetailedHTMLProps<HTMLAttributes<T>, T> & A;
 
 declare module "react" {
   namespace JSX {
     interface IntrinsicElements {
+      "camo-accordion": CamoElement<
+        CamoAccordion,
+        {
+          title?: string;
+          subtitle?: string | null;
+          expanded?: boolean;
+          disabled?: boolean;
+        }
+      >;
+      "camo-accordion-group": CamoElement<
+        CamoAccordionGroup,
+        {
+          "single-expand"?: boolean;
+        }
+      >;
+      "camo-bottom-sheet": CamoElement<
+        CamoBottomSheet,
+        {
+          title?: string;
+          open?: boolean;
+          detent?: Detent;
+          persistent?: boolean;
+          drag?: number;
+        }
+      >;
       "camo-button": CamoElement<
         CamoButton,
         {
@@ -81,6 +126,17 @@ declare module "react" {
           name?: string;
           cursor?: string | null;
           paged?: string | null;
+        }
+      >;
+      "camo-card": CamoElement<
+        CamoCard,
+        {
+          appearance?: Appearance | null;
+          tone?: Tone;
+          clickable?: boolean;
+          selectable?: boolean;
+          selected?: boolean;
+          disabled?: boolean;
         }
       >;
       "camo-checkbox": CamoElement<
@@ -180,6 +236,75 @@ declare module "react" {
           tooltip?: string | null;
         }
       >;
+      "camo-list-item": CamoElement<
+        CamoListItem,
+        {
+          headline?: string;
+          supporting?: string | null;
+          overline?: string | null;
+          clickable?: boolean;
+          selected?: boolean;
+          disabled?: boolean;
+        }
+      >;
+      "camo-list-section": CamoElement<
+        CamoListSection,
+        {
+          title?: string;
+          footer?: string | null;
+          level?: SurfaceLevel;
+        }
+      >;
+      "camo-menu": CamoElement<
+        CamoMenu,
+        {
+          open?: boolean;
+        }
+      >;
+      "camo-menu-divider": CamoElement<CamoMenuDivider>;
+      "camo-menu-group": CamoElement<
+        CamoMenuGroup,
+        {
+          exclusive?: boolean;
+        }
+      >;
+      "camo-menu-item": CamoElement<
+        CamoMenuItem,
+        {
+          text?: string;
+          "trailing-text"?: string | null;
+          tone?: Tone;
+          checkable?: boolean;
+          checked?: boolean;
+          disabled?: boolean;
+        }
+      >;
+      "camo-option": CamoElement<
+        CamoOption,
+        {
+          value?: string;
+          label?: string;
+          supporting?: string | null;
+          disabled?: boolean;
+        }
+      >;
+      "camo-paged-list": CamoElement<
+        CamoPagedList,
+        {
+          label?: string | null;
+          refreshable?: boolean;
+          "prefetch-distance"?: number;
+          "initial-skeleton-count"?: number;
+          "more-skeleton-count"?: number;
+          "empty-title"?: string;
+          "empty-message"?: string;
+          "error-title"?: string;
+          "retry-label"?: string;
+          "loading-label"?: string;
+          "loading-more-label"?: string;
+          pull?: number;
+        }
+      >;
       "camo-provider": CamoElement<
         CamoProvider,
         {
@@ -244,6 +369,49 @@ declare module "react" {
           label?: string | null;
           disabled?: boolean;
           name?: string;
+        }
+      >;
+      "camo-select": CamoElement<
+        CamoSelect,
+        {
+          value?: string;
+          label?: string | null;
+          placeholder?: string | null;
+          "supporting-text"?: string | null;
+          error?: string;
+          presentation?: Presentation;
+          searchable?: boolean;
+          "selected-label"?: string | null;
+          loading?: boolean;
+          "search-debounce"?: number;
+          "auto-menu-max-options"?: number;
+          disabled?: boolean;
+          required?: boolean;
+          name?: string;
+          query?: string;
+          found?: readonly SelectOption[];
+          "label-placement"?: LabelPlacement | null;
+          instant?: boolean;
+          locale?: string | null;
+          min?: string | null;
+          max?: string | null;
+          "ok-label"?: string;
+          "cancel-label"?: string;
+          open?: boolean;
+          focused?: boolean;
+        }
+      >;
+      "camo-skeleton": CamoElement<
+        CamoSkeleton,
+        {
+          variant?: SkeletonVariant;
+          shape?: ShapeName;
+          width?: string | null;
+          height?: string | null;
+          lines?: number;
+          "last-line-fraction"?: number;
+          size?: string | null;
+          leading?: SkeletonLeading;
         }
       >;
       "camo-slider": CamoElement<
@@ -358,6 +526,26 @@ declare module "react" {
           "cancel-label"?: string;
           open?: boolean;
           focused?: boolean;
+        }
+      >;
+      "camo-tooltip": CamoElement<
+        CamoTooltip,
+        {
+          text?: string;
+          "show-delay"?: number;
+          "hide-delay"?: number;
+          disabled?: boolean;
+          open?: boolean;
+          visible?: boolean;
+        }
+      >;
+      "camo-top-bar": CamoElement<
+        CamoTopBar,
+        {
+          title?: string;
+          "scroll-offset"?: number;
+          "scroll-target"?: string | null;
+          hidden?: boolean;
         }
       >;
     }

@@ -284,3 +284,75 @@ describe("the W3 inputs on the server", () => {
     expect(page("cupertino")).toBe(page("cupertino"));
   });
 });
+
+describe("the W4 structure and overlays on the server", () => {
+  const page = (skin: string): string =>
+    squash(
+      renderToString(
+        html`<camo-provider skin=${skin} scheme="light">
+          <camo-top-bar title="Inbox"><camo-icon-button slot="navigation" label="Back"><camo-icon name="arrow-back"></camo-icon></camo-icon-button></camo-top-bar>
+          <camo-card appearance="outline" clickable selectable selected><camo-text text="Pro plan"></camo-text></camo-card>
+          <camo-list-section title="Network" footer="Notes">
+            <camo-list-item headline="Wi-Fi" supporting="Home" clickable><camo-icon slot="leading" name="search"></camo-icon></camo-list-item>
+            <camo-list-item headline="Bluetooth"></camo-list-item>
+          </camo-list-section>
+          <camo-accordion title="Shipping" subtitle="2 days" expanded>Ships soon</camo-accordion>
+          <camo-skeleton variant="list-item" lines="2"></camo-skeleton>
+          <camo-paged-list label="People"></camo-paged-list>
+          <camo-menu><camo-button slot="anchor" text="Actions"></camo-button><camo-menu-item text="Copy" trailing-text="⌘C"></camo-menu-item><camo-menu-item text="Delete" tone="error"></camo-menu-item></camo-menu>
+          <camo-tooltip text="Save the file"><camo-button text="Save"></camo-button></camo-tooltip>
+          <camo-select label="Country" value="id"><camo-option value="id" label="Indonesia"></camo-option></camo-select>
+          <camo-bottom-sheet open title="Share"><camo-list-item headline="Message"></camo-list-item></camo-bottom-sheet>
+        </camo-provider>`,
+      ),
+    );
+
+  it.each(["minimal", "cupertino"])(
+    "renders every one into declarative shadow DOM under %s, with no script",
+    (skin) => {
+      const out = page(skin);
+      for (const tag of [
+        "camo-top-bar",
+        "camo-card",
+        "camo-list-section",
+        "camo-list-item",
+        "camo-accordion",
+        "camo-skeleton",
+        "camo-paged-list",
+        "camo-menu",
+        "camo-menu-item",
+        "camo-tooltip",
+        "camo-select",
+        "camo-bottom-sheet",
+      ])
+        expect(out, tag).toContain(`<${tag}`);
+      expect(out).not.toContain("<script");
+    },
+  );
+
+  it("carries role, name and state as attributes, and draws the texts", () => {
+    const out = page("minimal");
+    expect(out).toMatch(/<camo-card[^>]*role="button"[^>]*aria-pressed="true"/);
+    expect(out).toMatch(/<camo-list-item[^>]*role="button"[^>]*aria-label="Wi-Fi, Home"/);
+    expect(out).toMatch(/<camo-skeleton[^>]*aria-hidden="true"/);
+    expect(out).toMatch(/<camo-menu-item[^>]*role="menuitem"[^>]*aria-label="Copy"/);
+    expect(out).toContain('aria-expanded="true"'); // the accordion header
+    expect(out).toContain("Network");
+    expect(out).toContain("⌘C");
+    expect(out).toContain("Indonesia");
+    expect(out).toMatch(/<dialog[^>]*aria-labelledby="title"[^>]*open/); // the sheet arrives open
+  });
+
+  it("draws the same markup differently per skin", () => {
+    expect(page("minimal")).toContain("--li-min: var(--camo-list-item-min-height-one-line, 56px)");
+    expect(page("cupertino")).toContain(
+      "--li-min: var(--camo-list-item-min-height-one-line, 48px)",
+    );
+    expect(page("minimal")).not.toContain('class="large"');
+    expect(page("cupertino")).toContain('class="large"');
+  });
+
+  it("gives the same page twice the same bytes", () => {
+    expect(page("cupertino")).toBe(page("cupertino"));
+  });
+});

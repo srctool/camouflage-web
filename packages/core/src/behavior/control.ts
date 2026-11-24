@@ -1,5 +1,5 @@
 import { LitElement, isServer } from "lit";
-import type { PropertyDeclarations } from "lit";
+import type { PropertyDeclarations, PropertyValues } from "lit";
 import { reportFormState } from "./internals.ts";
 
 /** What `camo-before-change` carries: the value the edit would produce. */
@@ -141,7 +141,7 @@ export abstract class CamoControl extends LitElement {
     }
   }
 
-  protected override updated(): void {
+  protected override updated(_changed: PropertyValues = new Map()): void {
     if (isServer) return;
     const problem = this.error ?? this.ownProblem();
     reportFormState(this.internals, {

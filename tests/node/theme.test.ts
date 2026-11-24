@@ -269,6 +269,14 @@ describe("createCamoTheme", () => {
     const theme = createCamoTheme(base, { components: { button: { height: "48px" } } });
     expect(theme.components.button).toEqual({ height: "48px" });
     expect(Object.keys(COMPONENT_FIELDS)).toEqual([
+      "card",
+      "listItem",
+      "accordion",
+      "skeleton",
+      "bottomSheet",
+      "menu",
+      "tooltip",
+      "topBar",
       "textField",
       "searchField",
       "checkbox",

@@ -6,14 +6,15 @@ The third platform of [Camouflage](https://github.com/srctool/camouflage), next 
 written in TypeScript with [Lit](https://lit.dev), usable from any framework or plain HTML, from Tauri webviews, and
 with **server rendering**.
 
-> **Status: W3, the inputs.** Text and search field, checkbox, switch, radio, segmented control, slider, stepper, form,
-> calendar, date picker and time picker, all form-associated, join W2's `camo-text`, `camo-icon`, `camo-surface`,
-> `camo-divider`, `camo-button` and `camo-icon-button`, with `camo-provider` and `camo-dialog`, on **W1's foundations**:
-> the theme model, the provider and its environment, the skin contract and behavior layer, the scenario-driven test
-> harness, and the contract, manifest and typings checks. More components follow in W4 to W9. The design notes are in the
-> [contributor docs](https://camouflage-dev.srctool.com) (the "Web (planned)" sections); the findings are in
+> **Status: W4, structure and overlays.** Card, list item and section, accordion, skeleton, paged list, select, the overlay
+> frame with dialog, bottom sheet, menu, tooltip and top bar join W3's inputs (text and search field, checkbox, switch,
+> radio, segmented control, slider, stepper, form, calendar and the date and time pickers) and W2's primitives and actions, on
+> **W1's foundations**: the theme model, the provider and its environment, the skin contract and behavior layer, the
+> scenario-driven test harness, and the contract, manifest and typings checks. More components follow in W5 to W9. The design
+> notes are in the [contributor docs](https://camouflage-dev.srctool.com) (the "Web (planned)" sections); the findings are in
 > [docs/spike-findings.md](docs/spike-findings.md) (W0), [docs/w1-findings.md](docs/w1-findings.md),
-> [docs/w2-findings.md](docs/w2-findings.md) and [docs/w3-findings.md](docs/w3-findings.md).
+> [docs/w2-findings.md](docs/w2-findings.md), [docs/w3-findings.md](docs/w3-findings.md) and
+> [docs/w4-findings.md](docs/w4-findings.md).
 
 ## How it fits together
 
@@ -77,6 +78,7 @@ pnpm exec playwright install chromium firefox webkit   # once
 - [docs/skins.md](docs/skins.md): how each skin renders what exists (dialect alignment).
 - [docs/w2-findings.md](docs/w2-findings.md): what the primitives settled.
 - [docs/w3-findings.md](docs/w3-findings.md): what the inputs settled (forms, validation, pickers, the gaps).
+- [docs/w4-findings.md](docs/w4-findings.md): what the overlays and containers settled (the overlay frame, menus, lists, the gaps).
 - [docs/browser-baseline.md](docs/browser-baseline.md), [docs/publishing.md](docs/publishing.md).
 
 ## Publishing

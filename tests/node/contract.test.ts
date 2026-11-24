@@ -92,6 +92,14 @@ describe("camouflage-contract.json", () => {
       Stepper: ["layout"],
       Calendar: ["showOutsideDays"],
       TimePicker: ["style"],
+      Card: ["defaultAppearance", "showSelectedCheck"],
+      ListItem: ["dividers"],
+      Accordion: ["indicator", "indicatorPosition"],
+      Skeleton: ["animation"],
+      BottomSheet: ["showHandle", "titleAlign", "showCloseButton"],
+      Menu: ["checkPosition"],
+      Tooltip: [],
+      TopBar: ["titleAlign", "divider", "largeTitle"],
       Dialog: ["titleAlign", "actionsLayout", "showCloseButton", "stackedScrim"],
     });
   });
@@ -137,7 +145,7 @@ describe("the web naming rules", () => {
     expect(() =>
       expectation({
         name: "Thing",
-        parameters: [{ name: "visible", kind: "value", type: "boolean", default: true }],
+        parameters: [{ name: "pinned", kind: "value", type: "boolean", default: true }],
       }),
     ).toThrow("add its inversion to INVERTED");
   });

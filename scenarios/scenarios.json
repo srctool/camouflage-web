@@ -1295,6 +1295,602 @@
       "modes": ["light"],
       "textScales": [1],
       "directions": ["ltr"]
+    },
+    {
+      "name": "card-raised",
+      "component": "card",
+      "props": {
+        "appearance": "raised"
+      },
+      "content": {
+        "": "<camo-text variant=\"title-medium\" text=\"Pro plan\"></camo-text><camo-text variant=\"body-medium\" text=\"Unlimited projects and priority support\"></camo-text>"
+      }
+    },
+    {
+      "name": "card-outline",
+      "component": "card",
+      "props": {
+        "appearance": "outline"
+      },
+      "content": {
+        "": "<camo-text variant=\"title-medium\" text=\"Pro plan\"></camo-text><camo-text variant=\"body-medium\" text=\"Unlimited projects and priority support\"></camo-text>"
+      }
+    },
+    {
+      "name": "card-soft",
+      "component": "card",
+      "props": {
+        "appearance": "soft"
+      },
+      "content": {
+        "": "<camo-text variant=\"title-medium\" text=\"Pro plan\"></camo-text><camo-text variant=\"body-medium\" text=\"Unlimited projects and priority support\"></camo-text>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "card-solid",
+      "component": "card",
+      "props": {
+        "appearance": "solid"
+      },
+      "content": {
+        "": "<camo-text variant=\"title-medium\" text=\"Pro plan\"></camo-text><camo-text variant=\"body-medium\" text=\"Unlimited projects and priority support\"></camo-text>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "card-error",
+      "component": "card",
+      "props": {
+        "appearance": "soft",
+        "tone": "error"
+      },
+      "content": {
+        "": "<camo-text variant=\"title-medium\" text=\"Pro plan\"></camo-text><camo-text variant=\"body-medium\" text=\"Unlimited projects and priority support\"></camo-text>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "card-clickable",
+      "component": "card",
+      "props": {
+        "clickable": true
+      },
+      "content": {
+        "": "<camo-text variant=\"title-medium\" text=\"Pro plan\"></camo-text><camo-text variant=\"body-medium\" text=\"Unlimited projects and priority support\"></camo-text>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "card-selected",
+      "component": "card",
+      "props": {
+        "clickable": true,
+        "selectable": true,
+        "selected": true
+      },
+      "content": {
+        "": "<camo-text variant=\"title-medium\" text=\"Pro plan\"></camo-text><camo-text variant=\"body-medium\" text=\"Unlimited projects and priority support\"></camo-text>"
+      }
+    },
+    {
+      "name": "card-unselected",
+      "component": "card",
+      "props": {
+        "clickable": true,
+        "selectable": true
+      },
+      "content": {
+        "": "<camo-text variant=\"title-medium\" text=\"Pro plan\"></camo-text><camo-text variant=\"body-medium\" text=\"Unlimited projects and priority support\"></camo-text>"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "card-disabled",
+      "component": "card",
+      "props": {
+        "clickable": true,
+        "disabled": true
+      },
+      "content": {
+        "": "<camo-text variant=\"title-medium\" text=\"Pro plan\"></camo-text><camo-text variant=\"body-medium\" text=\"Unlimited projects and priority support\"></camo-text>"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "list-item-one",
+      "component": "list-item",
+      "props": {
+        "headline": "Wi-Fi"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "list-item-two",
+      "component": "list-item",
+      "props": {
+        "headline": "Wi-Fi",
+        "supporting": "Connected to Home"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "list-item-three",
+      "component": "list-item",
+      "props": {
+        "headline": "Wi-Fi",
+        "supporting": "Connected to Home",
+        "overline": "Network"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "list-item-clickable",
+      "component": "list-item",
+      "props": {
+        "headline": "Settings",
+        "supporting": "Account and privacy",
+        "clickable": true
+      },
+      "content": {
+        "leading": "<camo-icon name=\"search\"></camo-icon>",
+        "trailing": "<camo-icon name=\"arrow-back\" auto-mirror></camo-icon>"
+      }
+    },
+    {
+      "name": "list-item-selected",
+      "component": "list-item",
+      "props": {
+        "headline": "Inbox",
+        "clickable": true,
+        "selected": true
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "list-item-disabled",
+      "component": "list-item",
+      "props": {
+        "headline": "Unavailable",
+        "clickable": true,
+        "disabled": true
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "list-section",
+      "component": "list-section",
+      "props": {
+        "title": "Network",
+        "footer": "Wi-Fi uses less battery than cellular"
+      },
+      "content": {
+        "": "<camo-list-item headline=\"Wi-Fi\" supporting=\"Home\" clickable><camo-icon slot=\"leading\" name=\"search\"></camo-icon></camo-list-item><camo-list-item headline=\"Bluetooth\" supporting=\"On\" clickable><camo-icon slot=\"leading\" name=\"add\"></camo-icon></camo-list-item><camo-list-item headline=\"Cellular\" clickable><camo-icon slot=\"leading\" name=\"heart\"></camo-icon></camo-list-item>"
+      }
+    },
+    {
+      "name": "list-section-high",
+      "component": "list-section",
+      "props": {
+        "title": "Network",
+        "level": "high"
+      },
+      "content": {
+        "": "<camo-list-item headline=\"Wi-Fi\" supporting=\"Home\" clickable><camo-icon slot=\"leading\" name=\"search\"></camo-icon></camo-list-item><camo-list-item headline=\"Bluetooth\" supporting=\"On\" clickable><camo-icon slot=\"leading\" name=\"add\"></camo-icon></camo-list-item><camo-list-item headline=\"Cellular\" clickable><camo-icon slot=\"leading\" name=\"heart\"></camo-icon></camo-list-item>"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "accordion-collapsed",
+      "component": "accordion",
+      "props": {
+        "title": "Shipping",
+        "subtitle": "2 to 4 days"
+      },
+      "content": {
+        "": "<camo-text text=\"Orders ship within two business days.\"></camo-text>"
+      }
+    },
+    {
+      "name": "accordion-expanded",
+      "component": "accordion",
+      "props": {
+        "title": "Shipping",
+        "subtitle": "2 to 4 days",
+        "expanded": true
+      },
+      "content": {
+        "": "<camo-text text=\"Orders ship within two business days.\"></camo-text>"
+      }
+    },
+    {
+      "name": "accordion-leading",
+      "component": "accordion",
+      "props": {
+        "title": "Search",
+        "expanded": true
+      },
+      "content": {
+        "leading": "<camo-icon name=\"search\"></camo-icon>",
+        "": "<camo-text text=\"Orders ship within two business days.\"></camo-text>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "accordion-disabled",
+      "component": "accordion",
+      "props": {
+        "title": "Unavailable",
+        "disabled": true
+      },
+      "content": {
+        "": "<camo-text text=\"Orders ship within two business days.\"></camo-text>"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "skeleton-block",
+      "component": "skeleton",
+      "props": {
+        "height": "6rem",
+        "shape": "large"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "skeleton-text",
+      "component": "skeleton",
+      "props": {
+        "variant": "text",
+        "lines": 3
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "skeleton-circle",
+      "component": "skeleton",
+      "props": {
+        "variant": "circle",
+        "size": "48px"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "skeleton-list-item",
+      "component": "skeleton",
+      "props": {
+        "variant": "list-item",
+        "lines": 2
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "paged-list",
+      "component": "paged-list",
+      "props": {
+        "label": "People"
+      },
+      "properties": {
+        "state": {
+          "items": [
+            {
+              "headline": "Ada Lovelace",
+              "supporting": "Analyst"
+            },
+            {
+              "headline": "Grace Hopper",
+              "supporting": "Admiral"
+            },
+            {
+              "headline": "Katherine Johnson",
+              "supporting": "Mathematician"
+            }
+          ],
+          "endReached": true
+        }
+      }
+    },
+    {
+      "name": "paged-list-loading",
+      "component": "paged-list",
+      "props": {
+        "label": "People",
+        "initial-skeleton-count": 3
+      },
+      "properties": {
+        "state": {
+          "items": [],
+          "loading": "initial"
+        }
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "paged-list-more",
+      "component": "paged-list",
+      "props": {
+        "label": "People",
+        "more-skeleton-count": 2
+      },
+      "properties": {
+        "state": {
+          "items": [
+            {
+              "headline": "Ada Lovelace",
+              "supporting": "Analyst"
+            },
+            {
+              "headline": "Grace Hopper",
+              "supporting": "Admiral"
+            },
+            {
+              "headline": "Katherine Johnson",
+              "supporting": "Mathematician"
+            }
+          ],
+          "loading": "more"
+        }
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "paged-list-empty",
+      "component": "paged-list",
+      "props": {
+        "label": "People",
+        "empty-message": "Invite someone to get started"
+      },
+      "properties": {
+        "state": {
+          "items": [],
+          "endReached": true
+        }
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "paged-list-error",
+      "component": "paged-list",
+      "props": {
+        "label": "People"
+      },
+      "properties": {
+        "state": {
+          "items": [],
+          "error": {
+            "message": "The server did not answer",
+            "scope": "first-page"
+          }
+        }
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "paged-list-next-error",
+      "component": "paged-list",
+      "props": {
+        "label": "People"
+      },
+      "properties": {
+        "state": {
+          "items": [
+            {
+              "headline": "Ada Lovelace",
+              "supporting": "Analyst"
+            },
+            {
+              "headline": "Grace Hopper",
+              "supporting": "Admiral"
+            },
+            {
+              "headline": "Katherine Johnson",
+              "supporting": "Mathematician"
+            }
+          ],
+          "error": {
+            "message": "Could not load more",
+            "scope": "next-page"
+          }
+        }
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "bottom-sheet",
+      "component": "bottom-sheet",
+      "props": {
+        "open": true,
+        "title": "Share"
+      },
+      "content": {
+        "": "<camo-list-item headline=\"Message\" clickable></camo-list-item><camo-list-item headline=\"Mail\" clickable></camo-list-item><camo-list-item headline=\"Copy link\" clickable></camo-list-item>"
+      },
+      "frame": "page"
+    },
+    {
+      "name": "bottom-sheet-medium",
+      "component": "bottom-sheet",
+      "props": {
+        "open": true,
+        "title": "Share",
+        "detent": "medium"
+      },
+      "content": {
+        "": "<camo-list-item headline=\"Message\" clickable></camo-list-item><camo-list-item headline=\"Mail\" clickable></camo-list-item><camo-list-item headline=\"Copy link\" clickable></camo-list-item>"
+      },
+      "frame": "page",
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "bottom-sheet-untitled",
+      "component": "bottom-sheet",
+      "props": {
+        "open": true
+      },
+      "content": {
+        "": "<camo-list-item headline=\"Message\" clickable></camo-list-item><camo-list-item headline=\"Mail\" clickable></camo-list-item><camo-list-item headline=\"Copy link\" clickable></camo-list-item>"
+      },
+      "frame": "page",
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "menu",
+      "component": "menu",
+      "props": {
+        "open": true
+      },
+      "content": {
+        "": "<camo-button slot=\"anchor\" text=\"Actions\" appearance=\"outline\"></camo-button><camo-menu-item text=\"Copy\" trailing-text=\"\u2318C\"></camo-menu-item><camo-menu-item text=\"Paste\" trailing-text=\"\u2318V\"></camo-menu-item><camo-menu-divider></camo-menu-divider><camo-menu-group exclusive><camo-menu-item text=\"Newest\" checkable checked></camo-menu-item><camo-menu-item text=\"Oldest\" checkable></camo-menu-item></camo-menu-group><camo-menu-divider></camo-menu-divider><camo-menu-item text=\"Delete\" tone=\"error\"></camo-menu-item><camo-menu-item text=\"Archive\" disabled></camo-menu-item>"
+      },
+      "frame": "page"
+    },
+    {
+      "name": "menu-closed",
+      "component": "menu",
+      "content": {
+        "": "<camo-button slot=\"anchor\" text=\"Actions\" appearance=\"outline\"></camo-button><camo-menu-item text=\"Copy\" trailing-text=\"\u2318C\"></camo-menu-item><camo-menu-item text=\"Paste\" trailing-text=\"\u2318V\"></camo-menu-item><camo-menu-divider></camo-menu-divider><camo-menu-group exclusive><camo-menu-item text=\"Newest\" checkable checked></camo-menu-item><camo-menu-item text=\"Oldest\" checkable></camo-menu-item></camo-menu-group><camo-menu-divider></camo-menu-divider><camo-menu-item text=\"Delete\" tone=\"error\"></camo-menu-item><camo-menu-item text=\"Archive\" disabled></camo-menu-item>"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "tooltip",
+      "component": "tooltip",
+      "props": {
+        "text": "Save the file",
+        "open": true
+      },
+      "content": {
+        "": "<camo-button text=\"Save\"></camo-button>"
+      },
+      "frame": "page",
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "top-bar",
+      "component": "top-bar",
+      "props": {
+        "title": "Inbox"
+      },
+      "content": {
+        "": "<camo-icon-button slot=\"navigation\" label=\"Back\"><camo-icon name=\"arrow-back\" auto-mirror></camo-icon></camo-icon-button><camo-icon-button slot=\"actions\" label=\"Search\"><camo-icon name=\"search\"></camo-icon></camo-icon-button><camo-icon-button slot=\"actions\" label=\"Add\"><camo-icon name=\"add\"></camo-icon></camo-icon-button>"
+      }
+    },
+    {
+      "name": "top-bar-scrolled",
+      "component": "top-bar",
+      "props": {
+        "title": "Inbox",
+        "scroll-offset": 24
+      },
+      "content": {
+        "": "<camo-icon-button slot=\"navigation\" label=\"Back\"><camo-icon name=\"arrow-back\" auto-mirror></camo-icon></camo-icon-button><camo-icon-button slot=\"actions\" label=\"Search\"><camo-icon name=\"search\"></camo-icon></camo-icon-button><camo-icon-button slot=\"actions\" label=\"Add\"><camo-icon name=\"add\"></camo-icon></camo-icon-button>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "top-bar-collapsed",
+      "component": "top-bar",
+      "props": {
+        "title": "Inbox",
+        "scroll-offset": 80
+      },
+      "content": {
+        "": "<camo-icon-button slot=\"navigation\" label=\"Back\"><camo-icon name=\"arrow-back\" auto-mirror></camo-icon></camo-icon-button><camo-icon-button slot=\"actions\" label=\"Search\"><camo-icon name=\"search\"></camo-icon></camo-icon-button><camo-icon-button slot=\"actions\" label=\"Add\"><camo-icon name=\"add\"></camo-icon></camo-icon-button>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "top-bar-title-content",
+      "component": "top-bar",
+      "props": {
+        "title": "Search"
+      },
+      "content": {
+        "navigation": "<camo-icon-button label=\"Back\"><camo-icon name=\"arrow-back\" auto-mirror></camo-icon></camo-icon-button>",
+        "title-content": "<camo-search-field></camo-search-field>"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "select",
+      "component": "select",
+      "props": {
+        "label": "Country",
+        "value": "id",
+        "locale": "en-US"
+      },
+      "content": {
+        "": "<camo-option value=\"id\" label=\"Indonesia\"></camo-option><camo-option value=\"nl\" label=\"Netherlands\"></camo-option>"
+      }
+    },
+    {
+      "name": "select-placeholder",
+      "component": "select",
+      "props": {
+        "label": "Country",
+        "placeholder": "Choose one"
+      },
+      "content": {
+        "": "<camo-option value=\"id\" label=\"Indonesia\"></camo-option>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "select-error",
+      "component": "select",
+      "props": {
+        "label": "Country",
+        "error": "Choose a country"
+      },
+      "content": {
+        "": "<camo-option value=\"id\" label=\"Indonesia\"></camo-option>"
+      },
+      "modes": ["light"],
+      "textScales": [1],
+      "directions": ["ltr"]
     }
   ]
 }

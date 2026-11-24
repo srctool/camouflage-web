@@ -3,7 +3,8 @@ import { html } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { registerDemoIcons } from "../../../scenarios/icons.ts";
-import { scenarioMarkup } from "../../../scenarios/expand.ts";
+import { applyProperties, scenarioMarkup } from "../../../scenarios/expand.ts";
+import { ref } from "lit/directives/ref.js";
 import type { Direction, Mode, Scenario } from "../../../scenarios/expand.ts";
 
 // The screenshot harness: one story that renders any scenario of `scenarios/scenarios.json`, chosen by the URL, so a
@@ -62,6 +63,10 @@ const meta: Meta = {
     document.documentElement.style.fontSize = `${request.textScale * 100}%`;
     return html`<div id="harness" dir=${request.direction} style="display:inline-block;min-width:240px">
       <camo-provider
+        ${ref((el) => {
+          // The scenario's element is a child committed after this attribute part: assign once it is there.
+          if (el !== undefined) queueMicrotask(() => applyProperties(el, request.scenario));
+        })}
         skin=${request.skin}
         scheme=${request.mode}
         style="display:block;padding:24px;background:var(--camo-color-surface);color:var(--camo-color-on-surface)"

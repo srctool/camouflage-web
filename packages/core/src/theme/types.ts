@@ -138,6 +138,14 @@ export type CamoTokenSets = Readonly<Record<string, CamoColorScale | CamoDimensi
  * skin's `defaults(theme)` supplies the rest. Each field is the variable `--camo-<component>-<field>` (kebab-case).
  */
 export interface CamoComponentThemes {
+  card?: CardTheme;
+  listItem?: ListItemTheme;
+  accordion?: AccordionTheme;
+  skeleton?: SkeletonTheme;
+  bottomSheet?: BottomSheetTheme;
+  menu?: MenuTheme;
+  tooltip?: TooltipTheme;
+  topBar?: TopBarTheme;
   textField?: TextFieldTheme;
   searchField?: SearchFieldTheme;
   checkbox?: CheckboxTheme;
@@ -153,6 +161,76 @@ export interface CamoComponentThemes {
   button?: ButtonTheme;
   iconButton?: IconButtonTheme;
   dialog?: DialogTheme;
+}
+
+/** The fields of a card theme. */
+export interface CardTheme {
+  shape?: string;
+  contentPadding?: string;
+  borderWidth?: string;
+  raisedElevation?: string;
+  selectedBorderWidth?: string;
+}
+
+/** The fields of a listItem theme. */
+export interface ListItemTheme {
+  minHeightOneLine?: string;
+  minHeightTwoLines?: string;
+  minHeightThreeLines?: string;
+  contentPadding?: string;
+  leadingGap?: string;
+  trailingGap?: string;
+  iconSize?: string;
+  sectionShape?: string;
+}
+
+/** The fields of a accordion theme. */
+export interface AccordionTheme {
+  headerMinHeight?: string;
+  contentPadding?: string;
+}
+
+/** The fields of a skeleton theme. */
+export interface SkeletonTheme {
+  baseColor?: string;
+  highlightColor?: string;
+  cycleDuration?: string;
+  textLineGap?: string;
+}
+
+/** The fields of a bottomSheet theme. */
+export interface BottomSheetTheme {
+  shape?: string;
+  maxWidth?: string;
+  contentPadding?: string;
+  scrimAlpha?: string;
+  handleWidth?: string;
+  handleHeight?: string;
+}
+
+/** The fields of a menu theme. */
+export interface MenuTheme {
+  shape?: string;
+  minWidth?: string;
+  maxWidth?: string;
+  contentPadding?: string;
+  elevation?: string;
+  itemHeight?: string;
+  iconSize?: string;
+}
+
+/** The fields of a tooltip theme. */
+export interface TooltipTheme {
+  shape?: string;
+  padding?: string;
+  offset?: string;
+  maxWidth?: string;
+}
+
+/** The fields of a topBar theme. */
+export interface TopBarTheme {
+  height?: string;
+  iconSize?: string;
 }
 
 /** The fields of a textField theme. */

@@ -31,6 +31,19 @@ interface Model {
 
 const NATIVE = new Set(["input", "change", "click", "focus", "blur", "submit", "reset"]);
 
+/** One entry per event name; the one that says what it carries wins over a bare `CustomEvent`. */
+function mergeEvents(
+  events: { name: string; type: string }[],
+): Map<string, { name: string; type: string }> {
+  const out = new Map<string, { name: string; type: string }>();
+  for (const e of events) {
+    const have = out.get(e.name);
+    const bare = (t: string): boolean => t === "CustomEvent" || t === "Event";
+    if (have === undefined || (bare(have.type) && !bare(e.type))) out.set(e.name, e);
+  }
+  return out;
+}
+
 function model(d: ManifestDeclaration): Model {
   const attributes = (d.attributes ?? [])
     // `data-camo-scheme` is the provider's reflected output, not something a consumer sets.
@@ -44,7 +57,9 @@ function model(d: ManifestDeclaration): Model {
   const imports = {
     element: d.name,
     attributes: attributes.flatMap((a) => typeNames(a.type)),
-    events: events.flatMap((e) => typeNames(e.type).filter((n) => n !== "CustomEvent")),
+    events: events.flatMap((e) =>
+      typeNames(e.type).filter((n) => n !== "CustomEvent" && n !== "Event"),
+    ),
   };
   return { tag: d.tagName!, className: d.name, attributes, events, imports };
 }
@@ -65,7 +80,7 @@ function globals(models: Model[]): string {
     ...models.map((m) => `    "${m.tag}": ${m.className};`),
     "  }",
     "  interface HTMLElementEventMap {",
-    ...[...new Map(models.flatMap((m) => m.events).map((e) => [e.name, e])).values()].map(
+    ...[...mergeEvents(models.flatMap((m) => m.events)).values()].map(
       (e) => `    "${e.name}": ${e.type};`,
     ),
     "  }",
@@ -87,15 +102,16 @@ function react(models: Model[]): string {
     HEADER,
     'import type { DetailedHTMLProps, HTMLAttributes } from "react";',
     `import type { ${imports.join(", ")} } from "@srctool/camouflage-core";\n`,
-    "type CamoElement<T extends HTMLElement, A> = DetailedHTMLProps<HTMLAttributes<T>, T> & A;\n",
+    "type CamoElement<T extends HTMLElement, A = unknown> = DetailedHTMLProps<HTMLAttributes<T>, T> & A;\n",
     'declare module "react" {',
     "  namespace JSX {",
     "    interface IntrinsicElements {",
-    ...models.flatMap((m) => [
-      `      "${m.tag}": CamoElement<${m.className}, {`,
-      ...attributeLines(m, "        "),
-      "      }>;",
-    ]),
+    ...models.flatMap((m) => {
+      const attributes = attributeLines(m, "        ");
+      // An element with no attributes of its own takes only the global ones.
+      if (attributes.length === 0) return [`      "${m.tag}": CamoElement<${m.className}>;`];
+      return [`      "${m.tag}": CamoElement<${m.className}, {`, ...attributes, "      }>;"];
+    }),
     "    }",
     "  }",
     "}\n",

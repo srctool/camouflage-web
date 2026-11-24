@@ -27,7 +27,7 @@ const probe = (specifier) => `
   await import(${JSON.stringify(specifier)});
   const added = Object.getOwnPropertyNames(globalThis).filter((k) => !before.has(k));
   const out = { added, window: typeof globalThis.window, document: typeof globalThis.document,
-    elements: typeof customElements === "undefined" ? [] : ["camo-provider", "camo-button", "camo-dialog", "camo-text", "camo-icon", "camo-surface", "camo-divider", "camo-icon-button", "camo-text-field", "camo-search-field", "camo-checkbox", "camo-switch", "camo-radio", "camo-radio-group", "camo-segmented-control", "camo-segment", "camo-slider", "camo-stepper", "camo-calendar", "camo-date-picker", "camo-time-picker", "camo-form", "camo-field-action"].filter((t) => customElements.get(t)) };
+    elements: typeof customElements === "undefined" ? [] : ["camo-provider", "camo-button", "camo-dialog", "camo-text", "camo-icon", "camo-surface", "camo-divider", "camo-icon-button", "camo-text-field", "camo-search-field", "camo-checkbox", "camo-switch", "camo-radio", "camo-radio-group", "camo-segmented-control", "camo-segment", "camo-slider", "camo-stepper", "camo-calendar", "camo-date-picker", "camo-time-picker", "camo-form", "camo-field-action", "camo-card", "camo-list-item", "camo-list-section", "camo-accordion", "camo-accordion-group", "camo-skeleton", "camo-paged-list", "camo-bottom-sheet", "camo-menu", "camo-menu-item", "camo-tooltip", "camo-top-bar", "camo-select", "camo-option"].filter((t) => customElements.get(t)) };
   console.log(JSON.stringify(out));
 `;
 
