@@ -56,6 +56,7 @@ const INVERTED: Record<string, string> = {
   singleLine: "multiline",
   allowTyping: "readonly",
   visible: "hidden",
+  expanded: "collapsed",
 };
 
 // A callback that is a native event, and so needs no custom one (Components note, 3.4).

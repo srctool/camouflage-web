@@ -55,6 +55,20 @@ ring for keyboard focus). 40 px buttons, radius 8, a 48 px touch area.
 | Tooltip      | `inverseSurface`, radius 4, `bodySmall`, 8 px from the anchor                                                                     |
 | Top bar      | 56 tall, the title at the **start**, a hairline once content has scrolled under it, no large title                                |
 
+| Component         | Minimal (feedback, display and navigation)                                                            |
+| ----------------- | ----------------------------------------------------------------------------------------------------- |
+| Progress          | a 2 px ink line on a hairline track, no gap; the circle an ink arc on a hairline ring (24, 40 and 56) |
+| Snackbar          | the inverse surface, radius 6, at the **bottom** center, no status icon, no dismiss button            |
+| Banner            | a soft panel, radius 12, the status icon in the tone's color; solid and outline are the other two     |
+| Chip              | 32 tall, radius 8, a 1px hairline outline; a selected filter is **ink**, with no check                |
+| Badge             | a 16 px pill or an 8 px dot in the error tone; a count above 99 reads "99+"                           |
+| Avatar            | **neutral** circles (24, 36 and 48) on five calm containers; the presence dot has a 2 px ring         |
+| FAB               | flat, an ink fill, a rounded square of radius 16 (56); extended is 56 tall                            |
+| Tabs              | a hairline under the bar and a 2 px **ink indicator** as wide as the tab; 48 tall, 64 with an icon    |
+| Navigation bar    | 56 tall, a hairline above it, **no indicator**: the selected item turns ink; labels always shown      |
+| Navigation rail   | 72 wide, a hairline on the end edge; the header (a FAB) is fixed above the items                      |
+| Navigation drawer | 280 wide, rows 48 tall, the selected row a soft fill; section titles are headings                     |
+
 ## Cupertino (Classic)
 
 Apple's system colors from the HIG tables, SF type, iOS radii, **Classic** surface (an opaque fill with a soft shadow) and
@@ -109,6 +123,20 @@ Apple's system colors from the HIG tables, SF type, iOS radii, **Classic** surfa
 | Bottom sheet | radius 14 top corners, a 36 by 5 handle, the title **centered**                                                                         |
 | Menu         | radius 14, a deeper shadow (level 3), 200 wide at least, a check at the **start** of a checked item                                     |
 | Top bar      | 44 tall, the small title **centered**, and a **large title** under the bar that collapses as the offset grows (44 px)                   |
+
+| Component         | Cupertino (feedback, display and navigation)                                                                                      |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Progress          | a 4 px rounded track; the circle a ring, and a ring of **twelve fading spokes** while the amount is unknown (iOS's activity view) |
+| Snackbar          | a **banner at the top**, a lifted card (level 3) with the tone's status icon                                                      |
+| Banner            | a soft panel, radius 14                                                                                                           |
+| Chip              | a **capsule** with a soft fill; a selected filter is the accent color                                                             |
+| Badge             | iOS's red pill (18) or dot (10)                                                                                                   |
+| Avatar            | contact-style circles (28, 40 and 56) on tinted containers chosen by the name                                                     |
+| FAB               | iOS has none: a prominent **circle** (56) with a shadow, folded to a circle too                                                   |
+| Tabs              | a **segmented control**: a gray track and a white pill that slides behind the tab; a scrolling bar uses the underline instead     |
+| Navigation bar    | iOS's tab bar, 49 tall, a hairline above it, labels always shown and the selected item tinted with the accent                     |
+| Navigation rail   | 80 wide, the same items                                                                                                           |
+| Navigation drawer | iOS's sidebar, 320 wide, rows 44 tall, the selected row tinted                                                                    |
 
 The same `<camo-dialog>` markup gives side-by-side actions under Minimal and stacked ones under Cupertino; that is the
 contract's point, tested in the server-rendering and browser tests.

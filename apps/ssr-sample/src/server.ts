@@ -3,7 +3,7 @@ import { render } from "./render.ts";
 import { readFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { fileURLToPath } from "node:url";
-import { dialogPage, inputsPage, spikePage, structurePage } from "./page.ts";
+import { dialogPage, feedbackPage, inputsPage, spikePage, structurePage } from "./page.ts";
 import { documentShell } from "./document.ts";
 
 const port = Number(process.env["PORT"] ?? 4173);
@@ -25,7 +25,13 @@ createServer(async (request, response) => {
   let title = "Camouflage spike";
   let page;
   if (url.pathname === "/") page = spikePage();
-  else if (url.pathname === "/structure") {
+  else if (url.pathname === "/feedback") {
+    title = "Camouflage feedback and navigation";
+    page = feedbackPage(
+      url.searchParams.get("skin") ?? "minimal",
+      url.searchParams.get("scheme") ?? "light",
+    );
+  } else if (url.pathname === "/structure") {
     title = "Camouflage structure";
     page = structurePage(
       url.searchParams.get("skin") ?? "minimal",

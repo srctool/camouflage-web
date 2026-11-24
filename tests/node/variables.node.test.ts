@@ -28,6 +28,11 @@ describe("the custom properties the source names", () => {
     "--camo-icon-default-size",
     "--camo-li-divider",
     "--camo-li-inset",
+    // Set by the app on the page (or a container) to lift snackbars clear of a bottom bar or a FAB.
+    // Set by a banner or a snackbar: the color its quiet buttons take.
+    "--camo-action-color",
+    "--camo-messenger-inset-bottom",
+    "--camo-messenger-inset-top",
   ]);
 
   it("all exist", () => {

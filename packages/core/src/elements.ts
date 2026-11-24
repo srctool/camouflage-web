@@ -3,17 +3,25 @@
 import type {
   CamoAccordion,
   CamoAccordionGroup,
+  CamoAvatar,
+  CamoAvatarGroup,
+  CamoBadge,
+  CamoBadgedBox,
+  CamoBanner,
   CamoBeforeChangeDetail,
   CamoBottomSheet,
   CamoButton,
   CamoCalendar,
   CamoCard,
   CamoCheckbox,
+  CamoChip,
+  CamoChipGroup,
   CamoCloseDetail,
   CamoDatePicker,
   CamoDialog,
   CamoDivider,
   CamoExpandedDetail,
+  CamoFab,
   CamoFieldAction,
   CamoForm,
   CamoIcon,
@@ -25,8 +33,16 @@ import type {
   CamoMenuDivider,
   CamoMenuGroup,
   CamoMenuItem,
+  CamoModalDrawer,
+  CamoNavItem,
+  CamoNavSection,
+  CamoNavigationBar,
+  CamoNavigationDrawer,
+  CamoNavigationRail,
   CamoOption,
   CamoPagedList,
+  CamoProgressBar,
+  CamoProgressCircle,
   CamoProvider,
   CamoQueryDetail,
   CamoRadio,
@@ -37,10 +53,13 @@ import type {
   CamoSelect,
   CamoSkeleton,
   CamoSlider,
+  CamoSnackbar,
   CamoStepper,
   CamoSubmitDetail,
   CamoSurface,
   CamoSwitch,
+  CamoTab,
+  CamoTabs,
   CamoText,
   CamoTextField,
   CamoTimePicker,
@@ -52,14 +71,22 @@ declare global {
   interface HTMLElementTagNameMap {
     "camo-accordion": CamoAccordion;
     "camo-accordion-group": CamoAccordionGroup;
+    "camo-avatar": CamoAvatar;
+    "camo-avatar-group": CamoAvatarGroup;
+    "camo-badge": CamoBadge;
+    "camo-badged-box": CamoBadgedBox;
+    "camo-banner": CamoBanner;
     "camo-bottom-sheet": CamoBottomSheet;
     "camo-button": CamoButton;
     "camo-calendar": CamoCalendar;
     "camo-card": CamoCard;
     "camo-checkbox": CamoCheckbox;
+    "camo-chip": CamoChip;
+    "camo-chip-group": CamoChipGroup;
     "camo-date-picker": CamoDatePicker;
     "camo-dialog": CamoDialog;
     "camo-divider": CamoDivider;
+    "camo-fab": CamoFab;
     "camo-field-action": CamoFieldAction;
     "camo-form": CamoForm;
     "camo-icon": CamoIcon;
@@ -70,8 +97,16 @@ declare global {
     "camo-menu-divider": CamoMenuDivider;
     "camo-menu-group": CamoMenuGroup;
     "camo-menu-item": CamoMenuItem;
+    "camo-modal-drawer": CamoModalDrawer;
+    "camo-nav-item": CamoNavItem;
+    "camo-nav-section": CamoNavSection;
+    "camo-navigation-bar": CamoNavigationBar;
+    "camo-navigation-drawer": CamoNavigationDrawer;
+    "camo-navigation-rail": CamoNavigationRail;
     "camo-option": CamoOption;
     "camo-paged-list": CamoPagedList;
+    "camo-progress-bar": CamoProgressBar;
+    "camo-progress-circle": CamoProgressCircle;
     "camo-provider": CamoProvider;
     "camo-radio": CamoRadio;
     "camo-radio-group": CamoRadioGroup;
@@ -81,9 +116,12 @@ declare global {
     "camo-select": CamoSelect;
     "camo-skeleton": CamoSkeleton;
     "camo-slider": CamoSlider;
+    "camo-snackbar": CamoSnackbar;
     "camo-stepper": CamoStepper;
     "camo-surface": CamoSurface;
     "camo-switch": CamoSwitch;
+    "camo-tab": CamoTab;
+    "camo-tabs": CamoTabs;
     "camo-text": CamoText;
     "camo-text-field": CamoTextField;
     "camo-time-picker": CamoTimePicker;
@@ -93,17 +131,21 @@ declare global {
   interface HTMLElementEventMap {
     "camo-before-change": CustomEvent<CamoBeforeChangeDetail>;
     "camo-expanded-change": CustomEvent<CamoExpandedDetail>;
+    "camo-dismiss": CustomEvent;
     "camo-close": CustomEvent<CamoCloseDetail>;
+    "camo-remove": CustomEvent;
     "camo-invalid": CustomEvent<CamoInvalidDetail>;
     "camo-submit": CustomEvent<CamoSubmitDetail>;
     "camo-changed": CustomEvent;
     "camo-open": Event;
+    "camo-reselect": CustomEvent;
     name: Event;
     "camo-load-more": CustomEvent;
     "camo-retry": CustomEvent;
     "camo-refresh": CustomEvent;
     "camo-search": CustomEvent<{ query: string }>;
     "camo-query": CustomEvent<CamoQueryDetail>;
+    "camo-action": CustomEvent;
   }
 }
 

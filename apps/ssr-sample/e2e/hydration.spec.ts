@@ -173,3 +173,23 @@ for (const skin of ["minimal", "cupertino"]) {
     ).toBeLessThan(50);
   });
 }
+
+for (const skin of ["minimal", "cupertino"]) {
+  test(`the ${skin} feedback and navigation hydrates without moving`, async ({
+    browser,
+  }, testInfo) => {
+    const before = await shot(browser, `/feedback?skin=${skin}&scheme=light&nojs`, false);
+    const html = await before.page.content();
+    expect(html).toMatch(/<camo-progress-bar[^>]*role="progressbar"[^>]*aria-valuenow="40"/);
+    expect(html).toMatch(/<camo-nav-item[^>]*aria-current="page"/);
+    expect(html).toContain("Dwiki Riyadi");
+    const after = await shot(browser, `/feedback?skin=${skin}&scheme=light`, true);
+    writeFileSync(testInfo.outputPath("server-render.png"), before.png);
+    writeFileSync(testInfo.outputPath("hydrated.png"), after.png);
+    const count = differing(before.png, after.png);
+    expect(
+      count,
+      `${count} pixels differ between the server render and the hydrated page`,
+    ).toBeLessThan(50);
+  });
+}

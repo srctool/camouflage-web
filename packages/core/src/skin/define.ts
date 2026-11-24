@@ -34,6 +34,20 @@ const names = [
   "tooltip",
   "topBar",
   "dialog",
+  "progressBar",
+  "progressCircle",
+  "snackbar",
+  "banner",
+  "chip",
+  "badge",
+  "avatar",
+  "fab",
+  "tabs",
+  "tab",
+  "navItem",
+  "navigationBar",
+  "navigationRail",
+  "navigationDrawer",
 ] as const satisfies readonly ComponentName[];
 type Missing = Exclude<ComponentName, (typeof names)[number]>;
 const _complete: [Missing] extends [never] ? true : never = true;

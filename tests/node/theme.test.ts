@@ -277,6 +277,18 @@ describe("createCamoTheme", () => {
       "menu",
       "tooltip",
       "topBar",
+      "progressBar",
+      "progressCircle",
+      "snackbar",
+      "banner",
+      "chip",
+      "badge",
+      "avatar",
+      "fab",
+      "tabs",
+      "navigationBar",
+      "navigationRail",
+      "navigationDrawer",
       "textField",
       "searchField",
       "checkbox",
@@ -296,8 +308,8 @@ describe("createCamoTheme", () => {
     expect(() =>
       createCamoTheme(base, { components: { button: { hieght: "48px" } } } as never),
     ).toThrow('Unknown theme key "components.button.hieght".');
-    expect(() => createCamoTheme(base, { components: { tabs: { x: "1" } } } as never)).toThrow(
-      'Unknown theme key "components.tabs".',
+    expect(() => createCamoTheme(base, { components: { dataTable: { x: "1" } } } as never)).toThrow(
+      'Unknown theme key "components.dataTable".',
     );
   });
 

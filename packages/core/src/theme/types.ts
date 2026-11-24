@@ -146,6 +146,18 @@ export interface CamoComponentThemes {
   menu?: MenuTheme;
   tooltip?: TooltipTheme;
   topBar?: TopBarTheme;
+  progressBar?: ProgressBarTheme;
+  progressCircle?: ProgressCircleTheme;
+  snackbar?: SnackbarTheme;
+  banner?: BannerTheme;
+  chip?: ChipTheme;
+  badge?: BadgeTheme;
+  avatar?: AvatarTheme;
+  fab?: FabTheme;
+  tabs?: TabsTheme;
+  navigationBar?: NavigationBarTheme;
+  navigationRail?: NavigationRailTheme;
+  navigationDrawer?: NavigationDrawerTheme;
   textField?: TextFieldTheme;
   searchField?: SearchFieldTheme;
   checkbox?: CheckboxTheme;
@@ -231,6 +243,128 @@ export interface TooltipTheme {
 export interface TopBarTheme {
   height?: string;
   iconSize?: string;
+}
+
+/** The fields of a progressBar theme. */
+export interface ProgressBarTheme {
+  barHeight?: string;
+  trackGap?: string;
+}
+
+/** The fields of a progressCircle theme. */
+export interface ProgressCircleTheme {
+  circleStroke?: string;
+  circleSizeSmall?: string;
+  circleSizeMedium?: string;
+  circleSizeLarge?: string;
+}
+
+/** The fields of a snackbar theme. */
+export interface SnackbarTheme {
+  shape?: string;
+  maxWidth?: string;
+  margin?: string;
+  minHeight?: string;
+  padding?: string;
+  elevation?: string;
+}
+
+/** The fields of a banner theme. */
+export interface BannerTheme {
+  shape?: string;
+  padding?: string;
+  iconSize?: string;
+  accentWidth?: string;
+  borderWidth?: string;
+}
+
+/** The fields of a chip theme. */
+export interface ChipTheme {
+  height?: string;
+  shape?: string;
+  padding?: string;
+  iconPadding?: string;
+  iconGap?: string;
+  iconSize?: string;
+  borderWidth?: string;
+  groupSpacing?: string;
+}
+
+/** The fields of a badge theme. */
+export interface BadgeTheme {
+  dotSize?: string;
+  height?: string;
+  minWidth?: string;
+  padding?: string;
+  borderWidth?: string;
+  offset?: string;
+}
+
+/** The fields of an avatar theme. */
+export interface AvatarTheme {
+  roundedShape?: string;
+  sizeSmall?: string;
+  sizeMedium?: string;
+  sizeLarge?: string;
+  presenceSize?: string;
+  ringWidth?: string;
+  groupOverlap?: string;
+}
+
+/** The fields of a fab theme. */
+export interface FabTheme {
+  sizeSmall?: string;
+  sizeRegular?: string;
+  sizeLarge?: string;
+  extendedHeight?: string;
+  shapeSmall?: string;
+  shapeRegular?: string;
+  shapeLarge?: string;
+  iconSizeRegular?: string;
+  iconSizeLarge?: string;
+  iconGap?: string;
+  extendedPadding?: string;
+  elevation?: string;
+}
+
+/** The fields of a tabs theme. */
+export interface TabsTheme {
+  height?: string;
+  heightWithIcon?: string;
+  indicatorHeight?: string;
+  minTabWidth?: string;
+  iconSize?: string;
+  iconGap?: string;
+  tabPadding?: string;
+}
+
+/** The fields of a navigationBar theme. */
+export interface NavigationBarTheme {
+  height?: string;
+  floatingMargin?: string;
+  floatingShape?: string;
+  iconSize?: string;
+  indicatorWidth?: string;
+  indicatorHeight?: string;
+  indicatorShape?: string;
+}
+
+/** The fields of a navigationRail theme. */
+export interface NavigationRailTheme {
+  width?: string;
+  itemSpacing?: string;
+  iconSize?: string;
+  indicatorWidth?: string;
+  indicatorHeight?: string;
+}
+
+/** The fields of a navigationDrawer theme. */
+export interface NavigationDrawerTheme {
+  width?: string;
+  itemHeight?: string;
+  itemShape?: string;
+  modalShape?: string;
+  scrimAlpha?: string;
 }
 
 /** The fields of a textField theme. */

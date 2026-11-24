@@ -356,3 +356,118 @@ describe("the W4 structure and overlays on the server", () => {
     expect(page("cupertino")).toBe(page("cupertino"));
   });
 });
+
+describe("the W5 feedback, display and navigation on the server", () => {
+  const page = (skin: string): string =>
+    squash(
+      renderToString(
+        html`<camo-provider skin=${skin} scheme="light">
+          <camo-progress-bar progress="0.4" label="Uploading"></camo-progress-bar>
+          <camo-progress-bar label="Loading"></camo-progress-bar>
+          <camo-progress-circle progress="0.5" size="large" label="Working"></camo-progress-circle>
+          <camo-banner tone="warning" title="Storage" message="Almost full" dismissible><camo-button slot="actions" appearance="ghost" text="Manage"></camo-button></camo-banner>
+          <camo-snackbar message="Archived" action="Undo"></camo-snackbar>
+          <camo-chip label="Open now" selectable selected></camo-chip>
+          <camo-chip label="ada@example.com" removable></camo-chip>
+          <camo-chip-group label="Sort" value="a"><camo-chip value="a" label="Newest"></camo-chip><camo-chip value="b" label="Oldest"></camo-chip></camo-chip-group>
+          <camo-badged-box><camo-icon-button label="Notifications"><camo-icon name="heart"></camo-icon></camo-icon-button><camo-badge slot="badge" count="120"></camo-badge></camo-badged-box>
+          <camo-avatar name="Dwiki Riyadi" presence="online"></camo-avatar>
+          <camo-avatar-group max="2"><camo-avatar name="Ada Lovelace"></camo-avatar><camo-avatar name="Grace Hopper"></camo-avatar><camo-avatar name="Alan Turing"></camo-avatar></camo-avatar-group>
+          <camo-fab content-description="Compose" text="Compose"><camo-icon slot="icon" name="edit"></camo-icon></camo-fab>
+          <camo-tabs label="Product" value="b"><camo-tab value="a" label="Overview"></camo-tab><camo-tab value="b" label="Reviews" selected></camo-tab></camo-tabs>
+          <camo-navigation-bar label="Main" value="home"><camo-nav-item value="home" label="Home" icon="home" selected></camo-nav-item><camo-nav-item value="inbox" label="Inbox" icon="inbox"></camo-nav-item></camo-navigation-bar>
+          <camo-navigation-rail label="Main" value="home"><camo-nav-item value="home" label="Home" icon="home"></camo-nav-item></camo-navigation-rail>
+          <camo-navigation-drawer label="Mail" value="inbox"><camo-nav-section title="Mail"><camo-nav-item value="inbox" label="Inbox" icon="inbox"></camo-nav-item></camo-nav-section></camo-navigation-drawer>
+          <camo-modal-drawer open label="Navigation" value="inbox"><camo-nav-item value="inbox" label="Inbox" icon="inbox"></camo-nav-item></camo-modal-drawer>
+        </camo-provider>`,
+      ),
+    );
+
+  it.each(["minimal", "cupertino"])(
+    "renders every one into declarative shadow DOM under %s, with no script",
+    (skin) => {
+      const out = page(skin);
+      for (const tag of [
+        "camo-progress-bar",
+        "camo-progress-circle",
+        "camo-banner",
+        "camo-snackbar",
+        "camo-chip",
+        "camo-chip-group",
+        "camo-badge",
+        "camo-badged-box",
+        "camo-avatar",
+        "camo-avatar-group",
+        "camo-fab",
+        "camo-tab",
+        "camo-tabs",
+        "camo-nav-item",
+        "camo-nav-section",
+        "camo-navigation-bar",
+        "camo-navigation-rail",
+        "camo-navigation-drawer",
+        "camo-modal-drawer",
+      ])
+        expect(out, tag).toContain(`<${tag}`);
+      expect(out).not.toContain("<script");
+    },
+  );
+
+  it("carries role, name and state as attributes", () => {
+    const out = page("minimal");
+    expect(out).toMatch(
+      /<camo-progress-bar[^>]*role="progressbar"[^>]*aria-valuenow="40"[^>]*aria-valuetext="40%"/,
+    );
+    expect(out).toMatch(/<camo-progress-circle[^>]*aria-valuenow="50"/);
+    expect(out).toMatch(/<camo-banner[^>]*role="alert"/);
+    expect(out).toMatch(/<camo-snackbar[^>]*role="status"[^>]*aria-live="polite"/);
+    expect(out).toMatch(/<camo-chip[^>]*role="button"[^>]*aria-pressed="true"/);
+    expect(out).toMatch(/<camo-avatar[^>]*role="img"[^>]*aria-label="Dwiki Riyadi, online"/);
+    expect(out).toMatch(/<camo-fab[^>]*role="button"[^>]*aria-label="Compose"/);
+    expect(out).toMatch(/<camo-tabs[^>]*role="tablist"/);
+    expect(out).toMatch(/<camo-tab[^>]*role="tab"[^>]*aria-selected="true"/);
+    expect(out).toMatch(/<camo-navigation-bar[^>]*role="navigation"[^>]*aria-label="Main"/);
+    expect(out).toMatch(/<camo-nav-item[^>]*role="link"/);
+    expect(out).toMatch(/<camo-nav-item[^>]*aria-current="page"/);
+    expect(out).toMatch(/<dialog[^>]*aria-label="Navigation"[^>]*open/); // the drawer arrives open
+  });
+
+  it("draws the texts, the initials, the capped count and the hidden avatars", () => {
+    const out = page("minimal");
+    for (const text of [
+      "Storage",
+      "Almost full",
+      "Archived",
+      "Undo",
+      "Open now",
+      "ada@example.com",
+      "DR",
+      "99+",
+      "Compose",
+      "Overview",
+      "Reviews",
+    ])
+      expect(out, text).toContain(text);
+    // Avatars past `max` are hidden by a rule in the group's own style, which a server renders too.
+    expect(out).toContain("nth-child(n + 3)");
+  });
+
+  it("draws the same markup differently per skin", () => {
+    // A bar is 2 px under Minimal and 4 px under Cupertino; tabs are lines or a segmented pill.
+    expect(page("minimal")).toContain("--pb-height: var(--camo-progress-bar-bar-height, 2px)");
+    expect(page("cupertino")).toContain("--pb-height: var(--camo-progress-bar-bar-height, 4px)");
+    expect(page("minimal")).toContain('class="tabs underline"');
+    expect(page("cupertino")).toContain('class="tabs segmented"');
+    // The snackbar sits at the bottom under Minimal and at the top under Cupertino.
+    expect(page("minimal")).toContain('data-position="bottom"');
+    expect(page("cupertino")).toContain('data-position="top"');
+  });
+
+  it("draws the selected tab's own indicator until the bar has measured, so nothing jumps", () => {
+    expect(page("minimal")).toMatch(/class="self line"/);
+  });
+
+  it("gives the same page twice the same bytes", () => {
+    expect(page("cupertino")).toBe(page("cupertino"));
+  });
+});

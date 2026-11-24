@@ -2766,6 +2766,1363 @@
           "web": "tokens"
         }
       ]
+    },
+    {
+      "name": "ProgressBar",
+      "parameters": [
+        {
+          "name": "progress",
+          "kind": "value",
+          "type": "number",
+          "default": null
+        },
+        {
+          "name": "tone",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Default", "Error", "Success", "Warning", "Info"],
+          "default": "Default"
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "barHeight",
+          "type": "length"
+        },
+        {
+          "name": "trackGap",
+          "type": "length"
+        },
+        {
+          "name": "showStopIndicator",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "colors",
+          "type": "ProgressColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "ProgressCircle",
+      "parameters": [
+        {
+          "name": "progress",
+          "kind": "value",
+          "type": "number",
+          "default": null
+        },
+        {
+          "name": "tone",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Default", "Error", "Success", "Warning", "Info"],
+          "default": "Default"
+        },
+        {
+          "name": "size",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Small", "Medium", "Large"],
+          "default": "Medium"
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "circleStroke",
+          "type": "length"
+        },
+        {
+          "name": "circleSizeSmall",
+          "type": "length"
+        },
+        {
+          "name": "circleSizeMedium",
+          "type": "length"
+        },
+        {
+          "name": "circleSizeLarge",
+          "type": "length"
+        },
+        {
+          "name": "colors",
+          "type": "ProgressColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "Snackbar",
+      "parameters": [
+        {
+          "name": "message",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "action",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "tone",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Default", "Error", "Success", "Warning", "Info"],
+          "default": "Default"
+        },
+        {
+          "name": "withDismiss",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "onAction",
+          "kind": "callback"
+        },
+        {
+          "name": "onDismiss",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "shape",
+          "type": "length"
+        },
+        {
+          "name": "maxWidth",
+          "type": "length"
+        },
+        {
+          "name": "margin",
+          "type": "length"
+        },
+        {
+          "name": "minHeight",
+          "type": "length"
+        },
+        {
+          "name": "padding",
+          "type": "length"
+        },
+        {
+          "name": "elevation",
+          "type": "length"
+        },
+        {
+          "name": "position",
+          "type": "SnackbarPosition",
+          "web": "gap"
+        },
+        {
+          "name": "alignment",
+          "type": "SnackbarAlignment",
+          "web": "gap"
+        },
+        {
+          "name": "showDismiss",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "showToneIcon",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "durationShort",
+          "type": "duration",
+          "web": "gap"
+        },
+        {
+          "name": "durationLong",
+          "type": "duration",
+          "web": "gap"
+        },
+        {
+          "name": "textStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "actionStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "colors",
+          "type": "SnackbarColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "Banner",
+      "parameters": [
+        {
+          "name": "message",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "tone",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Default", "Error", "Success", "Warning", "Info"],
+          "default": "Info"
+        },
+        {
+          "name": "title",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "appearance",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Solid", "Soft", "Raised", "Outline", "Ghost", "Link"],
+          "default": null
+        },
+        {
+          "name": "dismissible",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "icon",
+          "kind": "slot"
+        },
+        {
+          "name": "actions",
+          "kind": "slot"
+        },
+        {
+          "name": "onDismiss",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "shape",
+          "type": "length"
+        },
+        {
+          "name": "padding",
+          "type": "length"
+        },
+        {
+          "name": "iconSize",
+          "type": "length"
+        },
+        {
+          "name": "accentWidth",
+          "type": "length"
+        },
+        {
+          "name": "borderWidth",
+          "type": "length"
+        },
+        {
+          "name": "defaultAppearance",
+          "type": "Appearance",
+          "web": "gap"
+        },
+        {
+          "name": "accentBorder",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "toneIcons",
+          "type": "ToneIcons",
+          "web": "gap"
+        },
+        {
+          "name": "titleStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "messageStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "Chip",
+      "parameters": [
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "appearance",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Solid", "Soft", "Raised", "Outline", "Ghost", "Link"],
+          "default": null
+        },
+        {
+          "name": "tone",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Default", "Error", "Success", "Warning", "Info"],
+          "default": "Default"
+        },
+        {
+          "name": "clickable",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "selectable",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "selected",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "removable",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "leading",
+          "kind": "slot"
+        },
+        {
+          "name": "onClick",
+          "kind": "callback"
+        },
+        {
+          "name": "onRemove",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "height",
+          "type": "length"
+        },
+        {
+          "name": "shape",
+          "type": "length"
+        },
+        {
+          "name": "padding",
+          "type": "length"
+        },
+        {
+          "name": "iconPadding",
+          "type": "length"
+        },
+        {
+          "name": "iconGap",
+          "type": "length"
+        },
+        {
+          "name": "iconSize",
+          "type": "length"
+        },
+        {
+          "name": "borderWidth",
+          "type": "length"
+        },
+        {
+          "name": "groupSpacing",
+          "type": "length"
+        },
+        {
+          "name": "defaultAppearance",
+          "type": "Appearance",
+          "web": "gap"
+        },
+        {
+          "name": "showCheckWhenSelected",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "textStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "colors",
+          "type": "ChipColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "ChipGroup",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "multiple",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "layout",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Wrap", "Scroll"],
+          "default": "Wrap"
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "name",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "required",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onSelectionChange",
+          "kind": "callback"
+        }
+      ]
+    },
+    {
+      "name": "Badge",
+      "parameters": [
+        {
+          "name": "count",
+          "kind": "value",
+          "type": "number",
+          "default": null
+        },
+        {
+          "name": "max",
+          "kind": "value",
+          "type": "number",
+          "default": 99
+        },
+        {
+          "name": "tone",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Default", "Error", "Success", "Warning", "Info"],
+          "default": null
+        },
+        {
+          "name": "appearance",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Solid", "Soft", "Raised", "Outline", "Ghost", "Link"],
+          "default": null
+        },
+        {
+          "name": "contentDescription",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "dotSize",
+          "type": "length"
+        },
+        {
+          "name": "height",
+          "type": "length"
+        },
+        {
+          "name": "minWidth",
+          "type": "length"
+        },
+        {
+          "name": "padding",
+          "type": "length"
+        },
+        {
+          "name": "borderWidth",
+          "type": "length"
+        },
+        {
+          "name": "offset",
+          "type": "length"
+        },
+        {
+          "name": "defaultAppearance",
+          "type": "Appearance",
+          "web": "gap"
+        },
+        {
+          "name": "defaultTone",
+          "type": "Tone",
+          "web": "gap"
+        },
+        {
+          "name": "textStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "BadgedBox",
+      "parameters": [
+        {
+          "name": "badge",
+          "kind": "slot"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ]
+    },
+    {
+      "name": "Avatar",
+      "parameters": [
+        {
+          "name": "name",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "initials",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "size",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Small", "Medium", "Large"],
+          "default": "Medium"
+        },
+        {
+          "name": "shape",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Circle", "Rounded", "Square"],
+          "default": null
+        },
+        {
+          "name": "presence",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Online", "Away", "Busy", "Offline"],
+          "default": null
+        },
+        {
+          "name": "image",
+          "kind": "slot"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "roundedShape",
+          "type": "length"
+        },
+        {
+          "name": "sizeSmall",
+          "type": "length"
+        },
+        {
+          "name": "sizeMedium",
+          "type": "length"
+        },
+        {
+          "name": "sizeLarge",
+          "type": "length"
+        },
+        {
+          "name": "presenceSize",
+          "type": "length"
+        },
+        {
+          "name": "ringWidth",
+          "type": "length"
+        },
+        {
+          "name": "groupOverlap",
+          "type": "length"
+        },
+        {
+          "name": "shape",
+          "type": "AvatarShape",
+          "web": "gap"
+        },
+        {
+          "name": "textStyleSmall",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "textStyleMedium",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "textStyleLarge",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "initialsPalette",
+          "type": "ColorPairs",
+          "web": "tokens"
+        },
+        {
+          "name": "neutralColors",
+          "type": "AvatarColors",
+          "web": "tokens"
+        },
+        {
+          "name": "presenceColors",
+          "type": "PresenceColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "AvatarGroup",
+      "parameters": [
+        {
+          "name": "max",
+          "kind": "value",
+          "type": "number",
+          "default": 3
+        },
+        {
+          "name": "size",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Small", "Medium", "Large"],
+          "default": "Medium"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ]
+    },
+    {
+      "name": "Fab",
+      "parameters": [
+        {
+          "name": "contentDescription",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "text",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "expanded",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "visible",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "appearance",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Solid", "Soft", "Raised", "Outline", "Ghost", "Link"],
+          "default": null
+        },
+        {
+          "name": "tone",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Default", "Error", "Success", "Warning", "Info"],
+          "default": "Default"
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "icon",
+          "kind": "slot"
+        },
+        {
+          "name": "onClick",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "sizeSmall",
+          "type": "length"
+        },
+        {
+          "name": "sizeRegular",
+          "type": "length"
+        },
+        {
+          "name": "sizeLarge",
+          "type": "length"
+        },
+        {
+          "name": "extendedHeight",
+          "type": "length"
+        },
+        {
+          "name": "shapeSmall",
+          "type": "length"
+        },
+        {
+          "name": "shapeRegular",
+          "type": "length"
+        },
+        {
+          "name": "shapeLarge",
+          "type": "length"
+        },
+        {
+          "name": "iconSizeRegular",
+          "type": "length"
+        },
+        {
+          "name": "iconSizeLarge",
+          "type": "length"
+        },
+        {
+          "name": "iconGap",
+          "type": "length"
+        },
+        {
+          "name": "extendedPadding",
+          "type": "length"
+        },
+        {
+          "name": "elevation",
+          "type": "length"
+        },
+        {
+          "name": "defaultAppearance",
+          "type": "Appearance",
+          "web": "gap"
+        },
+        {
+          "name": "size",
+          "type": "FabSize",
+          "web": "gap"
+        },
+        {
+          "name": "textStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "softColors",
+          "type": "FabColors",
+          "web": "tokens"
+        },
+        {
+          "name": "solidColors",
+          "type": "FabColors",
+          "web": "tokens"
+        },
+        {
+          "name": "raisedColors",
+          "type": "FabColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "Tab",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "icon",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "contentDescription",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "badge",
+          "kind": "slot"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ]
+    },
+    {
+      "name": "Tabs",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "scrollable",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "appearance",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Solid", "Soft", "Raised", "Outline", "Ghost", "Link"],
+          "default": null
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onSelectionChange",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "height",
+          "type": "length"
+        },
+        {
+          "name": "heightWithIcon",
+          "type": "length"
+        },
+        {
+          "name": "indicatorHeight",
+          "type": "length"
+        },
+        {
+          "name": "minTabWidth",
+          "type": "length"
+        },
+        {
+          "name": "iconSize",
+          "type": "length"
+        },
+        {
+          "name": "iconGap",
+          "type": "length"
+        },
+        {
+          "name": "tabPadding",
+          "type": "length"
+        },
+        {
+          "name": "defaultAppearance",
+          "type": "Appearance",
+          "web": "gap"
+        },
+        {
+          "name": "indicatorWidth",
+          "type": "IndicatorWidth",
+          "web": "gap"
+        },
+        {
+          "name": "showDivider",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "labelStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "solidColors",
+          "type": "TabsColors",
+          "web": "tokens"
+        },
+        {
+          "name": "ghostColors",
+          "type": "TabsColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "NavItem",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "icon",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "selectedIcon",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "icon",
+          "kind": "slot"
+        },
+        {
+          "name": "selectedIcon",
+          "kind": "slot"
+        },
+        {
+          "name": "badge",
+          "kind": "slot"
+        }
+      ]
+    },
+    {
+      "name": "NavSection",
+      "parameters": [
+        {
+          "name": "title",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ]
+    },
+    {
+      "name": "NavigationBar",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "visible",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onSelectionChange",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "height",
+          "type": "length"
+        },
+        {
+          "name": "floatingMargin",
+          "type": "length"
+        },
+        {
+          "name": "floatingShape",
+          "type": "length"
+        },
+        {
+          "name": "iconSize",
+          "type": "length"
+        },
+        {
+          "name": "indicatorWidth",
+          "type": "length"
+        },
+        {
+          "name": "indicatorHeight",
+          "type": "length"
+        },
+        {
+          "name": "indicatorShape",
+          "type": "length"
+        },
+        {
+          "name": "placement",
+          "type": "NavPlacement",
+          "web": "gap"
+        },
+        {
+          "name": "indicator",
+          "type": "NavIndicator",
+          "web": "gap"
+        },
+        {
+          "name": "showLabels",
+          "type": "LabelVisibility",
+          "web": "gap"
+        },
+        {
+          "name": "hideAnimation",
+          "type": "duration",
+          "web": "gap"
+        },
+        {
+          "name": "labelStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "colors",
+          "type": "NavBarColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "NavigationRail",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "header",
+          "kind": "slot"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onSelectionChange",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "width",
+          "type": "length"
+        },
+        {
+          "name": "itemSpacing",
+          "type": "length"
+        },
+        {
+          "name": "iconSize",
+          "type": "length"
+        },
+        {
+          "name": "indicatorWidth",
+          "type": "length"
+        },
+        {
+          "name": "indicatorHeight",
+          "type": "length"
+        },
+        {
+          "name": "alignment",
+          "type": "RailAlignment",
+          "web": "gap"
+        },
+        {
+          "name": "indicator",
+          "type": "NavIndicator",
+          "web": "gap"
+        },
+        {
+          "name": "showLabels",
+          "type": "LabelVisibility",
+          "web": "gap"
+        },
+        {
+          "name": "labelStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "colors",
+          "type": "NavRailColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "NavigationDrawer",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "header",
+          "kind": "slot"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onSelectionChange",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "width",
+          "type": "length"
+        },
+        {
+          "name": "itemHeight",
+          "type": "length"
+        },
+        {
+          "name": "itemShape",
+          "type": "length"
+        },
+        {
+          "name": "modalShape",
+          "type": "length"
+        },
+        {
+          "name": "scrimAlpha",
+          "type": "length"
+        },
+        {
+          "name": "indicator",
+          "type": "NavIndicator",
+          "web": "gap"
+        },
+        {
+          "name": "labelStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "sectionTitleStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "colors",
+          "type": "DrawerColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "ModalDrawer",
+      "parameters": [
+        {
+          "name": "open",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "header",
+          "kind": "slot"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onClose",
+          "kind": "callback"
+        },
+        {
+          "name": "onSelectionChange",
+          "kind": "callback"
+        }
+      ]
     }
   ]
 }
