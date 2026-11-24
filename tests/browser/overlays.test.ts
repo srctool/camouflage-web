@@ -399,8 +399,9 @@ describe.each(["minimal", "cupertino"])("camo-tooltip under %s", (skin) => {
   it("shows at once on keyboard focus, hides on blur and on Escape, and never takes focus", async () => {
     const root = await page(skin, `${tip()}<button id="other">other</button>`);
     const t = q(root, "#t");
-    await userEvent.keyboard("{Shift}"); // keyboard modality: the focus below counts as :focus-visible
-    q(root, "#btn").focus();
+    // Keyboard modality: a real Tab (Firefox ignores a lone modifier key) so the focus counts as :focus-visible.
+    await userEvent.keyboard("{Tab}");
+    if (document.activeElement !== q(root, "#btn")) q(root, "#btn").focus();
     await tick(30);
     expect(document.activeElement).toBe(q(root, "#btn"));
     // WebKit does not call a script's focus() after a key press keyboard focus; the rest is the same everywhere.
