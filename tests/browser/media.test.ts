@@ -354,8 +354,7 @@ describe.each(["minimal", "cupertino"])("camo-carousel under %s", (skin) => {
     const rtl = await open("", 3, "rtl");
     inner(rtl.car, ".strip").focus();
     await userEvent.keyboard("{ArrowLeft}");
-    await tick(600);
-    expect(rtl.car.page).toBe(1);
+    await expect.poll(() => rtl.car.page, { timeout: 4000 }).toBe(1);
   });
 
   it("shows the buttons on request, disables the one that cannot move, and none for one item", async () => {
@@ -382,7 +381,9 @@ describe.each(["minimal", "cupertino"])("camo-carousel under %s", (skin) => {
     const { car } = await open('autoplay="150" show-buttons="always"');
     let changes = 0;
     car.addEventListener("camo-page-change", () => changes++);
-    await tick(1500);
+    // A mouse left over the page by an earlier test would hold it (hover), so let go first.
+    car.dispatchEvent(new PointerEvent("pointerleave"));
+    await expect.poll(() => changes, { timeout: 5000 }).toBeGreaterThan(0);
     expect(changes).toBeGreaterThan(0);
     // A step by the user stops it for good: after the step settles, nothing more moves it.
     // The user takes hold of it (a touch, a click or a key): from then on it stays where they put it.

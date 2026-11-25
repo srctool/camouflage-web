@@ -265,7 +265,10 @@ describe.each(["minimal", "cupertino"])("camo-popover under %s", (skin) => {
   });
 
   it("closes on a click outside, and is controlled by open", async () => {
-    const root = await page(skin, `${body(" open")}<p id="outside">elsewhere</p>`);
+    const root = await page(
+      skin,
+      `${body(" open")}<p id="outside" style="position:fixed;inset-block-end:0;inset-inline-end:0;margin:0">elsewhere</p>`,
+    );
     const pop = q(root, "camo-popover");
     await tick(100);
     expect(inner(pop, ".camo-popup").matches(":popover-open")).toBe(true);
