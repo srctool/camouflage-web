@@ -10,50 +10,72 @@ import type {
   CamoBanner,
   CamoBeforeChangeDetail,
   CamoBottomSheet,
+  CamoBreadcrumb,
+  CamoBreadcrumbItem,
   CamoButton,
+  CamoButtonGroup,
   CamoCalendar,
   CamoCard,
+  CamoCarousel,
   CamoCheckbox,
   CamoChip,
   CamoChipGroup,
   CamoCloseDetail,
+  CamoDataTable,
   CamoDatePicker,
   CamoDialog,
   CamoDivider,
   CamoExpandedDetail,
   CamoFab,
   CamoFieldAction,
+  CamoFileUploader,
+  CamoFilesDetail,
   CamoForm,
+  CamoGroupButton,
   CamoIcon,
   CamoIconButton,
+  CamoImage,
   CamoInvalidDetail,
+  CamoKeysDetail,
   CamoListItem,
   CamoListSection,
+  CamoLoadChildrenDetail,
   CamoMenu,
   CamoMenuDivider,
   CamoMenuGroup,
   CamoMenuItem,
   CamoModalDrawer,
+  CamoModalSideSheet,
   CamoNavItem,
   CamoNavSection,
   CamoNavigationBar,
   CamoNavigationDrawer,
   CamoNavigationRail,
   CamoOption,
+  CamoPageChangeDetail,
   CamoPagedList,
+  CamoPagination,
+  CamoPopover,
   CamoProgressBar,
   CamoProgressCircle,
+  CamoProgressSteps,
   CamoProvider,
   CamoQueryDetail,
   CamoRadio,
   CamoRadioGroup,
+  CamoRating,
+  CamoRowClickDetail,
   CamoSearchField,
   CamoSegment,
   CamoSegmentedControl,
   CamoSelect,
+  CamoSideSheet,
   CamoSkeleton,
   CamoSlider,
   CamoSnackbar,
+  CamoSortChangeDetail,
+  CamoSplitButton,
+  CamoStep,
   CamoStepper,
   CamoSubmitDetail,
   CamoSurface,
@@ -63,8 +85,11 @@ import type {
   CamoText,
   CamoTextField,
   CamoTimePicker,
+  CamoToolbar,
   CamoTooltip,
   CamoTopBar,
+  CamoTree,
+  CamoUploadRowDetail,
 } from "./index.ts";
 
 declare global {
@@ -77,20 +102,28 @@ declare global {
     "camo-badged-box": CamoBadgedBox;
     "camo-banner": CamoBanner;
     "camo-bottom-sheet": CamoBottomSheet;
+    "camo-breadcrumb": CamoBreadcrumb;
+    "camo-breadcrumb-item": CamoBreadcrumbItem;
     "camo-button": CamoButton;
+    "camo-button-group": CamoButtonGroup;
     "camo-calendar": CamoCalendar;
     "camo-card": CamoCard;
+    "camo-carousel": CamoCarousel;
     "camo-checkbox": CamoCheckbox;
     "camo-chip": CamoChip;
     "camo-chip-group": CamoChipGroup;
+    "camo-data-table": CamoDataTable;
     "camo-date-picker": CamoDatePicker;
     "camo-dialog": CamoDialog;
     "camo-divider": CamoDivider;
     "camo-fab": CamoFab;
     "camo-field-action": CamoFieldAction;
+    "camo-file-uploader": CamoFileUploader;
     "camo-form": CamoForm;
+    "camo-group-button": CamoGroupButton;
     "camo-icon": CamoIcon;
     "camo-icon-button": CamoIconButton;
+    "camo-image": CamoImage;
     "camo-list-item": CamoListItem;
     "camo-list-section": CamoListSection;
     "camo-menu": CamoMenu;
@@ -98,6 +131,7 @@ declare global {
     "camo-menu-group": CamoMenuGroup;
     "camo-menu-item": CamoMenuItem;
     "camo-modal-drawer": CamoModalDrawer;
+    "camo-modal-side-sheet": CamoModalSideSheet;
     "camo-nav-item": CamoNavItem;
     "camo-nav-section": CamoNavSection;
     "camo-navigation-bar": CamoNavigationBar;
@@ -105,18 +139,25 @@ declare global {
     "camo-navigation-rail": CamoNavigationRail;
     "camo-option": CamoOption;
     "camo-paged-list": CamoPagedList;
+    "camo-pagination": CamoPagination;
+    "camo-popover": CamoPopover;
     "camo-progress-bar": CamoProgressBar;
     "camo-progress-circle": CamoProgressCircle;
+    "camo-progress-steps": CamoProgressSteps;
     "camo-provider": CamoProvider;
     "camo-radio": CamoRadio;
     "camo-radio-group": CamoRadioGroup;
+    "camo-rating": CamoRating;
     "camo-search-field": CamoSearchField;
     "camo-segment": CamoSegment;
     "camo-segmented-control": CamoSegmentedControl;
     "camo-select": CamoSelect;
+    "camo-side-sheet": CamoSideSheet;
     "camo-skeleton": CamoSkeleton;
     "camo-slider": CamoSlider;
     "camo-snackbar": CamoSnackbar;
+    "camo-split-button": CamoSplitButton;
+    "camo-step": CamoStep;
     "camo-stepper": CamoStepper;
     "camo-surface": CamoSurface;
     "camo-switch": CamoSwitch;
@@ -125,27 +166,38 @@ declare global {
     "camo-text": CamoText;
     "camo-text-field": CamoTextField;
     "camo-time-picker": CamoTimePicker;
+    "camo-toolbar": CamoToolbar;
     "camo-tooltip": CamoTooltip;
     "camo-top-bar": CamoTopBar;
+    "camo-tree": CamoTree;
   }
   interface HTMLElementEventMap {
     "camo-before-change": CustomEvent<CamoBeforeChangeDetail>;
     "camo-expanded-change": CustomEvent<CamoExpandedDetail>;
     "camo-dismiss": CustomEvent;
     "camo-close": CustomEvent<CamoCloseDetail>;
-    "camo-remove": CustomEvent;
+    "camo-page-change": CustomEvent<CamoPageChangeDetail>;
+    "camo-remove": CustomEvent<CamoUploadRowDetail>;
+    "camo-row-click": CustomEvent<CamoRowClickDetail>;
+    "camo-sort-change": CustomEvent<CamoSortChangeDetail>;
+    "camo-files-dropped": CustomEvent<CamoFilesDetail>;
+    "camo-pick": CustomEvent;
+    "camo-retry": CustomEvent<CamoUploadRowDetail>;
     "camo-invalid": CustomEvent<CamoInvalidDetail>;
     "camo-submit": CustomEvent<CamoSubmitDetail>;
     "camo-changed": CustomEvent;
+    load: CustomEvent;
+    error: CustomEvent;
     "camo-open": Event;
     "camo-reselect": CustomEvent;
     name: Event;
     "camo-load-more": CustomEvent;
-    "camo-retry": CustomEvent;
     "camo-refresh": CustomEvent;
     "camo-search": CustomEvent<{ query: string }>;
     "camo-query": CustomEvent<CamoQueryDetail>;
     "camo-action": CustomEvent;
+    "camo-selected-change": CustomEvent<CamoKeysDetail>;
+    "camo-load-children": CustomEvent<CamoLoadChildrenDetail>;
   }
 }
 

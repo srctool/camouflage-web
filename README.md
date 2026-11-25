@@ -6,16 +6,17 @@ The third platform of [Camouflage](https://github.com/srctool/camouflage), next 
 written in TypeScript with [Lit](https://lit.dev), usable from any framework or plain HTML, from Tauri webviews, and
 with **server rendering**.
 
-> **Status: W5, feedback, data display and navigation.** Progress bar and circle, snackbar (through a messenger with a
-> queue), banner, chip and chip group, badge, avatar, floating action button, tabs, and the navigation bar, rail and
-> drawer join W4's containers and overlays (card, lists, accordion, skeleton, select, the overlay frame with dialog, bottom
-> sheet, menu, tooltip and top bar), W3's inputs and W2's primitives and actions, on **W1's foundations**: the theme model,
-> the provider and its environment, the skin contract and behavior layer, the scenario-driven test harness, and the
-> contract, manifest and typings checks. More components follow in W6 to W9. The design notes are in the
+> **Status: W6, the components that arrived later.** Button group, split button, popover, side sheets, toolbar, image,
+> rating, carousel, file uploader, data table, tree, pagination, breadcrumb and progress steps join W5's feedback, display and
+> navigation (progress, snackbar, banner, chip, badge, avatar, FAB, tabs, navigation bar, rail and drawer), W4's containers and
+> overlays, W3's inputs and W2's primitives and actions, on **W1's foundations**: the theme model, the provider and its
+> environment, the skin contract and behavior layer, the scenario-driven test harness, and the contract, manifest and typings
+> checks. More components follow in W7 to W9. The design notes are in the
 > [contributor docs](https://camouflage-dev.srctool.com) (the "Web (planned)" sections); the findings are in
 > [docs/spike-findings.md](docs/spike-findings.md) (W0), [docs/w1-findings.md](docs/w1-findings.md),
 > [docs/w2-findings.md](docs/w2-findings.md), [docs/w3-findings.md](docs/w3-findings.md),
-> [docs/w4-findings.md](docs/w4-findings.md) and [docs/w5-findings.md](docs/w5-findings.md).
+> [docs/w4-findings.md](docs/w4-findings.md), [docs/w5-findings.md](docs/w5-findings.md) and
+> [docs/w6-findings.md](docs/w6-findings.md).
 
 ## How it fits together
 
@@ -81,6 +82,7 @@ pnpm exec playwright install chromium firefox webkit   # once
 - [docs/w3-findings.md](docs/w3-findings.md): what the inputs settled (forms, validation, pickers, the gaps).
 - [docs/w4-findings.md](docs/w4-findings.md): what the overlays and containers settled (the overlay frame, menus, lists, the gaps).
 - [docs/w5-findings.md](docs/w5-findings.md): what feedback, data display and navigation settled (the messenger, chips, tabs, the navigation chrome, the gaps).
+- [docs/w6-findings.md](docs/w6-findings.md): what the later components settled (placement, the toolbar's folding, the table and tree, pagination, the gaps).
 - [docs/browser-baseline.md](docs/browser-baseline.md), [docs/publishing.md](docs/publishing.md).
 
 ## Publishing

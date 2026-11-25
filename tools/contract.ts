@@ -57,6 +57,8 @@ const INVERTED: Record<string, string> = {
   allowTyping: "readonly",
   visible: "hidden",
   expanded: "collapsed",
+  connected: "spaced",
+  showIndicator: "hide-indicator",
 };
 
 // A callback that is a native event, and so needs no custom one (Components note, 3.4).

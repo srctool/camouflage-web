@@ -14,20 +14,28 @@ import type {
   CamoBadgedBox,
   CamoBanner,
   CamoBottomSheet,
+  CamoBreadcrumb,
+  CamoBreadcrumbItem,
   CamoButton,
+  CamoButtonGroup,
   CamoCalendar,
   CamoCard,
+  CamoCarousel,
   CamoCheckbox,
   CamoChip,
   CamoChipGroup,
+  CamoDataTable,
   CamoDatePicker,
   CamoDialog,
   CamoDivider,
   CamoFab,
   CamoFieldAction,
+  CamoFileUploader,
   CamoForm,
+  CamoGroupButton,
   CamoIcon,
   CamoIconButton,
+  CamoImage,
   CamoListItem,
   CamoListSection,
   CamoMenu,
@@ -35,6 +43,7 @@ import type {
   CamoMenuGroup,
   CamoMenuItem,
   CamoModalDrawer,
+  CamoModalSideSheet,
   CamoNavItem,
   CamoNavSection,
   CamoNavigationBar,
@@ -42,20 +51,27 @@ import type {
   CamoNavigationRail,
   CamoOption,
   CamoPagedList,
+  CamoPagination,
+  CamoPopover,
   CamoProgressBar,
   CamoProgressCircle,
+  CamoProgressSteps,
   CamoProvider,
   CamoRadio,
   CamoRadioGroup,
+  CamoRating,
   CamoScheme,
   CamoSearchField,
   CamoSegment,
   CamoSegmentedControl,
   CamoSelect,
+  CamoSideSheet,
   CamoSkeleton,
   CamoSkin,
   CamoSlider,
   CamoSnackbar,
+  CamoSplitButton,
+  CamoStep,
   CamoStepper,
   CamoSurface,
   CamoSwitch,
@@ -64,8 +80,11 @@ import type {
   CamoText,
   CamoTextField,
   CamoTimePicker,
+  CamoToolbar,
   CamoTooltip,
   CamoTopBar,
+  CamoTree,
+  CarouselLayout,
   ChipLayout,
   Detent,
   DividerInset,
@@ -73,20 +92,32 @@ import type {
   ElevationName,
   GroupOrientation,
   HourCycle,
+  IconButton,
+  ImageFit,
+  ImagePhase,
   InputKind,
   LabelPlacement,
+  PaginationVariant,
+  PopoverPlacement,
+  PopoverSide,
   Presence,
   Presentation,
   ProgressSize,
+  RatingSize,
+  RatingStep,
   SelectOption,
   ShapeName,
+  ShowButtons,
   SkeletonLeading,
   SkeletonVariant,
+  StepStatus,
+  StepsOrientation,
   SurfaceLevel,
   TextAlign,
   TextOverflow,
   TextVariant,
   Tone,
+  ToolbarPlacement,
   ValidateMode,
   WindowSize,
 } from "@srctool/camouflage-core";
@@ -161,6 +192,23 @@ declare module "react" {
           drag?: number;
         }
       >;
+      "camo-breadcrumb": CamoElement<
+        CamoBreadcrumb,
+        {
+          "max-visible"?: number | null;
+          label?: string;
+          folded?: number[];
+          revision?: number;
+        }
+      >;
+      "camo-breadcrumb-item": CamoElement<
+        CamoBreadcrumbItem,
+        {
+          label?: string;
+          icon?: string | null;
+          href?: string | null;
+        }
+      >;
       "camo-button": CamoElement<
         CamoButton,
         {
@@ -170,6 +218,16 @@ declare module "react" {
           disabled?: boolean;
           loading?: boolean;
           type?: ButtonType;
+        }
+      >;
+      "camo-button-group": CamoElement<
+        CamoButtonGroup,
+        {
+          spaced?: boolean;
+          appearance?: Appearance | null;
+          tone?: Tone;
+          label?: string | null;
+          disabled?: boolean;
         }
       >;
       "camo-calendar": CamoElement<
@@ -201,6 +259,19 @@ declare module "react" {
           selectable?: boolean;
           selected?: boolean;
           disabled?: boolean;
+        }
+      >;
+      "camo-carousel": CamoElement<
+        CamoCarousel,
+        {
+          caption?: string;
+          layout?: CarouselLayout;
+          "show-buttons"?: ShowButtons;
+          "hide-indicator"?: boolean;
+          page?: number;
+          autoplay?: number | null;
+          count?: number;
+          fine?: boolean;
         }
       >;
       "camo-checkbox": CamoElement<
@@ -241,6 +312,14 @@ declare module "react" {
           required?: boolean;
           disabled?: boolean;
           name?: string;
+        }
+      >;
+      "camo-data-table": CamoElement<
+        CamoDataTable,
+        {
+          caption?: string;
+          selectable?: boolean;
+          loading?: boolean;
         }
       >;
       "camo-date-picker": CamoElement<
@@ -307,11 +386,34 @@ declare module "react" {
           disabled?: boolean;
         }
       >;
+      "camo-file-uploader": CamoElement<
+        CamoFileUploader,
+        {
+          label?: string;
+          hint?: string | null;
+          multiple?: boolean;
+          accept?: string | null;
+          name?: string;
+          disabled?: boolean;
+          dragging?: boolean;
+        }
+      >;
       "camo-form": CamoElement<
         CamoForm,
         {
           "validate-mode"?: ValidateMode;
           "required-message"?: string;
+        }
+      >;
+      "camo-group-button": CamoElement<
+        CamoGroupButton,
+        {
+          text?: string | null;
+          icon?: string | null;
+          "content-description"?: string | null;
+          toggle?: boolean;
+          selected?: boolean;
+          disabled?: boolean;
         }
       >;
       "camo-icon": CamoElement<
@@ -336,6 +438,18 @@ declare module "react" {
           checked?: boolean;
           loading?: boolean;
           tooltip?: string | null;
+        }
+      >;
+      "camo-image": CamoElement<
+        CamoImage,
+        {
+          src?: string | null;
+          "content-description"?: string | null;
+          shape?: ShapeName;
+          fit?: ImageFit;
+          "aspect-ratio"?: number | null;
+          position?: string | null;
+          phase?: ImagePhase;
         }
       >;
       "camo-list-item": CamoElement<
@@ -387,6 +501,15 @@ declare module "react" {
           open?: boolean;
           value?: string;
           label?: string | null;
+          drag?: number;
+        }
+      >;
+      "camo-modal-side-sheet": CamoElement<
+        CamoModalSideSheet,
+        {
+          open?: boolean;
+          title?: string;
+          closable?: boolean;
           drag?: number;
         }
       >;
@@ -458,6 +581,27 @@ declare module "react" {
           pull?: number;
         }
       >;
+      "camo-pagination": CamoElement<
+        CamoPagination,
+        {
+          "page-count"?: number;
+          page?: number;
+          variant?: PaginationVariant;
+          siblings?: number;
+          label?: string;
+          disabled?: boolean;
+        }
+      >;
+      "camo-popover": CamoElement<
+        CamoPopover,
+        {
+          open?: boolean;
+          title?: string;
+          placement?: PopoverPlacement;
+          side?: PopoverSide;
+          arrow?: number | null;
+        }
+      >;
       "camo-progress-bar": CamoElement<
         CamoProgressBar,
         {
@@ -473,6 +617,14 @@ declare module "react" {
           tone?: Tone;
           size?: ProgressSize;
           label?: string | null;
+        }
+      >;
+      "camo-progress-steps": CamoElement<
+        CamoProgressSteps,
+        {
+          current?: number;
+          orientation?: StepsOrientation;
+          label?: string;
         }
       >;
       "camo-provider": CamoElement<
@@ -505,6 +657,20 @@ declare module "react" {
           disabled?: boolean;
           required?: boolean;
           name?: string;
+        }
+      >;
+      "camo-rating": CamoElement<
+        CamoRating,
+        {
+          value?: number;
+          max?: number;
+          step?: RatingStep;
+          size?: RatingSize;
+          readonly?: boolean;
+          label?: string | null;
+          disabled?: boolean;
+          name?: string;
+          hover?: number | null;
         }
       >;
       "camo-search-field": CamoElement<
@@ -571,6 +737,13 @@ declare module "react" {
           focused?: boolean;
         }
       >;
+      "camo-side-sheet": CamoElement<
+        CamoSideSheet,
+        {
+          title?: string;
+          closable?: boolean;
+        }
+      >;
       "camo-skeleton": CamoElement<
         CamoSkeleton,
         {
@@ -604,6 +777,30 @@ declare module "react" {
           action?: string | null;
           tone?: Tone;
           "with-dismiss"?: boolean | null;
+        }
+      >;
+      "camo-split-button": CamoElement<
+        CamoSplitButton,
+        {
+          text?: string;
+          "menu-only"?: boolean;
+          appearance?: Appearance | null;
+          tone?: Tone;
+          "menu-content-description"?: string;
+          disabled?: boolean;
+          expanded?: boolean;
+        }
+      >;
+      "camo-step": CamoElement<
+        CamoStep,
+        {
+          label?: string;
+          description?: string | null;
+          state?: StepStatus | null;
+          clickable?: boolean;
+          index?: number;
+          count?: number;
+          orientation?: StepsOrientation;
         }
       >;
       "camo-stepper": CamoElement<
@@ -728,6 +925,15 @@ declare module "react" {
           focused?: boolean;
         }
       >;
+      "camo-toolbar": CamoElement<
+        CamoToolbar,
+        {
+          placement?: ToolbarPlacement | null;
+          label?: string | null;
+          "overflow-label"?: string;
+          folded?: IconButton[];
+        }
+      >;
       "camo-tooltip": CamoElement<
         CamoTooltip,
         {
@@ -746,6 +952,14 @@ declare module "react" {
           "scroll-offset"?: number;
           "scroll-target"?: string | null;
           hidden?: boolean;
+        }
+      >;
+      "camo-tree": CamoElement<
+        CamoTree,
+        {
+          caption?: string;
+          "multi-select"?: boolean;
+          focused?: string | null;
         }
       >;
     }

@@ -26,5 +26,9 @@ A checklist, in order. Each step is checked by something that fails if it is ski
 10. **SVG in templates.** A template nested inside an `<svg>` (the spokes of a spinner, one per `map` item) must be an `svg` template
     (`import { svg } from "lit"`), or the browser makes `HTMLUnknownElement`s that draw nothing; a test that only looks for
     elements and animations passes anyway, so check that they are `SVGElement`s.
-11. **Docs.** The component's note: what the spike or the milestone settled, and any gap in the contract (a theme field the web
+11. **A renderer draws, the element listens.** A renderer cannot carry a handler. Where it draws a button or a part that does
+    something, give it `data-part` (and `data-key`, `data-id`) and listen once on the element, reading `event.composedPath()`.
+    What an element sets on its children after it updates (a position, an appearance) a server cannot: if the look depends on
+    it, pass it down with an inherited custom property (set by the parent, read by the child with `:host(:first-child)`).
+12. **Docs.** The component's note: what the spike or the milestone settled, and any gap in the contract (a theme field the web
     cannot carry).

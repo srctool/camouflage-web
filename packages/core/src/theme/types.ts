@@ -158,6 +158,20 @@ export interface CamoComponentThemes {
   navigationBar?: NavigationBarTheme;
   navigationRail?: NavigationRailTheme;
   navigationDrawer?: NavigationDrawerTheme;
+  buttonGroup?: ButtonGroupTheme;
+  splitButton?: SplitButtonTheme;
+  popover?: PopoverTheme;
+  sideSheet?: SideSheetTheme;
+  toolbar?: ToolbarTheme;
+  image?: ImageTheme;
+  rating?: RatingTheme;
+  carousel?: CarouselTheme;
+  fileUploader?: FileUploaderTheme;
+  dataTable?: DataTableTheme;
+  tree?: TreeTheme;
+  pagination?: PaginationTheme;
+  breadcrumb?: BreadcrumbTheme;
+  progressSteps?: ProgressStepsTheme;
   textField?: TextFieldTheme;
   searchField?: SearchFieldTheme;
   checkbox?: CheckboxTheme;
@@ -365,6 +379,117 @@ export interface NavigationDrawerTheme {
   itemShape?: string;
   modalShape?: string;
   scrimAlpha?: string;
+}
+
+/** The fields of a buttonGroup theme. */
+export interface ButtonGroupTheme {
+  height?: string;
+  shape?: string;
+  innerShape?: string;
+  spacing?: string;
+  borderWidth?: string;
+  iconSize?: string;
+  iconGap?: string;
+}
+
+/** The fields of a splitButton theme. */
+export interface SplitButtonTheme {
+  height?: string;
+  shape?: string;
+  innerShape?: string;
+  arrowWidth?: string;
+  gap?: string;
+  padding?: string;
+  iconSize?: string;
+  iconGap?: string;
+}
+
+/** The fields of a popover theme. */
+export interface PopoverTheme {
+  shape?: string;
+  maxWidth?: string;
+  padding?: string;
+  arrowWidth?: string;
+  arrowHeight?: string;
+  elevation?: string;
+  gap?: string;
+}
+
+/** The fields of a sideSheet theme. */
+export interface SideSheetTheme {
+  width?: string;
+  modalShape?: string;
+  padding?: string;
+  scrimAlpha?: string;
+}
+
+/** The fields of a toolbar theme. */
+export interface ToolbarTheme {
+  height?: string;
+  floatingMargin?: string;
+  floatingShape?: string;
+  actionSpacing?: string;
+  actionSize?: string;
+  padding?: string;
+}
+
+/** The fields of an image theme. */
+export interface ImageTheme {
+  borderWidth?: string;
+}
+
+/** The fields of a rating theme. */
+export interface RatingTheme {
+  smallSize?: string;
+  mediumSize?: string;
+  largeSize?: string;
+  gap?: string;
+}
+
+/** The fields of a carousel theme. */
+export interface CarouselTheme {
+  itemShape?: string;
+  itemSpacing?: string;
+  peek?: string;
+  buttonSize?: string;
+}
+
+/** The fields of a fileUploader theme. */
+export interface FileUploaderTheme {
+  zoneShape?: string;
+  zoneHeight?: string;
+}
+
+/** The fields of a dataTable theme. */
+export interface DataTableTheme {
+  headerHeight?: string;
+  rowHeight?: string;
+  cellPadding?: string;
+}
+
+/** The fields of a tree theme. */
+export interface TreeTheme {
+  rowHeight?: string;
+  indent?: string;
+  iconSize?: string;
+}
+
+/** The fields of a pagination theme. */
+export interface PaginationTheme {
+  buttonSize?: string;
+  shape?: string;
+  dotSize?: string;
+}
+
+/** The fields of a breadcrumb theme. */
+export interface BreadcrumbTheme {
+  itemPadding?: string;
+}
+
+/** The fields of a progressSteps theme. */
+export interface ProgressStepsTheme {
+  markerSize?: string;
+  connectorWidth?: string;
 }
 
 /** The fields of a textField theme. */

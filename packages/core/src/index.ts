@@ -66,8 +66,36 @@ export {
 } from "./components/navigation.ts";
 export { NavigationController } from "./behavior/navigation.ts";
 export { toneIcon } from "./icons-tone.ts";
+export { CamoGroupButton, CamoButtonGroup, CamoSplitButton } from "./components/button-group.ts";
+export { CamoPopover } from "./components/popover.ts";
+export { CamoSideSheet, CamoModalSideSheet } from "./components/side-sheet.ts";
+export { CamoToolbar } from "./components/toolbar.ts";
+export { CamoImage } from "./components/image.ts";
+export { CamoRating } from "./components/rating.ts";
+export { CamoCarousel } from "./components/carousel.ts";
+export type { CamoPageChangeDetail } from "./components/carousel.ts";
+export { CamoFileUploader } from "./components/file-uploader.ts";
+export type { CamoFilesDetail, CamoUploadRowDetail } from "./components/file-uploader.ts";
+export { CamoDataTable } from "./components/data-table.ts";
+export type {
+  CamoRowClickDetail,
+  CamoSortChangeDetail,
+  TableColumn,
+  TableSort,
+} from "./components/data-table.ts";
+export { CamoTree } from "./components/tree.ts";
+export type { CamoKeysDetail, CamoLoadChildrenDetail } from "./components/tree.ts";
+export { CamoPagination } from "./components/pagination.ts";
+export { CamoBreadcrumb, CamoBreadcrumbItem } from "./components/breadcrumb.ts";
+export { CamoStep, CamoProgressSteps } from "./components/progress-steps.ts";
 export { CamoModal } from "./behavior/modal.ts";
-export { placePopover } from "./behavior/popover.ts";
+export { fitCount, planBreadcrumb } from "./behavior/fit.ts";
+export { pageItems } from "./components/pagination-items.ts";
+export { flattenTree } from "./components/tree-rows.ts";
+export type { CamoTreeNode, TreeRow } from "./components/tree-rows.ts";
+export { ratingAt, snapRating } from "./components/rating-value.ts";
+export { placePanel, placePopover } from "./behavior/popover.ts";
+export type { Box, Placed } from "./behavior/popover.ts";
 export type { CamoPagedState } from "./components/paged-list.ts";
 export type { SelectOption, CamoQueryDetail } from "./components/select.ts";
 export type { CamoExpandedDetail } from "./components/accordion.ts";
@@ -115,6 +143,8 @@ export {
 } from "./skin/registry.ts";
 export type { SkinRegistration } from "./skin/registry.ts";
 export { cssBlock, cssText, textStyleCss } from "./style.ts";
+export { GLYPHS, glyphPath } from "./skin/glyphs.ts";
+export type { Glyph } from "./skin/glyphs.ts";
 export { buttonColorsFor, toneFamily } from "./skin/colors.ts";
 export type { ToneFamily } from "./skin/colors.ts";
 export { textFieldBase, searchFieldBase } from "./skin/fields.ts";
@@ -174,6 +204,22 @@ export {
   tabsBase,
   tabsColorsFor,
 } from "./skin/navigation.ts";
+export {
+  buttonGroupBase,
+  groupButtonBase,
+  groupColorsFor,
+  splitButtonBase,
+} from "./skin/groups.ts";
+export { popoverBase, sideSheetBase, toolbarBase } from "./skin/panels.ts";
+export {
+  carouselBase,
+  fileUploaderBase,
+  formatBytes,
+  imageBase,
+  ratingBase,
+} from "./skin/media.ts";
+export { dataTableBase, treeBase } from "./skin/data.ts";
+export { breadcrumbBase, paginationBase, progressStepsBase } from "./skin/steps.ts";
 export { FIELD_IDS } from "./skin/ids.ts";
 export {
   dividerBase,

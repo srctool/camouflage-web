@@ -128,6 +128,34 @@ export function feedbackPage(skin: string, scheme: string): TemplateResult {
   </camo-provider>`;
 }
 
+/**
+ * The later components' page: a button group, a split button, a toolbar, a rating, an image, pagination and steps,
+ * server-rendered and then hydrated. A server cannot read children, so nothing here depends on them (a breadcrumb or a
+ * carousel draws on the client), and the data table and tree, which draw from object properties, are left out: they render
+ * on the server (tested in Node) but hydrate only when their properties are set before the element upgrades.
+ */
+export function laterPage(skin: string, scheme: string): TemplateResult {
+  return html`<camo-provider skin=${skin} scheme=${scheme} class="page">
+    <camo-button-group label="Formatting">
+      <camo-group-button text="Bold" toggle selected></camo-group-button>
+      <camo-group-button text="Italic" toggle></camo-group-button>
+    </camo-button-group>
+    <camo-split-button text="Save"><camo-menu-item text="Save as…"></camo-menu-item></camo-split-button>
+    <camo-toolbar label="Editor" style="width: 360px">
+      <camo-icon-button label="Bold"><camo-icon name="bold"></camo-icon></camo-icon-button>
+      <camo-icon-button label="Italic"><camo-icon name="italic"></camo-icon></camo-icon-button>
+    </camo-toolbar>
+    <camo-rating label="Quality" value="3.5" step="half"></camo-rating>
+    <div style="width: 240px"><camo-image src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3Crect width='3' height='2' fill='%2300897b'/%3E%3C/svg%3E" content-description="A lake" aspect-ratio="1.5"></camo-image></div>
+    <camo-pagination page-count="20" page="9" label="Results"></camo-pagination>
+    <camo-progress-steps label="Checkout" current="1" style="width: 360px">
+      <camo-step label="Cart" state="complete" index="0" count="3"></camo-step>
+      <camo-step label="Shipping" state="current" index="1" count="3"></camo-step>
+      <camo-step label="Payment" state="upcoming" index="2" count="3"></camo-step>
+    </camo-progress-steps>
+  </camo-provider>`;
+}
+
 /** A dialog page: the same dialog markup under both skins, one after the other (the server renders them open). */
 export function dialogPage(skin: string, scheme: string): TemplateResult {
   return html`<camo-provider skin=${skin} scheme=${scheme} class="page">${confirmation()}</camo-provider>`;

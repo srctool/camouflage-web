@@ -193,3 +193,19 @@ for (const skin of ["minimal", "cupertino"]) {
     ).toBeLessThan(50);
   });
 }
+
+for (const skin of ["minimal", "cupertino"]) {
+  test(`the ${skin} later components hydrate without moving`, async ({ browser }, testInfo) => {
+    const before = await shot(browser, `/later?skin=${skin}&scheme=light&nojs`, false);
+    const html = await before.page.content();
+    expect(html).toMatch(/<camo-rating[^>]*role="slider"[^>]*aria-valuenow="3.5"/);
+    const after = await shot(browser, `/later?skin=${skin}&scheme=light`, true);
+    writeFileSync(testInfo.outputPath("server-render.png"), before.png);
+    writeFileSync(testInfo.outputPath("hydrated.png"), after.png);
+    const count = differing(before.png, after.png);
+    expect(
+      count,
+      `${count} pixels differ between the server render and the hydrated page`,
+    ).toBeLessThan(50);
+  });
+}
