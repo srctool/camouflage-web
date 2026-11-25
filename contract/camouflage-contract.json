@@ -4123,6 +4123,1246 @@
           "kind": "callback"
         }
       ]
+    },
+    {
+      "name": "ButtonGroup",
+      "parameters": [
+        {
+          "name": "connected",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "appearance",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Solid", "Soft", "Raised", "Outline", "Ghost", "Link"],
+          "default": null
+        },
+        {
+          "name": "tone",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Default", "Error", "Success", "Warning", "Info"],
+          "default": "Default"
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "height",
+          "type": "length"
+        },
+        {
+          "name": "shape",
+          "type": "length"
+        },
+        {
+          "name": "innerShape",
+          "type": "length"
+        },
+        {
+          "name": "spacing",
+          "type": "length"
+        },
+        {
+          "name": "borderWidth",
+          "type": "length"
+        },
+        {
+          "name": "iconSize",
+          "type": "length"
+        },
+        {
+          "name": "iconGap",
+          "type": "length"
+        },
+        {
+          "name": "defaultAppearance",
+          "type": "Appearance",
+          "web": "gap"
+        },
+        {
+          "name": "textStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "colors",
+          "type": "GroupColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "GroupButton",
+      "parameters": [
+        {
+          "name": "text",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "icon",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "contentDescription",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "toggle",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "selected",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "icon",
+          "kind": "slot"
+        },
+        {
+          "name": "onClick",
+          "kind": "callback"
+        }
+      ]
+    },
+    {
+      "name": "SplitButton",
+      "parameters": [
+        {
+          "name": "text",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "menuOnly",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "appearance",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Solid", "Soft", "Raised", "Outline", "Ghost", "Link"],
+          "default": null
+        },
+        {
+          "name": "tone",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Default", "Error", "Success", "Warning", "Info"],
+          "default": "Default"
+        },
+        {
+          "name": "menuContentDescription",
+          "kind": "value",
+          "type": "string",
+          "default": "More options"
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "prefixIcon",
+          "kind": "slot"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onClick",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "height",
+          "type": "length"
+        },
+        {
+          "name": "shape",
+          "type": "length"
+        },
+        {
+          "name": "innerShape",
+          "type": "length"
+        },
+        {
+          "name": "arrowWidth",
+          "type": "length"
+        },
+        {
+          "name": "gap",
+          "type": "length"
+        },
+        {
+          "name": "padding",
+          "type": "length"
+        },
+        {
+          "name": "iconSize",
+          "type": "length"
+        },
+        {
+          "name": "iconGap",
+          "type": "length"
+        },
+        {
+          "name": "defaultAppearance",
+          "type": "Appearance",
+          "web": "gap"
+        },
+        {
+          "name": "textStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "arrowIcon",
+          "type": "IconSource",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "Popover",
+      "parameters": [
+        {
+          "name": "open",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "title",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "placement",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Auto", "Bottom", "Top", "Start", "End"],
+          "default": "Auto"
+        },
+        {
+          "name": "anchor",
+          "kind": "slot"
+        },
+        {
+          "name": "actions",
+          "kind": "slot"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onClose",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "shape",
+          "type": "length"
+        },
+        {
+          "name": "maxWidth",
+          "type": "length"
+        },
+        {
+          "name": "padding",
+          "type": "length"
+        },
+        {
+          "name": "arrowWidth",
+          "type": "length"
+        },
+        {
+          "name": "arrowHeight",
+          "type": "length"
+        },
+        {
+          "name": "elevation",
+          "type": "length"
+        },
+        {
+          "name": "gap",
+          "type": "length"
+        },
+        {
+          "name": "showArrow",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "titleStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "colors",
+          "type": "PopoverColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "SideSheet",
+      "parameters": [
+        {
+          "name": "title",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "closable",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "actions",
+          "kind": "slot"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onClose",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "width",
+          "type": "length"
+        },
+        {
+          "name": "modalShape",
+          "type": "length"
+        },
+        {
+          "name": "padding",
+          "type": "length"
+        },
+        {
+          "name": "scrimAlpha",
+          "type": "length"
+        },
+        {
+          "name": "showDivider",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "showCloseButton",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "titleStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "colors",
+          "type": "SideSheetColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "ModalSideSheet",
+      "parameters": [
+        {
+          "name": "open",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "title",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "closable",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "actions",
+          "kind": "slot"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onClose",
+          "kind": "callback"
+        }
+      ]
+    },
+    {
+      "name": "Toolbar",
+      "parameters": [
+        {
+          "name": "placement",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Docked", "Floating"],
+          "default": null
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "overflowLabel",
+          "kind": "value",
+          "type": "string",
+          "default": "More"
+        },
+        {
+          "name": "leading",
+          "kind": "slot"
+        },
+        {
+          "name": "trailing",
+          "kind": "slot"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "height",
+          "type": "length"
+        },
+        {
+          "name": "floatingMargin",
+          "type": "length"
+        },
+        {
+          "name": "floatingShape",
+          "type": "length"
+        },
+        {
+          "name": "actionSpacing",
+          "type": "length"
+        },
+        {
+          "name": "actionSize",
+          "type": "length"
+        },
+        {
+          "name": "padding",
+          "type": "length"
+        },
+        {
+          "name": "placement",
+          "type": "ToolbarPlacement",
+          "web": "gap"
+        },
+        {
+          "name": "floatingElevation",
+          "type": "ElevationLevel",
+          "web": "gap"
+        },
+        {
+          "name": "showLabels",
+          "type": "LabelVisibility",
+          "web": "gap"
+        },
+        {
+          "name": "showDivider",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "colors",
+          "type": "ToolbarColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "Image",
+      "parameters": [
+        {
+          "name": "src",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "contentDescription",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "shape",
+          "kind": "value",
+          "type": "enum",
+          "values": ["None", "ExtraSmall", "Small", "Medium", "Large", "ExtraLarge", "Full"],
+          "default": "Medium"
+        },
+        {
+          "name": "fit",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Cover", "Contain", "Fill", "None", "ScaleDown"],
+          "default": "Cover"
+        },
+        {
+          "name": "aspectRatio",
+          "kind": "value",
+          "type": "number",
+          "default": null
+        },
+        {
+          "name": "position",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "borderWidth",
+          "type": "length"
+        },
+        {
+          "name": "placeholderIcon",
+          "type": "IconSource",
+          "web": "tokens"
+        },
+        {
+          "name": "errorIcon",
+          "type": "IconSource",
+          "web": "tokens"
+        },
+        {
+          "name": "fadeMillis",
+          "type": "number",
+          "web": "gap"
+        },
+        {
+          "name": "colors",
+          "type": "ImageColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "Rating",
+      "parameters": [
+        {
+          "name": "value",
+          "kind": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "max",
+          "kind": "value",
+          "type": "number",
+          "default": 5
+        },
+        {
+          "name": "step",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Whole", "Half"],
+          "default": "Whole"
+        },
+        {
+          "name": "size",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Small", "Medium", "Large"],
+          "default": "Medium"
+        },
+        {
+          "name": "readonly",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "name",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "onValueChange",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "smallSize",
+          "type": "length"
+        },
+        {
+          "name": "mediumSize",
+          "type": "length"
+        },
+        {
+          "name": "largeSize",
+          "type": "length"
+        },
+        {
+          "name": "gap",
+          "type": "length"
+        },
+        {
+          "name": "icon",
+          "type": "IconSource",
+          "web": "tokens"
+        },
+        {
+          "name": "colors",
+          "type": "RatingColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "Carousel",
+      "parameters": [
+        {
+          "name": "caption",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "layout",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Paged", "Peek"],
+          "default": "Paged"
+        },
+        {
+          "name": "showButtons",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Auto", "Always", "Never"],
+          "default": "Auto"
+        },
+        {
+          "name": "showIndicator",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "page",
+          "kind": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "autoplay",
+          "kind": "value",
+          "type": "number",
+          "default": null
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onPageChange",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "itemShape",
+          "type": "length"
+        },
+        {
+          "name": "itemSpacing",
+          "type": "length"
+        },
+        {
+          "name": "peek",
+          "type": "length"
+        },
+        {
+          "name": "buttonSize",
+          "type": "length"
+        },
+        {
+          "name": "buttonStyle",
+          "type": "ButtonColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "FileUploader",
+      "parameters": [
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": "Upload files"
+        },
+        {
+          "name": "hint",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "multiple",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "accept",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "name",
+          "kind": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "onPick",
+          "kind": "callback"
+        },
+        {
+          "name": "onFilesDropped",
+          "kind": "callback"
+        },
+        {
+          "name": "onRemove",
+          "kind": "callback"
+        },
+        {
+          "name": "onRetry",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "zoneShape",
+          "type": "length"
+        },
+        {
+          "name": "zoneHeight",
+          "type": "length"
+        },
+        {
+          "name": "dashed",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "icon",
+          "type": "IconSource",
+          "web": "tokens"
+        },
+        {
+          "name": "titleStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "hintStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "colors",
+          "type": "UploaderColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "DataTable",
+      "parameters": [
+        {
+          "name": "caption",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "selectable",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "loading",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "empty",
+          "kind": "slot"
+        },
+        {
+          "name": "footer",
+          "kind": "slot"
+        },
+        {
+          "name": "onSortChange",
+          "kind": "callback"
+        },
+        {
+          "name": "onRowClick",
+          "kind": "callback"
+        },
+        {
+          "name": "onSelectionChange",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "headerHeight",
+          "type": "length"
+        },
+        {
+          "name": "rowHeight",
+          "type": "length"
+        },
+        {
+          "name": "cellPadding",
+          "type": "length"
+        },
+        {
+          "name": "density",
+          "type": "TableDensity",
+          "web": "gap"
+        },
+        {
+          "name": "striped",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "dividers",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "stickyHeader",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "headerStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "cellStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "sortIcon",
+          "type": "IconSource",
+          "web": "tokens"
+        },
+        {
+          "name": "colors",
+          "type": "TableColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "Tree",
+      "parameters": [
+        {
+          "name": "caption",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "multiSelect",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "onExpandedChange",
+          "kind": "callback"
+        },
+        {
+          "name": "onSelectedChange",
+          "kind": "callback"
+        },
+        {
+          "name": "onLoadChildren",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "rowHeight",
+          "type": "length"
+        },
+        {
+          "name": "indent",
+          "type": "length"
+        },
+        {
+          "name": "iconSize",
+          "type": "length"
+        },
+        {
+          "name": "showLines",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "textStyle",
+          "type": "CamoTextStyle",
+          "web": "tokens"
+        },
+        {
+          "name": "chevron",
+          "type": "IconSource",
+          "web": "tokens"
+        },
+        {
+          "name": "colors",
+          "type": "TreeColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "Pagination",
+      "parameters": [
+        {
+          "name": "pageCount",
+          "kind": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "page",
+          "kind": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "variant",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Numbered", "Compact", "Dots"],
+          "default": "Numbered"
+        },
+        {
+          "name": "siblings",
+          "kind": "value",
+          "type": "number",
+          "default": 1
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": "Pagination"
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "onPageChange",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "buttonSize",
+          "type": "length"
+        },
+        {
+          "name": "shape",
+          "type": "length"
+        },
+        {
+          "name": "dotSize",
+          "type": "length"
+        },
+        {
+          "name": "previousIcon",
+          "type": "IconSource",
+          "web": "tokens"
+        },
+        {
+          "name": "nextIcon",
+          "type": "IconSource",
+          "web": "tokens"
+        },
+        {
+          "name": "colors",
+          "type": "PaginationColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "Breadcrumb",
+      "parameters": [
+        {
+          "name": "maxVisible",
+          "kind": "value",
+          "type": "number",
+          "default": null
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": "Breadcrumb"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "itemPadding",
+          "type": "length"
+        },
+        {
+          "name": "separator",
+          "type": "IconSource",
+          "web": "tokens"
+        },
+        {
+          "name": "overflowIcon",
+          "type": "IconSource",
+          "web": "tokens"
+        },
+        {
+          "name": "colors",
+          "type": "BreadcrumbColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "BreadcrumbItem",
+      "parameters": [
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "icon",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "href",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "onClick",
+          "kind": "callback"
+        }
+      ]
+    },
+    {
+      "name": "ProgressSteps",
+      "parameters": [
+        {
+          "name": "current",
+          "kind": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "orientation",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Horizontal", "Vertical"],
+          "default": "Horizontal"
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "default": "Progress"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "markerSize",
+          "type": "length"
+        },
+        {
+          "name": "connectorWidth",
+          "type": "length"
+        },
+        {
+          "name": "showNumbers",
+          "type": "boolean",
+          "web": "gap"
+        },
+        {
+          "name": "checkIcon",
+          "type": "IconSource",
+          "web": "tokens"
+        },
+        {
+          "name": "errorIcon",
+          "type": "IconSource",
+          "web": "tokens"
+        },
+        {
+          "name": "colors",
+          "type": "StepsColors",
+          "web": "tokens"
+        }
+      ]
+    },
+    {
+      "name": "Step",
+      "parameters": [
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "description",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "state",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Complete", "Current", "Upcoming", "Error"],
+          "default": null
+        },
+        {
+          "name": "clickable",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "onClick",
+          "kind": "callback"
+        }
+      ]
     }
   ]
 }

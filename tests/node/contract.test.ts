@@ -121,6 +121,20 @@ describe("camouflage-contract.json", () => {
       NavigationBar: ["placement", "indicator", "showLabels", "hideAnimation"],
       NavigationRail: ["alignment", "indicator", "showLabels"],
       NavigationDrawer: ["indicator"],
+      ButtonGroup: ["defaultAppearance"],
+      SplitButton: ["defaultAppearance"],
+      Popover: ["showArrow"],
+      SideSheet: ["showDivider", "showCloseButton"],
+      Toolbar: ["placement", "floatingElevation", "showLabels", "showDivider"],
+      Image: ["fadeMillis"],
+      Rating: [],
+      Carousel: [],
+      FileUploader: ["dashed"],
+      DataTable: ["density", "striped", "dividers", "stickyHeader"],
+      Tree: ["showLines"],
+      Pagination: [],
+      Breadcrumb: [],
+      ProgressSteps: ["showNumbers"],
     });
   });
 });

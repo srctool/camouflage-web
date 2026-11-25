@@ -68,6 +68,21 @@ describe("the skin contract", () => {
       "navigationBar",
       "navigationRail",
       "navigationDrawer",
+      "buttonGroup",
+      "groupButton",
+      "splitButton",
+      "popover",
+      "sideSheet",
+      "toolbar",
+      "image",
+      "rating",
+      "carousel",
+      "fileUploader",
+      "dataTable",
+      "tree",
+      "pagination",
+      "breadcrumb",
+      "progressSteps",
     ]);
     expect(missingRenderers(minimalSkin)).toEqual([]);
     expect(missingRenderers(cupertinoSkin)).toEqual([]);
@@ -84,7 +99,7 @@ describe("the skin contract", () => {
   it("names every missing part, and a missing name", () => {
     const bare = { name: "bare" } as unknown as InProgressSkin;
     expect(() => assertCompleteSkin(bare)).toThrow(
-      'Skin "bare" is incomplete: missing surfaceTreatment, feedback, text, icon, surface, divider, button, iconButton, textField, searchField, checkbox, switch, radio, segmentedControl, segment, slider, stepper, calendar, timePicker, card, listItem, listSection, accordion, skeleton, pagedList, bottomSheet, menu, menuItem, tooltip, topBar, dialog, progressBar, progressCircle, snackbar, banner, chip, badge, avatar, fab, tabs, tab, navItem, navigationBar, navigationRail, navigationDrawer.',
+      'Skin "bare" is incomplete: missing surfaceTreatment, feedback, text, icon, surface, divider, button, iconButton, textField, searchField, checkbox, switch, radio, segmentedControl, segment, slider, stepper, calendar, timePicker, card, listItem, listSection, accordion, skeleton, pagedList, bottomSheet, menu, menuItem, tooltip, topBar, dialog, progressBar, progressCircle, snackbar, banner, chip, badge, avatar, fab, tabs, tab, navItem, navigationBar, navigationRail, navigationDrawer, buttonGroup, groupButton, splitButton, popover, sideSheet, toolbar, image, rating, carousel, fileUploader, dataTable, tree, pagination, breadcrumb, progressSteps.',
     );
     const unnamed = { ...minimalSkin, name: "" } as CamoSkin;
     expect(() => assertCompleteSkin(unnamed)).toThrow("(unnamed)");

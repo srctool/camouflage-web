@@ -289,6 +289,20 @@ describe("createCamoTheme", () => {
       "navigationBar",
       "navigationRail",
       "navigationDrawer",
+      "buttonGroup",
+      "splitButton",
+      "popover",
+      "sideSheet",
+      "toolbar",
+      "image",
+      "rating",
+      "carousel",
+      "fileUploader",
+      "dataTable",
+      "tree",
+      "pagination",
+      "breadcrumb",
+      "progressSteps",
       "textField",
       "searchField",
       "checkbox",
@@ -308,9 +322,9 @@ describe("createCamoTheme", () => {
     expect(() =>
       createCamoTheme(base, { components: { button: { hieght: "48px" } } } as never),
     ).toThrow('Unknown theme key "components.button.hieght".');
-    expect(() => createCamoTheme(base, { components: { dataTable: { x: "1" } } } as never)).toThrow(
-      'Unknown theme key "components.dataTable".',
-    );
+    expect(() =>
+      createCamoTheme(base, { components: { colorPicker: { x: "1" } } } as never),
+    ).toThrow('Unknown theme key "components.colorPicker".');
   });
 
   it("takes the brand's own token sets under any name", () => {

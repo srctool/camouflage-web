@@ -46,6 +46,23 @@ import {
   cupertinoNavigationRail,
   cupertinoNavigationDrawer,
 } from "./navigation.ts";
+import {
+  cupertinoButtonGroup,
+  cupertinoGroupButton,
+  cupertinoSplitButton,
+  cupertinoPopover,
+  cupertinoSideSheet,
+  cupertinoToolbar,
+  cupertinoImage,
+  cupertinoRating,
+  cupertinoCarousel,
+  cupertinoFileUploader,
+  cupertinoDataTable,
+  cupertinoTree,
+  cupertinoPagination,
+  cupertinoBreadcrumb,
+  cupertinoProgressSteps,
+} from "./later.ts";
 import { cupertinoText } from "./text.ts";
 import { cupertinoDialog } from "./dialog.ts";
 import { opacity } from "./feedback.ts";
@@ -102,6 +119,21 @@ export const cupertinoSkin: CamoSkin = defineSkin({
   navigationBar: cupertinoNavigationBar,
   navigationRail: cupertinoNavigationRail,
   navigationDrawer: cupertinoNavigationDrawer,
+  buttonGroup: cupertinoButtonGroup,
+  groupButton: cupertinoGroupButton,
+  splitButton: cupertinoSplitButton,
+  popover: cupertinoPopover,
+  sideSheet: cupertinoSideSheet,
+  toolbar: cupertinoToolbar,
+  image: cupertinoImage,
+  rating: cupertinoRating,
+  carousel: cupertinoCarousel,
+  fileUploader: cupertinoFileUploader,
+  dataTable: cupertinoDataTable,
+  tree: cupertinoTree,
+  pagination: cupertinoPagination,
+  breadcrumb: cupertinoBreadcrumb,
+  progressSteps: cupertinoProgressSteps,
 });
 
 export {
@@ -148,6 +180,21 @@ export {
   cupertinoNavigationBar,
   cupertinoNavigationRail,
   cupertinoNavigationDrawer,
+  cupertinoButtonGroup,
+  cupertinoGroupButton,
+  cupertinoSplitButton,
+  cupertinoPopover,
+  cupertinoSideSheet,
+  cupertinoToolbar,
+  cupertinoImage,
+  cupertinoRating,
+  cupertinoCarousel,
+  cupertinoFileUploader,
+  cupertinoDataTable,
+  cupertinoTree,
+  cupertinoPagination,
+  cupertinoBreadcrumb,
+  cupertinoProgressSteps,
   classic,
   opacity,
 };

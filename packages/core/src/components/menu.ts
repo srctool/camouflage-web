@@ -184,6 +184,9 @@ export class CamoMenuGroup extends LitElement {
 export class CamoMenu extends LitElement {
   static override properties: PropertyDeclarations = {
     open: { type: Boolean, reflect: true },
+    manual: { type: Boolean, attribute: false },
+    anchorElement: { attribute: false },
+    itemsRoot: { attribute: false },
   };
 
   static override styles: CSSResult = css`
@@ -205,6 +208,14 @@ export class CamoMenu extends LitElement {
   `;
 
   declare open: boolean;
+  /**
+   * For a component that builds on the menu (a split button, a toolbar's overflow): the element the menu is placed
+   * under, which need not be in the `anchor` slot; whether the component opens it itself (`manual`: the menu then adds no
+   * handlers and no "has popup" state to the anchor); and where the entries are, when they are not its own children.
+   */
+  declare anchorElement: HTMLElement | null;
+  declare manual: boolean;
+  declare itemsRoot: ParentNode | null;
 
   readonly #cx: CamouflageController = new CamouflageController(this);
   #typed = "";
@@ -214,6 +225,9 @@ export class CamoMenu extends LitElement {
   constructor() {
     super();
     this.open = false;
+    this.anchorElement = null;
+    this.manual = false;
+    this.itemsRoot = null;
     this.addEventListener("keydown", this.#onKey);
     this.addEventListener("click", this.#onClick);
   }
@@ -223,11 +237,11 @@ export class CamoMenu extends LitElement {
   }
 
   get #anchor(): HTMLElement | null {
-    return this.querySelector<HTMLElement>(':scope > [slot="anchor"]');
+    return this.anchorElement ?? this.querySelector<HTMLElement>(':scope > [slot="anchor"]');
   }
 
   #items(): HTMLElement[] {
-    return [...this.querySelectorAll<HTMLElement>(ITEMS)];
+    return [...(this.itemsRoot ?? this).querySelectorAll<HTMLElement>(ITEMS)];
   }
 
   /** Opens it and focuses the first or last item (or none). `open` does the same declaratively. */
@@ -264,7 +278,7 @@ export class CamoMenu extends LitElement {
         this.dispatchEvent(new Event("camo-open", { bubbles: true, composed: true }));
       } else if (!this.open && popup.matches(":popover-open")) popup.hidePopover();
     }
-    if (anchor === null) return;
+    if (anchor === null || this.manual) return;
     // The anchor says what it opens, and whether it is open.
     anchor.setAttribute("aria-haspopup", "menu");
     anchor.setAttribute("aria-expanded", this.open ? "true" : "false");
@@ -272,6 +286,7 @@ export class CamoMenu extends LitElement {
   }
 
   override firstUpdated(): void {
+    if (this.manual) return;
     this.#anchor?.addEventListener("click", this.#onAnchorClick);
     this.#anchor?.addEventListener("keydown", this.#onAnchorKey as EventListener);
     this.renderRoot.querySelector("slot[name=anchor]")?.addEventListener("slotchange", () => {

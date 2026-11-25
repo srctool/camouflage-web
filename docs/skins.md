@@ -69,6 +69,23 @@ ring for keyboard focus). 40 px buttons, radius 8, a 48 px touch area.
 | Navigation rail   | 72 wide, a hairline on the end edge; the header (a FAB) is fixed above the items                      |
 | Navigation drawer | 280 wide, rows 48 tall, the selected row a soft fill; section titles are headings                     |
 
+| Component      | Minimal (the later components)                                                                                             |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Button group   | connected outline buttons that share one hairline, radius 8 at the outer corners only; a toggle that is on is the ink fill |
+| Split button   | a 40 tall ink button, the parts divided by a line                                                                          |
+| Popover        | a hairline panel, radius 12, no arrow and no shadow; up to 320 wide                                                        |
+| Side sheet     | 360 wide, a hairline start edge when docked, radius 16 on the start corners when modal                                     |
+| Toolbar        | a 48 bar with a hairline above it; floating is a hairline pill                                                             |
+| Image          | a `surfaceContainerHigh` placeholder and error mark, radius 12 by default                                                  |
+| Rating         | ink stars, 16, 24 and 32                                                                                                   |
+| Carousel       | radius 12 items, round scrim buttons, dots (the active one ink)                                                            |
+| File uploader  | a dashed zone, hairline rows with the skin's progress bar                                                                  |
+| Data table     | hairline rows, 48 header, 52 rows, the selected row a soft fill                                                            |
+| Tree           | 40 tall rows, a soft selected row                                                                                          |
+| Pagination     | 40 square-ish buttons, the current page ink                                                                                |
+| Breadcrumb     | quiet links, a chevron between steps                                                                                       |
+| Progress steps | 24 markers, a hairline connector, ink for done and current                                                                 |
+
 ## Cupertino (Classic)
 
 Apple's system colors from the HIG tables, SF type, iOS radii, **Classic** surface (an opaque fill with a soft shadow) and
@@ -137,6 +154,23 @@ Apple's system colors from the HIG tables, SF type, iOS radii, **Classic** surfa
 | Navigation bar    | iOS's tab bar, 49 tall, a hairline above it, labels always shown and the selected item tinted with the accent                     |
 | Navigation rail   | 80 wide, the same items                                                                                                           |
 | Navigation drawer | iOS's sidebar, 320 wide, rows 44 tall, the selected row tinted                                                                    |
+
+| Component      | Cupertino (the later components)                                                                   |
+| -------------- | -------------------------------------------------------------------------------------------------- |
+| Button group   | a grouped control, filled soft and rounded at the outer corners; a toggle that is on is the accent |
+| Split button   | a capsule, the parts divided by a hairline                                                         |
+| Popover        | a lifted panel (level 3) with an **arrow** pointing at the anchor, like iOS's popover              |
+| Side sheet     | an inspector on the grouped surface; radius 28 when modal                                          |
+| Toolbar        | a 44 bar on the grouped surface; floating is a lifted capsule                                      |
+| Image          | the same frame, radius 14                                                                          |
+| Rating         | orange stars                                                                                       |
+| Carousel       | radius 14 items, round scrim buttons, dots (the active one the accent)                             |
+| File uploader  | a filled, undashed zone                                                                            |
+| Data table     | hairline rows, 44 header, 48 rows, the selected row tinted with the accent container               |
+| Tree           | 44 tall rows, a tinted selected row                                                                |
+| Pagination     | 36 round buttons, the current page the accent                                                      |
+| Breadcrumb     | accent links, a chevron between steps                                                              |
+| Progress steps | 28 markers, the accent for done and current                                                        |
 
 The same `<camo-dialog>` markup gives side-by-side actions under Minimal and stacked ones under Cupertino; that is the
 contract's point, tested in the server-rendering and browser tests.

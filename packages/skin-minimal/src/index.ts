@@ -46,6 +46,23 @@ import {
   minimalNavigationRail,
   minimalNavigationDrawer,
 } from "./navigation.ts";
+import {
+  minimalButtonGroup,
+  minimalGroupButton,
+  minimalSplitButton,
+  minimalPopover,
+  minimalSideSheet,
+  minimalToolbar,
+  minimalImage,
+  minimalRating,
+  minimalCarousel,
+  minimalFileUploader,
+  minimalDataTable,
+  minimalTree,
+  minimalPagination,
+  minimalBreadcrumb,
+  minimalProgressSteps,
+} from "./later.ts";
 import { minimalText } from "./text.ts";
 import { minimalDialog } from "./dialog.ts";
 import { fade } from "./feedback.ts";
@@ -102,6 +119,21 @@ export const minimalSkin: CamoSkin = defineSkin({
   navigationBar: minimalNavigationBar,
   navigationRail: minimalNavigationRail,
   navigationDrawer: minimalNavigationDrawer,
+  buttonGroup: minimalButtonGroup,
+  groupButton: minimalGroupButton,
+  splitButton: minimalSplitButton,
+  popover: minimalPopover,
+  sideSheet: minimalSideSheet,
+  toolbar: minimalToolbar,
+  image: minimalImage,
+  rating: minimalRating,
+  carousel: minimalCarousel,
+  fileUploader: minimalFileUploader,
+  dataTable: minimalDataTable,
+  tree: minimalTree,
+  pagination: minimalPagination,
+  breadcrumb: minimalBreadcrumb,
+  progressSteps: minimalProgressSteps,
 });
 
 export {
@@ -148,6 +180,21 @@ export {
   minimalNavigationBar,
   minimalNavigationRail,
   minimalNavigationDrawer,
+  minimalButtonGroup,
+  minimalGroupButton,
+  minimalSplitButton,
+  minimalPopover,
+  minimalSideSheet,
+  minimalToolbar,
+  minimalImage,
+  minimalRating,
+  minimalCarousel,
+  minimalFileUploader,
+  minimalDataTable,
+  minimalTree,
+  minimalPagination,
+  minimalBreadcrumb,
+  minimalProgressSteps,
   flat,
   fade,
 };

@@ -2464,6 +2464,743 @@
       "frame": "page",
       "textScales": [1],
       "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "button-group",
+      "component": "button-group",
+      "props": {
+        "label": "Clipboard"
+      },
+      "content": {
+        "": "<camo-group-button text=\"Cut\"></camo-group-button><camo-group-button text=\"Copy\"></camo-group-button><camo-group-button text=\"Paste\"></camo-group-button>"
+      }
+    },
+    {
+      "name": "button-group-toggles",
+      "component": "button-group",
+      "props": {
+        "label": "Formatting"
+      },
+      "content": {
+        "": "<camo-group-button icon=\"bold\" content-description=\"Bold\" toggle selected></camo-group-button><camo-group-button icon=\"italic\" content-description=\"Italic\" toggle></camo-group-button><camo-group-button icon=\"underline\" content-description=\"Underline\" toggle selected></camo-group-button>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "button-group-spaced",
+      "component": "button-group",
+      "props": {
+        "label": "Actions",
+        "spaced": true,
+        "appearance": "soft"
+      },
+      "content": {
+        "": "<camo-group-button text=\"Edit\"></camo-group-button><camo-group-button text=\"Share\"></camo-group-button><camo-group-button text=\"Archive\" disabled></camo-group-button>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "button-group-tone",
+      "component": "button-group",
+      "props": {
+        "label": "Danger",
+        "tone": "error"
+      },
+      "content": {
+        "": "<camo-group-button text=\"Undo\"></camo-group-button><camo-group-button text=\"Delete\"></camo-group-button>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "split-button",
+      "component": "split-button",
+      "props": {
+        "text": "Save"
+      },
+      "content": {
+        "": "<camo-menu-item text=\"Save as…\"></camo-menu-item><camo-menu-item text=\"Save a copy\"></camo-menu-item>"
+      }
+    },
+    {
+      "name": "split-button-outline",
+      "component": "split-button",
+      "props": {
+        "text": "Save",
+        "appearance": "outline"
+      },
+      "content": {
+        "": "<camo-menu-item text=\"Save as…\"></camo-menu-item>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "split-button-menu",
+      "component": "split-button",
+      "props": {
+        "text": "Sort",
+        "menu-only": true,
+        "appearance": "soft"
+      },
+      "content": {
+        "": "<camo-menu-item text=\"Newest\"></camo-menu-item><camo-menu-item text=\"Oldest\"></camo-menu-item>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "split-button-disabled",
+      "component": "split-button",
+      "props": {
+        "text": "Save",
+        "disabled": true
+      },
+      "content": {
+        "": "<camo-menu-item text=\"Save as…\"></camo-menu-item>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "popover",
+      "component": "popover",
+      "props": {
+        "open": true,
+        "title": "Rename",
+        "placement": "bottom"
+      },
+      "content": {
+        "": "<camo-button slot=\"anchor\" text=\"Rename\" appearance=\"outline\"></camo-button><camo-text text=\"Choose a new name for this file.\"></camo-text><camo-button slot=\"actions\" appearance=\"ghost\" text=\"Cancel\"></camo-button><camo-button slot=\"actions\" text=\"Save\"></camo-button>"
+      },
+      "frame": "page",
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "popover-top",
+      "component": "popover",
+      "props": {
+        "open": true,
+        "title": "Details",
+        "placement": "top"
+      },
+      "content": {
+        "": "<camo-button slot=\"anchor\" text=\"Info\" appearance=\"outline\"></camo-button><camo-text text=\"Created yesterday.\"></camo-text>"
+      },
+      "frame": "page",
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "side-sheet",
+      "component": "side-sheet",
+      "props": {
+        "title": "Properties",
+        "closable": true
+      },
+      "content": {
+        "": "<camo-list-item headline=\"Name\" supporting=\"report.pdf\"></camo-list-item><camo-list-item headline=\"Size\" supporting=\"1.2 MB\"></camo-list-item>",
+        "actions": "<camo-button appearance=\"ghost\" text=\"Cancel\"></camo-button>"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "modal-side-sheet",
+      "component": "modal-side-sheet",
+      "props": {
+        "open": true,
+        "title": "Filters",
+        "closable": true
+      },
+      "content": {
+        "": "<camo-list-item headline=\"Open now\" clickable></camo-list-item><camo-list-item headline=\"Top rated\" clickable></camo-list-item>",
+        "actions": "<camo-button text=\"Apply\"></camo-button>"
+      },
+      "frame": "page",
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "toolbar",
+      "component": "toolbar",
+      "props": {
+        "label": "Editor",
+        "style": "width: 280px"
+      },
+      "content": {
+        "": "<camo-icon-button label=\"Bold\" toggle checked><camo-icon name=\"bold\"></camo-icon></camo-icon-button><camo-icon-button label=\"Italic\" toggle><camo-icon name=\"italic\"></camo-icon></camo-icon-button><camo-icon-button label=\"Underline\" toggle><camo-icon name=\"underline\"></camo-icon></camo-icon-button>"
+      }
+    },
+    {
+      "name": "toolbar-overflow",
+      "component": "toolbar",
+      "props": {
+        "label": "Editor",
+        "style": "width: 280px"
+      },
+      "content": {
+        "": "<camo-icon-button label=\"Bold\" toggle checked><camo-icon name=\"bold\"></camo-icon></camo-icon-button><camo-icon-button label=\"Italic\" toggle><camo-icon name=\"italic\"></camo-icon></camo-icon-button><camo-icon-button label=\"Underline\" toggle><camo-icon name=\"underline\"></camo-icon></camo-icon-button><camo-icon-button label=\"Share\"><camo-icon name=\"share\"></camo-icon></camo-icon-button><camo-icon-button label=\"Search\"><camo-icon name=\"search\"></camo-icon></camo-icon-button><camo-icon-button label=\"Add\"><camo-icon name=\"add\"></camo-icon></camo-icon-button><camo-icon-button label=\"Favorite\" toggle><camo-icon name=\"heart\"></camo-icon></camo-icon-button><camo-icon-button label=\"Delete\"><camo-icon name=\"delete\"></camo-icon></camo-icon-button>"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "toolbar-floating",
+      "component": "toolbar",
+      "props": {
+        "label": "Tools",
+        "placement": "floating",
+        "style": "width: 280px"
+      },
+      "content": {
+        "": "<camo-icon-button label=\"Bold\"><camo-icon name=\"bold\"></camo-icon></camo-icon-button><camo-icon-button label=\"Share\"><camo-icon name=\"share\"></camo-icon></camo-icon-button><camo-icon-button label=\"Search\"><camo-icon name=\"search\"></camo-icon></camo-icon-button>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "image",
+      "component": "image",
+      "props": {
+        "src": "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 30 20%27%3E%3Crect width=%2730%27 height=%2720%27 fill=%27%2300897b%27/%3E%3Ccircle cx=%2722%27 cy=%277%27 r=%274%27 fill=%27%23ffd54f%27/%3E%3Cpath d=%27M0 20 L10 8 L18 16 L22 12 L30 20z%27 fill=%27%23004d40%27/%3E%3C/svg%3E",
+        "content-description": "A lake at dawn",
+        "aspect-ratio": 1.5
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "image-failed",
+      "component": "image",
+      "props": {
+        "src": "data:image/png;base64,AAAA",
+        "content-description": "Missing photo",
+        "aspect-ratio": 1.5
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "image-placeholder",
+      "component": "image",
+      "props": {
+        "content-description": "Loading photo",
+        "aspect-ratio": 1.5,
+        "shape": "large"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "image-round",
+      "component": "image",
+      "props": {
+        "src": "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 30 20%27%3E%3Crect width=%2730%27 height=%2720%27 fill=%27%2300897b%27/%3E%3Ccircle cx=%2722%27 cy=%277%27 r=%274%27 fill=%27%23ffd54f%27/%3E%3Cpath d=%27M0 20 L10 8 L18 16 L22 12 L30 20z%27 fill=%27%23004d40%27/%3E%3C/svg%3E",
+        "shape": "full",
+        "aspect-ratio": 1
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "rating",
+      "component": "rating",
+      "props": {
+        "label": "Quality",
+        "value": 3.5,
+        "step": "half"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "rating-readonly",
+      "component": "rating",
+      "props": {
+        "label": "Quality",
+        "value": 4,
+        "readonly": true,
+        "size": "large"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "rating-small",
+      "component": "rating",
+      "props": {
+        "label": "Quality",
+        "value": 2,
+        "size": "small"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "rating-disabled",
+      "component": "rating",
+      "props": {
+        "label": "Quality",
+        "value": 3,
+        "disabled": true
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "carousel",
+      "component": "carousel",
+      "props": {
+        "caption": "Photos",
+        "show-buttons": "always"
+      },
+      "content": {
+        "": "<div style=\"background:#00897b;color:white;display:grid;place-items:center;height:120px;font:600 20px sans-serif\">1</div><div style=\"background:#5c6bc0;color:white;display:grid;place-items:center;height:120px;font:600 20px sans-serif\">2</div><div style=\"background:#c2185b;color:white;display:grid;place-items:center;height:120px;font:600 20px sans-serif\">3</div>"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "carousel-peek",
+      "component": "carousel",
+      "props": {
+        "caption": "Photos",
+        "layout": "peek",
+        "show-buttons": "never"
+      },
+      "content": {
+        "": "<div style=\"background:#00897b;color:white;display:grid;place-items:center;height:120px;font:600 20px sans-serif\">1</div><div style=\"background:#5c6bc0;color:white;display:grid;place-items:center;height:120px;font:600 20px sans-serif\">2</div><div style=\"background:#c2185b;color:white;display:grid;place-items:center;height:120px;font:600 20px sans-serif\">3</div>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "file-uploader",
+      "component": "file-uploader",
+      "props": {
+        "label": "Upload files",
+        "hint": "PNG or JPG, up to 5 MB",
+        "multiple": true
+      },
+      "properties": {
+        "files": [
+          {
+            "id": "1",
+            "name": "report.pdf",
+            "sizeBytes": 1048576,
+            "progress": 0.45,
+            "status": "uploading"
+          },
+          {
+            "id": "2",
+            "name": "photo.png",
+            "sizeBytes": 204800,
+            "status": "done"
+          },
+          {
+            "id": "3",
+            "name": "video.mov",
+            "sizeBytes": 9437184,
+            "status": "failed",
+            "message": "Too large"
+          }
+        ]
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "file-uploader-empty",
+      "component": "file-uploader",
+      "props": {
+        "label": "Upload files",
+        "hint": "PNG or JPG, up to 5 MB"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "file-uploader-disabled",
+      "component": "file-uploader",
+      "props": {
+        "label": "Upload files",
+        "disabled": true
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "data-table",
+      "component": "data-table",
+      "props": {
+        "caption": "People"
+      },
+      "properties": {
+        "columns": [
+          {
+            "key": "name",
+            "header": "Name",
+            "sortable": true
+          },
+          {
+            "key": "role",
+            "header": "Role"
+          },
+          {
+            "key": "score",
+            "header": "Score",
+            "align": "end",
+            "sortable": true
+          }
+        ],
+        "rows": [
+          {
+            "id": "1",
+            "name": "Ada Lovelace",
+            "role": "Analyst",
+            "score": 98
+          },
+          {
+            "id": "2",
+            "name": "Grace Hopper",
+            "role": "Admiral",
+            "score": 95
+          },
+          {
+            "id": "3",
+            "name": "Katherine Johnson",
+            "role": "Mathematician",
+            "score": 99
+          }
+        ],
+        "sort": {
+          "columnKey": "name",
+          "ascending": true
+        }
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "data-table-selectable",
+      "component": "data-table",
+      "props": {
+        "caption": "People",
+        "selectable": true
+      },
+      "properties": {
+        "columns": [
+          {
+            "key": "name",
+            "header": "Name",
+            "sortable": true
+          },
+          {
+            "key": "role",
+            "header": "Role"
+          },
+          {
+            "key": "score",
+            "header": "Score",
+            "align": "end",
+            "sortable": true
+          }
+        ],
+        "rows": [
+          {
+            "id": "1",
+            "name": "Ada Lovelace",
+            "role": "Analyst",
+            "score": 98
+          },
+          {
+            "id": "2",
+            "name": "Grace Hopper",
+            "role": "Admiral",
+            "score": 95
+          },
+          {
+            "id": "3",
+            "name": "Katherine Johnson",
+            "role": "Mathematician",
+            "score": 99
+          }
+        ],
+        "selection": ["2"]
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "data-table-empty",
+      "component": "data-table",
+      "props": {
+        "caption": "People"
+      },
+      "content": {
+        "empty": "<camo-text text=\"No people yet\"></camo-text>"
+      },
+      "properties": {
+        "columns": [
+          {
+            "key": "name",
+            "header": "Name",
+            "sortable": true
+          },
+          {
+            "key": "role",
+            "header": "Role"
+          },
+          {
+            "key": "score",
+            "header": "Score",
+            "align": "end",
+            "sortable": true
+          }
+        ],
+        "rows": []
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "tree",
+      "component": "tree",
+      "props": {
+        "caption": "Files"
+      },
+      "properties": {
+        "nodes": [
+          {
+            "key": "docs",
+            "label": "Documents",
+            "icon": ["folder", "folder"],
+            "children": [
+              {
+                "key": "a",
+                "label": "Report.pdf",
+                "icon": "file"
+              },
+              {
+                "key": "sub",
+                "label": "Archive",
+                "icon": ["folder", "folder"],
+                "children": [
+                  {
+                    "key": "b",
+                    "label": "Old.txt",
+                    "icon": "file"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "pics",
+            "label": "Pictures",
+            "icon": ["folder", "folder"],
+            "hasChildren": true
+          },
+          {
+            "key": "readme",
+            "label": "README.md",
+            "icon": "file"
+          }
+        ],
+        "expanded": ["docs", "sub"],
+        "selected": ["a"]
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "tree-collapsed",
+      "component": "tree",
+      "props": {
+        "caption": "Files"
+      },
+      "properties": {
+        "nodes": [
+          {
+            "key": "docs",
+            "label": "Documents",
+            "icon": ["folder", "folder"],
+            "children": [
+              {
+                "key": "a",
+                "label": "Report.pdf",
+                "icon": "file"
+              },
+              {
+                "key": "sub",
+                "label": "Archive",
+                "icon": ["folder", "folder"],
+                "children": [
+                  {
+                    "key": "b",
+                    "label": "Old.txt",
+                    "icon": "file"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "pics",
+            "label": "Pictures",
+            "icon": ["folder", "folder"],
+            "hasChildren": true
+          },
+          {
+            "key": "readme",
+            "label": "README.md",
+            "icon": "file"
+          }
+        ]
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "pagination",
+      "component": "pagination",
+      "props": {
+        "page-count": 20,
+        "page": 9,
+        "label": "Results"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "pagination-start",
+      "component": "pagination",
+      "props": {
+        "page-count": 20,
+        "page": 0
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "pagination-compact",
+      "component": "pagination",
+      "props": {
+        "page-count": 9,
+        "page": 2,
+        "variant": "compact"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "pagination-dots",
+      "component": "pagination",
+      "props": {
+        "page-count": 5,
+        "page": 1,
+        "variant": "dots"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "breadcrumb",
+      "component": "breadcrumb",
+      "props": {
+        "label": "Path"
+      },
+      "content": {
+        "": "<camo-breadcrumb-item label=\"Home\"></camo-breadcrumb-item><camo-breadcrumb-item label=\"Documents\"></camo-breadcrumb-item><camo-breadcrumb-item label=\"Projects\"></camo-breadcrumb-item><camo-breadcrumb-item label=\"Camouflage\"></camo-breadcrumb-item>"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "breadcrumb-overflow",
+      "component": "breadcrumb",
+      "props": {
+        "label": "Path",
+        "style": "width: 320px"
+      },
+      "content": {
+        "": "<camo-breadcrumb-item label=\"Home\"></camo-breadcrumb-item><camo-breadcrumb-item label=\"Documents and settings\"></camo-breadcrumb-item><camo-breadcrumb-item label=\"Projects and ideas\"></camo-breadcrumb-item><camo-breadcrumb-item label=\"Camouflage library\"></camo-breadcrumb-item><camo-breadcrumb-item label=\"Web port notes\"></camo-breadcrumb-item>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "breadcrumb-max",
+      "component": "breadcrumb",
+      "props": {
+        "label": "Path",
+        "max-visible": 3
+      },
+      "content": {
+        "": "<camo-breadcrumb-item label=\"Home\"></camo-breadcrumb-item><camo-breadcrumb-item label=\"Documents\"></camo-breadcrumb-item><camo-breadcrumb-item label=\"Projects\"></camo-breadcrumb-item><camo-breadcrumb-item label=\"Camouflage\"></camo-breadcrumb-item>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "progress-steps",
+      "component": "progress-steps",
+      "props": {
+        "label": "Checkout",
+        "current": 1,
+        "style": "width: 360px"
+      },
+      "content": {
+        "": "<camo-step label=\"Cart\"></camo-step><camo-step label=\"Shipping\" description=\"Where it goes\"></camo-step><camo-step label=\"Payment\"></camo-step><camo-step label=\"Done\"></camo-step>"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "progress-steps-vertical",
+      "component": "progress-steps",
+      "props": {
+        "label": "Checkout",
+        "current": 2,
+        "orientation": "vertical"
+      },
+      "content": {
+        "": "<camo-step label=\"Cart\"></camo-step><camo-step label=\"Shipping\" description=\"Where it goes\"></camo-step><camo-step label=\"Payment\"></camo-step><camo-step label=\"Done\"></camo-step>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "progress-steps-error",
+      "component": "progress-steps",
+      "props": {
+        "label": "Checkout",
+        "current": 2,
+        "style": "width: 360px"
+      },
+      "content": {
+        "": "<camo-step label=\"Cart\"></camo-step><camo-step label=\"Shipping\" state=\"error\" description=\"Address missing\"></camo-step><camo-step label=\"Payment\"></camo-step>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "progress-steps-clickable",
+      "component": "progress-steps",
+      "props": {
+        "label": "Checkout",
+        "current": 2,
+        "style": "width: 360px"
+      },
+      "content": {
+        "": "<camo-step label=\"Cart\" clickable></camo-step><camo-step label=\"Shipping\" clickable></camo-step><camo-step label=\"Payment\"></camo-step>"
+      },
+      "textScales": [1],
+      "directions": ["ltr"]
     }
   ]
 }

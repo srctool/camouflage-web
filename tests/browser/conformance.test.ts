@@ -25,11 +25,14 @@ describe("every scenario variant", () => {
       expect(element.shadowRoot!.childNodes.length).toBeGreaterThan(0);
       // axe reads roles from attributes, and a component states its own through ElementInternals, so a rule that checks
       // a role against its children or its attributes would fail what a screen reader sees as right: a menu's items
-      // (slotted `camo-menu-item`s) and the anchor that says it has a popup. Those two rules are left out for a menu.
-      const ignore =
-        variant.scenario.component === "menu"
-          ? ["aria-required-children", "aria-allowed-attr"]
-          : [];
+      // (slotted `camo-menu-item`s) and the anchor that says it has a popup. Those rules are left out for a menu, and the second for what has such an anchor (a popover, a toolbar's more button, a breadcrumb's, a split button).
+      const popups = ["menu", "popover", "toolbar", "breadcrumb", "split-button"];
+      const ignore = [
+        ...(variant.scenario.component === "menu" ? ["aria-required-children"] : []),
+        ...(popups.includes(variant.scenario.component) ? ["aria-allowed-attr"] : []),
+      ];
+      // A snackbar fades in, and contrast measured mid-fade is not the settled colour.
+      if (variant.scenario.component === "snackbar") await new Promise((r) => setTimeout(r, 500));
       expect(await axeViolations(root, variant.skin, ignore)).toEqual([]);
       // A control keeps a 48 px touch area. A list row or a chip only when it can be pressed.
       const props = variant.scenario.props ?? {};

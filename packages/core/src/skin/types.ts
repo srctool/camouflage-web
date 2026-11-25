@@ -1151,6 +1151,427 @@ export interface NavigationDrawerStyle {
 
 export type NavigationDrawerSlots = "header" | "content";
 
+// --- W6: the popover family, media and inputs, structured data, navigation helpers ------------------------------
+
+export type GroupPosition = "first" | "middle" | "last" | "only";
+
+export interface ButtonGroupState {
+  count: number;
+  connected: boolean;
+  appearance: Appearance;
+  tone: Tone;
+  disabled: boolean;
+}
+
+export interface ButtonGroupStyle extends Pick<ButtonStyle, Appearance> {
+  defaultAppearance: Appearance;
+  height: string;
+  shape: string;
+  innerShape: string;
+  spacing: string;
+  borderWidth: string;
+  iconSize: string;
+  iconGap: string;
+  textStyle: CamoTextStyle;
+  /** The look of a toggle that is on. */
+  selected: ButtonColors;
+}
+
+export type ButtonGroupSlots = "content";
+
+export interface GroupButtonState {
+  text: string | null;
+  icon: IconArtwork | null;
+  toggle: boolean;
+  selected: boolean;
+  disabled: boolean;
+  position: GroupPosition;
+  connected: boolean;
+  appearance: Appearance;
+  tone: Tone;
+}
+
+export type GroupButtonSlots = "icon";
+
+export interface SplitButtonState {
+  text: string;
+  /** There is a main action; false is a menu button, one part that opens the menu. */
+  hasAction: boolean;
+  expanded: boolean;
+  appearance: Appearance;
+  tone: Tone;
+  disabled: boolean;
+  menuLabel: string;
+}
+
+export interface SplitButtonStyle extends Pick<ButtonStyle, Appearance> {
+  defaultAppearance: Appearance;
+  height: string;
+  shape: string;
+  innerShape: string;
+  arrowWidth: string;
+  gap: string;
+  padding: string;
+  iconSize: string;
+  iconGap: string;
+  textStyle: CamoTextStyle;
+}
+
+export type SplitButtonSlots = "prefix-icon";
+
+export type PopoverPlacement = "auto" | "bottom" | "top" | "start" | "end";
+/** The side of its anchor a popover really opened on, after flipping: a physical side, which is where the arrow points. */
+export type PopoverSide = "bottom" | "top" | "left" | "right";
+
+export interface PopoverState {
+  title: string | null;
+  side: PopoverSide;
+  /** Where the anchor's center is along the panel's edge, in px; null before it is placed. */
+  arrowOffset: number | null;
+}
+
+export interface PopoverStyle {
+  shape: string;
+  maxWidth: string;
+  padding: string;
+  showArrow: boolean;
+  arrowWidth: string;
+  arrowHeight: string;
+  elevation: string;
+  gap: string;
+  titleStyle: CamoTextStyle;
+  container: string;
+  titleColor: string;
+  contentColor: string;
+  border: string | null;
+}
+
+export type PopoverSlots = "content" | "actions";
+
+export interface SideSheetState {
+  modal: boolean;
+  title: string | null;
+  closable: boolean;
+}
+
+export interface SideSheetStyle {
+  width: string;
+  modalShape: string;
+  padding: string;
+  scrimAlpha: string;
+  showDivider: boolean;
+  titleStyle: CamoTextStyle;
+  container: string;
+  modalContainer: string;
+  titleColor: string;
+  divider: string;
+}
+
+export type SideSheetSlots = "content" | "actions";
+
+/** A toolbar edge to edge, or detached. */
+export type ToolbarPlacement = "docked" | "floating";
+
+export interface ToolbarState {
+  placement: ToolbarPlacement;
+  count: number;
+}
+
+export interface ToolbarStyle {
+  placement: ToolbarPlacement;
+  height: string;
+  floatingMargin: string;
+  floatingShape: string;
+  floatingElevation: string;
+  actionSpacing: string;
+  actionSize: string;
+  padding: string;
+  showDivider: boolean;
+  container: string;
+  divider: string;
+}
+
+export type ToolbarSlots = "leading" | "trailing" | "content" | "overflow";
+
+export type ImagePhase = "loading" | "loaded" | "failed";
+/** How an image fills its frame (the contract's `contentScale`). */
+export type ImageFit = "cover" | "contain" | "fill" | "none" | "scale-down";
+
+export interface ImageState {
+  phase: ImagePhase;
+  shape: ShapeName;
+  aspectRatio: number | null;
+}
+
+export interface ImageStyle {
+  borderWidth: string;
+  fade: string;
+  placeholderIcon: IconArtwork;
+  errorIcon: IconArtwork;
+  placeholder: string;
+  icon: string;
+  border: string;
+}
+
+export type ImageSlots = never;
+
+export type RatingStep = "whole" | "half";
+export type RatingSize = "small" | "medium" | "large";
+
+export interface RatingState {
+  value: number;
+  max: number;
+  step: RatingStep;
+  size: RatingSize;
+  /** The value the pointer is over, shown as a preview; null when it is not over the rating. */
+  hover: number | null;
+  interactive: boolean;
+  disabled: boolean;
+}
+
+export interface RatingStyle {
+  icon: IconArtwork;
+  smallSize: string;
+  mediumSize: string;
+  largeSize: string;
+  gap: string;
+  filled: string;
+  empty: string;
+  hover: string;
+  disabled: string;
+}
+
+export type RatingSlots = never;
+
+export type CarouselLayout = "paged" | "peek";
+export type ShowButtons = "auto" | "always" | "never";
+
+export interface CarouselState {
+  page: number;
+  pageCount: number;
+  layout: CarouselLayout;
+  buttons: boolean;
+  indicator: boolean;
+  hasPrevious: boolean;
+  hasNext: boolean;
+  caption: string;
+  texts: { previous: string; next: string };
+}
+
+export interface CarouselStyle {
+  itemShape: string;
+  itemSpacing: string;
+  peek: string;
+  buttonSize: string;
+  buttonContainer: string;
+  buttonContent: string;
+  dot: string;
+  activeDot: string;
+  dotSize: string;
+  previousIcon: IconArtwork;
+  nextIcon: IconArtwork;
+}
+
+export type CarouselSlots = "content";
+
+export type UploadStatus = "uploading" | "done" | "failed";
+
+/** One row of a file uploader. */
+export interface UploadFile {
+  id: string;
+  name: string;
+  sizeBytes?: number | null;
+  /** 0 to 1; absent while waiting. */
+  progress?: number | null;
+  status?: UploadStatus;
+  /** Why it failed ("Too large"). */
+  message?: string | null;
+}
+
+export interface FileUploaderState {
+  dragOver: boolean;
+  disabled: boolean;
+  hint: string | null;
+  label: string;
+  files: UploadFile[];
+  texts: { title: string; remove: string; retry: string; waiting: string; done: string };
+  hasRetry: boolean;
+}
+
+export interface FileUploaderStyle {
+  zoneShape: string;
+  zoneHeight: string;
+  dashed: boolean;
+  icon: IconArtwork;
+  removeIcon: IconArtwork;
+  retryIcon: IconArtwork;
+  titleStyle: CamoTextStyle;
+  hintStyle: CamoTextStyle;
+  zone: string;
+  border: string;
+  dragBorder: string;
+  error: string;
+  text: string;
+  mutedText: string;
+}
+
+export type FileUploaderSlots = never;
+
+export type TableDensity = "standard" | "comfortable" | "compact";
+
+export interface DataTableState {
+  columnCount: number;
+  rowCount: number;
+  selectable: boolean;
+  loading: boolean;
+  empty: boolean;
+  caption: string;
+}
+
+export interface DataTableStyle {
+  headerHeight: string;
+  rowHeight: string;
+  cellPadding: string;
+  striped: boolean;
+  dividers: boolean;
+  stickyHeader: boolean;
+  headerStyle: CamoTextStyle;
+  cellStyle: CamoTextStyle;
+  sortIcon: IconArtwork;
+  container: string;
+  header: string;
+  row: string;
+  stripedRow: string;
+  selectedRow: string;
+  divider: string;
+  text: string;
+  headerText: string;
+}
+
+export type DataTableSlots = "empty" | "footer";
+
+export interface TreeNodeState {
+  level: number;
+  expanded: boolean;
+  hasChildren: boolean;
+  loading: boolean;
+  selected: boolean;
+  label: string;
+  icon: IconArtwork | null;
+}
+
+export interface TreeStyle {
+  rowHeight: string;
+  indent: string;
+  iconSize: string;
+  showLines: boolean;
+  textStyle: CamoTextStyle;
+  chevron: IconArtwork;
+  selected: string;
+  selectedText: string;
+  line: string;
+  text: string;
+  chevronColor: string;
+}
+
+export type TreeSlots = never;
+
+export type PaginationVariant = "numbered" | "compact" | "dots";
+
+/** One item of a numbered pagination: a page, or the gap a run of pages was folded into. */
+export type PageItem = { kind: "page"; index: number } | { kind: "gap"; key: string };
+
+export interface PaginationState {
+  pageCount: number;
+  page: number;
+  variant: PaginationVariant;
+  items: PageItem[];
+  disabled: boolean;
+  texts: { previous: string; next: string; summary: string; page: string };
+}
+
+export interface PaginationStyle {
+  buttonSize: string;
+  shape: string;
+  dotSize: string;
+  textStyle: CamoTextStyle;
+  previousIcon: IconArtwork;
+  nextIcon: IconArtwork;
+  currentContainer: string;
+  currentContent: string;
+  content: string;
+  dot: string;
+  activeDot: string;
+}
+
+export type PaginationSlots = never;
+
+export interface BreadcrumbEntry {
+  key: number;
+  label: string;
+  current: boolean;
+  link: boolean;
+  icon: IconArtwork | null;
+}
+
+export interface BreadcrumbState {
+  items: BreadcrumbEntry[];
+  /** The items folded into the overflow menu, in order. */
+  folded: BreadcrumbEntry[];
+  label: string;
+  texts: { more: string; current: string };
+}
+
+export interface BreadcrumbStyle {
+  itemPadding: string;
+  separator: IconArtwork;
+  overflowIcon: IconArtwork;
+  textStyle: CamoTextStyle;
+  link: string;
+  current: string;
+  separatorColor: string;
+  hover: string;
+}
+
+export type BreadcrumbSlots = "overflow";
+
+export type StepStatus = "complete" | "current" | "upcoming" | "error";
+export type StepsOrientation = "horizontal" | "vertical";
+
+export interface StepState {
+  index: number;
+  count: number;
+  label: string;
+  description: string | null;
+  status: StepStatus;
+  clickable: boolean;
+  last: boolean;
+  orientation: StepsOrientation;
+  texts: { step: string; complete: string; current: string; upcoming: string; error: string };
+}
+
+export interface StepStyle {
+  markerSize: string;
+  connectorWidth: string;
+  showNumbers: boolean;
+  labelStyle: CamoTextStyle;
+  descriptionStyle: CamoTextStyle;
+  checkIcon: IconArtwork;
+  errorIcon: IconArtwork;
+  complete: string;
+  onComplete: string;
+  current: string;
+  onCurrent: string;
+  upcoming: string;
+  error: string;
+  onError: string;
+  connector: string;
+  text: string;
+  mutedText: string;
+}
+
+export type StepSlots = never;
+
 /**
  * The renderer each component needs, by component name. A milestone that builds a component adds its line here, and
  * from then on every complete skin must provide it: `defineSkin` and `satisfies CamoSkin` report the missing one by
@@ -1208,6 +1629,21 @@ export interface SkinComponents {
     NavigationDrawerSlots,
     NavigationDrawerStyle
   >;
+  readonly buttonGroup: Renderer<ButtonGroupState, ButtonGroupSlots, ButtonGroupStyle>;
+  readonly groupButton: Renderer<GroupButtonState, GroupButtonSlots, ButtonGroupStyle>;
+  readonly splitButton: Renderer<SplitButtonState, SplitButtonSlots, SplitButtonStyle>;
+  readonly popover: Renderer<PopoverState, PopoverSlots, PopoverStyle>;
+  readonly sideSheet: Renderer<SideSheetState, SideSheetSlots, SideSheetStyle>;
+  readonly toolbar: Renderer<ToolbarState, ToolbarSlots, ToolbarStyle>;
+  readonly image: Renderer<ImageState, ImageSlots, ImageStyle>;
+  readonly rating: Renderer<RatingState, RatingSlots, RatingStyle>;
+  readonly carousel: Renderer<CarouselState, CarouselSlots, CarouselStyle>;
+  readonly fileUploader: Renderer<FileUploaderState, FileUploaderSlots, FileUploaderStyle>;
+  readonly dataTable: Renderer<DataTableState, DataTableSlots, DataTableStyle>;
+  readonly tree: Renderer<TreeNodeState, TreeSlots, TreeStyle>;
+  readonly pagination: Renderer<PaginationState, PaginationSlots, PaginationStyle>;
+  readonly breadcrumb: Renderer<BreadcrumbState, BreadcrumbSlots, BreadcrumbStyle>;
+  readonly progressSteps: Renderer<StepState, StepSlots, StepStyle>;
 }
 
 /** A complete skin: a surface treatment, interaction feedback, and one required renderer per component. */

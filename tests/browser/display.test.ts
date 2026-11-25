@@ -405,8 +405,9 @@ describe.each(["minimal", "cupertino"])("camo-fab under %s", (skin) => {
     expect(fab.getBoundingClientRect().width).toBeLessThan(wide - 20);
     fab.collapsed = false;
     await fab.updateComplete;
-    await tick(500);
-    expect(fab.getBoundingClientRect().width).toBeGreaterThan(wide - 2);
+    await expect
+      .poll(() => fab.getBoundingClientRect().width, { timeout: 3000 })
+      .toBeGreaterThan(wide - 2);
   });
 
   it("fires click from the keyboard, and not when disabled or hidden", async () => {

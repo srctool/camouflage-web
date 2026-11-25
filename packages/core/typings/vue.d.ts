@@ -9,11 +9,19 @@ import type {
   CamoBeforeChangeDetail,
   CamoCloseDetail,
   CamoExpandedDetail,
+  CamoFilesDetail,
   CamoInvalidDetail,
+  CamoKeysDetail,
+  CamoLoadChildrenDetail,
+  CamoPageChangeDetail,
   CamoQueryDetail,
+  CamoRowClickDetail,
   CamoScheme,
   CamoSkin,
+  CamoSortChangeDetail,
   CamoSubmitDetail,
+  CamoUploadRowDetail,
+  CarouselLayout,
   ChipLayout,
   Detent,
   DividerInset,
@@ -21,20 +29,32 @@ import type {
   ElevationName,
   GroupOrientation,
   HourCycle,
+  IconButton,
+  ImageFit,
+  ImagePhase,
   InputKind,
   LabelPlacement,
+  PaginationVariant,
+  PopoverPlacement,
+  PopoverSide,
   Presence,
   Presentation,
   ProgressSize,
+  RatingSize,
+  RatingStep,
   SelectOption,
   ShapeName,
+  ShowButtons,
   SkeletonLeading,
   SkeletonVariant,
+  StepStatus,
+  StepsOrientation,
   SurfaceLevel,
   TextAlign,
   TextOverflow,
   TextVariant,
   Tone,
+  ToolbarPlacement,
   ValidateMode,
   WindowSize,
 } from "@srctool/camouflage-core";
@@ -103,6 +123,21 @@ declare module "vue" {
         onCamoClose?: (event: CustomEvent<CamoCloseDetail>) => void;
       }
     >;
+    CamoBreadcrumb: DefineComponent<
+      HTMLAttributes & {
+        "max-visible"?: number | null;
+        label?: string;
+        folded?: number[];
+        revision?: number;
+      }
+    >;
+    CamoBreadcrumbItem: DefineComponent<
+      HTMLAttributes & {
+        label?: string;
+        icon?: string | null;
+        href?: string | null;
+      }
+    >;
     CamoButton: DefineComponent<
       HTMLAttributes & {
         text?: string;
@@ -111,6 +146,15 @@ declare module "vue" {
         disabled?: boolean;
         loading?: boolean;
         type?: ButtonType;
+      }
+    >;
+    CamoButtonGroup: DefineComponent<
+      HTMLAttributes & {
+        spaced?: boolean;
+        appearance?: Appearance | null;
+        tone?: Tone;
+        label?: string | null;
+        disabled?: boolean;
       }
     >;
     CamoCalendar: DefineComponent<
@@ -141,6 +185,19 @@ declare module "vue" {
         selectable?: boolean;
         selected?: boolean;
         disabled?: boolean;
+      }
+    >;
+    CamoCarousel: DefineComponent<
+      HTMLAttributes & {
+        caption?: string;
+        layout?: CarouselLayout;
+        "show-buttons"?: ShowButtons;
+        "hide-indicator"?: boolean;
+        page?: number;
+        autoplay?: number | null;
+        count?: number;
+        fine?: boolean;
+        onCamoPageChange?: (event: CustomEvent<CamoPageChangeDetail>) => void;
       }
     >;
     CamoCheckbox: DefineComponent<
@@ -181,6 +238,16 @@ declare module "vue" {
         disabled?: boolean;
         name?: string;
         onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
+    CamoDataTable: DefineComponent<
+      HTMLAttributes & {
+        caption?: string;
+        selectable?: boolean;
+        loading?: boolean;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+        onCamoRowClick?: (event: CustomEvent<CamoRowClickDetail>) => void;
+        onCamoSortChange?: (event: CustomEvent<CamoSortChangeDetail>) => void;
       }
     >;
     CamoDatePicker: DefineComponent<
@@ -244,6 +311,21 @@ declare module "vue" {
         disabled?: boolean;
       }
     >;
+    CamoFileUploader: DefineComponent<
+      HTMLAttributes & {
+        label?: string;
+        hint?: string | null;
+        multiple?: boolean;
+        accept?: string | null;
+        name?: string;
+        disabled?: boolean;
+        dragging?: boolean;
+        onCamoFilesDropped?: (event: CustomEvent<CamoFilesDetail>) => void;
+        onCamoPick?: (event: CustomEvent) => void;
+        onCamoRemove?: (event: CustomEvent<CamoUploadRowDetail>) => void;
+        onCamoRetry?: (event: CustomEvent<CamoUploadRowDetail>) => void;
+      }
+    >;
     CamoForm: DefineComponent<
       HTMLAttributes & {
         "validate-mode"?: ValidateMode;
@@ -251,6 +333,16 @@ declare module "vue" {
         onCamoInvalid?: (event: CustomEvent<CamoInvalidDetail>) => void;
         onCamoSubmit?: (event: CustomEvent<CamoSubmitDetail>) => void;
         onCamoChanged?: (event: CustomEvent) => void;
+      }
+    >;
+    CamoGroupButton: DefineComponent<
+      HTMLAttributes & {
+        text?: string | null;
+        icon?: string | null;
+        "content-description"?: string | null;
+        toggle?: boolean;
+        selected?: boolean;
+        disabled?: boolean;
       }
     >;
     CamoIcon: DefineComponent<
@@ -273,6 +365,19 @@ declare module "vue" {
         checked?: boolean;
         loading?: boolean;
         tooltip?: string | null;
+      }
+    >;
+    CamoImage: DefineComponent<
+      HTMLAttributes & {
+        src?: string | null;
+        "content-description"?: string | null;
+        shape?: ShapeName;
+        fit?: ImageFit;
+        "aspect-ratio"?: number | null;
+        position?: string | null;
+        phase?: ImagePhase;
+        onLoad?: (event: CustomEvent) => void;
+        onError?: (event: CustomEvent) => void;
       }
     >;
     CamoListItem: DefineComponent<
@@ -324,6 +429,15 @@ declare module "vue" {
         onCamoClose?: (event: CustomEvent<CamoCloseDetail>) => void;
         onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
         onCamoReselect?: (event: CustomEvent) => void;
+      }
+    >;
+    CamoModalSideSheet: DefineComponent<
+      HTMLAttributes & {
+        open?: boolean;
+        title?: string;
+        closable?: boolean;
+        drag?: number;
+        onCamoClose?: (event: CustomEvent<CamoCloseDetail>) => void;
       }
     >;
     CamoNavItem: DefineComponent<
@@ -397,6 +511,28 @@ declare module "vue" {
         onCamoRefresh?: (event: CustomEvent) => void;
       }
     >;
+    CamoPagination: DefineComponent<
+      HTMLAttributes & {
+        "page-count"?: number;
+        page?: number;
+        variant?: PaginationVariant;
+        siblings?: number;
+        label?: string;
+        disabled?: boolean;
+        onCamoPageChange?: (event: CustomEvent<CamoPageChangeDetail>) => void;
+      }
+    >;
+    CamoPopover: DefineComponent<
+      HTMLAttributes & {
+        open?: boolean;
+        title?: string;
+        placement?: PopoverPlacement;
+        side?: PopoverSide;
+        arrow?: number | null;
+        onCamoOpen?: (event: Event) => void;
+        onCamoClose?: (event: CustomEvent) => void;
+      }
+    >;
     CamoProgressBar: DefineComponent<
       HTMLAttributes & {
         progress?: number | null;
@@ -410,6 +546,13 @@ declare module "vue" {
         tone?: Tone;
         size?: ProgressSize;
         label?: string | null;
+      }
+    >;
+    CamoProgressSteps: DefineComponent<
+      HTMLAttributes & {
+        current?: number;
+        orientation?: StepsOrientation;
+        label?: string;
       }
     >;
     CamoProvider: DefineComponent<
@@ -439,6 +582,20 @@ declare module "vue" {
         disabled?: boolean;
         required?: boolean;
         name?: string;
+        onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
+    CamoRating: DefineComponent<
+      HTMLAttributes & {
+        value?: number;
+        max?: number;
+        step?: RatingStep;
+        size?: RatingSize;
+        readonly?: boolean;
+        label?: string | null;
+        disabled?: boolean;
+        name?: string;
+        hover?: number | null;
         onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
       }
     >;
@@ -509,6 +666,13 @@ declare module "vue" {
         onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
       }
     >;
+    CamoSideSheet: DefineComponent<
+      HTMLAttributes & {
+        title?: string;
+        closable?: boolean;
+        onCamoClose?: (event: CustomEvent) => void;
+      }
+    >;
     CamoSkeleton: DefineComponent<
       HTMLAttributes & {
         variant?: SkeletonVariant;
@@ -543,6 +707,28 @@ declare module "vue" {
         onName?: (event: CustomEvent) => void;
         onCamoAction?: (event: CustomEvent) => void;
         onCamoDismiss?: (event: CustomEvent) => void;
+      }
+    >;
+    CamoSplitButton: DefineComponent<
+      HTMLAttributes & {
+        text?: string;
+        "menu-only"?: boolean;
+        appearance?: Appearance | null;
+        tone?: Tone;
+        "menu-content-description"?: string;
+        disabled?: boolean;
+        expanded?: boolean;
+      }
+    >;
+    CamoStep: DefineComponent<
+      HTMLAttributes & {
+        label?: string;
+        description?: string | null;
+        state?: StepStatus | null;
+        clickable?: boolean;
+        index?: number;
+        count?: number;
+        orientation?: StepsOrientation;
       }
     >;
     CamoStepper: DefineComponent<
@@ -664,6 +850,14 @@ declare module "vue" {
         onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
       }
     >;
+    CamoToolbar: DefineComponent<
+      HTMLAttributes & {
+        placement?: ToolbarPlacement | null;
+        label?: string | null;
+        "overflow-label"?: string;
+        folded?: IconButton[];
+      }
+    >;
     CamoTooltip: DefineComponent<
       HTMLAttributes & {
         text?: string;
@@ -680,6 +874,16 @@ declare module "vue" {
         "scroll-offset"?: number;
         "scroll-target"?: string | null;
         hidden?: boolean;
+      }
+    >;
+    CamoTree: DefineComponent<
+      HTMLAttributes & {
+        caption?: string;
+        "multi-select"?: boolean;
+        focused?: string | null;
+        onCamoExpandedChange?: (event: CustomEvent<CamoKeysDetail>) => void;
+        onCamoSelectedChange?: (event: CustomEvent<CamoKeysDetail>) => void;
+        onCamoLoadChildren?: (event: CustomEvent<CamoLoadChildrenDetail>) => void;
       }
     >;
   }

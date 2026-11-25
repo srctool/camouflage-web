@@ -471,3 +471,114 @@ describe("the W5 feedback, display and navigation on the server", () => {
     expect(page("cupertino")).toBe(page("cupertino"));
   });
 });
+
+describe("the W6 actions, panels, media, data and navigation helpers on the server", () => {
+  const columns = [
+    { key: "name", header: "Name", sortable: true },
+    { key: "score", header: "Score", align: "end" },
+  ];
+  const rows = [
+    { id: "1", name: "Ada Lovelace", score: 98 },
+    { id: "2", name: "Grace Hopper", score: 95 },
+  ];
+  const nodes = [
+    { key: "docs", label: "Documents", children: [{ key: "a", label: "Alpha.txt" }] },
+    { key: "readme", label: "README.md" },
+  ];
+  const page = (skin: string): string =>
+    squash(
+      renderToString(
+        html`<camo-provider skin=${skin} scheme="light">
+          <camo-button-group label="Formatting"><camo-group-button text="Bold" toggle selected></camo-group-button><camo-group-button text="Italic" toggle></camo-group-button></camo-button-group>
+          <camo-split-button text="Save"><camo-menu-item text="Save as…"></camo-menu-item></camo-split-button>
+          <camo-popover title="Rename"><camo-button slot="anchor" text="Rename"></camo-button>Pick a name</camo-popover>
+          <camo-side-sheet title="Properties" closable>Details</camo-side-sheet>
+          <camo-modal-side-sheet open title="Filters" closable>Filters</camo-modal-side-sheet>
+          <camo-toolbar label="Editor"><camo-icon-button label="Bold"></camo-icon-button></camo-toolbar>
+          <camo-image src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" content-description="A lake" aspect-ratio="1.5"></camo-image>
+          <camo-rating label="Quality" value="3.5" step="half"></camo-rating>
+          <camo-carousel caption="Photos"><div>One</div><div>Two</div></camo-carousel>
+          <camo-file-uploader label="Upload files" hint="PNG or JPG" .files=${[{ id: "1", name: "report.pdf", sizeBytes: 1048576, progress: 0.4 }]}></camo-file-uploader>
+          <camo-data-table caption="People" .columns=${columns} .rows=${rows}></camo-data-table>
+          <camo-tree caption="Files" .nodes=${nodes} .expanded=${["docs"]}></camo-tree>
+          <camo-pagination page-count="20" page="9" label="Results"></camo-pagination>
+          <camo-breadcrumb label="Path"><camo-breadcrumb-item label="Home"></camo-breadcrumb-item><camo-breadcrumb-item label="Docs"></camo-breadcrumb-item></camo-breadcrumb>
+          <camo-progress-steps label="Checkout" current="1"><camo-step label="Cart" state="complete"></camo-step><camo-step label="Shipping" state="current"></camo-step></camo-progress-steps>
+        </camo-provider>`,
+      ),
+    );
+
+  it.each(["minimal", "cupertino"])(
+    "renders every one into declarative shadow DOM under %s, with no script",
+    (skin) => {
+      const out = page(skin);
+      for (const tag of [
+        "camo-button-group",
+        "camo-group-button",
+        "camo-split-button",
+        "camo-popover",
+        "camo-side-sheet",
+        "camo-modal-side-sheet",
+        "camo-toolbar",
+        "camo-image",
+        "camo-rating",
+        "camo-carousel",
+        "camo-file-uploader",
+        "camo-data-table",
+        "camo-tree",
+        "camo-pagination",
+        "camo-breadcrumb",
+        "camo-step",
+        "camo-progress-steps",
+      ])
+        expect(out, tag).toContain(`<${tag}`);
+      expect(out).not.toContain("<script");
+    },
+  );
+
+  it("carries role, name and state as attributes", () => {
+    const out = page("minimal");
+    expect(out).toMatch(/<camo-button-group[^>]*role="group"[^>]*aria-label="Formatting"/);
+    expect(out).toMatch(/<camo-group-button[^>]*role="button"[^>]*aria-pressed="true"/);
+    expect(out).toMatch(/<camo-side-sheet[^>]*role="complementary"[^>]*aria-label="Properties"/);
+    expect(out).toMatch(/<camo-toolbar[^>]*role="toolbar"/);
+    expect(out).toMatch(/<camo-image[^>]*role="img"[^>]*aria-label="A lake"/);
+    expect(out).toMatch(
+      /<camo-rating[^>]*role="slider"[^>]*aria-valuenow="3.5"[^>]*aria-valuetext="3.5 of 5 stars"/,
+    );
+    expect(out).toMatch(/<camo-carousel[^>]*role="region"[^>]*aria-label="Photos"/);
+    expect(out).toMatch(/<camo-progress-steps[^>]*role="list"/);
+    expect(out).toMatch(
+      /<camo-step[^>]*role="listitem"[^>]*aria-label="Step 2 of 1, Shipping, current"|<camo-step[^>]*aria-label="Step 1 of 1, Cart, complete"/,
+    );
+    expect(out).toMatch(/<dialog[^>]*aria-label="Filters"[^>]*open/); // the modal sheet arrives open
+  });
+
+  it("draws the data, from properties, with real table and tree markup", () => {
+    const out = page("minimal");
+    expect(out).toContain('role="grid"');
+    expect(out).toContain("Ada Lovelace");
+    expect(out).toContain('aria-sort="none"');
+    expect(out).toContain('role="tree"');
+    expect(out).toContain("Alpha.txt"); // the expanded node's child
+    expect(out).toMatch(/role="treeitem"[^>]*aria-level="2"/);
+    expect(out).toContain("report.pdf");
+    expect(out).toContain("1.0 MB · 40%");
+    expect(out).toContain('aria-label="Results"');
+    expect(out).toMatch(/aria-label="Page 10" aria-current="page"/);
+    expect(out).toContain("Home");
+  });
+
+  it("draws the same markup differently per skin", () => {
+    expect(page("minimal")).toContain("--sp-height: var(--camo-split-button-height, 40px)");
+    expect(page("cupertino")).toContain(
+      "--sp-outer: var(--camo-split-button-shape, var(--camo-shape-full))",
+    );
+    // Cupertino's popover has an arrow where Minimal's has none (it is closed here, so the style's own difference).
+    expect(page("minimal")).not.toContain('class="arrow"');
+  });
+
+  it("gives the same page twice the same bytes", () => {
+    expect(page("cupertino")).toBe(page("cupertino"));
+  });
+});
