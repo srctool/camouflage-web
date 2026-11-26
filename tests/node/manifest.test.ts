@@ -36,8 +36,14 @@ beforeAll(() => {
   );
   manifest = JSON.parse(readFileSync(join(outdir, "custom-elements.json"), "utf8")) as Manifest;
   aliases = unionAliases(
-    ["skin", "theme"]
-      .map((dir) => readFileSync(`packages/core/src/${dir}/types.ts`, "utf8"))
+    [
+      "core/src/skin/types.ts",
+      "core/src/theme/types.ts",
+      "charts/src/renderer.ts",
+      "charts/src/math/line.ts",
+      "charts/src/math/bar.ts",
+    ]
+      .map((file) => readFileSync(`packages/${file}`, "utf8"))
       .join("\n"),
   );
 }, 60_000);

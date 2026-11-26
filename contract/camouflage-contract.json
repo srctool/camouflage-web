@@ -5363,6 +5363,370 @@
           "kind": "callback"
         }
       ]
+    },
+    {
+      "name": "ChartFrame",
+      "parameters": [
+        {
+          "name": "title",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "summary",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "legend",
+          "kind": "value",
+          "default": null
+        },
+        {
+          "name": "isEmpty",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "loading",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "showTable",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "plotHeight",
+          "kind": "value",
+          "type": "number",
+          "default": 220
+        },
+        {
+          "name": "empty",
+          "kind": "slot"
+        },
+        {
+          "name": "onShowTableChange",
+          "kind": "callback"
+        },
+        {
+          "name": "onLegendToggle",
+          "kind": "callback"
+        },
+        {
+          "name": "table",
+          "kind": "slot"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ]
+    },
+    {
+      "name": "ChartDataTable",
+      "parameters": [
+        {
+          "name": "caption",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "categories",
+          "kind": "value",
+          "required": true
+        },
+        {
+          "name": "series",
+          "kind": "value",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "Sparkline",
+      "parameters": [
+        {
+          "name": "values",
+          "kind": "value",
+          "required": true
+        },
+        {
+          "name": "kind",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Line", "Area", "Bars"],
+          "default": "Line"
+        },
+        {
+          "name": "range",
+          "kind": "value",
+          "default": null
+        },
+        {
+          "name": "highlight",
+          "kind": "value",
+          "type": "enum",
+          "values": ["None", "Last", "Extremes"],
+          "default": "Last"
+        },
+        {
+          "name": "tone",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Default", "Error", "Success", "Warning", "Info"],
+          "default": "Default"
+        },
+        {
+          "name": "description",
+          "kind": "value",
+          "type": "string",
+          "default": null
+        }
+      ]
+    },
+    {
+      "name": "LineChart",
+      "parameters": [
+        {
+          "name": "categories",
+          "kind": "value",
+          "required": true
+        },
+        {
+          "name": "series",
+          "kind": "value",
+          "required": true
+        },
+        {
+          "name": "title",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "kind",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Line", "Area", "StackedArea"],
+          "default": "Line"
+        },
+        {
+          "name": "curve",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Linear", "Smooth", "CatmullRom", "Step"],
+          "default": "Linear"
+        },
+        {
+          "name": "markers",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Always", "OnHover", "Never"],
+          "default": "OnHover"
+        },
+        {
+          "name": "xAxis",
+          "kind": "value",
+          "default": null
+        },
+        {
+          "name": "yAxis",
+          "kind": "value",
+          "default": null
+        },
+        {
+          "name": "times",
+          "kind": "value",
+          "default": null
+        },
+        {
+          "name": "timeZoneOffsetMinutes",
+          "kind": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "loading",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "showTable",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "plotHeight",
+          "kind": "value",
+          "type": "number",
+          "default": 220
+        },
+        {
+          "name": "empty",
+          "kind": "slot"
+        },
+        {
+          "name": "onShowTableChange",
+          "kind": "callback"
+        }
+      ]
+    },
+    {
+      "name": "BarChart",
+      "parameters": [
+        {
+          "name": "categories",
+          "kind": "value",
+          "required": true
+        },
+        {
+          "name": "series",
+          "kind": "value",
+          "required": true
+        },
+        {
+          "name": "title",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "orientation",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Vertical", "Horizontal"],
+          "default": "Vertical"
+        },
+        {
+          "name": "mode",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Grouped", "Stacked"],
+          "default": "Grouped"
+        },
+        {
+          "name": "valueLabels",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "xAxis",
+          "kind": "value",
+          "default": null
+        },
+        {
+          "name": "yAxis",
+          "kind": "value",
+          "default": null
+        },
+        {
+          "name": "loading",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "showTable",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "plotHeight",
+          "kind": "value",
+          "type": "number",
+          "default": 220
+        },
+        {
+          "name": "empty",
+          "kind": "slot"
+        },
+        {
+          "name": "onShowTableChange",
+          "kind": "callback"
+        }
+      ]
+    },
+    {
+      "name": "PieChart",
+      "parameters": [
+        {
+          "name": "slices",
+          "kind": "value",
+          "required": true
+        },
+        {
+          "name": "title",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "donut",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "selected",
+          "kind": "value",
+          "type": "number",
+          "default": null
+        },
+        {
+          "name": "startAngle",
+          "kind": "value",
+          "type": "number",
+          "default": -90
+        },
+        {
+          "name": "center",
+          "kind": "slot"
+        },
+        {
+          "name": "onSelect",
+          "kind": "callback"
+        },
+        {
+          "name": "loading",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "showTable",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "plotHeight",
+          "kind": "value",
+          "type": "number",
+          "default": 220
+        },
+        {
+          "name": "empty",
+          "kind": "slot"
+        },
+        {
+          "name": "onShowTableChange",
+          "kind": "callback"
+        }
+      ]
     }
   ]
 }

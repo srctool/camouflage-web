@@ -10,6 +10,7 @@
   "dependencies": {
     "@lit-labs/ssr": "4.1.0",
     "@lit-labs/ssr-client": "1.1.8",
+    "@srctool/camouflage-charts": "workspace:*",
     "@srctool/camouflage-core": "workspace:*",
     "@srctool/camouflage-skin-cupertino": "workspace:*",
     "@srctool/camouflage-skin-minimal": "workspace:*",

@@ -3201,6 +3201,315 @@
       },
       "textScales": [1],
       "directions": ["ltr"]
+    },
+    {
+      "name": "sparkline",
+      "component": "sparkline",
+      "props": {
+        "values": "[3,5,4,8,6,9,7,12]",
+        "description": "Signups",
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light", "dark"]
+    },
+    {
+      "name": "sparkline-area",
+      "component": "sparkline",
+      "props": {
+        "values": "[3,5,4,8,6,9,7,12]",
+        "description": "Signups",
+        "kind": "area",
+        "highlight": "extremes",
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light", "dark"]
+    },
+    {
+      "name": "sparkline-bars",
+      "component": "sparkline",
+      "props": {
+        "values": "[3,5,4,8,6,9,7,12]",
+        "description": "Signups",
+        "kind": "bars",
+        "tone": "success",
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light", "dark"]
+    },
+    {
+      "name": "sparkline-gaps",
+      "component": "sparkline",
+      "props": {
+        "values": "[3,5,null,8,null,6,9]",
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light"]
+    },
+    {
+      "name": "line-chart",
+      "component": "line-chart",
+      "props": {
+        "title": "Sales",
+        "categories": "[\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\"]",
+        "series": "[{\"name\":\"North\",\"values\":[42,51,48,60,72,81]},{\"name\":\"South\",\"values\":[30,28,39,44,41,55]}]",
+        "style": "width: 380px",
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"],
+      "modes": ["light", "dark"]
+    },
+    {
+      "name": "line-chart-area",
+      "component": "line-chart",
+      "props": {
+        "title": "Sales",
+        "categories": "[\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\"]",
+        "series": "[{\"name\":\"North\",\"values\":[42,51,48,60,72,81]},{\"name\":\"South\",\"values\":[30,28,39,44,41,55]}]",
+        "style": "width: 380px",
+        "kind": "area",
+        "curve": "smooth",
+        "markers": "always",
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light"]
+    },
+    {
+      "name": "line-chart-stacked",
+      "component": "line-chart",
+      "props": {
+        "title": "Sales",
+        "categories": "[\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\"]",
+        "series": "[{\"name\":\"North\",\"values\":[42,51,48,60,72,81]},{\"name\":\"South\",\"values\":[30,28,39,44,41,55]},{\"name\":\"West\",\"values\":[12,18,22,19,27,31]}]",
+        "style": "width: 380px",
+        "kind": "stacked-area",
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light"]
+    },
+    {
+      "name": "line-chart-step-gaps",
+      "component": "line-chart",
+      "props": {
+        "title": "Sales",
+        "categories": "[\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\"]",
+        "series": "[{\"name\":\"North\",\"values\":[42,51,null,60,72,81]},{\"name\":\"South\",\"values\":[30,28,39,44,null,55]}]",
+        "style": "width: 380px",
+        "curve": "step",
+        "y-axis": "{\"title\":\"Units\"}",
+        "x-axis": "{\"title\":\"Month\"}",
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light"]
+    },
+    {
+      "name": "line-chart-time",
+      "component": "line-chart",
+      "props": {
+        "title": "Sales",
+        "categories": "[\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\"]",
+        "series": "[{\"name\":\"North\",\"values\":[42,51,48,60,72,81]}]",
+        "style": "width: 380px",
+        "times": "[1767225600000,1769904000000,1772323200000,1775001600000,1777593600000,1780272000000]",
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light"]
+    },
+    {
+      "name": "line-chart-table",
+      "component": "line-chart",
+      "props": {
+        "title": "Sales",
+        "categories": "[\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\"]",
+        "series": "[{\"name\":\"North\",\"values\":[42,51,48,60,72,81]},{\"name\":\"South\",\"values\":[30,28,39,44,41,55]}]",
+        "style": "width: 380px",
+        "show-table": true,
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light"]
+    },
+    {
+      "name": "line-chart-empty",
+      "component": "line-chart",
+      "props": {
+        "title": "Sales",
+        "categories": "[]",
+        "series": "[]",
+        "style": "width: 380px",
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light"]
+    },
+    {
+      "name": "line-chart-loading",
+      "component": "line-chart",
+      "props": {
+        "title": "Sales",
+        "loading": true,
+        "style": "width: 380px",
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light"]
+    },
+    {
+      "name": "bar-chart",
+      "component": "bar-chart",
+      "props": {
+        "title": "Sales",
+        "categories": "[\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\"]",
+        "series": "[{\"name\":\"North\",\"values\":[42,51,48,60,72,81]},{\"name\":\"South\",\"values\":[30,28,39,44,41,55]}]",
+        "style": "width: 380px",
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"],
+      "modes": ["light", "dark"]
+    },
+    {
+      "name": "bar-chart-stacked",
+      "component": "bar-chart",
+      "props": {
+        "title": "Sales",
+        "categories": "[\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\"]",
+        "series": "[{\"name\":\"North\",\"values\":[42,51,48,60,72,81]},{\"name\":\"South\",\"values\":[30,28,39,44,41,55]},{\"name\":\"West\",\"values\":[12,18,22,19,27,31]}]",
+        "style": "width: 380px",
+        "mode": "stacked",
+        "value-labels": true,
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light"]
+    },
+    {
+      "name": "bar-chart-horizontal",
+      "component": "bar-chart",
+      "props": {
+        "title": "Sales",
+        "categories": "[\"Jan\",\"Feb\",\"Mar\",\"Apr\"]",
+        "series": "[{\"name\":\"North\",\"values\":[42,51,48,60,72,81]},{\"name\":\"South\",\"values\":[30,28,39,44,41,55]}]",
+        "style": "width: 380px",
+        "orientation": "horizontal",
+        "value-labels": true,
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"],
+      "modes": ["light"]
+    },
+    {
+      "name": "bar-chart-negative",
+      "component": "bar-chart",
+      "props": {
+        "title": "Sales",
+        "categories": "[\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\"]",
+        "series": "[{\"name\":\"Profit\",\"values\":[12,-8,15,-4,20,9]},{\"name\":\"Cash\",\"values\":[-5,10,6,-12,8,14]}]",
+        "style": "width: 380px",
+        "value-labels": true,
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light"]
+    },
+    {
+      "name": "pie-chart",
+      "component": "pie-chart",
+      "props": {
+        "title": "Traffic",
+        "slices": "[{\"label\":\"Search\",\"value\":4500},{\"label\":\"Direct\",\"value\":2800},{\"label\":\"Social\",\"value\":1500},{\"label\":\"Email\",\"value\":900},{\"label\":\"Other\",\"value\":60}]",
+        "style": "width: 380px",
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"],
+      "modes": ["light", "dark"]
+    },
+    {
+      "name": "pie-chart-donut",
+      "component": "pie-chart",
+      "props": {
+        "title": "Traffic",
+        "slices": "[{\"label\":\"Search\",\"value\":4500},{\"label\":\"Direct\",\"value\":2800},{\"label\":\"Social\",\"value\":1500},{\"label\":\"Email\",\"value\":900},{\"label\":\"Other\",\"value\":60}]",
+        "style": "width: 380px",
+        "donut": true,
+        "selected": 1,
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light"],
+      "content": {
+        "center": "<strong>9,760</strong>"
+      }
+    },
+    {
+      "name": "pie-chart-table",
+      "component": "pie-chart",
+      "props": {
+        "title": "Traffic",
+        "slices": "[{\"label\":\"Search\",\"value\":4500},{\"label\":\"Direct\",\"value\":2800},{\"label\":\"Social\",\"value\":1500},{\"label\":\"Email\",\"value\":900},{\"label\":\"Other\",\"value\":60}]",
+        "style": "width: 380px",
+        "show-table": true,
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light"]
+    },
+    {
+      "name": "chart-frame",
+      "component": "chart-frame",
+      "props": {
+        "title": "Uptime",
+        "summary": "99.9 percent this month",
+        "legend": "[{\"label\":\"API\",\"color\":\"#1b6ef3\"},{\"label\":\"Web\",\"color\":\"#00796b\",\"visible\":false}]",
+        "plot-height": 80,
+        "style": "width: 380px",
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light"],
+      "content": {
+        "": "<div>Your own drawing</div>"
+      }
+    },
+    {
+      "name": "chart-data-table",
+      "component": "chart-data-table",
+      "props": {
+        "caption": "Sales",
+        "categories": "[\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\"]",
+        "series": "[{\"name\":\"North\",\"values\":[42,51,null,60,72,81]},{\"name\":\"South\",\"values\":[30,28,39,44,null,55]}]",
+        "style": "width: 380px",
+        "chart-style": "{\"animate\":false}"
+      },
+      "textScales": [1],
+      "directions": ["ltr"],
+      "modes": ["light"]
     }
   ]
 }

@@ -3,3 +3,4 @@ import "@lit-labs/ssr-client/lit-element-hydrate-support.js";
 import "@srctool/camouflage-core/define";
 import "@srctool/camouflage-skin-minimal/register";
 import "@srctool/camouflage-skin-cupertino/register";
+import "@srctool/camouflage-charts/define";

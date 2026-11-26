@@ -1,0 +1,1511 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "packages/charts/src/components/bar-chart.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "barDomain",
+          "return": {
+            "type": {
+              "text": "ValueDomain"
+            }
+          },
+          "parameters": [
+            {
+              "name": "values",
+              "type": {
+                "text": "readonly (readonly (number | null)[])[]"
+              }
+            },
+            {
+              "name": "mode",
+              "type": {
+                "text": "BarMode"
+              }
+            },
+            {
+              "name": "axis",
+              "default": "{}",
+              "type": {
+                "text": "Parameters<typeof valueDomain>[3]"
+              }
+            }
+          ],
+          "description": "The value axis of a bar chart: bars start at zero, and a stacked category reaches its positive and negative sums."
+        },
+        {
+          "kind": "class",
+          "description": "`<camo-bar-chart title=\"Revenue\" categories='[\"Q1\",\"Q2\"]' series='[{\"name\":\"North\",\"values\":[42,51]}]'>`\n\nValues compared across categories: vertical or horizontal bars, grouped side by side or stacked, with a legend that\ntoggles series, a tooltip on the bar under the pointer and the same data as a table. `y-axis` is always the value\naxis and `x-axis` the category axis, whichever way the bars run. The plot is one Tab stop: Left and Right walk the\ncategories, Up and Down the series, and each bar is announced (\"Q1, North, 42\"). Bars grow from zero; negative bars\ngo the other way. In right-to-left vertical bars run from the right and horizontal bars start at the right edge.",
+          "name": "CamoBarChart",
+          "slots": [
+            {
+              "description": "What stands in when there is no data; by default \"No data\".",
+              "name": "empty"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "orientation",
+              "privacy": "public",
+              "type": {
+                "text": "BarOrientation"
+              },
+              "default": "\"vertical\"",
+              "attribute": "orientation",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "mode",
+              "privacy": "public",
+              "type": {
+                "text": "BarMode"
+              },
+              "default": "\"grouped\"",
+              "attribute": "mode",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "valueLabels",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "value-labels",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "kindName",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "protected",
+              "readonly": true,
+              "default": "\"Bar chart\""
+            },
+            {
+              "kind": "field",
+              "name": "#bars",
+              "privacy": "private",
+              "type": {
+                "text": "BarRect[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "#size",
+              "privacy": "private",
+              "type": {
+                "text": "object"
+              },
+              "default": "{ across: 0, along: 0 }"
+            },
+            {
+              "kind": "method",
+              "name": "onPointer",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "scene",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "CartesianScene"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "style",
+                  "type": {
+                    "text": "ResolvedChartStyle"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#values",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "unknown"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "bars",
+                  "type": {
+                    "text": "readonly BarRect[]"
+                  }
+                },
+                {
+                  "name": "vertical",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "A value at each bar's free end; a stack gets its side's total there."
+            },
+            {
+              "kind": "method",
+              "name": "#tooltip",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Tooltip"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "bar",
+                  "type": {
+                    "text": "BarRect"
+                  }
+                },
+                {
+                  "name": "shown",
+                  "type": {
+                    "text": "ReturnType<CamoCartesianChart[\"shown\"]>"
+                  }
+                },
+                {
+                  "name": "vertical",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "description": "The table switch was pressed; `detail.showTable`.",
+              "name": "camo-show-table-change"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "The chart's name.",
+              "name": "title"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "The category labels, a JSON list.",
+              "name": "categories"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "A JSON list of `{ name, values, color }`.",
+              "name": "series"
+            },
+            {
+              "type": {
+                "text": "BarOrientation"
+              },
+              "description": "Which way the bars run.",
+              "name": "orientation",
+              "default": "\"vertical\"",
+              "fieldName": "orientation"
+            },
+            {
+              "type": {
+                "text": "BarMode"
+              },
+              "description": "Side by side, or piled up.",
+              "name": "mode",
+              "default": "\"grouped\"",
+              "fieldName": "mode"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Each bar's value at its free end (a stack's total at its end).",
+              "name": "value-labels",
+              "default": "false",
+              "fieldName": "valueLabels"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "JSON `{ title }`, the category axis.",
+              "name": "x-axis"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "JSON `{ title, min, max, tickCount }`, the value axis.",
+              "name": "y-axis"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "A skeleton stands in.",
+              "name": "loading"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "The data as a table instead of the plot.",
+              "name": "show-table"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "The plot's height in px.",
+              "name": "plot-height"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "JSON overrides of the chart style.",
+              "name": "chart-style"
+            }
+          ],
+          "superclass": {
+            "name": "CamoCartesianChart",
+            "module": "/packages/charts/src/shared/cartesian.ts"
+          },
+          "tagName": "camo-bar-chart",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "barDomain",
+          "declaration": {
+            "name": "barDomain",
+            "module": "packages/charts/src/components/bar-chart.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CamoBarChart",
+          "declaration": {
+            "name": "CamoBarChart",
+            "module": "packages/charts/src/components/bar-chart.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/charts/src/components/chart-data-table.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "`<camo-chart-data-table caption=\"Sales\" categories='[\"Jan\"]' series='[{\"name\":\"North\",\"values\":[3]}]'>`\n\nA chart's data as a table: a row per category, a column per series, \"-\" for a gap. Nothing a chart shows is only\nvisual.",
+          "name": "CamoChartDataTable",
+          "members": [
+            {
+              "kind": "field",
+              "name": "caption",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "caption"
+            },
+            {
+              "kind": "field",
+              "name": "categories",
+              "privacy": "public",
+              "type": {
+                "text": "readonly string[]"
+              },
+              "default": "[]",
+              "attribute": "categories"
+            },
+            {
+              "kind": "field",
+              "name": "series",
+              "privacy": "public",
+              "type": {
+                "text": "readonly ChartSeries[]"
+              },
+              "default": "[]",
+              "attribute": "series"
+            },
+            {
+              "kind": "field",
+              "name": "format",
+              "privacy": "public",
+              "type": {
+                "text": "((value: number) => string) | undefined"
+              },
+              "description": "How values are written; a property only.",
+              "default": "undefined"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "The table's accessible name.",
+              "name": "caption",
+              "default": "\"\"",
+              "fieldName": "caption"
+            },
+            {
+              "type": {
+                "text": "readonly string[]"
+              },
+              "description": "The row headings, a JSON list.",
+              "name": "categories",
+              "default": "[]",
+              "fieldName": "categories"
+            },
+            {
+              "type": {
+                "text": "readonly ChartSeries[]"
+              },
+              "description": "A JSON list of `{ name, values }`.",
+              "name": "series",
+              "default": "[]",
+              "fieldName": "series"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "camo-chart-data-table",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CamoChartDataTable",
+          "declaration": {
+            "name": "CamoChartDataTable",
+            "module": "packages/charts/src/components/chart-data-table.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/charts/src/components/chart-frame.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "`<camo-chart-frame title=\"Uptime\" summary=\"Uptime, 99.9% this month\"><my-drawing></my-drawing></camo-chart-frame>`\n\nWhat the charts are wrapped in, for a drawing of your own: the title, a legend of toggle chips, the plot (one image\nnamed by the title and `summary`) and, when there is a `table` slot, a switch to the same data as a table. The frame\nreports; the app owns the legend's state and `show-table`.",
+          "name": "CamoChartFrame",
+          "slots": [
+            {
+              "description": "The plot.",
+              "name": ""
+            },
+            {
+              "description": "The same data as a table.",
+              "name": "table"
+            },
+            {
+              "description": "What stands in when `is-empty` is set; by default \"No data\".",
+              "name": "empty"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "summary",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "summary"
+            },
+            {
+              "kind": "field",
+              "name": "legend",
+              "privacy": "public",
+              "type": {
+                "text": "readonly LegendItem[]"
+              },
+              "default": "[]",
+              "attribute": "legend"
+            },
+            {
+              "kind": "field",
+              "name": "isEmpty",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "is-empty",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "hasTable",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the app slotted a table; only a browser can tell.",
+              "default": "false"
+            }
+          ],
+          "events": [
+            {
+              "name": "camo-legend-toggle",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "A legend chip was pressed; `detail.index`."
+            },
+            {
+              "description": "The table switch was pressed; `detail.showTable`.",
+              "name": "camo-show-table-change"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "The chart's name.",
+              "name": "title"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "What the plot shows, in words.",
+              "name": "summary",
+              "default": "\"\"",
+              "fieldName": "summary"
+            },
+            {
+              "type": {
+                "text": "readonly LegendItem[]"
+              },
+              "description": "A JSON list of `{ label, color, visible }`.",
+              "name": "legend",
+              "default": "[]",
+              "fieldName": "legend"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "A skeleton stands in.",
+              "name": "loading"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "There is nothing to draw.",
+              "name": "is-empty",
+              "default": "false",
+              "fieldName": "isEmpty"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "The table replaces the plot.",
+              "name": "show-table"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "The plot's height in px.",
+              "name": "plot-height"
+            }
+          ],
+          "superclass": {
+            "name": "CamoChartBase",
+            "module": "/packages/charts/src/shared/base.ts"
+          },
+          "tagName": "camo-chart-frame",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CamoChartFrame",
+          "declaration": {
+            "name": "CamoChartFrame",
+            "module": "packages/charts/src/components/chart-frame.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/charts/src/components/charts-provider.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "`<camo-charts-provider .renderer=${mine}>`: replaces the drawing of the marks for the charts inside. The frame, axes,\nlegend, tooltip, keys and tables stay.",
+          "name": "CamoChartsProvider",
+          "slots": [
+            {
+              "description": "The subtree.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "renderer",
+              "privacy": "public",
+              "type": {
+                "text": "ChartRenderer | null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "#provider",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new ContextProvider(this, { context: chartRendererContext })"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "camo-charts-provider",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CamoChartsProvider",
+          "declaration": {
+            "name": "CamoChartsProvider",
+            "module": "packages/charts/src/components/charts-provider.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/charts/src/components/line-chart.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "`<camo-line-chart title=\"Sales\" categories='[\"Jan\",\"Feb\"]' series='[{\"name\":\"North\",\"values\":[3,9]}]'>`\n\nValues over an ordered axis, as lines, areas or stacked areas, with a legend that toggles series, a tooltip and a\ncrosshair at the nearest category, and the same data as a table. `times` (epoch milliseconds, ascending) places the\ncategories on a time axis with calendar ticks. The plot is one Tab stop: Left and Right walk the categories, Up and\nDown the series, Home and End jump, Escape hides, and each point is announced (\"Jan, North, 3\"). A `null` breaks the\nline; a stacked area treats negative values as zero. A time axis keeps its direction in right-to-left.\n\nThe data are JSON attributes (so a server renders the chart and the browser hydrates it) or properties; the axes'\n`format` functions are properties only.",
+          "name": "CamoLineChart",
+          "slots": [
+            {
+              "description": "What stands in when there is no data; by default \"No data\".",
+              "name": "empty"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "kind",
+              "privacy": "public",
+              "type": {
+                "text": "LineKind"
+              },
+              "default": "\"line\"",
+              "attribute": "kind",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "curve",
+              "privacy": "public",
+              "type": {
+                "text": "LineCurve"
+              },
+              "default": "\"linear\"",
+              "attribute": "curve",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "markers",
+              "privacy": "public",
+              "type": {
+                "text": "MarkerVisibility"
+              },
+              "default": "\"on-hover\"",
+              "attribute": "markers",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "times",
+              "privacy": "public",
+              "type": {
+                "text": "readonly number[] | null"
+              },
+              "default": "null",
+              "attribute": "times"
+            },
+            {
+              "kind": "field",
+              "name": "timeZoneOffsetMinutes",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "time-zone-offset-minutes"
+            },
+            {
+              "kind": "field",
+              "name": "kindName",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "protected",
+              "readonly": true,
+              "default": "\"Line chart\""
+            },
+            {
+              "kind": "field",
+              "name": "#xs",
+              "privacy": "private",
+              "type": {
+                "text": "number[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "method",
+              "name": "onPointer",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#positions",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#below",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "AxisLabel[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "xs",
+                  "type": {
+                    "text": "readonly number[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "scene",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "CartesianScene"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "style",
+                  "type": {
+                    "text": "ResolvedChartStyle"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#tooltip",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Tooltip"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "category",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "shown",
+                  "type": {
+                    "text": "ReturnType<CamoCartesianChart[\"shown\"]>"
+                  }
+                },
+                {
+                  "name": "at",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "description": "The table switch was pressed; `detail.showTable`.",
+              "name": "camo-show-table-change"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "The chart's name, shown above it and read first.",
+              "name": "title"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "The x labels, a JSON list.",
+              "name": "categories"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "A JSON list of `{ name, values, color }`; `null` in `values` is a gap.",
+              "name": "series"
+            },
+            {
+              "type": {
+                "text": "LineKind"
+              },
+              "description": "The form.",
+              "name": "kind",
+              "default": "\"line\"",
+              "fieldName": "kind"
+            },
+            {
+              "type": {
+                "text": "LineCurve"
+              },
+              "description": "How points are joined; `smooth` never overshoots.",
+              "name": "curve",
+              "default": "\"linear\"",
+              "fieldName": "curve"
+            },
+            {
+              "type": {
+                "text": "MarkerVisibility"
+              },
+              "description": "When points are marked.",
+              "name": "markers",
+              "default": "\"on-hover\"",
+              "fieldName": "markers"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "JSON `{ title }`.",
+              "name": "x-axis"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "JSON `{ title, min, max, tickCount }`.",
+              "name": "y-axis"
+            },
+            {
+              "type": {
+                "text": "readonly number[] | null"
+              },
+              "description": "A JSON list of epoch milliseconds, one per category.",
+              "name": "times",
+              "default": "null",
+              "fieldName": "times"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "The zone of the time axis, from UTC.",
+              "name": "time-zone-offset-minutes",
+              "default": "0",
+              "fieldName": "timeZoneOffsetMinutes"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "A skeleton stands in.",
+              "name": "loading"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "The data as a table instead of the plot.",
+              "name": "show-table"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "The plot's height in px.",
+              "name": "plot-height"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "JSON overrides of the chart style.",
+              "name": "chart-style"
+            }
+          ],
+          "superclass": {
+            "name": "CamoCartesianChart",
+            "module": "/packages/charts/src/shared/cartesian.ts"
+          },
+          "tagName": "camo-line-chart",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CamoLineChart",
+          "declaration": {
+            "name": "CamoLineChart",
+            "module": "packages/charts/src/components/line-chart.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/charts/src/components/pie-chart.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "`<camo-pie-chart title=\"Traffic\" donut slices='[{\"label\":\"Search\",\"value\":4500}]'><b slot=\"center\">6,100</b></camo-pie-chart>`\n\nParts of a whole, as a pie or (with `donut`) a ring with content in the hole. Each slice shows its share when it is\nwide enough; the legend lists every slice with its value and share and hides or shows slices. The app owns the\nselection: a click, or Enter or Space on the focused slice, fires `camo-select` with its index (`null` when it was\nselected already), and the app sets `selected`; that slice moves out. The plot is one Tab stop: all four arrows walk\nthe slices clockwise, and each is announced (\"Search, 45%, 4500\"). Negative values count as zero; with every value\nzero the empty state shows. Angles keep their clockwise direction in right-to-left. For more than about six parts, use\na bar chart.",
+          "name": "CamoPieChart",
+          "slots": [
+            {
+              "description": "What sits in a donut's hole: a total, a title.",
+              "name": "center"
+            },
+            {
+              "description": "What stands in when there is nothing to show.",
+              "name": "empty"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "slices",
+              "privacy": "public",
+              "type": {
+                "text": "readonly PieSlice[]"
+              },
+              "default": "[]",
+              "attribute": "slices"
+            },
+            {
+              "kind": "field",
+              "name": "donut",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "donut",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "privacy": "public",
+              "type": {
+                "text": "number | null"
+              },
+              "default": "null",
+              "attribute": "selected"
+            },
+            {
+              "kind": "field",
+              "name": "startAngle",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "PIE_TOP",
+              "attribute": "start-angle"
+            },
+            {
+              "kind": "field",
+              "name": "valueFormat",
+              "privacy": "public",
+              "type": {
+                "text": "((value: number) => string) | null"
+              },
+              "description": "How values are written; a property only.",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "#shown",
+              "privacy": "private",
+              "type": {
+                "text": "number[]"
+              },
+              "default": "[]",
+              "description": "The indexes of the slices that are shown, in order."
+            },
+            {
+              "kind": "method",
+              "name": "#format",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "extent",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "{ categories: number; series: number; linear: boolean }"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "activate",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#select",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "position",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#position",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#share",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#plot",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "style",
+                  "type": {
+                    "text": "ResolvedChartStyle"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#tooltip",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "position",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "angle",
+                  "type": {
+                    "text": "SliceAngle"
+                  }
+                },
+                {
+                  "name": "color",
+                  "type": {
+                    "text": "ChartColor"
+                  }
+                },
+                {
+                  "name": "size",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "radius",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#text",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "name": "camo-select",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "A slice was chosen; `detail.index` (or `null` to clear)."
+            },
+            {
+              "description": "The table switch was pressed; `detail.showTable`.",
+              "name": "camo-show-table-change"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "The chart's name.",
+              "name": "title"
+            },
+            {
+              "type": {
+                "text": "readonly PieSlice[]"
+              },
+              "description": "A JSON list of `{ label, value, color }`.",
+              "name": "slices",
+              "default": "[]",
+              "fieldName": "slices"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "A ring with a hole.",
+              "name": "donut",
+              "default": "false",
+              "fieldName": "donut"
+            },
+            {
+              "type": {
+                "text": "number | null"
+              },
+              "description": "The selected slice's index.",
+              "name": "selected",
+              "default": "null",
+              "fieldName": "selected"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Where the first slice starts, in degrees; -90 is the top.",
+              "name": "start-angle",
+              "default": "PIE_TOP",
+              "fieldName": "startAngle"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "A skeleton stands in.",
+              "name": "loading"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "The data as a table instead of the plot.",
+              "name": "show-table"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "The plot's height in px.",
+              "name": "plot-height"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "JSON overrides of the chart style.",
+              "name": "chart-style"
+            }
+          ],
+          "superclass": {
+            "name": "CamoPlotChart",
+            "module": "/packages/charts/src/shared/base.ts"
+          },
+          "tagName": "camo-pie-chart",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CamoPieChart",
+          "declaration": {
+            "name": "CamoPieChart",
+            "module": "packages/charts/src/components/pie-chart.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/charts/src/components/sparkline.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "`<camo-sparkline values=\"[3,5,4,9]\" description=\"Signups, last 30 days\">`\n\nA small trend with no axes, grid or legend, for a row or a card. It is 100 by 28 px unless sized by CSS. It scales to\nthe data or to `range`, breaks the line at `null`, draws one value as a dot, and keeps the peaks when there are more\nvalues than pixels. It is one image whose text is the summary (\"Signups, last 30 days: from 3 to 9, up 200%\"), so the\ndirection is never only a color, and it takes no focus.",
+          "name": "CamoSparkline",
+          "members": [
+            {
+              "kind": "field",
+              "name": "values",
+              "privacy": "public",
+              "type": {
+                "text": "readonly (number | null)[]"
+              },
+              "default": "[]",
+              "attribute": "values"
+            },
+            {
+              "kind": "field",
+              "name": "kind",
+              "privacy": "public",
+              "type": {
+                "text": "SparklineKind"
+              },
+              "default": "\"line\"",
+              "attribute": "kind",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "range",
+              "privacy": "public",
+              "type": {
+                "text": "string | null"
+              },
+              "default": "null",
+              "attribute": "range"
+            },
+            {
+              "kind": "field",
+              "name": "highlight",
+              "privacy": "public",
+              "type": {
+                "text": "SparklineHighlight"
+              },
+              "default": "\"last\"",
+              "attribute": "highlight",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "tone",
+              "privacy": "public",
+              "type": {
+                "text": "Tone"
+              },
+              "default": "\"default\"",
+              "attribute": "tone",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "description",
+              "privacy": "public",
+              "type": {
+                "text": "string | null"
+              },
+              "default": "null",
+              "attribute": "description"
+            },
+            {
+              "kind": "field",
+              "name": "chartStyle",
+              "privacy": "public",
+              "type": {
+                "text": "ChartStyle | null"
+              },
+              "default": "null",
+              "attribute": "chart-style"
+            },
+            {
+              "kind": "field",
+              "name": "pixels",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "The width in pixels, measured in the browser; a server assumes the default 100.",
+              "default": "100"
+            },
+            {
+              "kind": "field",
+              "name": "#internals",
+              "privacy": "private",
+              "type": {
+                "text": "ElementInternals"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "#context",
+              "privacy": "private",
+              "type": {
+                "text": "ChartContext"
+              },
+              "readonly": true,
+              "default": "new ChartContext(this)"
+            },
+            {
+              "kind": "field",
+              "name": "#observer",
+              "privacy": "private",
+              "type": {
+                "text": "ResizeObserver | null"
+              },
+              "default": "null"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "readonly (number | null)[]"
+              },
+              "description": "A JSON list of numbers; `null` is a gap.",
+              "name": "values",
+              "default": "[]",
+              "fieldName": "values"
+            },
+            {
+              "type": {
+                "text": "SparklineKind"
+              },
+              "description": "The form.",
+              "name": "kind",
+              "default": "\"line\"",
+              "fieldName": "kind"
+            },
+            {
+              "type": {
+                "text": "string | null"
+              },
+              "description": "\"low high\" to scale to; absent reads the data.",
+              "name": "range",
+              "default": "null",
+              "fieldName": "range"
+            },
+            {
+              "type": {
+                "text": "SparklineHighlight"
+              },
+              "description": "Which points get a dot.",
+              "name": "highlight",
+              "default": "\"last\"",
+              "fieldName": "highlight"
+            },
+            {
+              "type": {
+                "text": "Tone"
+              },
+              "description": "The color family.",
+              "name": "tone",
+              "default": "\"default\"",
+              "fieldName": "tone"
+            },
+            {
+              "type": {
+                "text": "string | null"
+              },
+              "description": "What the trend is of; it leads the spoken summary.",
+              "name": "description",
+              "default": "null",
+              "fieldName": "description"
+            },
+            {
+              "type": {
+                "text": "ChartStyle | null"
+              },
+              "description": "JSON overrides of the chart style.",
+              "name": "chart-style",
+              "default": "null",
+              "fieldName": "chartStyle"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "camo-sparkline",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CamoSparkline",
+          "declaration": {
+            "name": "CamoSparkline",
+            "module": "packages/charts/src/components/sparkline.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

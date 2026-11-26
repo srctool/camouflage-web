@@ -209,3 +209,24 @@ for (const skin of ["minimal", "cupertino"]) {
     ).toBeLessThan(50);
   });
 }
+
+for (const skin of ["minimal", "cupertino"]) {
+  test(`the ${skin} charts are drawn by the server and hydrate without moving`, async ({
+    browser,
+    request,
+  }, testInfo) => {
+    // The response itself: the DOM's serialization leaves shadow roots out.
+    const html = await (await request.get(`/charts?skin=${skin}&scheme=light&nojs`)).text();
+    const before = await shot(browser, `/charts?skin=${skin}&scheme=light&nojs`, false);
+    expect(html).toContain("Line chart, 2 series, 4 categories");
+    expect(html).toContain('class="slice"');
+    const after = await shot(browser, `/charts?skin=${skin}&scheme=light`, true);
+    writeFileSync(testInfo.outputPath("server-render.png"), before.png);
+    writeFileSync(testInfo.outputPath("hydrated.png"), after.png);
+    const count = differing(before.png, after.png);
+    expect(
+      count,
+      `${count} pixels differ between the server render and the hydrated charts`,
+    ).toBeLessThan(50);
+  });
+}

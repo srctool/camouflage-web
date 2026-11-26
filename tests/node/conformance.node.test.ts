@@ -12,6 +12,7 @@ import { renderToString, squash } from "../helpers/ssr.ts";
 await import("@srctool/camouflage-core/define");
 await import("@srctool/camouflage-skin-minimal/register");
 await import("@srctool/camouflage-skin-cupertino/register");
+await import("@srctool/camouflage-charts/define");
 
 describe("the conformance helpers", () => {
   it("finds a literal outside var(), and nothing else", () => {

@@ -104,7 +104,7 @@ export type { CamoCloseDetail } from "./behavior/modal.ts";
 export { showCamoDialog } from "./components/overlay.ts";
 export type { DialogAction, ShowDialogOptions } from "./components/overlay.ts";
 export { defineElement } from "./define-element.ts";
-export { inspectAria } from "./behavior/aria.ts";
+export { applyAria, inspectAria } from "./behavior/aria.ts";
 export { attachActivation } from "./behavior/activation.ts";
 export { PRESSED_ATTRIBUTE, PressController } from "./behavior/press.ts";
 export {

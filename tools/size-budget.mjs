@@ -12,12 +12,15 @@ const BUDGETS = {
   "core + minimal": 102_000,
   "core + minimal + cupertino": 111_000,
   "minimal skin only": 50_000,
+  // The charts with the core elements they use; the charts' own share is this less "core (define)".
+  "core + charts": 77_000,
 };
 const entries = {
   "core (define)": `import "@srctool/camouflage-core/define";`,
   "core + minimal": `import "@srctool/camouflage-core/define"; import "@srctool/camouflage-skin-minimal/register";`,
   "core + minimal + cupertino": `import "@srctool/camouflage-core/define"; import "@srctool/camouflage-skin-minimal/register"; import "@srctool/camouflage-skin-cupertino/register";`,
   "minimal skin only": `import { minimalSkin } from "@srctool/camouflage-skin-minimal"; console.log(minimalSkin.name);`,
+  "core + charts": `import "@srctool/camouflage-charts/define";`,
 };
 
 // Inside the repository, so bare imports resolve to the linked workspace packages.
