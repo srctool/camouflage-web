@@ -32,7 +32,11 @@ describe("every scenario variant", () => {
         ...(popups.includes(variant.scenario.component) ? ["aria-allowed-attr"] : []),
       ];
       // A snackbar fades in, and contrast measured mid-fade is not the settled colour.
-      if (variant.scenario.component === "snackbar") await new Promise((r) => setTimeout(r, 500));
+      // The fade is waited for, not timed: a loaded runner can start it late.
+      if (variant.scenario.component === "snackbar") {
+        await new Promise((r) => setTimeout(r, 500));
+        await Promise.all(element.getAnimations({ subtree: true }).map((a) => a.finished));
+      }
       expect(await axeViolations(root, variant.skin, ignore)).toEqual([]);
       // A control keeps a 48 px touch area. A list row or a chip only when it can be pressed.
       const props = variant.scenario.props ?? {};
