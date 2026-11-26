@@ -62,7 +62,9 @@ export class CamoCard extends LitElement {
     this.selectable = false;
     this.selected = false;
     this.disabled = false;
-    attachActivation(this, () => this.disabled || !this.clickable);
+    attachActivation(this, () => this.disabled || !this.clickable, {
+      container: () => !this.disabled,
+    });
     void this.#press;
   }
 
