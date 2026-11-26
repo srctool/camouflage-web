@@ -40,6 +40,18 @@ export function generateManifest(outdir = "node_modules/.cache/camo-manifest"): 
   return JSON.parse(readFileSync(join(root, outdir, "custom-elements.json"), "utf8")) as Manifest;
 }
 
+/** The packages that ship elements. */
+export const PACKAGES = ["core", "charts"] as const;
+export type PackageName = (typeof PACKAGES)[number];
+
+/** The part of a manifest that one package ships. */
+export function manifestFor(manifest: Manifest, name: PackageName): Manifest {
+  return {
+    ...manifest,
+    modules: manifest.modules.filter((m) => m.path?.startsWith(`packages/${name}/`) === true),
+  };
+}
+
 /** The custom elements (declarations with a tag name) of a manifest, in tag order. */
 export function elementsOf(manifest: Manifest): ManifestDeclaration[] {
   return manifest.modules

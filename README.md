@@ -6,17 +6,16 @@ The third platform of [Camouflage](https://github.com/srctool/camouflage), next 
 written in TypeScript with [Lit](https://lit.dev), usable from any framework or plain HTML, from Tauri webviews, and
 with **server rendering**.
 
-> **Status: W6, the components that arrived later.** Button group, split button, popover, side sheets, toolbar, image,
-> rating, carousel, file uploader, data table, tree, pagination, breadcrumb and progress steps join W5's feedback, display and
-> navigation (progress, snackbar, banner, chip, badge, avatar, FAB, tabs, navigation bar, rail and drawer), W4's containers and
-> overlays, W3's inputs and W2's primitives and actions, on **W1's foundations**: the theme model, the provider and its
-> environment, the skin contract and behavior layer, the scenario-driven test harness, and the contract, manifest and typings
-> checks. More components follow in W7 to W9. The design notes are in the
+> **Status: W7, the charts.** `@srctool/camouflage-charts` (sparkline, line, area, bar, pie and donut, with a table
+> fallback) joins W6's later components, W5's feedback, display and navigation, W4's containers and overlays, W3's inputs
+> and W2's primitives and actions, on **W1's foundations**: the theme model, the provider and its environment, the skin
+> contract and behavior layer, the scenario-driven test harness, and the contract, manifest and typings checks. The other
+> skins follow in W8 and the desktop foundations in W9. The design notes are in the
 > [contributor docs](https://camouflage-dev.srctool.com) (the "Web (planned)" sections); the findings are in
 > [docs/spike-findings.md](docs/spike-findings.md) (W0), [docs/w1-findings.md](docs/w1-findings.md),
 > [docs/w2-findings.md](docs/w2-findings.md), [docs/w3-findings.md](docs/w3-findings.md),
-> [docs/w4-findings.md](docs/w4-findings.md), [docs/w5-findings.md](docs/w5-findings.md) and
-> [docs/w6-findings.md](docs/w6-findings.md).
+> [docs/w4-findings.md](docs/w4-findings.md), [docs/w5-findings.md](docs/w5-findings.md),
+> [docs/w6-findings.md](docs/w6-findings.md) and [docs/w7-findings.md](docs/w7-findings.md).
 
 ## How it fits together
 
@@ -41,10 +40,17 @@ with **server rendering**.
 | `@srctool/camouflage-core`           | theme, provider, skin contract, behavior layer and the components (no look)     |
 | `@srctool/camouflage-skin-minimal`   | the Minimal skin; `/register` makes `skin="minimal"` work and sets the fallback |
 | `@srctool/camouflage-skin-cupertino` | the Cupertino skin (Classic; Liquid Glass comes in W8)                          |
+| `@srctool/camouflage-charts`         | the charts; depends on core only (`/define` registers them)                     |
 
 Importing a package's main entry never defines an element and never touches `window` or `document`. Define the
 elements with `import "@srctool/camouflage-core/define"`, and register a skin with
 `import "@srctool/camouflage-skin-minimal/register"`.
+
+Charts take their data as JSON attributes (or properties), so a server draws them:
+
+```html
+<camo-line-chart title="Sales" categories='["Jan","Feb"]' series='[{"name":"North","values":[3,9]}]'></camo-line-chart>
+```
 
 ## Commands
 
@@ -61,7 +67,7 @@ pnpm exec playwright install chromium firefox webkit   # once
 | `pnpm check`                              | everything CI runs: build, typecheck, lint, generated files, layers, skins, side effects, tests |
 | `pnpm themes` / `pnpm themes:check`       | write, or verify, the skins' starter themes (`tools/generate-starter-themes.ts`)                |
 | `pnpm typings` / `pnpm typings:check`     | write, or verify, the tag and event maps and the React and Vue typings                          |
-| `pnpm manifest`                           | write the Custom Elements Manifest into `packages/core`                                         |
+| `pnpm manifest`                           | write the Custom Elements Manifests into `packages/core` and `packages/charts`                  |
 | `pnpm skins`                              | every skin is complete (a renderer for every component) and has a `register` entry              |
 | `pnpm build`                              | compiles every package to `dist/` (ESM and declarations)                                        |
 | `pnpm typecheck`                          | type-checks the packages and the tests                                                          |
@@ -83,6 +89,7 @@ pnpm exec playwright install chromium firefox webkit   # once
 - [docs/w4-findings.md](docs/w4-findings.md): what the overlays and containers settled (the overlay frame, menus, lists, the gaps).
 - [docs/w5-findings.md](docs/w5-findings.md): what feedback, data display and navigation settled (the messenger, chips, tabs, the navigation chrome, the gaps).
 - [docs/w6-findings.md](docs/w6-findings.md): what the later components settled (placement, the toolbar's folding, the table and tree, pagination, the gaps).
+- [docs/w7-findings.md](docs/w7-findings.md): what the charts settled (drawing by fractions, the style layers, the gaps).
 - [docs/browser-baseline.md](docs/browser-baseline.md), [docs/publishing.md](docs/publishing.md).
 
 ## Publishing

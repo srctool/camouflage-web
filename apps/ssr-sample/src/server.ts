@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { fileURLToPath } from "node:url";
 import {
+  chartsPage,
   dialogPage,
   feedbackPage,
   inputsPage,
@@ -32,7 +33,13 @@ createServer(async (request, response) => {
   let title = "Camouflage spike";
   let page;
   if (url.pathname === "/") page = spikePage();
-  else if (url.pathname === "/later") {
+  else if (url.pathname === "/charts") {
+    title = "Camouflage charts";
+    page = chartsPage(
+      url.searchParams.get("skin") ?? "minimal",
+      url.searchParams.get("scheme") ?? "light",
+    );
+  } else if (url.pathname === "/later") {
     title = "Camouflage later components";
     page = laterPage(
       url.searchParams.get("skin") ?? "minimal",

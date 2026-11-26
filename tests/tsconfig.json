@@ -18,6 +18,9 @@
     },
     {
       "path": "../packages/skin-cupertino"
+    },
+    {
+      "path": "../packages/charts"
     }
   ],
   "exclude": ["fixtures/incomplete-skin", "fixtures/consumers"]

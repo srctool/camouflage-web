@@ -2,7 +2,7 @@ name: Release (npm)
 
 # Push a tag <package>-v<version> on main to publish packages/<package>:
 #   git tag core-v0.2.0-alpha.1 && git push origin core-v0.2.0-alpha.1
-# The package is the folder under packages/ (core, skin-minimal, skin-cupertino); the version must equal the one in that
+# The package is the folder under packages/ (core, skin-minimal, skin-cupertino, charts); the version must equal the one in that
 # package.json, and before parity with Kotlin and Dart only 0.x.y-alpha.N is accepted (tools/release-check.mjs).
 #
 # Authentication is npm trusted publishing (GitHub OIDC): no npm token is stored anywhere. The owner enables it once per
@@ -11,7 +11,7 @@ name: Release (npm)
 #
 # DRY RUN: until the release milestone (W10) the publish step is `npm publish --dry-run`. Set DRY_RUN to "false" then.
 # Run it by hand from the Actions tab (workflow_dispatch) with a tag name to rehearse without pushing a tag.
-# Publish core before the skins: a skin depends on that exact core version.
+# Publish core before the skins and the charts: each depends on that exact core version.
 on:
   push:
     tags:

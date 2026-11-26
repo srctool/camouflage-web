@@ -160,3 +160,24 @@ export function laterPage(skin: string, scheme: string): TemplateResult {
 export function dialogPage(skin: string, scheme: string): TemplateResult {
   return html`<camo-provider skin=${skin} scheme=${scheme} class="page">${confirmation()}</camo-provider>`;
 }
+
+const MONTHS = JSON.stringify(["Jan", "Feb", "Mar", "Apr"]);
+const REGIONS = JSON.stringify([
+  { name: "North", values: [42, 51, 48, 60] },
+  { name: "South", values: [30, 28, 39, 44] },
+]);
+const SOURCES = JSON.stringify([
+  { label: "Search", value: 45 },
+  { label: "Direct", value: 30 },
+  { label: "Social", value: 25 },
+]);
+
+/** The charts. Their data are attributes, so the server draws them and the browser reads the same data. */
+export function chartsPage(skin: string, scheme: string): TemplateResult {
+  return html`<camo-provider skin=${skin} scheme=${scheme} class="page">
+    <camo-sparkline values="[3,5,4,8,6,9]" description="Signups"></camo-sparkline>
+    <camo-line-chart title="Sales" categories=${MONTHS} series=${REGIONS} kind="area" curve="smooth" plot-height="100" style="width: 360px"></camo-line-chart>
+    <camo-bar-chart title="Revenue" categories=${MONTHS} series=${REGIONS} plot-height="100" style="width: 360px"></camo-bar-chart>
+    <camo-pie-chart title="Traffic" slices=${SOURCES} donut plot-height="100" style="width: 360px"></camo-pie-chart>
+  </camo-provider>`;
+}

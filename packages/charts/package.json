@@ -1,0 +1,52 @@
+{
+  "name": "@srctool/camouflage-charts",
+  "version": "0.2.0-alpha.0",
+  "description": "Camouflage for web: charts without a chart library (sparkline, line, bar and pie), drawn with SVG and HTML.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srctool/camouflage-web.git",
+    "directory": "packages/charts"
+  },
+  "type": "module",
+  "sideEffects": [
+    "./dist/define.js",
+    "./src/define.ts"
+  ],
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./define": {
+      "source": "./src/define.ts",
+      "types": "./dist/define.d.ts",
+      "default": "./dist/define.js"
+    },
+    "./react": {
+      "types": "./typings/react.d.ts"
+    },
+    "./vue": {
+      "types": "./typings/vue.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "typings",
+    "custom-elements.json"
+  ],
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "@srctool/camouflage-core": "workspace:*",
+    "lit": "3.3.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "customElements": "custom-elements.json"
+}

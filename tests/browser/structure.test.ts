@@ -395,3 +395,33 @@ describe.each(["minimal", "cupertino"])("camo-paged-list under %s", (skin) => {
     expect(refreshes).toBe(1); // too short
   });
 });
+
+describe("controls inside a card or a row that is not itself a button", () => {
+  it.each(["camo-card", "camo-list-item"])(
+    "work, while the %s fires no click of its own",
+    async (tag) => {
+      const slot = tag === "camo-card" ? "" : ' slot="trailing"';
+      const root = mount(
+        `<camo-provider skin="minimal"><${tag} headline="Row"><camo-button${slot} text="Go"></camo-button></${tag}></camo-provider>`,
+      );
+      await settled(root);
+      const host = root.querySelector<HTMLElement>(tag)!;
+      const button = root.querySelector<HTMLElement>("camo-button")!;
+      let pressed = 0;
+      button.addEventListener("click", () => pressed++);
+      button.click();
+      expect(pressed).toBe(1);
+      await userEvent.click(button);
+      expect(pressed).toBe(2);
+      let own = 0;
+      host.addEventListener("click", () => own++);
+      host.click();
+      expect(own).toBe(0);
+      // A disabled one blocks everything inside it too.
+      host.setAttribute("disabled", "");
+      await settled(root);
+      button.click();
+      expect(pressed).toBe(2);
+    },
+  );
+});

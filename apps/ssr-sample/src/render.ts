@@ -8,6 +8,7 @@ import type { TemplateResult } from "lit";
 await import("@srctool/camouflage-core/define");
 await import("@srctool/camouflage-skin-minimal/register");
 await import("@srctool/camouflage-skin-cupertino/register");
+await import("@srctool/camouflage-charts/define");
 
 // Context (skin, theme, environment) needs the elements' connectedCallback on the server (@lit-labs/ssr 4).
 LitElementRenderer.renderOptions.push(() => ({ connectedCallback: true }));

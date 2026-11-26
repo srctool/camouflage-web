@@ -62,7 +62,9 @@ export class CamoListItem extends LitElement {
     this.clickable = false;
     this.selected = false;
     this.disabled = false;
-    attachActivation(this, () => this.disabled || !this.clickable);
+    attachActivation(this, () => this.disabled || !this.clickable, {
+      container: () => !this.disabled,
+    });
     void this.#press;
   }
 

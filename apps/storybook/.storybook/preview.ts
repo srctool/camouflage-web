@@ -1,6 +1,7 @@
 import "@srctool/camouflage-core/define";
 import "@srctool/camouflage-skin-minimal/register";
 import "@srctool/camouflage-skin-cupertino/register";
+import "@srctool/camouflage-charts/define";
 import { html } from "lit";
 import type { Preview } from "@storybook/web-components-vite";
 import { registerDemoIcons } from "../../../scenarios/icons.ts";

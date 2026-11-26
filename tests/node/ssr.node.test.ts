@@ -7,6 +7,7 @@ registerDemoIcons();
 await import("@srctool/camouflage-core/define");
 await import("@srctool/camouflage-skin-minimal/register");
 await import("@srctool/camouflage-skin-cupertino/register");
+await import("@srctool/camouflage-charts/define");
 
 const MINIMAL_PRIMARY = "--camo-color-primary: #1b1b1b";
 const CUPERTINO_PRIMARY = "--camo-color-primary: #007aff";
@@ -580,5 +581,40 @@ describe("the W6 actions, panels, media, data and navigation helpers on the serv
 
   it("gives the same page twice the same bytes", () => {
     expect(page("cupertino")).toBe(page("cupertino"));
+  });
+});
+
+describe("the charts on the server", () => {
+  const categories = JSON.stringify(["Jan", "Feb", "Mar"]);
+  const series = JSON.stringify([{ name: "North", values: [3, 9, 6] }]);
+  const slices = JSON.stringify([
+    { label: "Search", value: 3 },
+    { label: "Direct", value: 1 },
+  ]);
+  const page = (skin: string): string =>
+    squash(
+      renderToString(
+        html`<camo-provider skin=${skin} scheme="light">
+          <camo-sparkline values="[3,5,9]" description="Signups"></camo-sparkline>
+          <camo-line-chart title="Sales" categories=${categories} series=${series}></camo-line-chart>
+          <camo-bar-chart title="Revenue" categories=${categories} series=${series}></camo-bar-chart>
+          <camo-pie-chart title="Traffic" slices=${slices} donut></camo-pie-chart>
+        </camo-provider>`,
+      ),
+    );
+
+  it.each(["minimal", "cupertino"])("draw their marks and text under %s", (skin) => {
+    const out = page(skin);
+    expect(out).toMatch(
+      /<camo-sparkline[^>]*role="img"[^>]*aria-label="Signups: from 3 to 9, up 200%"/,
+    );
+    expect(out).toContain("Line chart, 1 series, 3 categories. North: from 3 to 6, up 100%");
+    expect(out).toContain("Pie chart".replace("Pie", "Donut"));
+    expect(out).toContain("largest: Search 75%");
+    // Lines are paths in a stretched SVG, bars are boxes at percentages, slices are sectors: no measurement needed.
+    expect(out).toContain('preserveAspectRatio="none"');
+    expect(out).toContain('class="bar up');
+    expect(out).toContain('class="slice"');
+    expect(out).toContain("Search: 3, 75%");
   });
 });

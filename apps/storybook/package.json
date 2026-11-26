@@ -9,6 +9,7 @@
     "e2e": "playwright test"
   },
   "dependencies": {
+    "@srctool/camouflage-charts": "workspace:*",
     "@srctool/camouflage-core": "workspace:*",
     "@srctool/camouflage-skin-cupertino": "workspace:*",
     "@srctool/camouflage-skin-minimal": "workspace:*",

@@ -190,6 +190,9 @@ importers:
       '@playwright/test':
         specifier: 1.65.1
         version: 1.65.1
+      '@srctool/camouflage-charts':
+        specifier: workspace:*
+        version: link:packages/charts
       '@srctool/camouflage-core':
         specifier: workspace:*
         version: link:packages/core
@@ -314,6 +317,9 @@ importers:
       '@lit-labs/ssr-client':
         specifier: 1.1.8
         version: 1.1.8
+      '@srctool/camouflage-charts':
+        specifier: workspace:*
+        version: link:../../packages/charts
       '@srctool/camouflage-core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -339,6 +345,9 @@ importers:
 
   apps/storybook:
     dependencies:
+      '@srctool/camouflage-charts':
+        specifier: workspace:*
+        version: link:../../packages/charts
       '@srctool/camouflage-core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -367,6 +376,15 @@ importers:
       web-features:
         specifier: ^3.47.0
         version: 3.47.0
+
+  packages/charts:
+    dependencies:
+      '@srctool/camouflage-core':
+        specifier: workspace:*
+        version: link:../core
+      lit:
+        specifier: 3.3.3
+        version: 3.3.3
 
   packages/core:
     dependencies:

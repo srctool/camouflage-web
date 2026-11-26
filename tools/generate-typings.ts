@@ -4,8 +4,8 @@
 // out of date. The manifest comes from the elements' JSDoc (`@attr`, `@slot`, `@fires`), so they are the source.
 import { readFileSync, writeFileSync } from "node:fs";
 import { format, resolveConfig } from "prettier";
-import { generateManifest, elementsOf } from "./manifest.ts";
-import type { ManifestDeclaration } from "./manifest.ts";
+import { PACKAGES, generateManifest, elementsOf, manifestFor } from "./manifest.ts";
+import type { ManifestDeclaration, PackageName } from "./manifest.ts";
 
 const root = new URL("..", import.meta.url).pathname;
 const BUILTIN = new Set(["string", "number", "boolean", "null", "undefined", "unknown", "never"]);
@@ -96,12 +96,12 @@ const attributeLines = (m: Model, indent: string): string[] =>
   );
 
 /** `typings/react.d.ts`: JSX for React 19 (custom elements take attributes and properties). */
-function react(models: Model[]): string {
+function react(models: Model[], from: string): string {
   const imports = unique(models.flatMap((m) => [m.imports.element, ...m.imports.attributes]));
   return [
     HEADER,
     'import type { DetailedHTMLProps, HTMLAttributes } from "react";',
-    `import type { ${imports.join(", ")} } from "@srctool/camouflage-core";\n`,
+    `import type { ${imports.join(", ")} } from "${from}";\n`,
     "type CamoElement<T extends HTMLElement, A = unknown> = DetailedHTMLProps<HTMLAttributes<T>, T> & A;\n",
     'declare module "react" {',
     "  namespace JSX {",
@@ -120,14 +120,14 @@ function react(models: Model[]): string {
 }
 
 /** `typings/vue.d.ts`: the components for Vue's `GlobalComponents` (templates type-check props and events). */
-function vue(models: Model[]): string {
+function vue(models: Model[], from: string): string {
   const imports = unique(models.flatMap((m) => [...m.imports.attributes, ...m.imports.events]));
   const pascal = (tag: string): string =>
     tag.replace(/(^|-)(\w)/g, (_, __, c: string) => c.toUpperCase());
   return [
     HEADER,
     'import type { DefineComponent, HTMLAttributes } from "vue";',
-    `import type { ${imports.join(", ")} } from "@srctool/camouflage-core";\n`,
+    `import type { ${imports.join(", ")} } from "${from}";\n`,
     'declare module "vue" {',
     "  interface GlobalComponents {",
     ...models.flatMap((m) => [
@@ -144,15 +144,18 @@ function vue(models: Model[]): string {
   ].join("\n");
 }
 
-const outputs = (models: Model[]): Record<string, string> => ({
-  "packages/core/src/elements.ts": globals(models),
-  "packages/core/typings/react.d.ts": react(models),
-  "packages/core/typings/vue.d.ts": vue(models),
+const outputs = (name: PackageName, models: Model[]): Record<string, string> => ({
+  [`packages/${name}/src/elements.ts`]: globals(models),
+  [`packages/${name}/typings/react.d.ts`]: react(models, `@srctool/camouflage-${name}`),
+  [`packages/${name}/typings/vue.d.ts`]: vue(models, `@srctool/camouflage-${name}`),
 });
 
-const models = elementsOf(generateManifest()).map(model);
+const manifest = generateManifest();
+const files = PACKAGES.flatMap((name) =>
+  Object.entries(outputs(name, elementsOf(manifestFor(manifest, name)).map(model))),
+);
 let stale = false;
-for (const [path, raw] of Object.entries(outputs(models))) {
+for (const [path, raw] of files) {
   const file = `${root}${path}`;
   const body = await format(raw, { ...(await resolveConfig(file)), filepath: file });
   if (process.argv.includes("--check")) {

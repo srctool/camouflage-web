@@ -9,6 +9,7 @@ Packages are published under the `@srctool` scope from GitHub Actions with **npm
 | `@srctool/camouflage-core`           | `packages/core`           | `core-v<version>`           |
 | `@srctool/camouflage-skin-minimal`   | `packages/skin-minimal`   | `skin-minimal-v<version>`   |
 | `@srctool/camouflage-skin-cupertino` | `packages/skin-cupertino` | `skin-cupertino-v<version>` |
+| `@srctool/camouflage-charts`         | `packages/charts`         | `charts-v<version>`         |
 
 A tag is `<folder>-v<version>`, like `camouflage_core-v0.1.0` on pub.dev. `tools/release-check.mjs` resolves the folder from the tag and fails the release when:
 
@@ -16,11 +17,11 @@ A tag is `<folder>-v<version>`, like `camouflage_core-v0.1.0` on pub.dev. `tools
 - the folder is not a package or is private;
 - the version claims parity with Kotlin and Dart while the web port has not reached it. **Until parity only `0.x.y-alpha.N` is accepted** (published with the `alpha` dist-tag). When parity is reached, set `"camouflage": { "parity": true }` in the root `package.json`; plain `0.2.0` then goes to `latest`.
 
-Publish `core` before the skins: a skin depends on that exact core version, which `pnpm pack` writes in place of `workspace:*`.
+Publish `core` before the skins and the charts: each depends on that exact core version, which `pnpm pack` writes in place of `workspace:*`.
 
 ## One-time setup (the organization owner, on npmjs.com)
 
-Trusted publishing is configured per package, and a package must exist before its page has the setting. For each of the three packages:
+Trusted publishing is configured per package, and a package must exist before its page has the setting. For each of the four packages:
 
 1. Publish a first placeholder version by hand to create the package (for example `0.0.0-reserved`, with a README that says the name is reserved), from a machine logged in as an owner of the `@srctool` scope: `npm publish --access public --tag reserved`. This reserves the name; it is the only publish that uses your own login.
 2. Open the package, **Settings**, **Trusted Publisher**, choose **GitHub Actions** and enter:
