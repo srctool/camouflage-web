@@ -2,7 +2,7 @@
   "$schema": "./schema.json",
   "version": 1,
   "defaults": {
-    "skins": ["minimal", "cupertino"],
+    "skins": ["minimal", "material", "cupertino", "fluent", "carbon"],
     "modes": ["light", "dark"],
     "textScales": [1, 2],
     "directions": ["ltr", "rtl"]
@@ -128,8 +128,8 @@
         "appearance": "outline"
       },
       "content": {
-        "prefix-icon": "<span>◀</span>",
-        "suffix-icon": "<span>▶</span>"
+        "prefix-icon": "<span>\u25c0</span>",
+        "suffix-icon": "<span>\u25b6</span>"
       }
     },
     {
@@ -1775,7 +1775,7 @@
         "open": true
       },
       "content": {
-        "": "<camo-button slot=\"anchor\" text=\"Actions\" appearance=\"outline\"></camo-button><camo-menu-item text=\"Copy\" trailing-text=\"⌘C\"></camo-menu-item><camo-menu-item text=\"Paste\" trailing-text=\"⌘V\"></camo-menu-item><camo-menu-divider></camo-menu-divider><camo-menu-group exclusive><camo-menu-item text=\"Newest\" checkable checked></camo-menu-item><camo-menu-item text=\"Oldest\" checkable></camo-menu-item></camo-menu-group><camo-menu-divider></camo-menu-divider><camo-menu-item text=\"Delete\" tone=\"error\"></camo-menu-item><camo-menu-item text=\"Archive\" disabled></camo-menu-item>"
+        "": "<camo-button slot=\"anchor\" text=\"Actions\" appearance=\"outline\"></camo-button><camo-menu-item text=\"Copy\" trailing-text=\"\u2318C\"></camo-menu-item><camo-menu-item text=\"Paste\" trailing-text=\"\u2318V\"></camo-menu-item><camo-menu-divider></camo-menu-divider><camo-menu-group exclusive><camo-menu-item text=\"Newest\" checkable checked></camo-menu-item><camo-menu-item text=\"Oldest\" checkable></camo-menu-item></camo-menu-group><camo-menu-divider></camo-menu-divider><camo-menu-item text=\"Delete\" tone=\"error\"></camo-menu-item><camo-menu-item text=\"Archive\" disabled></camo-menu-item>"
       },
       "frame": "page"
     },
@@ -1783,7 +1783,7 @@
       "name": "menu-closed",
       "component": "menu",
       "content": {
-        "": "<camo-button slot=\"anchor\" text=\"Actions\" appearance=\"outline\"></camo-button><camo-menu-item text=\"Copy\" trailing-text=\"⌘C\"></camo-menu-item><camo-menu-item text=\"Paste\" trailing-text=\"⌘V\"></camo-menu-item><camo-menu-divider></camo-menu-divider><camo-menu-group exclusive><camo-menu-item text=\"Newest\" checkable checked></camo-menu-item><camo-menu-item text=\"Oldest\" checkable></camo-menu-item></camo-menu-group><camo-menu-divider></camo-menu-divider><camo-menu-item text=\"Delete\" tone=\"error\"></camo-menu-item><camo-menu-item text=\"Archive\" disabled></camo-menu-item>"
+        "": "<camo-button slot=\"anchor\" text=\"Actions\" appearance=\"outline\"></camo-button><camo-menu-item text=\"Copy\" trailing-text=\"\u2318C\"></camo-menu-item><camo-menu-item text=\"Paste\" trailing-text=\"\u2318V\"></camo-menu-item><camo-menu-divider></camo-menu-divider><camo-menu-group exclusive><camo-menu-item text=\"Newest\" checkable checked></camo-menu-item><camo-menu-item text=\"Oldest\" checkable></camo-menu-item></camo-menu-group><camo-menu-divider></camo-menu-divider><camo-menu-item text=\"Delete\" tone=\"error\"></camo-menu-item><camo-menu-item text=\"Archive\" disabled></camo-menu-item>"
       },
       "modes": ["light"],
       "textScales": [1],
@@ -2521,7 +2521,7 @@
         "text": "Save"
       },
       "content": {
-        "": "<camo-menu-item text=\"Save as…\"></camo-menu-item><camo-menu-item text=\"Save a copy\"></camo-menu-item>"
+        "": "<camo-menu-item text=\"Save as\u2026\"></camo-menu-item><camo-menu-item text=\"Save a copy\"></camo-menu-item>"
       }
     },
     {
@@ -2532,7 +2532,7 @@
         "appearance": "outline"
       },
       "content": {
-        "": "<camo-menu-item text=\"Save as…\"></camo-menu-item>"
+        "": "<camo-menu-item text=\"Save as\u2026\"></camo-menu-item>"
       },
       "textScales": [1],
       "directions": ["ltr"]
@@ -2559,7 +2559,7 @@
         "disabled": true
       },
       "content": {
-        "": "<camo-menu-item text=\"Save as…\"></camo-menu-item>"
+        "": "<camo-menu-item text=\"Save as\u2026\"></camo-menu-item>"
       },
       "textScales": [1],
       "directions": ["ltr"]
@@ -3510,6 +3510,108 @@
       "textScales": [1],
       "directions": ["ltr"],
       "modes": ["light"]
+    },
+    {
+      "name": "material-classic-menu",
+      "component": "menu",
+      "props": {
+        "open": true
+      },
+      "content": {
+        "": "<camo-button slot=\"anchor\" text=\"Actions\" appearance=\"outline\"></camo-button><camo-menu-item text=\"Copy\" trailing-text=\"\u2318C\"></camo-menu-item><camo-menu-item text=\"Paste\" trailing-text=\"\u2318V\"></camo-menu-item><camo-menu-divider></camo-menu-divider><camo-menu-group exclusive><camo-menu-item text=\"Newest\" checkable checked></camo-menu-item><camo-menu-item text=\"Oldest\" checkable></camo-menu-item></camo-menu-group><camo-menu-divider></camo-menu-divider><camo-menu-item text=\"Delete\" tone=\"error\"></camo-menu-item><camo-menu-item text=\"Archive\" disabled></camo-menu-item>"
+      },
+      "skins": ["cupertino"],
+      "surface": "classic",
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"],
+      "frame": "page"
+    },
+    {
+      "name": "material-glass-menu",
+      "component": "menu",
+      "props": {
+        "open": true
+      },
+      "content": {
+        "": "<camo-button slot=\"anchor\" text=\"Actions\" appearance=\"outline\"></camo-button><camo-menu-item text=\"Copy\" trailing-text=\"\u2318C\"></camo-menu-item><camo-menu-item text=\"Paste\" trailing-text=\"\u2318V\"></camo-menu-item><camo-menu-divider></camo-menu-divider><camo-menu-group exclusive><camo-menu-item text=\"Newest\" checkable checked></camo-menu-item><camo-menu-item text=\"Oldest\" checkable></camo-menu-item></camo-menu-group><camo-menu-divider></camo-menu-divider><camo-menu-item text=\"Delete\" tone=\"error\"></camo-menu-item><camo-menu-item text=\"Archive\" disabled></camo-menu-item>"
+      },
+      "skins": ["cupertino"],
+      "surface": "liquid-glass",
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"],
+      "frame": "page"
+    },
+    {
+      "name": "material-glass-toolbar",
+      "component": "toolbar",
+      "props": {
+        "label": "Tools",
+        "placement": "floating",
+        "style": "width: 280px"
+      },
+      "content": {
+        "": "<camo-icon-button label=\"Bold\"><camo-icon name=\"bold\"></camo-icon></camo-icon-button><camo-icon-button label=\"Share\"><camo-icon name=\"share\"></camo-icon></camo-icon-button><camo-icon-button label=\"Search\"><camo-icon name=\"search\"></camo-icon></camo-icon-button>"
+      },
+      "skins": ["cupertino"],
+      "surface": "liquid-glass",
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"],
+      "frame": "page"
+    },
+    {
+      "name": "material-glass-popover",
+      "component": "popover",
+      "props": {
+        "open": true,
+        "title": "Rename",
+        "placement": "bottom"
+      },
+      "content": {
+        "": "<camo-button slot=\"anchor\" text=\"Rename\" appearance=\"outline\"></camo-button><camo-text text=\"Choose a new name for this file.\"></camo-text><camo-button slot=\"actions\" appearance=\"ghost\" text=\"Cancel\"></camo-button><camo-button slot=\"actions\" text=\"Save\"></camo-button>"
+      },
+      "skins": ["cupertino"],
+      "surface": "liquid-glass",
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"],
+      "frame": "page"
+    },
+    {
+      "name": "material-acrylic-menu",
+      "component": "menu",
+      "props": {
+        "open": true
+      },
+      "content": {
+        "": "<camo-button slot=\"anchor\" text=\"Actions\" appearance=\"outline\"></camo-button><camo-menu-item text=\"Copy\" trailing-text=\"\u2318C\"></camo-menu-item><camo-menu-item text=\"Paste\" trailing-text=\"\u2318V\"></camo-menu-item><camo-menu-divider></camo-menu-divider><camo-menu-group exclusive><camo-menu-item text=\"Newest\" checkable checked></camo-menu-item><camo-menu-item text=\"Oldest\" checkable></camo-menu-item></camo-menu-group><camo-menu-divider></camo-menu-divider><camo-menu-item text=\"Delete\" tone=\"error\"></camo-menu-item><camo-menu-item text=\"Archive\" disabled></camo-menu-item>"
+      },
+      "skins": ["fluent"],
+      "surface": "acrylic",
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"],
+      "frame": "page"
+    },
+    {
+      "name": "material-acrylic-popover",
+      "component": "popover",
+      "props": {
+        "open": true,
+        "title": "Rename",
+        "placement": "bottom"
+      },
+      "content": {
+        "": "<camo-button slot=\"anchor\" text=\"Rename\" appearance=\"outline\"></camo-button><camo-text text=\"Choose a new name for this file.\"></camo-text><camo-button slot=\"actions\" appearance=\"ghost\" text=\"Cancel\"></camo-button><camo-button slot=\"actions\" text=\"Save\"></camo-button>"
+      },
+      "skins": ["fluent"],
+      "surface": "acrylic",
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"],
+      "frame": "page"
     }
   ]
 }

@@ -17,14 +17,14 @@ describe("the scenario list", () => {
     expect(new Set(variants.map((v) => v.id)).size).toBe(variants.length);
     expect(variants.length).toBeGreaterThan(100);
     const solid = variants.filter((v) => v.scenario.name === "button-solid");
-    expect(solid).toHaveLength(2 * 2 * 2 * 2); // skins x modes x text scales x directions
+    expect(solid).toHaveLength(5 * 2 * 2 * 2); // skins x modes x text scales x directions
     expect(solid[0]!.id).toBe("button-solid_minimal_light_fs1_ltr");
-    expect(solid.at(-1)!.id).toBe("button-solid_cupertino_dark_fs2_rtl");
+    expect(solid.at(-1)!.id).toBe("button-solid_carbon_dark_fs2_rtl");
   });
 
   it("lets a scenario narrow an axis, and falls back to one light, 1x, LTR capture", () => {
     const error = variants.filter((v) => v.scenario.name === "button-solid-error");
-    expect(error).toHaveLength(2 * 2); // skins x modes
+    expect(error).toHaveLength(5 * 2); // skins x modes
     const bare = expandScenarios({ version: 1, scenarios: [{ name: "x", component: "button" }] });
     expect(bare.map((v) => v.id)).toEqual(["x_minimal_light_fs1_ltr"]);
     expect(
@@ -91,6 +91,6 @@ describe("the scenario list", () => {
     expect(scenarioMarkup(entry)).toBe('<camo-text style="body">Hello</camo-text>');
     expect(
       expandScenarios({ version: 1, defaults: file.defaults!, scenarios: [entry] }),
-    ).toHaveLength(16);
+    ).toHaveLength(40);
   });
 });

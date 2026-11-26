@@ -7,6 +7,9 @@ registerDemoIcons();
 await import("@srctool/camouflage-core/define");
 await import("@srctool/camouflage-skin-minimal/register");
 await import("@srctool/camouflage-skin-cupertino/register");
+await import("@srctool/camouflage-skin-material/register");
+await import("@srctool/camouflage-skin-fluent/register");
+await import("@srctool/camouflage-skin-carbon/register");
 await import("@srctool/camouflage-charts/define");
 
 const MINIMAL_PRIMARY = "--camo-color-primary: #1b1b1b";

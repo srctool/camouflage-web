@@ -1,6 +1,9 @@
 import "@srctool/camouflage-core/define";
 import "@srctool/camouflage-skin-minimal/register";
 import "@srctool/camouflage-skin-cupertino/register";
+import "@srctool/camouflage-skin-material/register";
+import "@srctool/camouflage-skin-fluent/register";
+import "@srctool/camouflage-skin-carbon/register";
 import "@srctool/camouflage-charts/define";
 import { html } from "lit";
 import type { Preview } from "@storybook/web-components-vite";
@@ -13,7 +16,11 @@ const preview: Preview = {
   globalTypes: {
     skin: {
       description: "Skin",
-      toolbar: { title: "Skin", items: ["minimal", "cupertino"], dynamicTitle: true },
+      toolbar: {
+        title: "Skin",
+        items: ["minimal", "material", "cupertino", "fluent", "carbon"],
+        dynamicTitle: true,
+      },
     },
     scheme: {
       description: "Colour scheme",

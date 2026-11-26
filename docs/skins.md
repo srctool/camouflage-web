@@ -89,7 +89,7 @@ ring for keyboard focus). 40 px buttons, radius 8, a 48 px touch area.
 ## Cupertino (Classic)
 
 Apple's system colors from the HIG tables, SF type, iOS radii, **Classic** surface (an opaque fill with a soft shadow) and
-**Opacity** feedback (the content dims to 35% while pressed, a faint hover veil, a 3px focus ring). Liquid Glass arrives in W8.
+**Opacity** feedback (the content dims to 35% while pressed, a faint hover veil, a 3px focus ring). The materials are below.
 `cupertinoTheme({ accent })` replaces the primary family with your accent.
 
 | Appearance | Cupertino                                            |
@@ -175,13 +175,84 @@ Apple's system colors from the HIG tables, SF type, iOS radii, **Classic** surfa
 The same `<camo-dialog>` markup gives side-by-side actions under Minimal and stacked ones under Cupertino; that is the
 contract's point, tested in the server-rendering and browser tests.
 
-## Material (W8): what the W2 components need
+## Cupertino materials (W8)
 
-Surface levels are Material's `surfaceContainer*` roles one to one, and elevation is a shadow (Paper), so Material needs
-only `defaults(theme)` for Surface and Divider, and the Classic treatment. Material's icon button maps Solid to Filled,
-Soft to Filled tonal, Outline to Outlined and Ghost to Standard (the base note's table), with `onSurfaceVariant` icons.
-Carbon and Fluent have no Surface level of their own: Carbon's layers and Fluent's neutral backgrounds 1 to 6 are mapped
-onto the same six levels by the skin.
+`cupertinoSkin` is the **Classic** material: top bars, navigation bars, toolbars, sheets, dialogs, menus, popovers and
+snackbars are the fill at 80% over a 25 px blur. `createCupertinoSkin({ surface: "liquid-glass" })` is **Liquid Glass**:
+55% over a 16 px blur with a specular edge and a short shadow, the backdrop bent by an SVG displacement filter, and
+every button a capsule with the quiet ones glass too. Cards, lists and fields stay opaque.
+
+## Material 3
+
+M3's baseline scheme, shapes (4 to 28), motion and type scale; **Paper** (a shadow that grows with elevation) and
+**Ripple** (state layers 8% and 10%, a ripple from the press point, a 3 px focus ring). `materialTheme({ seed })` from
+`@srctool/camouflage-skin-material/factory` derives the colors from a seed.
+`createMaterialSkin({ expressiveProgress: true })` waves the linear progress bar.
+
+| Component | Material                                                                                                      |
+| --------- | ------------------------------------------------------------------------------------------------------------- |
+| Button    | 40 tall pill: filled, tonal (`secondaryContainer`), elevated, outlined, text; Link underlined                 |
+| Fields    | outlined, 56 tall, **floating label**; search is a 56 pill                                                    |
+| Controls  | checkbox 18; switch 52 by 32, thumb 16 to 24 (28 pressed); slider 16 track with a 4 by 44 handle              |
+| Segmented | pill, selected `secondaryContainer` with a check                                                              |
+| Card      | **Filled** by default, elevated and outlined; radius 12                                                       |
+| Overlays  | dialog radius 28 on `surfaceContainerHigh`, actions at the end; menu 48 rows; snackbar inverse                |
+| Chrome    | top bar 64, tinted once scrolled; tabs 3 px content-wide indicator; navigation bar 80 with a pill; drawer 360 |
+| Later     | pill button groups with 8 inner corners, split button with a 2 px gap, 64 toolbar, radius 28 carousel         |
+
+## Fluent 2
+
+The neutral ramp and brandWeb, radii 2 to 12, with the state steps as `--fluent-*` tokens; **Subtle** feedback (a quiet
+step, the double-stroke focus). Surfaces: **Solid** (`fluentSkin`), **Acrylic** and **Mica** through
+`createFluentSkin({ surface })`. Controls are 32 with a pointer and 40 with fingers;
+`fluentTheme({ brand, density })` from `/factory` sets them (`small` is 24).
+
+| Component | Fluent                                                                                         |
+| --------- | ---------------------------------------------------------------------------------------------- |
+| Button    | radius 4; primary brand, secondary with a stroke, subtle, link; hover and press swap tokens    |
+| Fields    | 32 tall, a stroke with a darker **bottom edge** that turns brand on focus                      |
+| Controls  | checkbox and radio 16; switch 40 by 20, label after; slider thumb with an inner dot            |
+| Card      | radius 8 with shadow4                                                                          |
+| Overlays  | dialog radius 8 with shadow64; menu 32 rows, check at the start; toast at the bottom end       |
+| Chrome    | top bar 48; tabs with a short brand underline and no divider; rail 48 of icons; a 260 nav pane |
+| Later     | popover with an arrow, 320 side sheet, 44 toolbar, 40/44 data table, 32 tree rows              |
+
+## Carbon
+
+IBM's White and G100 themes (G10 and G90 through `carbonTheme` from `/factory`), square shapes, **Layered** surfaces
+(opaque; one shadow for overlays) and **CarbonStates** (8% and 20%, an inset focus border). Controls are 48 with
+fingers and 40 with a pointer; `carbonTheme({ density })` takes `xs` 24, `sm` 32, `md` 40 or `lg` 48.
+
+| Component | Carbon                                                                                                |
+| --------- | ----------------------------------------------------------------------------------------------------- |
+| Button    | square; primary blue, secondary gray 80, tertiary outline, ghost; the icon sits at the far end        |
+| Fields    | the field fill with a **bottom border only**                                                          |
+| Controls  | square checkbox 16; a 48 by 24 toggle, green when on; content switcher with an inverse selection      |
+| Card      | a tile, no border; a tile inside a tile steps one gray                                                |
+| Overlays  | square modal with a **full-width** action row; square menus; toast at the top end with a start border |
+| Chrome    | a **gray 100** header in every theme; line tabs; a 48 icon rail and a 256 side panel with a blue line |
+| Later     | square groups, 48 table rows, slash breadcrumbs, 16 progress markers                                  |
+
+## Surfaces, capabilities and the fallback chains (ADR-42)
+
+A provider writes what it measured as custom properties (`--camo-blur-supported`, `--camo-glass-refraction`,
+`--camo-material-texture`, `--camo-window-material`, `--camo-input-pointer`), and a skin decides in CSS. The server
+writes none, so the first paint is the safe one.
+
+| Skin      | Material                                                                         | Reads capabilities |
+| --------- | -------------------------------------------------------------------------------- | ------------------ |
+| Minimal   | Flat                                                                             | no                 |
+| Material  | Paper                                                                            | no                 |
+| Cupertino | Liquid Glass with refraction, then blur and edge, then Classic blur, then opaque | yes                |
+| Fluent    | Acrylic: blur, tint and grain; without blur a solid fill with grain; then Solid  | yes                |
+| Carbon    | Layered                                                                          | no                 |
+
+Reduce Transparency always ends at the opaque surface. Refraction is drawn by Chromium only. Mica needs a window
+material, which a web page never has, so it is Solid.
+
+## Size (gzip, bundled with the core parts a skin uses)
+
+Minimal 45.6 kB, Material 45.9, Fluent 46.5, Carbon 46.4, Cupertino 46.6; `tools/size-budget.mjs` holds each.
 
 ## Known gaps
 

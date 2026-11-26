@@ -2,7 +2,7 @@ import { inspectAria } from "@srctool/camouflage-core";
 import { userEvent } from "vitest/browser";
 import { describe, expect, it } from "vitest";
 import { registerDemoIcons } from "../../scenarios/icons.ts";
-import { mount, settled } from "./helpers.ts";
+import { mount, settled, SKINS, traits } from "./helpers.ts";
 
 registerDemoIcons();
 
@@ -21,7 +21,7 @@ const inner = (el: Element, selector: string): HTMLElement =>
 const tick = (ms = 50): Promise<void> => new Promise((r) => setTimeout(r, ms));
 const bg = (el: Element): string => getComputedStyle(inner(el, ".camo-surface")).backgroundColor;
 
-describe.each(["minimal", "cupertino"])("camo-chip under %s", (skin) => {
+describe.each(SKINS)("camo-chip under %s", (skin) => {
   it("is a tag, an action, a filter or an input chip by what it is given", async () => {
     const root = await page(
       skin,
@@ -124,7 +124,7 @@ describe.each(["minimal", "cupertino"])("camo-chip under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-chip-group under %s", (skin) => {
+describe.each(SKINS)("camo-chip-group under %s", (skin) => {
   const chips = `<camo-chip value="a" label="A"></camo-chip><camo-chip value="b" label="B"></camo-chip><camo-chip value="c" label="C"></camo-chip>`;
 
   it("is a radio group of chips for one choice, with one tab stop", async () => {
@@ -204,7 +204,7 @@ describe.each(["minimal", "cupertino"])("camo-chip-group under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-badge and camo-badged-box under %s", (skin) => {
+describe.each(SKINS)("camo-badge and camo-badged-box under %s", (skin) => {
   it("shows a count, 99+ above max, a dot with no count, and nothing for zero", async () => {
     const root = await page(
       skin,
@@ -269,7 +269,7 @@ describe.each(["minimal", "cupertino"])("camo-badge and camo-badged-box under %s
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-avatar under %s", (skin) => {
+describe.each(SKINS)("camo-avatar under %s", (skin) => {
   it("shows initials, a person icon for no name, and is an image named by name and presence", async () => {
     const root = await page(
       skin,
@@ -307,8 +307,10 @@ describe.each(["minimal", "cupertino"])("camo-avatar under %s", (skin) => {
     const radius = (id: string): string =>
       getComputedStyle(inner(q(root, id), ".a")).borderTopLeftRadius;
     expect(radius("#sq")).toBe("0px");
-    expect(radius("#r")).not.toBe("0px");
-    expect(radius("#r")).not.toBe(radius("#m"));
+    if (traits(skin).rounded) {
+      expect(radius("#r")).not.toBe("0px");
+      expect(radius("#r")).not.toBe(radius("#m"));
+    }
   });
 
   it("shows the initials until a slotted image has loaded, and again if it fails", async () => {
@@ -335,7 +337,7 @@ describe.each(["minimal", "cupertino"])("camo-avatar under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-avatar-group under %s", (skin) => {
+describe.each(SKINS)("camo-avatar-group under %s", (skin) => {
   const five = [
     "Ada Lovelace",
     "Grace Hopper",
@@ -376,7 +378,7 @@ describe.each(["minimal", "cupertino"])("camo-avatar-group under %s", (skin) => 
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-fab under %s", (skin) => {
+describe.each(SKINS)("camo-fab under %s", (skin) => {
   const icon = `<camo-icon slot="icon" name="edit"></camo-icon>`;
 
   it("is a button named by its description, or by its text when extended, in both states", async () => {
@@ -450,7 +452,7 @@ describe.each(["minimal", "cupertino"])("camo-fab under %s", (skin) => {
   it("keeps a 48 px touch area around a small FAB, and draws appearances and tones differently", async () => {
     const root = await page(
       skin,
-      `<camo-fab id="a" content-description="A">${icon}</camo-fab><camo-fab id="b" content-description="B" appearance="soft">${icon}</camo-fab><camo-fab id="c" content-description="C" appearance="solid" tone="error">${icon}</camo-fab>`,
+      `<camo-fab id="a" content-description="A" appearance="raised">${icon}</camo-fab><camo-fab id="b" content-description="B" appearance="soft">${icon}</camo-fab><camo-fab id="c" content-description="C" appearance="solid" tone="error">${icon}</camo-fab>`,
     );
     expect(q(root, "#a").getBoundingClientRect().width).toBeGreaterThanOrEqual(48);
     expect(new Set(["#a", "#b", "#c"].map((id) => bg(q(root, id)))).size).toBe(3);

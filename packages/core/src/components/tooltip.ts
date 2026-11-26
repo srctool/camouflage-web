@@ -91,7 +91,8 @@ export class CamoTooltip extends LitElement {
       await this.updateComplete;
       const popup = this.#popup;
       const anchor = this.#anchor;
-      if (popup === null || anchor === null) return;
+      // The tooltip may have been removed while it rendered.
+      if (popup === null || anchor === null || !popup.isConnected) return;
       popup.showPopover();
       const place = (): void =>
         placePopover(popup, anchor.getBoundingClientRect(), {

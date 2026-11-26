@@ -2,7 +2,7 @@ import { inspectAria } from "@srctool/camouflage-core";
 import { userEvent } from "vitest/browser";
 import { describe, expect, it } from "vitest";
 import { registerDemoIcons } from "../../scenarios/icons.ts";
-import { mount, settled } from "./helpers.ts";
+import { mount, settled, SKINS, traits } from "./helpers.ts";
 
 registerDemoIcons();
 
@@ -23,7 +23,7 @@ const tick = (ms = 50): Promise<void> => new Promise((r) => setTimeout(r, ms));
 const gb = (text: string, extra = ""): string =>
   `<camo-group-button text="${text}"${extra}></camo-group-button>`;
 
-describe.each(["minimal", "cupertino"])("camo-button-group under %s", (skin) => {
+describe.each(SKINS)("camo-button-group under %s", (skin) => {
   it("is a named group of buttons, each with its place, and one Tab stop", async () => {
     const root = await page(
       skin,
@@ -97,10 +97,12 @@ describe.each(["minimal", "cupertino"])("camo-button-group under %s", (skin) => 
     const radius = (el: El, corner: string): string =>
       getComputedStyle(inner(el, ".b"))[corner as "borderStartStartRadius"];
     const [a, b, c] = all(q(root, "#c"), "camo-group-button");
-    expect(radius(a!, "borderStartStartRadius")).not.toBe("0px");
-    expect(radius(a!, "borderStartEndRadius")).toBe("0px");
-    expect(radius(b!, "borderStartStartRadius")).toBe("0px");
-    expect(radius(c!, "borderEndEndRadius")).not.toBe("0px");
+    const { rounded, roundedInner } = traits(skin);
+    const square = (value: string): boolean => value === "0px";
+    expect(square(radius(a!, "borderStartStartRadius"))).toBe(!rounded);
+    expect(square(radius(a!, "borderStartEndRadius"))).toBe(!roundedInner);
+    expect(square(radius(b!, "borderStartStartRadius"))).toBe(!roundedInner);
+    expect(square(radius(c!, "borderEndEndRadius"))).toBe(!rounded);
     const gap = (id: string): number => {
       const [x, y] = all(q(root, id), "camo-group-button").map((el) => el.getBoundingClientRect());
       return y!.left - x!.right;
@@ -121,7 +123,9 @@ describe.each(["minimal", "cupertino"])("camo-button-group under %s", (skin) => 
     expect(box.left).toBeGreaterThan(
       all(root, "camo-group-button")[1]!.getBoundingClientRect().left,
     );
-    expect(getComputedStyle(inner(first!, ".b")).borderStartStartRadius).not.toBe("0px");
+    expect(getComputedStyle(inner(first!, ".b")).borderStartStartRadius !== "0px").toBe(
+      traits(skin).rounded,
+    );
   });
 
   it("disables every button with the group", async () => {
@@ -139,7 +143,7 @@ describe.each(["minimal", "cupertino"])("camo-button-group under %s", (skin) => 
 
 const items = `<camo-menu-item text="Save as…"></camo-menu-item><camo-menu-item text="Save a copy"></camo-menu-item>`;
 
-describe.each(["minimal", "cupertino"])("camo-split-button under %s", (skin) => {
+describe.each(SKINS)("camo-split-button under %s", (skin) => {
   it("runs the main action on a click and opens the menu on the arrow", async () => {
     const root = await page(skin, `<camo-split-button text="Save">${items}</camo-split-button>`);
     const split = q(root, "camo-split-button");
@@ -228,7 +232,7 @@ describe.each(["minimal", "cupertino"])("camo-split-button under %s", (skin) => 
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-popover under %s", (skin) => {
+describe.each(SKINS)("camo-popover under %s", (skin) => {
   const body = (attrs = ""): string =>
     `<camo-popover title="Rename"${attrs}><camo-button slot="anchor" text="Rename"></camo-button><input id="name" /><camo-button slot="actions" text="Save"></camo-button></camo-popover>`;
 
@@ -317,7 +321,7 @@ describe.each(["minimal", "cupertino"])("camo-popover under %s", (skin) => {
     expect(panel.left).toBeGreaterThanOrEqual(anchor.right);
     expect(pop.side).toBe("right");
     const arrow = inner(pop, ".arrow");
-    if (skin === "cupertino") {
+    if (traits(skin).popoverArrow) {
       expect(arrow).not.toBeNull();
       const a = arrow.getBoundingClientRect();
       expect(Math.abs(a.top + a.height / 2 - (anchor.top + anchor.height / 2))).toBeLessThan(3);
@@ -325,126 +329,121 @@ describe.each(["minimal", "cupertino"])("camo-popover under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])(
-  "camo-side-sheet and camo-modal-side-sheet under %s",
-  (skin) => {
-    const content = `<camo-list-item headline="Name" supporting="report.pdf"></camo-list-item><camo-button slot="actions" text="Apply"></camo-button>`;
+describe.each(SKINS)("camo-side-sheet and camo-modal-side-sheet under %s", (skin) => {
+  const content = `<camo-list-item headline="Name" supporting="report.pdf"></camo-list-item><camo-button slot="actions" text="Apply"></camo-button>`;
 
-    it("is a docked complementary region with the title, content and pinned actions", async () => {
+  it("is a docked complementary region with the title, content and pinned actions", async () => {
+    const root = await page(
+      skin,
+      `<div style="display:flex;height:300px"><div id="main" style="flex:1">main</div><camo-side-sheet title="Properties">${content}</camo-side-sheet></div>`,
+    );
+    const sheet = q(root, "camo-side-sheet");
+    expect(inspectAria(sheet)).toMatchObject({ role: "complementary", label: "Properties" });
+    expect(inner(sheet, ".title").textContent).toBe("Properties");
+    const box = sheet.getBoundingClientRect();
+    expect(box.width).toBeGreaterThan(200);
+    // It takes part of the layout: the main content is beside it, and still usable.
+    expect(q(root, "#main").getBoundingClientRect().right).toBeLessThanOrEqual(box.left + 1);
+    expect(sheet.hasAttribute("title")).toBe(false);
+    const actions = (inner(sheet, "slot[name=actions]") as HTMLSlotElement).assignedNodes();
+    expect(actions).toHaveLength(1);
+  });
+
+  it("scrolls the content while the title and actions stay", async () => {
+    const long = Array.from({ length: 30 }, (_, i) => `<p>line ${i}</p>`).join("");
+    const root = await page(
+      skin,
+      `<div style="height:240px"><camo-side-sheet title="Long">${long}<camo-button slot="actions" text="Apply"></camo-button></camo-side-sheet></div>`,
+    );
+    const sheet = q(root, "camo-side-sheet");
+    const body = inner(sheet, ".body");
+    expect(body.scrollHeight).toBeGreaterThan(body.clientHeight);
+    expect(inner(sheet, ".title").getBoundingClientRect().top).toBeGreaterThanOrEqual(
+      sheet.getBoundingClientRect().top - 1,
+    );
+    expect(inner(sheet, ".actions").getBoundingClientRect().bottom).toBeLessThanOrEqual(
+      sheet.getBoundingClientRect().bottom + 1,
+    );
+  });
+
+  it("has a close button only when closable, which fires camo-close", async () => {
+    const root = await page(
+      skin,
+      `<camo-side-sheet id="a" title="A" closable>x</camo-side-sheet><camo-side-sheet id="b" title="B">x</camo-side-sheet>`,
+    );
+    expect(inner(q(root, "#b"), ".close")).toBeNull();
+    let closed = 0;
+    q(root, "#a").addEventListener("camo-close", () => closed++);
+    const button = inner(q(root, "#a"), ".close") as HTMLButtonElement;
+    expect(button.getAttribute("aria-label")).toBe("Close");
+    button.click();
+    expect(closed).toBe(1);
+  });
+
+  it("is a modal dialog from the end edge: named, scrim, Escape and the close button, once", async () => {
+    for (const how of ["escape", "close", "scrim"] as const) {
       const root = await page(
         skin,
-        `<div style="display:flex;height:300px"><div id="main" style="flex:1">main</div><camo-side-sheet title="Properties">${content}</camo-side-sheet></div>`,
-      );
-      const sheet = q(root, "camo-side-sheet");
-      expect(inspectAria(sheet)).toMatchObject({ role: "complementary", label: "Properties" });
-      expect(inner(sheet, ".title").textContent).toBe("Properties");
-      const box = sheet.getBoundingClientRect();
-      expect(box.width).toBeGreaterThan(200);
-      // It takes part of the layout: the main content is beside it, and still usable.
-      expect(q(root, "#main").getBoundingClientRect().right).toBeLessThanOrEqual(box.left + 1);
-      expect(sheet.hasAttribute("title")).toBe(false);
-      const actions = (inner(sheet, "slot[name=actions]") as HTMLSlotElement).assignedNodes();
-      expect(actions).toHaveLength(1);
-    });
-
-    it("scrolls the content while the title and actions stay", async () => {
-      const long = Array.from({ length: 30 }, (_, i) => `<p>line ${i}</p>`).join("");
-      const root = await page(
-        skin,
-        `<div style="height:240px"><camo-side-sheet title="Long">${long}<camo-button slot="actions" text="Apply"></camo-button></camo-side-sheet></div>`,
-      );
-      const sheet = q(root, "camo-side-sheet");
-      const body = inner(sheet, ".body");
-      expect(body.scrollHeight).toBeGreaterThan(body.clientHeight);
-      expect(inner(sheet, ".title").getBoundingClientRect().top).toBeGreaterThanOrEqual(
-        sheet.getBoundingClientRect().top - 1,
-      );
-      expect(inner(sheet, ".actions").getBoundingClientRect().bottom).toBeLessThanOrEqual(
-        sheet.getBoundingClientRect().bottom + 1,
-      );
-    });
-
-    it("has a close button only when closable, which fires camo-close", async () => {
-      const root = await page(
-        skin,
-        `<camo-side-sheet id="a" title="A" closable>x</camo-side-sheet><camo-side-sheet id="b" title="B">x</camo-side-sheet>`,
-      );
-      expect(inner(q(root, "#b"), ".close")).toBeNull();
-      let closed = 0;
-      q(root, "#a").addEventListener("camo-close", () => closed++);
-      const button = inner(q(root, "#a"), ".close") as HTMLButtonElement;
-      expect(button.getAttribute("aria-label")).toBe("Close");
-      button.click();
-      expect(closed).toBe(1);
-    });
-
-    it("is a modal dialog from the end edge: named, scrim, Escape and the close button, once", async () => {
-      for (const how of ["escape", "close", "scrim"] as const) {
-        const root = await page(
-          skin,
-          `<camo-modal-side-sheet open title="Filters" closable>${content}</camo-modal-side-sheet>`,
-        );
-        const sheet = q(root, "camo-modal-side-sheet");
-        let closed = 0;
-        sheet.addEventListener("camo-close", () => closed++);
-        await tick(100);
-        const dialog = inner(sheet, "dialog") as HTMLDialogElement;
-        expect(dialog.matches(":modal")).toBe(true);
-        expect(dialog.getAttribute("aria-label")).toBe("Filters");
-        expect(dialog.getBoundingClientRect().right).toBeGreaterThan(window.innerWidth - 2);
-        if (how === "escape") await userEvent.keyboard("{Escape}");
-        else if (how === "close") (inner(sheet, ".close") as HTMLButtonElement).click();
-        else
-          dialog.dispatchEvent(
-            new MouseEvent("click", { bubbles: true, clientX: 4, clientY: 100 }),
-          );
-        await tick(100);
-        expect(sheet.open, how).toBe(false);
-        expect(closed, how).toBe(1);
-      }
-    });
-
-    it("slides in from the left in right-to-left, and closes on a drag toward the end edge", async () => {
-      const rtl = await page(
-        skin,
-        `<camo-modal-side-sheet open title="Filters">${content}</camo-modal-side-sheet>`,
-        "rtl",
-      );
-      await tick(100);
-      expect(
-        inner(q(rtl, "camo-modal-side-sheet"), "dialog").getBoundingClientRect().left,
-      ).toBeLessThan(2);
-      const root = await page(
-        skin,
-        `<camo-modal-side-sheet open title="Filters">${content}</camo-modal-side-sheet>`,
+        `<camo-modal-side-sheet open title="Filters" closable>${content}</camo-modal-side-sheet>`,
       );
       const sheet = q(root, "camo-modal-side-sheet");
+      let closed = 0;
+      sheet.addEventListener("camo-close", () => closed++);
       await tick(100);
       const dialog = inner(sheet, "dialog") as HTMLDialogElement;
-      const box = dialog.getBoundingClientRect();
-      const fire = (type: string, x: number): void => {
-        dialog.dispatchEvent(
-          new PointerEvent(type, {
-            bubbles: true,
-            clientX: x,
-            clientY: 200,
-            button: 0,
-            pointerId: 1,
-          }),
-        );
-      };
-      fire("pointerdown", box.left + 20);
-      fire("pointermove", box.left + 40);
-      fire("pointerup", box.left + 40);
-      expect(sheet.open).toBe(true);
-      fire("pointerdown", box.left + 20);
-      fire("pointermove", box.left + box.width * 0.6);
-      fire("pointerup", box.left + box.width * 0.6);
+      expect(dialog.matches(":modal")).toBe(true);
+      expect(dialog.getAttribute("aria-label")).toBe("Filters");
+      expect(dialog.getBoundingClientRect().right).toBeGreaterThan(window.innerWidth - 2);
+      if (how === "escape") await userEvent.keyboard("{Escape}");
+      else if (how === "close") (inner(sheet, ".close") as HTMLButtonElement).click();
+      else
+        dialog.dispatchEvent(new MouseEvent("click", { bubbles: true, clientX: 4, clientY: 100 }));
       await tick(100);
-      expect(sheet.open).toBe(false);
-    });
-  },
-);
+      expect(sheet.open, how).toBe(false);
+      expect(closed, how).toBe(1);
+    }
+  });
+
+  it("slides in from the left in right-to-left, and closes on a drag toward the end edge", async () => {
+    const rtl = await page(
+      skin,
+      `<camo-modal-side-sheet open title="Filters">${content}</camo-modal-side-sheet>`,
+      "rtl",
+    );
+    await tick(100);
+    expect(
+      inner(q(rtl, "camo-modal-side-sheet"), "dialog").getBoundingClientRect().left,
+    ).toBeLessThan(2);
+    const root = await page(
+      skin,
+      `<camo-modal-side-sheet open title="Filters">${content}</camo-modal-side-sheet>`,
+    );
+    const sheet = q(root, "camo-modal-side-sheet");
+    await tick(100);
+    const dialog = inner(sheet, "dialog") as HTMLDialogElement;
+    const box = dialog.getBoundingClientRect();
+    const fire = (type: string, x: number): void => {
+      dialog.dispatchEvent(
+        new PointerEvent(type, {
+          bubbles: true,
+          clientX: x,
+          clientY: 200,
+          button: 0,
+          pointerId: 1,
+        }),
+      );
+    };
+    fire("pointerdown", box.left + 20);
+    fire("pointermove", box.left + 40);
+    fire("pointerup", box.left + 40);
+    expect(sheet.open).toBe(true);
+    fire("pointerdown", box.left + 20);
+    fire("pointermove", box.left + box.width * 0.6);
+    fire("pointerup", box.left + box.width * 0.6);
+    await tick(100);
+    expect(sheet.open).toBe(false);
+  });
+});
 
 const ib = (label: string, icon: string, extra = ""): string =>
   `<camo-icon-button label="${label}"${extra}><camo-icon name="${icon}"></camo-icon></camo-icon-button>`;
@@ -459,7 +458,7 @@ const eight = [
   ib("Delete", "delete", ' tone="error"'),
 ].join("");
 
-describe.each(["minimal", "cupertino"])("camo-toolbar under %s", (skin) => {
+describe.each(SKINS)("camo-toolbar under %s", (skin) => {
   it("is a named toolbar with one Tab stop, and the arrows move between actions", async () => {
     const root = await page(
       skin,

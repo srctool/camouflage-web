@@ -21,6 +21,8 @@ export interface EnvironmentSources {
   query(media: string): WatchedQuery | undefined;
   /** `CSS.supports(property, value)`, or `false` when there is no `CSS`. */
   supports(property: string, value: string): boolean;
+  /** Whether the engine is Chromium: the only one that draws an SVG filter inside `backdrop-filter`. */
+  chromium(): boolean;
 }
 
 /** The breakpoints of ADR-41 in CSS pixels. */
@@ -60,6 +62,9 @@ export const browserSources: EnvironmentSources = {
     };
   },
   supports: (property, value) => typeof CSS !== "undefined" && CSS.supports(property, value),
+  // `userAgentData` exists in Chromium alone (in a secure context); elsewhere the answer is "no", and glass keeps its
+  // blur and edge.
+  chromium: () => typeof navigator !== "undefined" && "userAgentData" in navigator,
 };
 
 let sources: EnvironmentSources = browserSources;
@@ -115,9 +120,12 @@ export function measure(from: EnvironmentSources = sources): Measured {
       : undefined,
     reducedMotion: reduced?.matches,
     capabilities: {
-      backdropBlur: from.supports("backdrop-filter", "blur(1px)"),
-      // SVG displacement filters inside `backdrop-filter` work in Chromium only; the probe is the `url()` form.
-      runtimeShaders: from.supports("backdrop-filter", "url(#camo)"),
+      backdropBlur:
+        from.supports("backdrop-filter", "blur(1px)") ||
+        from.supports("-webkit-backdrop-filter", "blur(1px)"),
+      // SVG displacement filters inside `backdrop-filter` work in Chromium only. Other engines parse the `url()` form
+      // and draw nothing, so the syntax probe alone is not enough.
+      runtimeShaders: from.supports("backdrop-filter", "url(#camo)") && from.chromium(),
       // A web page never has a window material (that is a desktop shell's, ADR-42).
       windowMaterial: false,
       ...(transparency === undefined ? {} : { reduceTransparency: transparency.matches }),
@@ -147,4 +155,28 @@ export function withMeasured(base: CamoEnvironment, measured: Measured | null): 
     ...(measured.reducedMotion === undefined ? {} : { reducedMotion: measured.reducedMotion }),
     capabilities: { ...base.capabilities, ...measured.capabilities },
   };
+}
+
+/**
+ * The environment as custom properties, for what a skin can only decide in CSS: materials (ADR-42) and a density that
+ * follows the input (ADR-41). A provider writes them on itself once the client has measured; the server writes none, so
+ * every `var()` that reads one has the safe answer as its fallback (opaque, no refraction, touch sizes).
+ *
+ * - `--camo-blur-supported`: `1` when a backdrop may be blurred (support, and no Reduce Transparency), else `0`.
+ * - `--camo-glass-refraction`: `url(#camo-glass)` where a skin's SVG filter of that id can bend the backdrop.
+ * - `--camo-material-texture`: `none` under Reduce Transparency, to drop a material's noise with its blur.
+ * - `--camo-window-material`: `transparent` where the window itself draws a material (a desktop shell).
+ * - `--camo-input-pointer`: `1` with a mouse or trackpad, `0` with fingers.
+ */
+export function environmentProperties(environment: CamoEnvironment): [string, string][] {
+  const { backdropBlur, runtimeShaders, reduceTransparency, windowMaterial } =
+    environment.capabilities;
+  const blur = backdropBlur && !reduceTransparency;
+  return [
+    ["--camo-blur-supported", blur ? "1" : "0"],
+    ["--camo-glass-refraction", blur && runtimeShaders ? "url(#camo-glass)" : "initial"],
+    ["--camo-material-texture", reduceTransparency ? "none" : "initial"],
+    ["--camo-window-material", windowMaterial && !reduceTransparency ? "transparent" : "initial"],
+    ["--camo-input-pointer", environment.input === "pointer" ? "1" : "0"],
+  ];
 }

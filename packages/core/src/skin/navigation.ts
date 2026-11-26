@@ -331,6 +331,12 @@ export const navItemBase: Base<NavItemState, NavItemSlots, NavItemStyle> = {
     .pill.row {
       background: var(--n-ind);
     }
+    /* A line or a dot is not a box around the icon: the icon keeps its own size. */
+    .line.column .box,
+    .dot.column .box {
+      inline-size: var(--n-icon);
+      block-size: var(--n-icon);
+    }
     .fill {
       background: var(--n-ind);
       border-radius: var(--n-shape);

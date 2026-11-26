@@ -1,9 +1,26 @@
 {
   "files": [],
   "references": [
-    { "path": "packages/core" },
-    { "path": "packages/skin-minimal" },
-    { "path": "packages/skin-cupertino" },
-    { "path": "packages/charts" }
+    {
+      "path": "packages/core"
+    },
+    {
+      "path": "packages/skin-minimal"
+    },
+    {
+      "path": "packages/skin-cupertino"
+    },
+    {
+      "path": "packages/charts"
+    },
+    {
+      "path": "packages/skin-material"
+    },
+    {
+      "path": "packages/skin-fluent"
+    },
+    {
+      "path": "packages/skin-carbon"
+    }
   ]
 }

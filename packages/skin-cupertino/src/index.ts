@@ -13,6 +13,8 @@ import {
   cupertinoCalendar,
   cupertinoTimePicker,
 } from "./inputs.ts";
+import { materials } from "./material.ts";
+import type { CupertinoSurface } from "./material.ts";
 import { cupertinoButton } from "./button.ts";
 import { cupertinoDivider } from "./divider.ts";
 import { cupertinoIcon } from "./icon.ts";
@@ -68,11 +70,7 @@ import { cupertinoDialog } from "./dialog.ts";
 import { opacity } from "./feedback.ts";
 import { classic } from "./surface.ts";
 
-/**
- * The Cupertino skin (Classic material; Liquid Glass arrives in W8): Apple's system colors, 44 pt controls, a dimming
- * press, and alerts whose actions stack. The main entry has no side effects.
- */
-export const cupertinoSkin: CamoSkin = defineSkin({
+const parts: CamoSkin = defineSkin({
   name: "cupertino",
   surfaceTreatment: classic,
   feedback: opacity,
@@ -136,6 +134,24 @@ export const cupertinoSkin: CamoSkin = defineSkin({
   progressSteps: cupertinoProgressSteps,
 });
 
+/** What `createCupertinoSkin` takes. */
+export interface CupertinoSkinOptions {
+  /** `classic` (the default): system blur on bars and sheets. `liquid-glass`: iOS 26's glass, with its fallbacks. */
+  surface?: CupertinoSurface;
+}
+
+/** The Cupertino skin with the material you choose. */
+export function createCupertinoSkin(options: CupertinoSkinOptions = {}): CamoSkin {
+  return defineSkin({ ...parts, ...materials(options.surface ?? "classic", parts) });
+}
+
+/**
+ * The Cupertino skin (Classic material): Apple's system colors, 44 pt controls, a dimming press, alerts whose actions
+ * stack, and blurred bars and sheets. `createCupertinoSkin({ surface: "liquid-glass" })` is the glass one. The main
+ * entry has no side effects.
+ */
+export const cupertinoSkin: CamoSkin = /* @__PURE__ */ createCupertinoSkin();
+
 export {
   cupertinoText,
   cupertinoIcon,
@@ -198,6 +214,7 @@ export {
   classic,
   opacity,
 };
+export type { CupertinoSurface } from "./material.ts";
 export { cupertinoThemes } from "./theme.ts";
 export { SYSTEM_BLUE, cupertinoTheme } from "./accent.ts";
 export type { CupertinoThemeOptions } from "./accent.ts";

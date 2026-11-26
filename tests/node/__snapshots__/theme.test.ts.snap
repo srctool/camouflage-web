@@ -1,0 +1,32 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`validateTheme > validates carbon G10 1`] = `[]`;
+
+exports[`validateTheme > validates carbon G90 1`] = `
+[
+  {
+    "kind": "LowContrast",
+    "pair": "onSurfaceVariant/surfaceContainerHigh",
+    "ratio": 2.941754638020249,
+    "required": 4.5,
+  },
+  {
+    "kind": "LowContrast",
+    "pair": "onSurfaceVariant/surfaceContainerHighest",
+    "ratio": 2.941754638020249,
+    "required": 4.5,
+  },
+]
+`;
+
+exports[`validateTheme > validates carbon G100 1`] = `[]`;
+
+exports[`validateTheme > validates carbon White 1`] = `[]`;
+
+exports[`validateTheme > validates fluent dark 1`] = `[]`;
+
+exports[`validateTheme > validates fluent light 1`] = `[]`;
+
+exports[`validateTheme > validates material dark 1`] = `[]`;
+
+exports[`validateTheme > validates material light 1`] = `[]`;

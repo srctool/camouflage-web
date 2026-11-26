@@ -21,6 +21,15 @@
     },
     {
       "path": "../packages/charts"
+    },
+    {
+      "path": "../packages/skin-material"
+    },
+    {
+      "path": "../packages/skin-fluent"
+    },
+    {
+      "path": "../packages/skin-carbon"
     }
   ],
   "exclude": ["fixtures/incomplete-skin", "fixtures/consumers"]

@@ -4,7 +4,7 @@ import type { CSSResult, PropertyDeclarations, PropertyValues, TemplateResult } 
 import { environmentContext, skinContext, themeContext } from "../context.ts";
 import type { ThemeInfo } from "../context.ts";
 import { defaultEnvironment, warnOnce } from "../controller.ts";
-import { measure, watchEnvironment, withMeasured } from "../environment.ts";
+import { environmentProperties, measure, watchEnvironment, withMeasured } from "../environment.ts";
 import type { Measured } from "../environment.ts";
 import { fallbackSkin, registeredSkinNames, resolveSkin, starterTheme } from "../skin/registry.ts";
 import type { CamoEnvironment, CamoSkin, InputKind, WindowSize } from "../skin/types.ts";
@@ -166,6 +166,15 @@ export class CamoProvider extends LitElement {
     if (previous === undefined || JSON.stringify(previous) !== JSON.stringify(environment)) {
       this.#environmentProvider.setValue(environment);
     }
+  }
+
+  override updated(): void {
+    // Written after the render, not in it: the server has measured nothing, and a style in the template would make the
+    // first client render differ from the server's.
+    const environment = this.#environmentProvider.value;
+    if (environment === undefined || this.measured === null) return;
+    for (const [name, value] of environmentProperties(environment))
+      this.style.setProperty(name, value);
   }
 
   override connectedCallback(): void {

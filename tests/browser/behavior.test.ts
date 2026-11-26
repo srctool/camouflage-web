@@ -14,7 +14,7 @@ import {
   tabbables,
 } from "@srctool/camouflage-core";
 import { describe, expect, it } from "vitest";
-import { mount, settled } from "./helpers.ts";
+import { mount, settled, SKINS } from "./helpers.ts";
 
 class PressProbe extends LitElement {
   static override properties = { blocked: { type: Boolean } };
@@ -171,7 +171,7 @@ describe("focus", () => {
   });
 
   it("rings a focused camo-button in both skins", async () => {
-    for (const skin of ["minimal", "cupertino"]) {
+    for (const skin of SKINS) {
       const root = mount(
         `<camo-provider skin="${skin}"><camo-button text="Go"></camo-button></camo-provider>`,
       );
@@ -183,7 +183,7 @@ describe("focus", () => {
         .map((style) => style.textContent)
         .join("");
       expect(ring).toContain(":host(:focus-visible)");
-      expect(ring).toContain("outline:");
+      expect(ring).toMatch(/outline:|box-shadow:/);
     }
   });
 });

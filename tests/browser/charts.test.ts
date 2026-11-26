@@ -3,7 +3,7 @@ import { CamoCharts, defaultChartRenderer } from "@srctool/camouflage-charts";
 import { html } from "lit";
 import { userEvent } from "vitest/browser";
 import { describe, expect, it } from "vitest";
-import { mount, settled } from "./helpers.ts";
+import { mount, settled, SKINS, traits } from "./helpers.ts";
 
 type El = HTMLElement & Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 
@@ -55,7 +55,7 @@ async function walkInto(el: El): Promise<void> {
   await el.updateComplete;
 }
 
-describe.each(["minimal", "cupertino"])("camo-line-chart under %s", (skin) => {
+describe.each(SKINS)("camo-line-chart under %s", (skin) => {
   const chart = async (extra = "", series: unknown = two, dir = "ltr"): Promise<El> =>
     q(
       await page(skin, `<camo-line-chart ${data(extra, series)}></camo-line-chart>`, dir),
@@ -166,7 +166,7 @@ describe.each(["minimal", "cupertino"])("camo-line-chart under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-bar-chart under %s", (skin) => {
+describe.each(SKINS)("camo-bar-chart under %s", (skin) => {
   const chart = async (extra = "", series: unknown = two, dir = "ltr"): Promise<El> =>
     q(
       await page(skin, `<camo-bar-chart ${data(extra, series)}></camo-bar-chart>`, dir),
@@ -201,7 +201,8 @@ describe.each(["minimal", "cupertino"])("camo-bar-chart under %s", (skin) => {
     const [up, down] = rects(el);
     expect(down!.top).toBeCloseTo(up!.bottom, 0);
     const style = getComputedStyle(all(el, ".bar")[1]!);
-    expect(parseFloat(style.borderBottomLeftRadius)).toBeGreaterThan(0);
+    // Carbon's bars are square.
+    if (traits(skin).rounded) expect(parseFloat(style.borderBottomLeftRadius)).toBeGreaterThan(0);
     expect(parseFloat(style.borderTopLeftRadius)).toBe(0);
   });
 
@@ -267,7 +268,7 @@ describe.each(["minimal", "cupertino"])("camo-bar-chart under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-pie-chart under %s", (skin) => {
+describe.each(SKINS)("camo-pie-chart under %s", (skin) => {
   const slices = [
     { label: "Search", value: 60 },
     { label: "Direct", value: 40 },
@@ -340,7 +341,7 @@ describe.each(["minimal", "cupertino"])("camo-pie-chart under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-sparkline under %s", (skin) => {
+describe.each(SKINS)("camo-sparkline under %s", (skin) => {
   it("is one image that says the trend, and takes no focus", async () => {
     const root = await page(
       skin,

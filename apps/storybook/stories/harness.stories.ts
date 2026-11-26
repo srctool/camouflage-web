@@ -1,4 +1,7 @@
 import { setEnvironmentSources } from "@srctool/camouflage-core";
+import type { CamoSkin } from "@srctool/camouflage-core";
+import { createCupertinoSkin } from "@srctool/camouflage-skin-cupertino";
+import { createFluentSkin } from "@srctool/camouflage-skin-fluent";
 import { html } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
@@ -12,10 +15,10 @@ import type { Direction, Mode, Scenario } from "../../../scenarios/expand.ts";
 //   iframe.html?id=harness--scenario&viewMode=story&scenario=<json>
 // where the JSON is `{ scenario, skin, mode, textScale, direction, testMode? }`.
 //
-// `testMode` fakes what the environment reads (the Provider note, 3.3): `reduced-motion`, `reduced-transparency` and
-// `blur-off` (no `backdrop-filter`), so a skin's fallback is exercised in any browser.
+// `testMode` fakes what the environment reads (the Provider note, 3.3): `reduced-motion`, `reduced-transparency`,
+// `blur-off` (no `backdrop-filter`) and `no-shaders` (no refraction), so a skin's fallback is exercised in any browser.
 
-export type TestMode = "reduced-motion" | "reduced-transparency" | "blur-off";
+export type TestMode = "reduced-motion" | "reduced-transparency" | "blur-off" | "no-shaders";
 
 export interface HarnessRequest {
   scenario: Scenario;
@@ -25,6 +28,18 @@ export interface HarnessRequest {
   direction: Direction;
   testMode?: TestMode;
 }
+
+/** The skin with the scenario's surface material, or its registered name. */
+function skinFor(name: string, surface: string | undefined): CamoSkin | string {
+  if (surface === undefined) return name;
+  return name === "fluent"
+    ? createFluentSkin({ surface: surface as "acrylic" })
+    : createCupertinoSkin({ surface: surface as "classic" | "liquid-glass" });
+}
+
+// Something for a material to let through, over the whole page: menus and popovers reach outside the harness box.
+const STRIPES =
+  "repeating-linear-gradient(135deg, #0f62fe 0 14px, #ffffff 14px 28px, #f59e0b 28px 42px) fixed";
 
 class Fixed {
   readonly matches: boolean;
@@ -45,7 +60,12 @@ function applyTestMode(testMode: TestMode | undefined): void {
           (testMode === "reduced-transparency" && media.includes("prefers-reduced-transparency")),
       ),
     supports: (property, value) =>
-      !(testMode === "blur-off" && property === "backdrop-filter" && value.startsWith("blur")),
+      !(
+        testMode === "blur-off" &&
+        property.endsWith("backdrop-filter") &&
+        value.startsWith("blur")
+      ),
+    ...(testMode === "no-shaders" ? { chromium: () => false } : {}),
   });
 }
 
@@ -59,6 +79,7 @@ const meta: Meta = {
     const request = JSON.parse(raw) as HarnessRequest;
     registerDemoIcons();
     applyTestMode(request.testMode);
+    document.body.style.background = request.scenario.surface === undefined ? "" : STRIPES;
     // The text scale is the user's font-size setting, which every type size follows (they are `rem`).
     document.documentElement.style.fontSize = `${request.textScale * 100}%`;
     return html`<div id="harness" dir=${request.direction} style="display:inline-block;min-width:240px">
@@ -67,9 +88,11 @@ const meta: Meta = {
           // The scenario's element is a child committed after this attribute part: assign once it is there.
           if (el !== undefined) queueMicrotask(() => applyProperties(el, request.scenario));
         })}
-        skin=${request.skin}
+        .skin=${skinFor(request.skin, request.scenario.surface)}
         scheme=${request.mode}
-        style="display:block;padding:24px;background:var(--camo-color-surface);color:var(--camo-color-on-surface)"
+        style="display:block;padding:24px;background:${
+          request.scenario.surface === undefined ? "var(--camo-color-surface)" : "transparent"
+        };color:var(--camo-color-on-surface)"
         >${unsafeHTML(scenarioMarkup(request.scenario))}</camo-provider
       >
     </div>`;

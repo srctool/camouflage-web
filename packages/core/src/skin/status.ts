@@ -334,6 +334,13 @@ export const snackbarBase: Base<SnackbarState, SnackbarSlots, SnackbarStyle> = {
       inset-inline: 0;
       margin-inline: auto;
     }
+    /* A compact window (below 600) has no side to hold to: the snackbar is centered (Fluent's and Carbon's toasts). */
+    @media (width < 600px) {
+      :host([data-alignment]) {
+        inset-inline: 0;
+        margin-inline: auto;
+      }
+    }
     @keyframes camo-snack-in {
       from {
         opacity: 0;

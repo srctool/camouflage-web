@@ -14,7 +14,10 @@ import {
   tokens,
 } from "@srctool/camouflage-core";
 import type { CamoSkin, InProgressSkin } from "@srctool/camouflage-core";
+import { carbonSkin } from "@srctool/camouflage-skin-carbon";
 import { cupertinoSkin } from "@srctool/camouflage-skin-cupertino";
+import { fluentSkin } from "@srctool/camouflage-skin-fluent";
+import { materialSkin } from "@srctool/camouflage-skin-material";
 import { minimalSkin } from "@srctool/camouflage-skin-minimal";
 import { renderToString, squash } from "../helpers/ssr.ts";
 import { html } from "lit";
@@ -85,7 +88,8 @@ describe("the skin contract", () => {
       "progressSteps",
     ]);
     expect(missingRenderers(minimalSkin)).toEqual([]);
-    expect(missingRenderers(cupertinoSkin)).toEqual([]);
+    for (const skin of [cupertinoSkin, materialSkin, fluentSkin, carbonSkin])
+      expect(missingRenderers(skin)).toEqual([]);
   });
 
   it("names the renderer a skin is missing", () => {

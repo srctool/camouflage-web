@@ -7,7 +7,7 @@ import { createRoot } from "react-dom/client";
 import { userEvent } from "vitest/browser";
 import { createApp, h, nextTick, ref } from "vue";
 import { describe, expect, it } from "vitest";
-import { mount, settled } from "./helpers.ts";
+import { mount, settled, SKINS } from "./helpers.ts";
 
 type El = HTMLElement & Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 
@@ -49,7 +49,7 @@ const RULES = {
 
 const errorOf = (root: ParentNode, name: string): string | null => q(root, `[name=${name}]`).error;
 
-describe.each(["minimal", "cupertino"])("camo-form under %s", (skin) => {
+describe.each(SKINS)("camo-form under %s", (skin) => {
   it("finds the named inputs inside it, and reads their values the way rules see them", async () => {
     const { root, form: f } = await form(
       skin,

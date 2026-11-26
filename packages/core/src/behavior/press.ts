@@ -3,6 +3,10 @@ import type { ReactiveController, ReactiveControllerHost } from "lit";
 /** The attribute the controller sets while the host is pressed; feedback styles select it (`:host([data-camo-pressed])`). */
 export const PRESSED_ATTRIBUTE = "data-camo-pressed";
 
+/** Custom properties holding where the last pointer press landed, from the host's top left. */
+const PRESS_X = "--camo-press-x";
+const PRESS_Y = "--camo-press-y";
+
 /**
  * Tracks whether a host is being pressed, by pointer or by key, and reflects it as `data-camo-pressed`. CSS `:active`
  * covers the pointer only; a key press on a custom element has no `:active`, so Space and Enter would give no
@@ -50,13 +54,25 @@ export class PressController implements ReactiveController {
 
   readonly #pointerDown = (event: PointerEvent): void => {
     // The primary button only: a right click opens a menu, it is not a press.
-    if (event.button === 0) this.#set(!this.#blocked());
+    if (event.button !== 0) return;
+    this.#locate(event);
+    this.#set(!this.#blocked());
   };
 
   readonly #keyDown = (event: KeyboardEvent): void => {
     if (event.target !== this.#host || (event.key !== " " && event.key !== "Enter")) return;
+    // A key has no position: a press that spreads from a point (a ripple) starts at the middle.
+    this.#host.style.removeProperty(PRESS_X);
+    this.#host.style.removeProperty(PRESS_Y);
     this.#set(!this.#blocked());
   };
+
+  /** Where in the host the pointer went down, for feedback that starts at that point. */
+  #locate(event: PointerEvent): void {
+    const box = this.#host.getBoundingClientRect();
+    this.#host.style.setProperty(PRESS_X, `${Math.round(event.clientX - box.left)}px`);
+    this.#host.style.setProperty(PRESS_Y, `${Math.round(event.clientY - box.top)}px`);
+  }
 
   readonly #release = (): void => this.#set(false);
 
