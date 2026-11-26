@@ -2,7 +2,7 @@ import { inspectAria } from "@srctool/camouflage-core";
 import { userEvent } from "vitest/browser";
 import { describe, expect, it } from "vitest";
 import { registerDemoIcons } from "../../scenarios/icons.ts";
-import { mount, settled } from "./helpers.ts";
+import { mount, settled, SKINS } from "./helpers.ts";
 
 registerDemoIcons();
 
@@ -25,7 +25,7 @@ const svg = (fill: string): string =>
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20"><rect width="30" height="20" fill="${fill}"/></svg>`,
   );
 
-describe.each(["minimal", "cupertino"])("camo-image under %s", (skin) => {
+describe.each(SKINS)("camo-image under %s", (skin) => {
   it("shows the image once it has loaded, after a placeholder, and keeps its description as the name", async () => {
     const root = await page(
       skin,
@@ -96,7 +96,7 @@ describe.each(["minimal", "cupertino"])("camo-image under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-rating under %s", (skin) => {
+describe.each(SKINS)("camo-rating under %s", (skin) => {
   const stars = (el: El): number[] =>
     [...el.shadowRoot!.querySelectorAll<HTMLElement>(".fill")].map(
       (f) => Math.round(Number.parseFloat(f.style.inlineSize) * 10) / 10,
@@ -278,7 +278,7 @@ const slides = (n = 3): string =>
     (_, i) => `<div style="height:80px;background:#${i}${i}${i}">${i + 1}</div>`,
   ).join("");
 
-describe.each(["minimal", "cupertino"])("camo-carousel under %s", (skin) => {
+describe.each(SKINS)("camo-carousel under %s", (skin) => {
   const open = async (attrs = "", n = 3, dir = "ltr"): Promise<{ root: HTMLElement; car: El }> => {
     const root = await page(
       skin,
@@ -398,7 +398,7 @@ describe.each(["minimal", "cupertino"])("camo-carousel under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-file-uploader under %s", (skin) => {
+describe.each(SKINS)("camo-file-uploader under %s", (skin) => {
   const rows = [
     { id: "1", name: "report.pdf", sizeBytes: 1048576, progress: 0.45, status: "uploading" },
     { id: "2", name: "photo.png", sizeBytes: 204800, status: "done" },

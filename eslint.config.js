@@ -37,7 +37,8 @@ export default tseslint.config(
     files: ["apps/tauri-sample/web/*.js"],
     languageOptions: { globals: { ...globals.browser } },
   },
-  // Skin renderers: tokens only. The surface, feedback and theme files hold the skin's own materials and values.
+  // Skin renderers: tokens only. The surface, material, feedback, theme and theme-factory files hold the skin's own
+  // materials and values.
   {
     files: ["packages/skin-*/src/*.ts"],
     ignores: [
@@ -46,6 +47,8 @@ export default tseslint.config(
       "packages/skin-*/src/theme.ts",
       "packages/skin-*/src/accent.ts",
       "packages/skin-*/src/surface.ts",
+      "packages/skin-*/src/material.ts",
+      "packages/skin-*/src/factory.ts",
       "packages/skin-*/src/feedback.ts",
     ],
     plugins: { camo },

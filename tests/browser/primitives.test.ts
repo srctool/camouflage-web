@@ -2,7 +2,7 @@ import { inspectAria, registerIcons, registeredIconNames } from "@srctool/camouf
 import { userEvent } from "vitest/browser";
 import { describe, expect, it } from "vitest";
 import { registerDemoIcons } from "../../scenarios/icons.ts";
-import { cssVar, mount, settled } from "./helpers.ts";
+import { cssVar, mount, settled, SKINS, traits } from "./helpers.ts";
 
 registerDemoIcons();
 
@@ -16,7 +16,7 @@ const page = async (skin: string, body: string, dir = "ltr"): Promise<HTMLElemen
 const inside = (el: Element, selector: string): HTMLElement =>
   el.shadowRoot!.querySelector<HTMLElement>(selector)!;
 
-describe.each(["minimal", "cupertino"])("camo-text under %s", (skin) => {
+describe.each(SKINS)("camo-text under %s", (skin) => {
   it("uses the type role and the content color of its container", async () => {
     const root = await page(
       skin,
@@ -68,7 +68,7 @@ describe.each(["minimal", "cupertino"])("camo-text under %s", (skin) => {
     const root = await page(skin, `<camo-text>See the <a id="l" href="#x">terms</a>.</camo-text>`);
     const link = root.querySelector<HTMLAnchorElement>("#l")!;
     expect(getComputedStyle(link).textDecorationLine).toBe(
-      skin === "minimal" ? "underline" : "none",
+      skin === "cupertino" ? "none" : "underline",
     );
     link.focus();
     expect(document.activeElement).toBe(link);
@@ -85,7 +85,7 @@ describe.each(["minimal", "cupertino"])("camo-text under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-icon under %s", (skin) => {
+describe.each(SKINS)("camo-icon under %s", (skin) => {
   it("is an image with a label, or hidden when decorative", async () => {
     const root = await page(
       skin,
@@ -161,7 +161,7 @@ describe.each(["minimal", "cupertino"])("camo-icon under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-surface under %s", (skin) => {
+describe.each(SKINS)("camo-surface under %s", (skin) => {
   it("paints its level, clips to its shape and sets the content color", async () => {
     const root = await page(
       skin,
@@ -170,7 +170,7 @@ describe.each(["minimal", "cupertino"])("camo-surface under %s", (skin) => {
     const s = root.querySelector("camo-surface")!;
     const paint = getComputedStyle(inside(s, ".camo-surface"));
     expect(paint.backgroundColor).not.toBe("rgba(0, 0, 0, 0)");
-    expect(parseFloat(paint.borderStartStartRadius)).toBeGreaterThan(0);
+    expect(parseFloat(paint.borderStartStartRadius) > 0).toBe(traits(skin).rounded);
     expect(paint.overflow).toBe("hidden");
     expect(cssVar(root.querySelector("#c")!, "--camo-content-color")).not.toBe("");
     expect(s.getBoundingClientRect().height).toBeGreaterThanOrEqual(40);
@@ -199,11 +199,12 @@ describe.each(["minimal", "cupertino"])("camo-surface under %s", (skin) => {
       (l) =>
         getComputedStyle(inside(root.querySelector(`#${l}`)!, ".camo-surface")).backgroundColor,
     );
-    expect(new Set(colors).size).toBeGreaterThan(3);
+    // Carbon's White theme alternates two grays from layer to layer.
+    expect(new Set(colors).size).toBeGreaterThan(skin === "carbon" ? 2 : 3);
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-divider under %s", (skin) => {
+describe.each(SKINS)("camo-divider under %s", (skin) => {
   it("is decorative, horizontal by default, and takes insets by the reading direction", async () => {
     const root = await page(
       skin,
@@ -241,7 +242,7 @@ describe.each(["minimal", "cupertino"])("camo-divider under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-icon-button under %s", (skin) => {
+describe.each(SKINS)("camo-icon-button under %s", (skin) => {
   const icon = `<camo-icon name="heart"></camo-icon>`;
 
   it("is a button named by its label, ghost by default", async () => {
@@ -361,10 +362,7 @@ describe.each(["minimal", "cupertino"])("camo-icon-button under %s", (skin) => {
       `<camo-icon-button label="x" appearance="solid">${icon}</camo-icon-button>`,
     );
     const i = root.querySelector("camo-icon")!;
-    expect(cssVar(i, "--camo-icon-size")).toBe(
-      cssVar(root.querySelector("camo-icon-button")!, "--camo-icon-size") ||
-        cssVar(i, "--camo-icon-size"),
-    );
+    expect(cssVar(i, "--camo-icon-size")).toBe(traits(skin).iconSize);
     expect(cssVar(i, "--camo-content-color")).not.toBe("");
   });
 });

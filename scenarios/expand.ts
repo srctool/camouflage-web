@@ -21,6 +21,8 @@ export interface Scenario extends Axes {
   properties?: Record<string, unknown>;
   content?: Record<string, string>;
   frame?: "element" | "page";
+  /** A skin's surface material (`liquid-glass`, `classic`, `acrylic`), drawn over a patterned page so it shows. */
+  surface?: string;
 }
 
 export interface ScenarioFile {

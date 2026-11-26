@@ -12,6 +12,10 @@ const BUDGETS = {
   "core + minimal": 102_000,
   "core + minimal + cupertino": 111_000,
   "minimal skin only": 50_000,
+  "material skin only": 51_000,
+  "cupertino skin only": 51_500,
+  "fluent skin only": 51_500,
+  "carbon skin only": 51_000,
   // The charts with the core elements they use; the charts' own share is this less "core (define)".
   "core + charts": 77_000,
 };
@@ -20,6 +24,10 @@ const entries = {
   "core + minimal": `import "@srctool/camouflage-core/define"; import "@srctool/camouflage-skin-minimal/register";`,
   "core + minimal + cupertino": `import "@srctool/camouflage-core/define"; import "@srctool/camouflage-skin-minimal/register"; import "@srctool/camouflage-skin-cupertino/register";`,
   "minimal skin only": `import { minimalSkin } from "@srctool/camouflage-skin-minimal"; console.log(minimalSkin.name);`,
+  "material skin only": `import { materialSkin } from "@srctool/camouflage-skin-material"; console.log(materialSkin.name);`,
+  "cupertino skin only": `import { cupertinoSkin } from "@srctool/camouflage-skin-cupertino"; console.log(cupertinoSkin.name);`,
+  "fluent skin only": `import { fluentSkin } from "@srctool/camouflage-skin-fluent"; console.log(fluentSkin.name);`,
+  "carbon skin only": `import { carbonSkin } from "@srctool/camouflage-skin-carbon"; console.log(carbonSkin.name);`,
   "core + charts": `import "@srctool/camouflage-charts/define";`,
 };
 

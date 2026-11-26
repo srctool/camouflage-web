@@ -3,7 +3,7 @@ import type { CamoTextField } from "@srctool/camouflage-core";
 import { userEvent } from "vitest/browser";
 import { describe, expect, it } from "vitest";
 import { registerDemoIcons } from "../../scenarios/icons.ts";
-import { mount, settled } from "./helpers.ts";
+import { mount, settled, SKINS, traits } from "./helpers.ts";
 
 registerDemoIcons();
 
@@ -23,7 +23,7 @@ const inner = (el: Element, selector: string): HTMLElement =>
 const data = (form: HTMLFormElement): [string, string][] =>
   [...new FormData(form).entries()].map(([k, v]) => [k, String(v)]);
 
-describe.each(["minimal", "cupertino"])("camo-text-field under %s", (skin) => {
+describe.each(SKINS)("camo-text-field under %s", (skin) => {
   it("names its input by the label, and links the helper text and the error", async () => {
     const root = await page(
       skin,
@@ -142,7 +142,8 @@ describe.each(["minimal", "cupertino"])("camo-text-field under %s", (skin) => {
     field.focus();
     expect(field.shadowRoot!.activeElement).toBe(inner(field, ".camo-input"));
     (document.activeElement as HTMLElement).blur();
-    await userEvent.click(inner(field, "#label"));
+    // A floating label rests inside the box and lets the pointer through, so the box is what is clicked.
+    await userEvent.click(inner(field, traits(skin).floatingLabel ? ".camo-input" : "#label"));
     expect(field.shadowRoot!.activeElement).toBe(inner(field, ".camo-input"));
   });
 
@@ -203,7 +204,7 @@ describe.each(["minimal", "cupertino"])("camo-text-field under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-search-field under %s", (skin) => {
+describe.each(SKINS)("camo-search-field under %s", (skin) => {
   it("is a search input named by its placeholder, with a clear button only while it has a query", async () => {
     const root = await page(skin, `<camo-search-field></camo-search-field>`);
     const field = q(root, "camo-search-field");
@@ -245,7 +246,7 @@ describe.each(["minimal", "cupertino"])("camo-search-field under %s", (skin) => 
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-checkbox and camo-switch under %s", (skin) => {
+describe.each(SKINS)("camo-checkbox and camo-switch under %s", (skin) => {
   it("announce role and state: checked, mixed, and on for a switch", async () => {
     const root = await page(
       skin,
@@ -334,12 +335,12 @@ describe.each(["minimal", "cupertino"])("camo-checkbox and camo-switch under %s"
     const box = q(root, "camo-checkbox");
     const control = inner(box, ".control").getBoundingClientRect();
     const label = inner(box, ".label").getBoundingClientRect();
-    if (skin === "minimal") expect(label.left).toBeGreaterThan(control.left);
+    if (!traits(skin).apple) expect(label.left).toBeGreaterThan(control.left);
     else expect(label.left).toBeLessThan(control.left);
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-radio-group under %s", (skin) => {
+describe.each(SKINS)("camo-radio-group under %s", (skin) => {
   const group = (extra = ""): string => `<camo-radio-group name="plan" label="Plan" ${extra}>
     <camo-radio value="free" label="Free"></camo-radio>
     <camo-radio value="pro" label="Pro"></camo-radio>
@@ -433,7 +434,7 @@ describe.each(["minimal", "cupertino"])("camo-radio-group under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-segmented-control under %s", (skin) => {
+describe.each(SKINS)("camo-segmented-control under %s", (skin) => {
   const seg = (attrs = ""): string => `<camo-segmented-control name="range" label="Range" ${attrs}>
     <camo-segment value="day" label="Day"></camo-segment>
     <camo-segment value="week" label="Week"></camo-segment>
@@ -494,7 +495,7 @@ describe.each(["minimal", "cupertino"])("camo-segmented-control under %s", (skin
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-slider under %s", (skin) => {
+describe.each(SKINS)("camo-slider under %s", (skin) => {
   it("is an adjustable element named by its label, with the value and a text for it", async () => {
     const root = await page(
       skin,
@@ -601,7 +602,7 @@ describe.each(["minimal", "cupertino"])("camo-slider under %s", (skin) => {
       `<form><camo-slider name="v" label="V" min="0" max="10" step="2" value="4"></camo-slider></form>`,
     );
     const s = q(root, "camo-slider");
-    expect(s.shadowRoot!.querySelectorAll(".stop")).toHaveLength(6);
+    expect(s.shadowRoot!.querySelectorAll(".stop")).toHaveLength(traits(skin).stopMarks ? 6 : 0);
     const form = q(root, "form") as unknown as HTMLFormElement;
     expect(data(form)).toEqual([["v", "4"]]);
     s.focus();
@@ -618,7 +619,7 @@ describe.each(["minimal", "cupertino"])("camo-slider under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-stepper under %s", (skin) => {
+describe.each(SKINS)("camo-stepper under %s", (skin) => {
   const buttons = (s: El): [HTMLButtonElement, HTMLButtonElement] => [
     inner(s, ".camo-decrease") as HTMLButtonElement,
     inner(s, ".camo-increase") as HTMLButtonElement,

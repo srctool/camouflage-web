@@ -76,6 +76,8 @@ export const bottomSheetBase: Base<BottomSheetState, BottomSheetSlots, BottomShe
     }
     .head {
       display: flex;
+      /* The head is also a drag region, which is a column: the title and the close button stay in a row. */
+      flex-direction: row;
       align-items: center;
       align-self: stretch;
       justify-content: space-between;
@@ -140,7 +142,11 @@ export const bottomSheetBase: Base<BottomSheetState, BottomSheetSlots, BottomShe
     const header =
       state.title !== null || (style.showCloseButton && state.dismissible)
         ? html`<div class="head drag">
-            <h2 class="title" id="title" part="title">${state.title}</h2>
+            ${
+              state.title === null
+                ? html`<span class="title"></span>`
+                : html`<h2 class="title" id="title" part="title">${state.title}</h2>`
+            }
             ${
               style.showCloseButton && state.dismissible
                 ? html`<button class="close" type="button" aria-label="Close" @click=${() => state.actions.close()}></button>`

@@ -2,7 +2,7 @@ import { inspectAria } from "@srctool/camouflage-core";
 import { userEvent } from "vitest/browser";
 import { describe, expect, it } from "vitest";
 import { registerDemoIcons } from "../../scenarios/icons.ts";
-import { mount, settled } from "./helpers.ts";
+import { mount, settled, SKINS, traits } from "./helpers.ts";
 
 registerDemoIcons();
 
@@ -24,7 +24,7 @@ const tab = (value: string, label: string, extra = ""): string =>
   `<camo-tab value="${value}" label="${label}"${extra}></camo-tab>`;
 const three = `${tab("a", "Overview")}${tab("b", "Reviews")}${tab("c", "Specs")}`;
 
-describe.each(["minimal", "cupertino"])("camo-tabs under %s", (skin) => {
+describe.each(SKINS)("camo-tabs under %s", (skin) => {
   it("is a tablist of tabs, each with its place and selection", async () => {
     const root = await page(skin, `<camo-tabs label="Product" value="b">${three}</camo-tabs>`);
     expect(inspectAria(q(root, "camo-tabs"))).toMatchObject({
@@ -162,7 +162,7 @@ describe.each(["minimal", "cupertino"])("camo-tabs under %s", (skin) => {
       expect(height("#b")).toBeLessThan(5);
     } else {
       expect(height("#a")).toBeLessThan(5);
-      expect(inner(q(root, "#a"), ".divider")).not.toBeNull();
+      expect(inner(q(root, "#a"), ".divider") !== null).toBe(traits(skin).tabsDivider);
     }
   });
 
@@ -182,7 +182,7 @@ describe.each(["minimal", "cupertino"])("camo-tabs under %s", (skin) => {
 const items = (extra = ""): string =>
   `<camo-nav-item value="home" label="Home" icon="home" selected-icon="home-filled"></camo-nav-item><camo-nav-item value="inbox" label="Inbox" icon="inbox"><camo-badge slot="badge" count="3"></camo-badge></camo-nav-item><camo-nav-item value="saved" label="Saved" icon="star"${extra}></camo-nav-item>`;
 
-describe.each(["minimal", "cupertino"])("camo-navigation-bar under %s", (skin) => {
+describe.each(SKINS)("camo-navigation-bar under %s", (skin) => {
   it("is a navigation landmark of links, the selected one the current page", async () => {
     const root = await page(
       skin,
@@ -298,7 +298,7 @@ describe.each(["minimal", "cupertino"])("camo-navigation-bar under %s", (skin) =
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-navigation-rail under %s", (skin) => {
+describe.each(SKINS)("camo-navigation-rail under %s", (skin) => {
   it("stacks its items, moves with Up and Down, and keeps the header fixed above them", async () => {
     const root = await page(
       skin,
@@ -331,7 +331,7 @@ describe.each(["minimal", "cupertino"])("camo-navigation-rail under %s", (skin) 
 
 const drawerBody = `<camo-nav-section title="Mail"><camo-nav-item value="inbox" label="Inbox" icon="inbox"></camo-nav-item><camo-nav-item value="saved" label="Saved" icon="star"></camo-nav-item></camo-nav-section><camo-nav-section title="Account"><camo-nav-item value="profile" label="Profile" icon="person"></camo-nav-item></camo-nav-section>`;
 
-describe.each(["minimal", "cupertino"])("camo-navigation-drawer under %s", (skin) => {
+describe.each(SKINS)("camo-navigation-drawer under %s", (skin) => {
   it("groups items under headings, and the arrows cross the groups", async () => {
     const root = await page(
       skin,
@@ -363,7 +363,7 @@ describe.each(["minimal", "cupertino"])("camo-navigation-drawer under %s", (skin
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-modal-drawer under %s", (skin) => {
+describe.each(SKINS)("camo-modal-drawer under %s", (skin) => {
   const drawer = (attrs = ""): string =>
     `<button id="menu">Menu</button><camo-modal-drawer label="Navigation" value="inbox"${attrs}>${drawerBody}</camo-modal-drawer>`;
 

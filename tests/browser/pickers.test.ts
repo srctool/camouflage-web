@@ -1,7 +1,7 @@
 import { inspectAria } from "@srctool/camouflage-core";
 import { userEvent } from "vitest/browser";
 import { describe, expect, it } from "vitest";
-import { mount, settled } from "./helpers.ts";
+import { mount, settled, SKINS } from "./helpers.ts";
 
 type El = HTMLElement & Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 
@@ -20,7 +20,7 @@ const data = (form: HTMLFormElement): [string, string][] =>
   [...new FormData(form).entries()].map(([k, v]) => [k, String(v)]);
 const tick = (ms = 50): Promise<void> => new Promise((r) => setTimeout(r, ms));
 
-describe.each(["minimal", "cupertino"])("camo-calendar under %s", (skin) => {
+describe.each(SKINS)("camo-calendar under %s", (skin) => {
   it("shows the month of the value, with names and the first weekday from the locale", async () => {
     const root = await page(
       skin,
@@ -191,7 +191,7 @@ describe.each(["minimal", "cupertino"])("camo-calendar under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-date-picker under %s", (skin) => {
+describe.each(SKINS)("camo-date-picker under %s", (skin) => {
   const popup = (p: Element): HTMLElement =>
     p.shadowRoot!.querySelector<HTMLElement>(".camo-popup")!;
   const buttons = (p: Element): HTMLElement[] => [
@@ -375,7 +375,7 @@ describe.each(["minimal", "cupertino"])("camo-date-picker under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-time-picker under %s", (skin) => {
+describe.each(SKINS)("camo-time-picker under %s", (skin) => {
   const popup = (p: Element): HTMLElement =>
     p.shadowRoot!.querySelector<HTMLElement>(".camo-popup")!;
   const buttons = (p: Element): HTMLElement[] => [
@@ -404,12 +404,12 @@ describe.each(["minimal", "cupertino"])("camo-time-picker under %s", (skin) => {
     const p = q(root, "camo-time-picker");
     await p.show();
     const spins = [...p.shadowRoot!.querySelectorAll<HTMLElement>('[role="spinbutton"]')];
-    expect(spins.length).toBe(skin === "minimal" ? 2 : 3);
+    expect(spins.length).toBe(skin !== "cupertino" ? 2 : 3);
     expect(spins[0]!.getAttribute("aria-label")).toBe("Hour");
     expect(spins[0]!.getAttribute("aria-valuenow")).toBe("2");
     expect(spins[1]!.getAttribute("aria-label")).toBe("Minute");
     expect(spins[1]!.getAttribute("aria-valuenow")).toBe("30");
-    expect(p.shadowRoot!.querySelector(skin === "minimal" ? ".digits" : ".wheel")).not.toBeNull();
+    expect(p.shadowRoot!.querySelector(skin !== "cupertino" ? ".digits" : ".wheel")).not.toBeNull();
     await userEvent.keyboard("{Escape}");
   });
 
@@ -422,7 +422,7 @@ describe.each(["minimal", "cupertino"])("camo-time-picker under %s", (skin) => {
     await p.show();
     await tick(100);
     const wheel = p.shadowRoot!.querySelector<HTMLElement>(".wheel");
-    if (skin === "minimal") {
+    if (skin !== "cupertino") {
       expect(wheel).toBeNull();
       return;
     }
@@ -461,7 +461,7 @@ describe.each(["minimal", "cupertino"])("camo-time-picker under %s", (skin) => {
     );
     const p = q(root, "camo-time-picker");
     await p.show();
-    if (skin === "minimal") {
+    if (skin !== "cupertino") {
       const pm = [...p.shadowRoot!.querySelectorAll<HTMLElement>(".period button")][1]!;
       pm.click();
     } else {

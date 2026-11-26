@@ -2,7 +2,7 @@ import { inspectAria } from "@srctool/camouflage-core";
 import { userEvent } from "vitest/browser";
 import axe from "axe-core";
 import { describe, expect, it } from "vitest";
-import { box, cssVar, mount, settled } from "./helpers.ts";
+import { box, cssVar, mount, settled, SKINS, traits } from "./helpers.ts";
 
 const surfaceOf = (button: Element): HTMLElement =>
   button.shadowRoot!.querySelector(".camo-surface") as HTMLElement;
@@ -24,7 +24,7 @@ async function page(
   return { root, button: root.querySelector("camo-button") as HTMLElement };
 }
 
-describe.each(["minimal", "cupertino"])("camo-button under %s", (skin) => {
+describe.each(SKINS)("camo-button under %s", (skin) => {
   it("is a button with a name, from the attributes", async () => {
     const { button } = await page(skin, `<camo-button text="Save"></camo-button>`);
     expect(inspectAria(button)).toMatchObject({
@@ -88,7 +88,8 @@ describe.each(["minimal", "cupertino"])("camo-button under %s", (skin) => {
     await userEvent.tab();
     expect(document.activeElement).toBe(button);
     const veil = button.shadowRoot!.querySelector(".camo-feedback-veil") as HTMLElement;
-    expect(getComputedStyle(veil).outlineStyle).toBe("solid");
+    if (traits(skin).ring === "outline") expect(getComputedStyle(veil).outlineStyle).toBe("solid");
+    else expect(getComputedStyle(veil).boxShadow).not.toBe("none");
     void root;
   });
 
@@ -116,7 +117,7 @@ describe.each(["minimal", "cupertino"])("camo-button under %s", (skin) => {
   it("is the style's height, and its touch area reaches 48", async () => {
     const { button } = await page(skin, `<camo-button text="Go"></camo-button>`);
     const height = box(button).height;
-    expect(height).toBe(skin === "minimal" ? 40 : 44);
+    expect(height).toBe(traits(skin).buttonHeight);
     const r = box(button);
     const probe = document.elementFromPoint(r.left + r.width / 2, r.top - (48 - height) / 2 + 1);
     expect(probe).toBe(button);

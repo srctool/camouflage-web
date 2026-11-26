@@ -27,6 +27,12 @@ import type { CamoColors, CamoTheme } from "@srctool/camouflage-core";
 import { fromSeed } from "@srctool/camouflage-core/seed";
 import { cupertinoTheme, cupertinoThemes } from "@srctool/camouflage-skin-cupertino";
 import { minimalThemes } from "@srctool/camouflage-skin-minimal";
+import { carbonG10, carbonG90, carbonThemes } from "@srctool/camouflage-skin-carbon";
+import { carbonTheme } from "@srctool/camouflage-skin-carbon/factory";
+import { fluentThemes } from "@srctool/camouflage-skin-fluent";
+import { fluentTheme } from "@srctool/camouflage-skin-fluent/factory";
+import { materialThemes } from "@srctool/camouflage-skin-material";
+import { materialTheme } from "@srctool/camouflage-skin-material/factory";
 
 const fixture = <T>(name: string): T =>
   JSON.parse(readFileSync(new URL(`../fixtures/${name}`, import.meta.url), "utf8")) as T;
@@ -202,6 +208,19 @@ describe("validateTheme", () => {
       expect(failing.filter((pair) => !APPLE_KNOWN.has(pair))).toEqual([]);
       expect(failing).not.toContain("onSurface/surface");
     }
+  });
+
+  it.each([
+    ["material light", materialThemes.light],
+    ["material dark", materialThemes.dark],
+    ["fluent light", fluentThemes.light],
+    ["fluent dark", fluentThemes.dark],
+    ["carbon White", carbonThemes.light],
+    ["carbon G10", carbonG10],
+    ["carbon G90", carbonG90],
+    ["carbon G100", carbonThemes.dark],
+  ])("validates %s", (_name, theme) => {
+    expect(validateTheme(theme)).toMatchSnapshot();
   });
 
   it("names a missing role", () => {
@@ -451,5 +470,34 @@ describe("cupertinoTheme(accent)", () => {
     expect(() => cupertinoTheme({ accent: "var(--brand)" })).toThrow(
       "is not a color the accent can use",
     );
+  });
+});
+
+describe("the other skins' theme factories", () => {
+  it("give the starter themes with no options", () => {
+    expect(materialTheme()).toEqual(materialThemes);
+    expect(fluentTheme()).toEqual(fluentThemes);
+    expect(carbonTheme()).toEqual(carbonThemes);
+  });
+
+  it("take a seed, a brand or an accent for the primary family", () => {
+    const seeded = materialTheme({ seed: "#00639a" }).light.colors;
+    expect(seeded.primary).not.toBe(materialThemes.light.colors.primary);
+    const brand = fluentTheme({ brand: "#7a1fa2" }).light;
+    expect(brand.colors.primary).toBe("#7a1fa2");
+    expect(brand.tokenSets["fluent"]?.["brandBackground"]).toBe("#7a1fa2");
+    const accent = carbonTheme({ accent: "#7a1fa2" }).light.colors;
+    expect(accent.surface).toBe(carbonThemes.light.colors.surface);
+    expect(accent.primary).not.toBe(carbonThemes.light.colors.primary);
+  });
+
+  it("fix the density and pick Carbon's gray themes", () => {
+    expect(fluentTheme({ density: "small" }).light.tokenSets["fluentDensity"]).toEqual({
+      control: "24px",
+    });
+    const gray = carbonTheme({ light: "g10", dark: "g90", density: "sm" });
+    expect(gray.light.colors.surface).toBe(carbonG10.colors.surface);
+    expect(gray.dark.colors.surface).toBe(carbonG90.colors.surface);
+    expect(gray.dark.tokenSets["carbonDensity"]).toEqual({ control: "32px" });
   });
 });

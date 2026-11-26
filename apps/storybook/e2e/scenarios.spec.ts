@@ -59,11 +59,12 @@ for (const v of variants) {
 }
 
 // The test modes change what the environment reports; the page must still render, and a skin's fallback must hold.
-const MODES: TestMode[] = ["reduced-motion", "reduced-transparency", "blur-off"];
+const MODES: TestMode[] = ["reduced-motion", "reduced-transparency", "blur-off", "no-shaders"];
 for (const testMode of MODES) {
+  // One plain component, and every material scenario: each step of a material's fallback chain has its capture.
   const sample = variants.filter(
     (v) =>
-      v.scenario.name === "button-solid" &&
+      (v.scenario.name === "button-solid" || v.scenario.surface !== undefined) &&
       v.mode === "light" &&
       v.textScale === 1 &&
       v.direction === "ltr",

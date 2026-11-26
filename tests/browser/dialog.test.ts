@@ -3,7 +3,7 @@ import type { CamoCloseDetail, CamoDialog } from "@srctool/camouflage-core";
 import axe from "axe-core";
 import { userEvent } from "vitest/browser";
 import { describe, expect, it } from "vitest";
-import { box, mount, settled } from "./helpers.ts";
+import { box, mount, settled, SKINS } from "./helpers.ts";
 
 const MARKUP = `
   <camo-dialog open title="Delete item?" message="This can't be undone.">
@@ -23,7 +23,7 @@ async function open(
 const inner = (dialog: CamoDialog): HTMLDialogElement =>
   dialog.shadowRoot!.querySelector("dialog")!;
 
-describe.each(["minimal", "cupertino"])("camo-dialog under %s", (skin) => {
+describe.each(SKINS)("camo-dialog under %s", (skin) => {
   it("shows unslotted children in its default slot (the contract's content)", async () => {
     const root = mount(
       `<camo-provider skin="${skin}"><camo-dialog open message="Pick one"><p id="extra">A list</p><camo-button slot="confirm" text="OK"></camo-button></camo-dialog></camo-provider>`,
@@ -181,15 +181,12 @@ describe("showCamoDialog", () => {
     return { result, dialog: root.querySelector("camo-dialog") as CamoDialog };
   }
 
-  it.each(["minimal", "cupertino"])(
-    "resolves with the confirm action's result under %s",
-    async (skin) => {
-      const { result, dialog } = await show(skin);
-      (dialog.querySelector('[slot="confirm"]') as HTMLElement).click();
-      expect(await result).toBe(true);
-      expect(document.querySelector("camo-dialog")).toBeNull(); // removed again
-    },
-  );
+  it.each(SKINS)("resolves with the confirm action's result under %s", async (skin) => {
+    const { result, dialog } = await show(skin);
+    (dialog.querySelector('[slot="confirm"]') as HTMLElement).click();
+    expect(await result).toBe(true);
+    expect(document.querySelector("camo-dialog")).toBeNull(); // removed again
+  });
 
   it("resolves with the dismiss action's result", async () => {
     const { result, dialog } = await show("minimal");

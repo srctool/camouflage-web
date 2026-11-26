@@ -25,6 +25,19 @@ describe("the custom properties the source names", () => {
     "--camo-content-color",
     "--camo-icon-size",
     "--camo-veil",
+    // Where a press landed (the press controller), for a ripple.
+    "--camo-press-x",
+    "--camo-press-y",
+    // What the provider measured, for materials and density.
+    "--camo-blur-supported",
+    "--camo-glass-refraction",
+    "--camo-material-texture",
+    "--camo-window-material",
+    "--camo-input-pointer",
+    // A skin's own sizes a brand may set, which no theme field has.
+    "--camo-hairline",
+    "--camo-material-blur-radius",
+    "--camo-glass-highlight",
     "--camo-icon-default-size",
     "--camo-li-divider",
     "--camo-li-inset",
@@ -37,7 +50,14 @@ describe("the custom properties the source names", () => {
 
   it("all exist", () => {
     const unknown: string[] = [];
-    for (const dir of ["core", "skin-minimal", "skin-cupertino"]) {
+    for (const dir of [
+      "core",
+      "skin-minimal",
+      "skin-material",
+      "skin-cupertino",
+      "skin-fluent",
+      "skin-carbon",
+    ]) {
       for (const file of sources(join(root, "packages", dir, "src"))) {
         const text = readFileSync(file, "utf8");
         for (const [, name] of text.matchAll(/var\((--camo-[a-z0-9-]+)/g)) {

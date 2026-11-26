@@ -196,9 +196,18 @@ importers:
       '@srctool/camouflage-core':
         specifier: workspace:*
         version: link:packages/core
+      '@srctool/camouflage-skin-carbon':
+        specifier: workspace:*
+        version: link:packages/skin-carbon
       '@srctool/camouflage-skin-cupertino':
         specifier: workspace:*
         version: link:packages/skin-cupertino
+      '@srctool/camouflage-skin-fluent':
+        specifier: workspace:*
+        version: link:packages/skin-fluent
+      '@srctool/camouflage-skin-material':
+        specifier: workspace:*
+        version: link:packages/skin-material
       '@srctool/camouflage-skin-minimal':
         specifier: workspace:*
         version: link:packages/skin-minimal
@@ -351,9 +360,18 @@ importers:
       '@srctool/camouflage-core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@srctool/camouflage-skin-carbon':
+        specifier: workspace:*
+        version: link:../../packages/skin-carbon
       '@srctool/camouflage-skin-cupertino':
         specifier: workspace:*
         version: link:../../packages/skin-cupertino
+      '@srctool/camouflage-skin-fluent':
+        specifier: workspace:*
+        version: link:../../packages/skin-fluent
+      '@srctool/camouflage-skin-material':
+        specifier: workspace:*
+        version: link:../../packages/skin-material
       '@srctool/camouflage-skin-minimal':
         specifier: workspace:*
         version: link:../../packages/skin-minimal
@@ -402,7 +420,37 @@ importers:
         specifier: 4.1.0
         version: 4.1.0(@types/node@26.6.6)
 
+  packages/skin-carbon:
+    dependencies:
+      '@srctool/camouflage-core':
+        specifier: workspace:*
+        version: link:../core
+      lit:
+        specifier: 3.3.3
+        version: 3.3.3
+
   packages/skin-cupertino:
+    dependencies:
+      '@srctool/camouflage-core':
+        specifier: workspace:*
+        version: link:../core
+      lit:
+        specifier: 3.3.3
+        version: 3.3.3
+
+  packages/skin-fluent:
+    dependencies:
+      '@material/material-color-utilities':
+        specifier: 0.4.0
+        version: 0.4.0
+      '@srctool/camouflage-core':
+        specifier: workspace:*
+        version: link:../core
+      lit:
+        specifier: 3.3.3
+        version: 3.3.3
+
+  packages/skin-material:
     dependencies:
       '@srctool/camouflage-core':
         specifier: workspace:*

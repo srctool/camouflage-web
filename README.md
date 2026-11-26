@@ -39,7 +39,10 @@ with **server rendering**.
 | ------------------------------------ | ------------------------------------------------------------------------------- |
 | `@srctool/camouflage-core`           | theme, provider, skin contract, behavior layer and the components (no look)     |
 | `@srctool/camouflage-skin-minimal`   | the Minimal skin; `/register` makes `skin="minimal"` work and sets the fallback |
-| `@srctool/camouflage-skin-cupertino` | the Cupertino skin (Classic; Liquid Glass comes in W8)                          |
+| `@srctool/camouflage-skin-material`  | the Material 3 skin; `/factory` makes a theme from a seed                       |
+| `@srctool/camouflage-skin-cupertino` | the Cupertino skin: Classic materials, or Liquid Glass                          |
+| `@srctool/camouflage-skin-fluent`    | the Fluent 2 skin: Solid, Acrylic or Mica; `/factory` for brand and density     |
+| `@srctool/camouflage-skin-carbon`    | the IBM Carbon skin; `/factory` for its four themes and densities               |
 | `@srctool/camouflage-charts`         | the charts; depends on core only (`/define` registers them)                     |
 
 Importing a package's main entry never defines an element and never touches `window` or `document`. Define the

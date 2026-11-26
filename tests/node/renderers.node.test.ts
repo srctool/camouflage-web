@@ -1,6 +1,9 @@
 import { cssText, tokens } from "@srctool/camouflage-core";
 import type { CamoSkin } from "@srctool/camouflage-core";
-import { cupertinoSkin } from "@srctool/camouflage-skin-cupertino";
+import { carbonSkin } from "@srctool/camouflage-skin-carbon";
+import { cupertinoSkin, createCupertinoSkin } from "@srctool/camouflage-skin-cupertino";
+import { fluentSkin } from "@srctool/camouflage-skin-fluent";
+import { materialSkin } from "@srctool/camouflage-skin-material";
 import { minimalSkin } from "@srctool/camouflage-skin-minimal";
 import type { TemplateResult } from "lit";
 import { describe, expect, it } from "vitest";
@@ -10,6 +13,10 @@ import { flatten } from "../helpers/flatten.ts";
 const skins: [string, CamoSkin][] = [
   ["minimal", minimalSkin],
   ["cupertino", cupertinoSkin],
+  ["cupertino liquid glass", createCupertinoSkin({ surface: "liquid-glass" })],
+  ["material", materialSkin],
+  ["fluent", fluentSkin],
+  ["carbon", carbonSkin],
 ];
 
 // A color, a size or a duration written into a renderer instead of coming from a token or a style field.

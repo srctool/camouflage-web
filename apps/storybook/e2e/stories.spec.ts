@@ -22,7 +22,9 @@ const ids = Object.values(built.entries)
   .filter((e) => e.type === "story" && !e.id.startsWith("harness-"))
   .map((e) => e.id);
 
-for (const skin of process.env["CI"] === undefined ? ["minimal", "cupertino"] : []) {
+for (const skin of process.env["CI"] === undefined
+  ? ["minimal", "material", "cupertino", "fluent", "carbon"]
+  : []) {
   for (const scheme of ["light", "dark"]) {
     for (const id of ids) {
       test(`story ${id} renders under ${skin}, ${scheme}`, async ({ page }, info) => {

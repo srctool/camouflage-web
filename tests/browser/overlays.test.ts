@@ -2,7 +2,7 @@ import { inspectAria, showCamoDialog } from "@srctool/camouflage-core";
 import { userEvent } from "vitest/browser";
 import { describe, expect, it } from "vitest";
 import { registerDemoIcons } from "../../scenarios/icons.ts";
-import { mount, settled } from "./helpers.ts";
+import { mount, settled, SKINS, traits } from "./helpers.ts";
 
 registerDemoIcons();
 
@@ -22,191 +22,188 @@ const tick = (ms = 60): Promise<void> => new Promise((r) => setTimeout(r, ms));
 const modal = (el: Element): boolean => inner(el, "dialog").matches(":modal");
 const popupOpen = (el: Element): boolean => inner(el, ".camo-popup").matches(":popover-open");
 
-describe.each(["minimal", "cupertino"])(
-  "the overlay frame, dialog and bottom sheet under %s",
-  (skin) => {
-    const sheet = `<camo-bottom-sheet id="s" title="Share"><camo-list-item id="first" headline="Message" clickable></camo-list-item><camo-list-item headline="Mail" clickable></camo-list-item></camo-bottom-sheet>`;
+describe.each(SKINS)("the overlay frame, dialog and bottom sheet under %s", (skin) => {
+  const sheet = `<camo-bottom-sheet id="s" title="Share"><camo-list-item id="first" headline="Message" clickable></camo-list-item><camo-list-item headline="Mail" clickable></camo-list-item></camo-bottom-sheet>`;
 
-    it("a bottom sheet is a modal in the top layer, named by its title, with focus moved in", async () => {
-      const root = await page(skin, `<button id="opener">open</button>${sheet}`);
+  it("a bottom sheet is a modal in the top layer, named by its title, with focus moved in", async () => {
+    const root = await page(skin, `<button id="opener">open</button>${sheet}`);
+    q(root, "#opener").focus();
+    const s = q(root, "#s");
+    s.open = true;
+    await settled(root);
+    await tick();
+    expect(modal(s)).toBe(true);
+    expect(inner(s, "dialog").getAttribute("aria-labelledby")).toBe("title");
+    expect(inner(s, "#title").textContent).toBe("Share");
+    expect(document.activeElement).toBe(q(root, "#first"));
+  });
+
+  it("closes on Escape and on the scrim, fires camo-close once, and returns focus to the opener", async () => {
+    const root = await page(skin, `<button id="opener">open</button>${sheet}`);
+    const s = q(root, "#s");
+    const closes: unknown[] = [];
+    s.addEventListener("camo-close", (e: Event) => closes.push((e as CustomEvent).detail));
+    for (const how of ["escape", "scrim"]) {
       q(root, "#opener").focus();
-      const s = q(root, "#s");
       s.open = true;
       await settled(root);
       await tick();
-      expect(modal(s)).toBe(true);
-      expect(inner(s, "dialog").getAttribute("aria-labelledby")).toBe("title");
-      expect(inner(s, "#title").textContent).toBe("Share");
-      expect(document.activeElement).toBe(q(root, "#first"));
-    });
-
-    it("closes on Escape and on the scrim, fires camo-close once, and returns focus to the opener", async () => {
-      const root = await page(skin, `<button id="opener">open</button>${sheet}`);
-      const s = q(root, "#s");
-      const closes: unknown[] = [];
-      s.addEventListener("camo-close", (e: Event) => closes.push((e as CustomEvent).detail));
-      for (const how of ["escape", "scrim"]) {
-        q(root, "#opener").focus();
-        s.open = true;
-        await settled(root);
-        await tick();
-        if (how === "escape") await userEvent.keyboard("{Escape}");
-        else inner(s, "dialog").click();
-        await tick();
-        expect(s.open).toBe(false);
-        expect(document.activeElement).toBe(q(root, "#opener"));
-      }
-      expect(closes).toEqual([{ result: undefined }, { result: undefined }]);
-    });
-
-    it("a persistent sheet ignores Escape and the scrim, and close(result) still closes it", async () => {
-      const root = await page(
-        skin,
-        sheet.replace("<camo-bottom-sheet", "<camo-bottom-sheet persistent"),
-      );
-      const s = q(root, "#s");
-      s.open = true;
-      await settled(root);
-      await tick();
-      await userEvent.keyboard("{Escape}");
-      inner(s, "dialog").click();
-      await tick();
-      expect(s.open).toBe(true);
-      let result: unknown;
-      s.addEventListener("camo-close", (e: Event) => (result = (e as CustomEvent).detail.result));
-      s.close("done");
+      if (how === "escape") await userEvent.keyboard("{Escape}");
+      else inner(s, "dialog").click();
       await tick();
       expect(s.open).toBe(false);
-      expect(result).toBe("done");
-    });
+      expect(document.activeElement).toBe(q(root, "#opener"));
+    }
+    expect(closes).toEqual([{ result: undefined }, { result: undefined }]);
+  });
 
-    it("dismisses by dragging the handle down, and goes from medium to large by dragging up", async () => {
-      const root = await page(
-        skin,
-        sheet.replace("<camo-bottom-sheet", '<camo-bottom-sheet detent="medium"'),
+  it("a persistent sheet ignores Escape and the scrim, and close(result) still closes it", async () => {
+    const root = await page(
+      skin,
+      sheet.replace("<camo-bottom-sheet", "<camo-bottom-sheet persistent"),
+    );
+    const s = q(root, "#s");
+    s.open = true;
+    await settled(root);
+    await tick();
+    await userEvent.keyboard("{Escape}");
+    inner(s, "dialog").click();
+    await tick();
+    expect(s.open).toBe(true);
+    let result: unknown;
+    s.addEventListener("camo-close", (e: Event) => (result = (e as CustomEvent).detail.result));
+    s.close("done");
+    await tick();
+    expect(s.open).toBe(false);
+    expect(result).toBe("done");
+  });
+
+  it("dismisses by dragging the handle down, and goes from medium to large by dragging up", async () => {
+    // Fluent and Carbon sheets have no handle to drag.
+    if (!traits(skin).sheetHandle) return;
+    const root = await page(
+      skin,
+      sheet.replace("<camo-bottom-sheet", '<camo-bottom-sheet detent="medium"'),
+    );
+    const s = q(root, "#s");
+    s.open = true;
+    await settled(root);
+    await tick();
+    const dialog = inner(s, "dialog");
+    const handle = inner(s, ".drag").getBoundingClientRect();
+    const fire = (type: string, y: number): void =>
+      void dialog.dispatchEvent(
+        new PointerEvent(type, {
+          pointerId: 1,
+          clientY: y,
+          button: 0,
+          bubbles: true,
+          composed: true,
+        }),
       );
-      const s = q(root, "#s");
-      s.open = true;
-      await settled(root);
-      await tick();
-      const dialog = inner(s, "dialog");
-      const handle = inner(s, ".drag").getBoundingClientRect();
-      const fire = (type: string, y: number): void =>
-        void dialog.dispatchEvent(
-          new PointerEvent(type, {
-            pointerId: 1,
-            clientY: y,
-            button: 0,
-            bubbles: true,
-            composed: true,
-          }),
-        );
-      const down = (path: HTMLElement, type: string, y: number): void =>
-        void path.dispatchEvent(
-          new PointerEvent(type, {
-            pointerId: 1,
-            clientY: y,
-            button: 0,
-            bubbles: true,
-            composed: true,
-          }),
-        );
-      down(inner(s, ".handle"), "pointerdown", handle.top + 4);
-      fire("pointermove", handle.top - 120);
-      fire("pointerup", handle.top - 120);
-      await settled(root);
-      expect(s.detent).toBe("large");
-      expect(s.open).toBe(true);
-      down(inner(s, ".handle"), "pointerdown", handle.top + 4);
-      fire("pointermove", handle.top + 600);
-      fire("pointerup", handle.top + 600);
-      await tick();
-      expect(s.open).toBe(false);
-    });
+    const down = (path: HTMLElement, type: string, y: number): void =>
+      void path.dispatchEvent(
+        new PointerEvent(type, {
+          pointerId: 1,
+          clientY: y,
+          button: 0,
+          bubbles: true,
+          composed: true,
+        }),
+      );
+    down(inner(s, ".handle"), "pointerdown", handle.top + 4);
+    fire("pointermove", handle.top - 120);
+    fire("pointerup", handle.top - 120);
+    await settled(root);
+    expect(s.detent).toBe("large");
+    expect(s.open).toBe(true);
+    down(inner(s, ".handle"), "pointerdown", handle.top + 4);
+    fire("pointermove", handle.top + 600);
+    fire("pointerup", handle.top + 600);
+    await tick();
+    expect(s.open).toBe(false);
+  });
 
-    it("a dialog inside a dialog is on top, and Escape closes only the top one, then the other", async () => {
-      const root = await page(
-        skin,
-        `<button id="opener">open</button>
+  it("a dialog inside a dialog is on top, and Escape closes only the top one, then the other", async () => {
+    const root = await page(
+      skin,
+      `<button id="opener">open</button>
        <camo-dialog id="outer" title="Outer" message="First"><camo-button slot="confirm" text="Next" id="next"></camo-button>
          <camo-dialog id="inner" title="Inner" message="Second"><camo-button slot="confirm" text="OK"></camo-button></camo-dialog>
        </camo-dialog>`,
-      );
-      q(root, "#opener").focus();
-      const [outer, innerDialog] = [q(root, "#outer"), q(root, "#inner")];
-      outer.open = true;
-      await settled(root);
-      await tick();
-      expect(modal(outer)).toBe(true);
-      // Opened by a click, as in use: a browser closes overlays opened with no user gesture between together.
-      q(root, "#next").addEventListener("click", () => (innerDialog.open = true));
-      await userEvent.click(q(root, "#next"));
-      await tick();
-      expect(modal(innerDialog)).toBe(true);
-      // Both are modal; the later one is above (the top layer is a stack). Escape goes to the top one only.
-      await userEvent.keyboard("{Escape}");
-      await tick();
-      expect(innerDialog.open).toBe(false);
-      expect(outer.open).toBe(true);
-      expect(modal(outer)).toBe(true);
-      await userEvent.keyboard("{Escape}");
-      await tick();
-      expect(outer.open).toBe(false);
-      expect(document.activeElement).toBe(q(root, "#opener"));
-    });
+    );
+    q(root, "#opener").focus();
+    const [outer, innerDialog] = [q(root, "#outer"), q(root, "#inner")];
+    outer.open = true;
+    await settled(root);
+    await tick();
+    expect(modal(outer)).toBe(true);
+    // Opened by a click, as in use: a browser closes overlays opened with no user gesture between together.
+    q(root, "#next").addEventListener("click", () => (innerDialog.open = true));
+    await userEvent.click(q(root, "#next"));
+    await tick();
+    expect(modal(innerDialog)).toBe(true);
+    // Both are modal; the later one is above (the top layer is a stack). Escape goes to the top one only.
+    await userEvent.keyboard("{Escape}");
+    await tick();
+    expect(innerDialog.open).toBe(false);
+    expect(outer.open).toBe(true);
+    expect(modal(outer)).toBe(true);
+    await userEvent.keyboard("{Escape}");
+    await tick();
+    expect(outer.open).toBe(false);
+    expect(document.activeElement).toBe(q(root, "#opener"));
+  });
 
-    it("traps focus inside a dialog: Tab cycles through its actions and never reaches the page", async () => {
-      const root = await page(
-        skin,
-        `<button id="behind">behind</button><camo-dialog id="d" title="T" message="M"><camo-button slot="confirm" text="Yes" id="yes"></camo-button><camo-button slot="dismiss" text="No" id="no"></camo-button></camo-dialog>`,
-      );
-      const d = q(root, "#d");
-      d.open = true;
-      await settled(root);
-      await tick();
-      const seen = new Set<string>();
-      for (let i = 0; i < 6; i++) {
-        await userEvent.tab();
-        seen.add((document.activeElement as HTMLElement).id || document.activeElement!.tagName);
-      }
-      // Which actions Tab stops on differs by engine (Safari skips custom elements unless the user turns that on); that it
-      // never reaches the page behind does not.
-      expect(seen.has("behind")).toBe(false);
-      d.close();
-    });
+  it("traps focus inside a dialog: Tab cycles through its actions and never reaches the page", async () => {
+    const root = await page(
+      skin,
+      `<button id="behind">behind</button><camo-dialog id="d" title="T" message="M"><camo-button slot="confirm" text="Yes" id="yes"></camo-button><camo-button slot="dismiss" text="No" id="no"></camo-button></camo-dialog>`,
+    );
+    const d = q(root, "#d");
+    d.open = true;
+    await settled(root);
+    await tick();
+    const seen = new Set<string>();
+    for (let i = 0; i < 6; i++) {
+      await userEvent.tab();
+      seen.add((document.activeElement as HTMLElement).id || document.activeElement!.tagName);
+    }
+    // Which actions Tab stops on differs by engine (Safari skips custom elements unless the user turns that on); that it
+    // never reaches the page behind does not.
+    expect(seen.has("behind")).toBe(false);
+    d.close();
+  });
 
-    it("the imperative dialog attaches to the nearest provider and draws with its skin", async () => {
-      const root = await page(skin, `<div id="host"></div>`);
-      const promise = showCamoDialog<boolean>({
-        title: "Delete?",
-        message: "Sure?",
-        confirm: { text: "Delete", tone: "error", result: true },
-        dismiss: { text: "Cancel", appearance: "ghost", result: false },
-        host: q(root, "#host"),
-      });
-      await settled(root);
-      await tick();
-      const d = root.querySelector("camo-dialog") as El;
-      expect(d.parentElement).toBe(q(root, "#host"));
-      expect(d.shadowRoot!.querySelector("dialog")!.querySelector("h2")!.textContent).toBe(
-        "Delete?",
-      );
-      q(d, "[slot=confirm]").click();
-      expect(await promise).toBe(true);
+  it("the imperative dialog attaches to the nearest provider and draws with its skin", async () => {
+    const root = await page(skin, `<div id="host"></div>`);
+    const promise = showCamoDialog<boolean>({
+      title: "Delete?",
+      message: "Sure?",
+      confirm: { text: "Delete", tone: "error", result: true },
+      dismiss: { text: "Cancel", appearance: "ghost", result: false },
+      host: q(root, "#host"),
     });
+    await settled(root);
+    await tick();
+    const d = root.querySelector("camo-dialog") as El;
+    expect(d.parentElement).toBe(q(root, "#host"));
+    expect(d.shadowRoot!.querySelector("dialog")!.querySelector("h2")!.textContent).toBe("Delete?");
+    q(d, "[slot=confirm]").click();
+    expect(await promise).toBe(true);
+  });
 
-    it("a sheet and a dialog both draw their content from the skin and fall back to slots with no provider", async () => {
-      const root = mount(
-        `<camo-bottom-sheet id="s" title="Plain" open><p>Hi</p></camo-bottom-sheet>`,
-      );
-      await settled(root);
-      expect(q(root, "#s").shadowRoot!.querySelector("dialog")).not.toBeNull();
-      q(root, "#s").close();
-    });
-  },
-);
+  it("a sheet and a dialog both draw their content from the skin and fall back to slots with no provider", async () => {
+    const root = mount(
+      `<camo-bottom-sheet id="s" title="Plain" open><p>Hi</p></camo-bottom-sheet>`,
+    );
+    await settled(root);
+    expect(q(root, "#s").shadowRoot!.querySelector("dialog")).not.toBeNull();
+    q(root, "#s").close();
+  });
+});
 
-describe.each(["minimal", "cupertino"])("camo-menu under %s", (skin) => {
+describe.each(SKINS)("camo-menu under %s", (skin) => {
   const menu = `<camo-menu id="m">
     <camo-button slot="anchor" id="anchor" text="Actions"></camo-button>
     <camo-menu-item id="copy" text="Copy" trailing-text="⌘C"></camo-menu-item>
@@ -374,7 +371,7 @@ describe.each(["minimal", "cupertino"])("camo-menu under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-tooltip under %s", (skin) => {
+describe.each(SKINS)("camo-tooltip under %s", (skin) => {
   const tip = (attrs = ""): string =>
     `<camo-tooltip id="t" text="Save the file" ${attrs}><camo-button id="btn" text="Save"></camo-button></camo-tooltip>`;
 
@@ -447,7 +444,7 @@ describe.each(["minimal", "cupertino"])("camo-tooltip under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-top-bar under %s", (skin) => {
+describe.each(SKINS)("camo-top-bar under %s", (skin) => {
   const bar = (attrs = "", extra = ""): string =>
     `<camo-top-bar id="b" title="Inbox" ${attrs}><camo-icon-button slot="navigation" label="Back"><camo-icon name="arrow-back"></camo-icon></camo-icon-button><camo-icon-button slot="actions" label="Search"><camo-icon name="search"></camo-icon></camo-icon-button>${extra}</camo-top-bar>`;
 
@@ -484,8 +481,7 @@ describe.each(["minimal", "cupertino"])("camo-top-bar under %s", (skin) => {
     );
     const rule = (id: string): string =>
       getComputedStyle(inner(q(root, id), ".bar")).borderBlockEndWidth;
-    expect(rule("#b")).toBe("0px");
-    expect(rule("#c")).toBe("1px");
+    expect([rule("#b"), rule("#c")]).toEqual(traits(skin).topRule);
   });
 
   it("collapses a large title as the offset grows in Cupertino, and draws no large title in Minimal", async () => {
@@ -495,7 +491,7 @@ describe.each(["minimal", "cupertino"])("camo-top-bar under %s", (skin) => {
     );
     const large = (id: string): HTMLElement | null =>
       q(root, id).shadowRoot!.querySelector<HTMLElement>(".large");
-    if (skin === "minimal") {
+    if (!traits(skin).apple) {
       expect(large("#b")).toBeNull();
       return;
     }
@@ -542,7 +538,7 @@ describe.each(["minimal", "cupertino"])("camo-top-bar under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-select under %s", (skin) => {
+describe.each(SKINS)("camo-select under %s", (skin) => {
   const sel = (attrs = ""): string => `<camo-select id="s" name="country" label="Country" ${attrs}>
     <camo-option value="id" label="Indonesia" supporting="+62"></camo-option>
     <camo-option value="nl" label="Netherlands"></camo-option>

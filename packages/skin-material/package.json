@@ -1,0 +1,53 @@
+{
+  "name": "@srctool/camouflage-skin-material",
+  "version": "0.2.0-alpha.0",
+  "description": "The material skin for Camouflage for web: renderers, surface treatment, interaction feedback and starter themes; `./factory` makes a theme from your color.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srctool/camouflage-web.git",
+    "directory": "packages/skin-material"
+  },
+  "type": "module",
+  "sideEffects": [
+    "./dist/register.js",
+    "./src/register.ts"
+  ],
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./register": {
+      "source": "./src/register.ts",
+      "types": "./dist/register.d.ts",
+      "default": "./dist/register.js"
+    },
+    "./factory": {
+      "source": "./src/factory.ts",
+      "types": "./dist/factory.d.ts",
+      "default": "./dist/factory.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "@srctool/camouflage-core": "workspace:*",
+    "lit": "3.3.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "camouflage": {
+    "bundlerOnly": [
+      "./factory"
+    ]
+  }
+}

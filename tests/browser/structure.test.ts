@@ -2,7 +2,7 @@ import { inspectAria } from "@srctool/camouflage-core";
 import { userEvent } from "vitest/browser";
 import { describe, expect, it } from "vitest";
 import { registerDemoIcons } from "../../scenarios/icons.ts";
-import { mount, settled } from "./helpers.ts";
+import { mount, settled, SKINS } from "./helpers.ts";
 
 registerDemoIcons();
 
@@ -21,7 +21,7 @@ const inner = (el: Element, selector: string): HTMLElement =>
 const tick = (ms = 50): Promise<void> => new Promise((r) => setTimeout(r, ms));
 const bg = (el: Element): string => getComputedStyle(inner(el, ".camo-surface")).backgroundColor;
 
-describe.each(["minimal", "cupertino"])("camo-card under %s", (skin) => {
+describe.each(SKINS)("camo-card under %s", (skin) => {
   it("has no role of its own unless it is clickable, and then it is one button", async () => {
     const root = await page(
       skin,
@@ -63,15 +63,16 @@ describe.each(["minimal", "cupertino"])("camo-card under %s", (skin) => {
   it("draws appearances and tones differently, and puts its content inside", async () => {
     const root = await page(
       skin,
-      `<camo-card id="raised">x</camo-card><camo-card id="soft" appearance="soft">x</camo-card><camo-card id="err" appearance="soft" tone="error">x</camo-card><camo-card id="solid" appearance="solid">x</camo-card>`,
+      `<camo-card id="raised" appearance="raised">x</camo-card><camo-card id="soft" appearance="soft">x</camo-card><camo-card id="err" appearance="soft" tone="error">x</camo-card><camo-card id="solid" appearance="solid">x</camo-card>`,
     );
     const colors = ["#raised", "#soft", "#err", "#solid"].map((id) => bg(q(root, id)));
-    expect(new Set(colors).size).toBe(4);
+    // Carbon has one tile: raised is the soft one.
+    expect(new Set(colors).size).toBe(skin === "carbon" ? 3 : 4);
     expect(q(root, "#raised").shadowRoot!.querySelector("slot")!.assignedNodes().length).toBe(1);
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-list-item and camo-list-section under %s", (skin) => {
+describe.each(SKINS)("camo-list-item and camo-list-section under %s", (skin) => {
   it("shows the texts, sizes by how many there are, and is one button when clickable", async () => {
     const root = await page(
       skin,
@@ -143,7 +144,7 @@ describe.each(["minimal", "cupertino"])("camo-list-item and camo-list-section un
     );
     const panel = inner(q(root, "camo-list-section"), ".panel");
     const sec = inner(q(root, "camo-list-section"), ".sec");
-    if (skin === "minimal") {
+    if (skin !== "cupertino") {
       expect(parseFloat(getComputedStyle(panel).borderStartStartRadius)).toBe(0);
       expect(getComputedStyle(sec).marginInlineStart).toBe("0px");
     } else {
@@ -153,7 +154,7 @@ describe.each(["minimal", "cupertino"])("camo-list-item and camo-list-section un
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-accordion under %s", (skin) => {
+describe.each(SKINS)("camo-accordion under %s", (skin) => {
   const body = `<camo-accordion id="a" title="Shipping" subtitle="2 days"><div id="c"><button id="inside">Track</button></div></camo-accordion>`;
 
   it("is a button with expanded state, whose title is a heading, with the content hidden while closed", async () => {
@@ -223,7 +224,7 @@ describe.each(["minimal", "cupertino"])("camo-accordion under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-skeleton under %s", (skin) => {
+describe.each(SKINS)("camo-skeleton under %s", (skin) => {
   it("is hidden from assistive technology, in each of its forms", async () => {
     const root = await page(
       skin,
@@ -267,7 +268,7 @@ describe.each(["minimal", "cupertino"])("camo-skeleton under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-paged-list under %s", (skin) => {
+describe.each(SKINS)("camo-paged-list under %s", (skin) => {
   const items = [{ headline: "Ada" }, { headline: "Grace" }, { headline: "Katherine" }];
   const make = async (state: object, attrs = ""): Promise<{ root: HTMLElement; list: El }> => {
     const root = await page(skin, `<camo-paged-list label="People" ${attrs}></camo-paged-list>`);

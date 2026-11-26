@@ -2,7 +2,7 @@ import { inspectAria } from "@srctool/camouflage-core";
 import { userEvent } from "vitest/browser";
 import { describe, expect, it } from "vitest";
 import { registerDemoIcons } from "../../scenarios/icons.ts";
-import { mount, settled } from "./helpers.ts";
+import { mount, settled, SKINS, traits } from "./helpers.ts";
 
 registerDemoIcons();
 
@@ -51,7 +51,7 @@ async function table(
 }
 const rowEls = (t: El): HTMLElement[] => innerAll(t, "tbody tr");
 
-describe.each(["minimal", "cupertino"])("camo-data-table under %s", (skin) => {
+describe.each(SKINS)("camo-data-table under %s", (skin) => {
   it("is a grid with a caption, column headers, and a row for each record", async () => {
     const { t } = await table(skin);
     const grid = inner(t, "table");
@@ -260,7 +260,7 @@ async function tree(
 const items = (t: El): HTMLElement[] => innerAll(t, "li[role=treeitem]");
 const labels = (t: El): string[] => items(t).map((i) => i.querySelector(".label")!.textContent!);
 
-describe.each(["minimal", "cupertino"])("camo-tree under %s", (skin) => {
+describe.each(SKINS)("camo-tree under %s", (skin) => {
   it("is a tree whose items announce level, place and expanded state", async () => {
     const { t } = await tree(skin, "", { expanded: ["docs"] });
     expect(inner(t, "ul").getAttribute("role")).toBe("tree");
@@ -406,7 +406,7 @@ describe.each(["minimal", "cupertino"])("camo-tree under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-pagination under %s", (skin) => {
+describe.each(SKINS)("camo-pagination under %s", (skin) => {
   const make = async (attrs: string, dir = "ltr"): Promise<{ root: HTMLElement; p: El }> => {
     const root = await page(skin, `<camo-pagination ${attrs}></camo-pagination>`, dir);
     return { root, p: q(root, "camo-pagination") };
@@ -498,7 +498,7 @@ describe.each(["minimal", "cupertino"])("camo-pagination under %s", (skin) => {
 const crumb = (label: string, extra = ""): string =>
   `<camo-breadcrumb-item label="${label}"${extra}></camo-breadcrumb-item>`;
 
-describe.each(["minimal", "cupertino"])("camo-breadcrumb under %s", (skin) => {
+describe.each(SKINS)("camo-breadcrumb under %s", (skin) => {
   const make = async (
     width: number,
     items: string[],
@@ -605,7 +605,7 @@ describe.each(["minimal", "cupertino"])("camo-breadcrumb under %s", (skin) => {
 const steps = (): string =>
   `<camo-step label="Cart"></camo-step><camo-step label="Shipping" description="Where it goes"></camo-step><camo-step label="Payment"></camo-step><camo-step label="Done"></camo-step>`;
 
-describe.each(["minimal", "cupertino"])("camo-progress-steps under %s", (skin) => {
+describe.each(SKINS)("camo-progress-steps under %s", (skin) => {
   const make = async (
     attrs: string,
     body = steps(),
@@ -642,7 +642,7 @@ describe.each(["minimal", "cupertino"])("camo-progress-steps under %s", (skin) =
     expect(inner(a!, ".marker svg")).not.toBeNull();
     expect(inner(b!, ".marker svg")).not.toBeNull();
     expect(inspectAria(b!)?.label).toBe("Step 2 of 3, B, error");
-    expect(inner(c!, ".marker").textContent!.trim()).toBe("3");
+    expect(inner(c!, ".marker").textContent!.trim()).toBe(traits(skin).stepNumbers ? "3" : "");
     const color = (el: El): string => getComputedStyle(inner(el, ".marker")).backgroundColor;
     expect(new Set([color(a!), color(b!), color(c!)]).size).toBe(3);
   });

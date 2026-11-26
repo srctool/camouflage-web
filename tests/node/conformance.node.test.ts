@@ -1,6 +1,9 @@
 import { cssText } from "@srctool/camouflage-core";
 import type { CamoSkin } from "@srctool/camouflage-core";
+import { carbonSkin } from "@srctool/camouflage-skin-carbon";
 import { cupertinoSkin } from "@srctool/camouflage-skin-cupertino";
+import { fluentSkin } from "@srctool/camouflage-skin-fluent";
+import { materialSkin } from "@srctool/camouflage-skin-material";
 import { minimalSkin } from "@srctool/camouflage-skin-minimal";
 import { html } from "lit";
 import { describe, expect, it } from "vitest";
@@ -12,6 +15,9 @@ import { renderToString, squash } from "../helpers/ssr.ts";
 await import("@srctool/camouflage-core/define");
 await import("@srctool/camouflage-skin-minimal/register");
 await import("@srctool/camouflage-skin-cupertino/register");
+await import("@srctool/camouflage-skin-material/register");
+await import("@srctool/camouflage-skin-fluent/register");
+await import("@srctool/camouflage-skin-carbon/register");
 await import("@srctool/camouflage-charts/define");
 
 describe("the conformance helpers", () => {
@@ -58,6 +64,9 @@ describe("the conformance helpers", () => {
 describe.each<[string, CamoSkin]>([
   ["minimal", minimalSkin],
   ["cupertino", cupertinoSkin],
+  ["material", materialSkin],
+  ["fluent", fluentSkin],
+  ["carbon", carbonSkin],
 ])("%s renderers follow the rules", (_name, skin) => {
   const art = { svg: "<path d='M0 0'/>", viewBox: "0 0 24 24" };
   const outputs = (): { name: string; markup: string; css: string }[] => [

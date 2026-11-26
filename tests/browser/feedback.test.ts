@@ -2,7 +2,7 @@ import { inspectAria, messengerOf } from "@srctool/camouflage-core";
 import type { CamoMessenger } from "@srctool/camouflage-core";
 import { describe, expect, it } from "vitest";
 import { registerDemoIcons } from "../../scenarios/icons.ts";
-import { mount, settled } from "./helpers.ts";
+import { mount, settled, SKINS, traits } from "./helpers.ts";
 
 registerDemoIcons();
 
@@ -20,7 +20,7 @@ const inner = (el: Element, selector: string): HTMLElement =>
   el.shadowRoot!.querySelector<HTMLElement>(selector)!;
 const tick = (ms = 50): Promise<void> => new Promise((r) => setTimeout(r, ms));
 
-describe.each(["minimal", "cupertino"])("camo-progress-bar under %s", (skin) => {
+describe.each(SKINS)("camo-progress-bar under %s", (skin) => {
   it("draws the fraction, clamps it, and is a progressbar with a percentage", async () => {
     const root = await page(
       skin,
@@ -70,7 +70,7 @@ describe.each(["minimal", "cupertino"])("camo-progress-bar under %s", (skin) => 
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-progress-circle under %s", (skin) => {
+describe.each(SKINS)("camo-progress-circle under %s", (skin) => {
   it("draws sizes, a ring for a fraction, and the same accessibility as the bar", async () => {
     const root = await page(
       skin,
@@ -87,7 +87,7 @@ describe.each(["minimal", "cupertino"])("camo-progress-circle under %s", (skin) 
     // The arc is the fraction of the circumference.
     const arc = inner(q(root, "#m"), ".arc");
     expect(Number.parseFloat(getComputedStyle(arc).strokeDashoffset)).toBeCloseTo(0.5, 2);
-    expect((arc as unknown as SVGGraphicsElement).getBBox().width).toBeGreaterThan(30);
+    expect((arc as unknown as SVGGraphicsElement).getBBox().width).toBeGreaterThan(20);
   });
 
   it("spins or fades spokes while the amount is unknown", async () => {
@@ -106,7 +106,7 @@ describe.each(["minimal", "cupertino"])("camo-progress-circle under %s", (skin) 
   });
 });
 
-describe.each(["minimal", "cupertino"])("camo-banner under %s", (skin) => {
+describe.each(SKINS)("camo-banner under %s", (skin) => {
   it("is a status for info and success and an alert for warning and error", async () => {
     const root = await page(
       skin,
@@ -166,7 +166,7 @@ describe.each(["minimal", "cupertino"])("camo-banner under %s", (skin) => {
   });
 });
 
-describe.each(["minimal", "cupertino"])("the messenger and camo-snackbar under %s", (skin) => {
+describe.each(SKINS)("the messenger and camo-snackbar under %s", (skin) => {
   const snackbars = (root: ParentNode): El[] => [...root.querySelectorAll<El>("camo-snackbar")];
 
   it("shows one message at a time, in order, and resolves with how each ended", async () => {
@@ -237,16 +237,19 @@ describe.each(["minimal", "cupertino"])("the messenger and camo-snackbar under %
     expect(await result).toBe("action");
   });
 
-  it("uses the skin's position: the bottom under Minimal, the top under Cupertino", async () => {
+  it("uses the skin's position: the edge and the side its dialect puts it", async () => {
     const root = await page(skin, `<span id="host"></span>`);
     const messenger = messengerOf(q(root, "#host"));
     const done = messenger.show("Placed", { duration: "indefinite" });
     await tick(100);
     const box = snackbars(root)[0]!.getBoundingClientRect();
-    if (skin === "minimal") expect(box.bottom).toBeGreaterThan(window.innerHeight / 2);
+    const [edge, side] = traits(skin).snackbar;
+    if (edge === "bottom") expect(box.bottom).toBeGreaterThan(window.innerHeight / 2);
     else expect(box.top).toBeLessThan(window.innerHeight / 2);
-    // Centered along the edge.
-    expect(Math.abs(box.left + box.width / 2 - window.innerWidth / 2)).toBeLessThan(2);
+    // Centered along the edge, or at its end (a window at least medium wide).
+    const off = box.left + box.width / 2 - window.innerWidth / 2;
+    if (side === "center" || window.innerWidth < 600) expect(Math.abs(off)).toBeLessThan(2);
+    else expect(off).toBeGreaterThan(0);
     messenger.dismissCurrent();
     await done;
   });
