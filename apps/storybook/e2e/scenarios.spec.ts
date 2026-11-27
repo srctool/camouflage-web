@@ -43,9 +43,13 @@ async function open(page: Page, v: Variant, testMode?: TestMode): Promise<void> 
 }
 
 async function capture(page: Page, v: Variant): Promise<Buffer> {
+  // An unknown amount pulses for ever, even under reduced motion: freeze it, or each capture catches another moment.
+  const options = v.scenario.name.endsWith("-indeterminate")
+    ? { animations: "disabled" as const }
+    : {};
   return v.scenario.frame === "page"
-    ? await page.screenshot()
-    : await page.locator("#harness").screenshot();
+    ? await page.screenshot(options)
+    : await page.locator("#harness").screenshot(options);
 }
 
 for (const v of variants) {
