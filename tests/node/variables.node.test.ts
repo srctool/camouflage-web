@@ -25,6 +25,12 @@ describe("the custom properties the source names", () => {
     "--camo-content-color",
     "--camo-icon-size",
     "--camo-veil",
+    // A split pane tells its panes which way they sit.
+    "--camo-split-flow",
+    "--camo-split-row",
+    "--camo-split-cursor",
+    // What a provider's `density` asks for.
+    "--camo-density-control",
     // Where a press landed (the press controller), for a ripple.
     "--camo-press-x",
     "--camo-press-y",

@@ -15,6 +15,7 @@ import {
 } from "./inputs.ts";
 import { fluentButton } from "./button.ts";
 import { fluentDivider } from "./divider.ts";
+import { fluentScrollbar, fluentSplitPane } from "./panes.ts";
 import { fluentIcon } from "./icon.ts";
 import { fluentIconButton } from "./icon-button.ts";
 import { fluentSurface } from "./surface-component.ts";
@@ -75,6 +76,8 @@ export const fluentSkin: CamoSkin = defineSkin({
   icon: fluentIcon,
   surface: fluentSurface,
   divider: fluentDivider,
+  splitPane: fluentSplitPane,
+  scrollbar: fluentScrollbar,
   button: fluentButton,
   iconButton: fluentIconButton,
   card: fluentCard,
@@ -136,6 +139,8 @@ export {
   fluentIcon,
   fluentSurface,
   fluentDivider,
+  fluentSplitPane,
+  fluentScrollbar,
   fluentButton,
   fluentIconButton,
   fluentTextField,

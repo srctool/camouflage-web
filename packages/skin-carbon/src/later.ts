@@ -96,7 +96,7 @@ export const carbonButtonGroup: Renderer<ButtonGroupState, ButtonGroupSlots, But
       height: field(
         "button-group",
         "height",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       shape: field("button-group", "shape", theme.shapes.none),
       innerShape: field("button-group", "inner-shape", theme.shapes.none),
@@ -126,14 +126,14 @@ export const carbonSplitButton: Renderer<SplitButtonState, SplitButtonSlots, Spl
       height: field(
         "split-button",
         "height",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       shape: field("split-button", "shape", theme.shapes.none),
       innerShape: field("split-button", "inner-shape", theme.shapes.none),
       arrowWidth: field(
         "split-button",
         "arrow-width",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       gap: field("split-button", "gap", "1px"),
       padding: field("split-button", "padding", theme.spacing.l),
@@ -202,7 +202,7 @@ export const carbonToolbar: Renderer<ToolbarState, ToolbarSlots, ToolbarStyle> =
       actionSize: field(
         "toolbar",
         "action-size",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       padding: field("toolbar", "padding", theme.spacing.s),
       showDivider: true,
@@ -303,12 +303,12 @@ export const carbonDataTable: Renderer<DataTableState, DataTableSlots, DataTable
       headerHeight: field(
         "data-table",
         "header-height",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       rowHeight: field(
         "data-table",
         "row-height",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       cellPadding: field("data-table", "cell-padding", theme.spacing.l),
       striped: false,
@@ -338,7 +338,7 @@ export const carbonTree: Renderer<TreeNodeState, TreeSlots, TreeStyle> = {
       rowHeight: field(
         "tree",
         "row-height",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 16px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 16px)))",
       ),
       indent: field("tree", "indent", "24px"),
       iconSize: field("tree", "icon-size", "16px"),
@@ -363,7 +363,7 @@ export const carbonPagination: Renderer<PaginationState, PaginationSlots, Pagina
       buttonSize: field(
         "pagination",
         "button-size",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       shape: field("pagination", "shape", theme.shapes.none),
       dotSize: field("pagination", "dot-size", "8px"),

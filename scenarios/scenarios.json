@@ -3612,6 +3612,250 @@
       "textScales": [1],
       "directions": ["ltr"],
       "frame": "page"
+    },
+    {
+      "name": "menu-submenu",
+      "component": "menu",
+      "props": {
+        "open": true
+      },
+      "content": {
+        "": "<camo-button slot=\"anchor\" text=\"Reset\" appearance=\"outline\"></camo-button><camo-menu-item text=\"Copy\"></camo-menu-item><camo-menu-submenu text=\"Reset to here\" open><camo-menu-item text=\"Soft\"></camo-menu-item><camo-menu-item text=\"Mixed\"></camo-menu-item><camo-menu-item text=\"Hard\" tone=\"error\"></camo-menu-item></camo-menu-submenu>"
+      },
+      "frame": "page",
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "menu-submenu-closed",
+      "component": "menu",
+      "props": {
+        "open": true
+      },
+      "content": {
+        "": "<camo-button slot=\"anchor\" text=\"Reset\" appearance=\"outline\"></camo-button><camo-menu-item text=\"Copy\"></camo-menu-item><camo-menu-submenu text=\"Reset to here\"><camo-menu-item text=\"Soft\"></camo-menu-item><camo-menu-item text=\"Mixed\"></camo-menu-item><camo-menu-item text=\"Hard\" tone=\"error\"></camo-menu-item></camo-menu-submenu>"
+      },
+      "frame": "page",
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "split-pane",
+      "component": "split-pane",
+      "props": {
+        "style": "block-size: 160px; inline-size: 360px"
+      },
+      "content": {
+        "": "<camo-pane size=\"0.3\" min-size=\"60\" collapsible><camo-list-item headline=\"Inbox\"></camo-list-item><camo-list-item headline=\"Sent\"></camo-list-item></camo-pane><camo-pane size=\"0.7\" min-size=\"60\"><camo-surface level=\"low\" style=\"block-size:100%\"><camo-text text=\"Detail\"></camo-text></camo-surface></camo-pane>"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "split-pane-vertical",
+      "component": "split-pane",
+      "props": {
+        "axis": "vertical",
+        "style": "block-size: 220px; inline-size: 300px"
+      },
+      "content": {
+        "": "<camo-pane size=\"0.3\" min-size=\"60\" collapsible><camo-list-item headline=\"Inbox\"></camo-list-item><camo-list-item headline=\"Sent\"></camo-list-item></camo-pane><camo-pane size=\"0.7\" min-size=\"60\"><camo-surface level=\"low\" style=\"block-size:100%\"><camo-text text=\"Detail\"></camo-text></camo-surface></camo-pane>"
+      },
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "split-pane-three",
+      "component": "split-pane",
+      "props": {
+        "style": "block-size: 140px; inline-size: 400px"
+      },
+      "content": {
+        "": "<camo-pane size=\"0\" collapsible><camo-text text=\"Hidden\"></camo-text></camo-pane><camo-pane size=\"0.6\"><camo-text text=\"Detail\"></camo-text></camo-pane><camo-pane size=\"0.4\"><camo-text text=\"Log\"></camo-text></camo-pane>"
+      },
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "scrollbar",
+      "component": "scrollbar",
+      "props": {
+        "visibility": "always",
+        "label": "History",
+        "style": "block-size: 180px; inline-size: 280px"
+      },
+      "content": {
+        "": "<camo-list-item headline=\"Commit 1\"></camo-list-item><camo-list-item headline=\"Commit 2\"></camo-list-item><camo-list-item headline=\"Commit 3\"></camo-list-item><camo-list-item headline=\"Commit 4\"></camo-list-item><camo-list-item headline=\"Commit 5\"></camo-list-item><camo-list-item headline=\"Commit 6\"></camo-list-item><camo-list-item headline=\"Commit 7\"></camo-list-item><camo-list-item headline=\"Commit 8\"></camo-list-item><camo-list-item headline=\"Commit 9\"></camo-list-item><camo-list-item headline=\"Commit 10\"></camo-list-item><camo-list-item headline=\"Commit 11\"></camo-list-item><camo-list-item headline=\"Commit 12\"></camo-list-item>"
+      },
+      "textScales": [1],
+      "directions": ["ltr", "rtl"]
+    },
+    {
+      "name": "scrollbar-horizontal",
+      "component": "scrollbar",
+      "props": {
+        "visibility": "always",
+        "orientation": "horizontal",
+        "label": "Columns",
+        "style": "inline-size: 280px"
+      },
+      "content": {
+        "": "<div style=\"inline-size: 700px; padding: 12px 0\"><camo-text text=\"A long row of columns that does not fit in the area\"></camo-text></div>"
+      },
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "density-xs-button",
+      "component": "button",
+      "props": {
+        "text": "Commit"
+      },
+      "density": "xs",
+      "skins": ["carbon"],
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "density-xs-list",
+      "component": "list-section",
+      "content": {
+        "": "<camo-list-item headline=\"main\" clickable></camo-list-item><camo-list-item headline=\"develop\" clickable></camo-list-item>"
+      },
+      "density": "xs",
+      "skins": ["carbon"],
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "density-xs-field",
+      "component": "text-field",
+      "props": {
+        "label": "Branch",
+        "value": "main"
+      },
+      "density": "xs",
+      "skins": ["carbon"],
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "density-sm-button",
+      "component": "button",
+      "props": {
+        "text": "Commit"
+      },
+      "density": "sm",
+      "skins": ["carbon"],
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "density-sm-list",
+      "component": "list-section",
+      "content": {
+        "": "<camo-list-item headline=\"main\" clickable></camo-list-item><camo-list-item headline=\"develop\" clickable></camo-list-item>"
+      },
+      "density": "sm",
+      "skins": ["carbon"],
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "density-sm-field",
+      "component": "text-field",
+      "props": {
+        "label": "Branch",
+        "value": "main"
+      },
+      "density": "sm",
+      "skins": ["carbon"],
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "density-md-button",
+      "component": "button",
+      "props": {
+        "text": "Commit"
+      },
+      "density": "md",
+      "skins": ["carbon"],
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "density-md-list",
+      "component": "list-section",
+      "content": {
+        "": "<camo-list-item headline=\"main\" clickable></camo-list-item><camo-list-item headline=\"develop\" clickable></camo-list-item>"
+      },
+      "density": "md",
+      "skins": ["carbon"],
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "density-md-field",
+      "component": "text-field",
+      "props": {
+        "label": "Branch",
+        "value": "main"
+      },
+      "density": "md",
+      "skins": ["carbon"],
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "density-lg-button",
+      "component": "button",
+      "props": {
+        "text": "Commit"
+      },
+      "density": "lg",
+      "skins": ["carbon"],
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "density-lg-list",
+      "component": "list-section",
+      "content": {
+        "": "<camo-list-item headline=\"main\" clickable></camo-list-item><camo-list-item headline=\"develop\" clickable></camo-list-item>"
+      },
+      "density": "lg",
+      "skins": ["carbon"],
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"]
+    },
+    {
+      "name": "density-lg-field",
+      "component": "text-field",
+      "props": {
+        "label": "Branch",
+        "value": "main"
+      },
+      "density": "lg",
+      "skins": ["carbon"],
+      "modes": ["light", "dark"],
+      "textScales": [1],
+      "directions": ["ltr"]
     }
   ]
 }

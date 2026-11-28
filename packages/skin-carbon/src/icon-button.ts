@@ -21,7 +21,7 @@ export const carbonIconButton: Renderer<IconButtonState, IconButtonSlots, IconBu
       defaultAppearance: "ghost",
       containerSize: field(
         "container-size",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       shape: field("shape", theme.shapes.none),
       iconSize: field("icon-size", "16px"),

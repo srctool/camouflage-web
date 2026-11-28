@@ -12,7 +12,7 @@ export async function mountVariant(
   registerDemoIcons();
   document.documentElement.style.fontSize = `${variant.textScale * 100}%`;
   const root = mount(
-    `<div dir="${variant.direction}"><camo-provider skin="${variant.skin}" scheme="${variant.mode}" style="display:block;padding:24px;background:var(--camo-color-surface);color:var(--camo-color-on-surface)">${scenarioMarkup(variant.scenario)}</camo-provider></div>`,
+    `<div dir="${variant.direction}"><camo-provider skin="${variant.skin}" scheme="${variant.mode}"${variant.scenario.density === undefined ? "" : ` density="${variant.scenario.density}"`} style="display:block;padding:24px;background:var(--camo-color-surface);color:var(--camo-color-on-surface)">${scenarioMarkup(variant.scenario)}</camo-provider></div>`,
   );
   applyProperties(root, variant.scenario);
   await settled(root);

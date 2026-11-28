@@ -90,6 +90,10 @@ export const carbonListItem: Renderer<ListItemState, ListItemSlots, ListItemStyl
   styles: [
     listItemBase.styles ?? [],
     css`
+    /* The density's height is the row's: the text is centered in it, not padded past it. */
+    .row {
+      padding-block: var(--camo-spacing-xxs);
+    }
     /* A row shorter than 48 (a pointer's density) still answers to a 48 touch. */
     :host([clickable]) .row::before,
     :host([selectable]) .row::before {
@@ -105,7 +109,7 @@ export const carbonListItem: Renderer<ListItemState, ListItemSlots, ListItemStyl
       minHeightOneLine: field(
         "list-item",
         "min-height-one-line",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       minHeightTwoLines: field("list-item", "min-height-two-lines", "64px"),
       minHeightThreeLines: field("list-item", "min-height-three-lines", "80px"),
@@ -141,7 +145,7 @@ export const carbonAccordion: Renderer<AccordionState, AccordionSlots, Accordion
       headerMinHeight: field(
         "accordion",
         "header-min-height",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       contentPadding: field("accordion", "content-padding", theme.spacing.l),
     };
@@ -202,7 +206,7 @@ export const carbonMenu: Renderer<MenuState, MenuSlots, MenuStyle> = {
       itemHeight: field(
         "menu",
         "item-height",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       iconSize: field("menu", "icon-size", "16px"),
     };
@@ -217,7 +221,7 @@ export const carbonMenuItem: Renderer<MenuItemState, MenuItemSlots, MenuItemStyl
       itemHeight: field(
         "menu",
         "item-height",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       iconSize: field("menu", "icon-size", "16px"),
       checkPosition: "trailing",

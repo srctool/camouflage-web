@@ -76,7 +76,7 @@ export const carbonTextField: Renderer<TextFieldState, TextFieldSlots, TextField
       height: field(
         "text-field",
         "height",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       shape: field("text-field", "shape", theme.shapes.none),
       borderWidth: field("text-field", "border-width", "1px"),
@@ -106,7 +106,7 @@ export const carbonSearchField: Renderer<SearchFieldState, SearchFieldSlots, Sea
       height: field(
         "search-field",
         "height",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       shape: field("search-field", "shape", theme.shapes.none),
       padding: field("search-field", "padding", theme.spacing.l),
@@ -179,7 +179,7 @@ const segmented: Pick<
       height: field(
         "segmented-control",
         "height",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       shape: field("segmented-control", "shape", theme.shapes.none),
       borderWidth: field("segmented-control", "border-width", "1px"),
@@ -234,7 +234,7 @@ export const carbonStepper: Renderer<StepperState, StepperSlots, StepperStyle> =
       height: field(
         "stepper",
         "height",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       shape: field("stepper", "shape", theme.shapes.none),
       valueMinWidth: field("stepper", "value-min-width", "48px"),

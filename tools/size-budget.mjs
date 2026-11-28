@@ -8,16 +8,16 @@ import { rolldown } from "rolldown";
 
 const root = new URL("..", import.meta.url).pathname;
 const BUDGETS = {
-  "core (define)": 61_000,
-  "core + minimal": 102_000,
-  "core + minimal + cupertino": 111_000,
-  "minimal skin only": 50_000,
-  "material skin only": 51_000,
-  "cupertino skin only": 51_500,
-  "fluent skin only": 51_500,
-  "carbon skin only": 51_000,
+  "core (define)": 67_000,
+  "core + minimal": 110_000,
+  "core + minimal + cupertino": 120_000,
+  "minimal skin only": 51_500,
+  "material skin only": 52_000,
+  "cupertino skin only": 52_500,
+  "fluent skin only": 52_500,
+  "carbon skin only": 52_500,
   // The charts with the core elements they use; the charts' own share is this less "core (define)".
-  "core + charts": 77_000,
+  "core + charts": 83_000,
 };
 const entries = {
   "core (define)": `import "@srctool/camouflage-core/define";`,

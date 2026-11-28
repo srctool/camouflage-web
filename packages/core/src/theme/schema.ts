@@ -45,6 +45,8 @@ import type {
   CalendarTheme,
   TimePickerTheme,
   DividerTheme,
+  ScrollbarTheme,
+  SplitPaneTheme,
   IconButtonTheme,
   SurfaceTheme,
   CamoColors,
@@ -399,6 +401,18 @@ export const COMPONENT_FIELDS: { [C in keyof CamoComponentThemes]-?: readonly st
   calendar: keys<CalendarTheme>({ daySize: true, shape: true }),
   timePicker: keys<TimePickerTheme>({ digitSize: true, shape: true }),
   surface: keys<SurfaceTheme>({ borderWidth: true, borderColor: true }),
+  splitPane: keys<SplitPaneTheme>({
+    thickness: true,
+    hitSize: true,
+    keyStep: true,
+    keyStepLarge: true,
+  }),
+  scrollbar: keys<ScrollbarTheme>({
+    thickness: true,
+    hoverThickness: true,
+    minThumb: true,
+    hideDelay: true,
+  }),
   divider: keys<DividerTheme>({
     thickness: true,
     color: true,

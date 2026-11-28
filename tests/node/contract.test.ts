@@ -79,6 +79,8 @@ describe("camouflage-contract.json", () => {
     );
     expect(gaps).toEqual({
       Icon: ["size", "color"],
+      SplitPane: ["colors", "grip"],
+      Scrollbar: ["visibility", "colors"],
       Surface: [],
       Divider: [],
       Button: ["defaultAppearance"],

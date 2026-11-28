@@ -5,6 +5,7 @@ import type {
   Appearance,
   AvatarShape,
   AvatarSize,
+  Axis,
   ButtonType,
   CamoAccordion,
   CamoAccordionGroup,
@@ -42,6 +43,7 @@ import type {
   CamoMenuDivider,
   CamoMenuGroup,
   CamoMenuItem,
+  CamoMenuSubmenu,
   CamoModalDrawer,
   CamoModalSideSheet,
   CamoNavItem,
@@ -52,6 +54,7 @@ import type {
   CamoOption,
   CamoPagedList,
   CamoPagination,
+  CamoPane,
   CamoPopover,
   CamoProgressBar,
   CamoProgressCircle,
@@ -61,6 +64,7 @@ import type {
   CamoRadioGroup,
   CamoRating,
   CamoScheme,
+  CamoScrollbar,
   CamoSearchField,
   CamoSegment,
   CamoSegmentedControl,
@@ -71,6 +75,7 @@ import type {
   CamoSlider,
   CamoSnackbar,
   CamoSplitButton,
+  CamoSplitPane,
   CamoStep,
   CamoStepper,
   CamoSurface,
@@ -86,6 +91,7 @@ import type {
   CamoTree,
   CarouselLayout,
   ChipLayout,
+  ControlDensity,
   Detent,
   DividerInset,
   DividerOrientation,
@@ -98,6 +104,7 @@ import type {
   InputKind,
   LabelPlacement,
   PaginationVariant,
+  Partial,
   PopoverPlacement,
   PopoverSide,
   Presence,
@@ -105,17 +112,22 @@ import type {
   ProgressSize,
   RatingSize,
   RatingStep,
+  Record,
+  ScrollOrientation,
+  ScrollbarShow,
   SelectOption,
   ShapeName,
   ShowButtons,
   SkeletonLeading,
   SkeletonVariant,
+  SplitAxis,
   StepStatus,
   StepsOrientation,
   SurfaceLevel,
   TextAlign,
   TextOverflow,
   TextVariant,
+  Thumb,
   Tone,
   ToolbarPlacement,
   ValidateMode,
@@ -495,6 +507,14 @@ declare module "react" {
           disabled?: boolean;
         }
       >;
+      "camo-menu-submenu": CamoElement<
+        CamoMenuSubmenu,
+        {
+          text?: string;
+          open?: boolean;
+          disabled?: boolean;
+        }
+      >;
       "camo-modal-drawer": CamoElement<
         CamoModalDrawer,
         {
@@ -592,6 +612,18 @@ declare module "react" {
           disabled?: boolean;
         }
       >;
+      "camo-pane": CamoElement<
+        CamoPane,
+        {
+          size?: number | null;
+          "min-size"?: number;
+          "max-size"?: number | null;
+          collapsible?: boolean;
+          label?: string;
+          dragging?: boolean;
+          scrolls?: boolean;
+        }
+      >;
       "camo-popover": CamoElement<
         CamoPopover,
         {
@@ -635,6 +667,7 @@ declare module "react" {
           "window-size"?: WindowSize | null;
           input?: InputKind | null;
           platform?: string | null;
+          density?: ControlDensity | null;
         }
       >;
       "camo-radio": CamoElement<
@@ -671,6 +704,17 @@ declare module "react" {
           disabled?: boolean;
           name?: string;
           hover?: number | null;
+        }
+      >;
+      "camo-scrollbar": CamoElement<
+        CamoScrollbar,
+        {
+          orientation?: ScrollOrientation;
+          visibility?: ScrollbarShow;
+          label?: string | null;
+          thumbs?: Partial<Record<Axis, Thumb & { track: number }>>;
+          scrolling?: boolean;
+          dragged?: Axis | null;
         }
       >;
       "camo-search-field": CamoElement<
@@ -789,6 +833,13 @@ declare module "react" {
           "menu-content-description"?: string;
           disabled?: boolean;
           expanded?: boolean;
+        }
+      >;
+      "camo-split-pane": CamoElement<
+        CamoSplitPane,
+        {
+          axis?: SplitAxis;
+          fractions?: number[];
         }
       >;
       "camo-step": CamoElement<

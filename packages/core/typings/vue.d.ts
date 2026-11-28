@@ -5,6 +5,7 @@ import type {
   Appearance,
   AvatarShape,
   AvatarSize,
+  Axis,
   ButtonType,
   CamoBeforeChangeDetail,
   CamoCloseDetail,
@@ -23,6 +24,7 @@ import type {
   CamoUploadRowDetail,
   CarouselLayout,
   ChipLayout,
+  ControlDensity,
   Detent,
   DividerInset,
   DividerOrientation,
@@ -35,6 +37,7 @@ import type {
   InputKind,
   LabelPlacement,
   PaginationVariant,
+  Partial,
   PopoverPlacement,
   PopoverSide,
   Presence,
@@ -42,17 +45,22 @@ import type {
   ProgressSize,
   RatingSize,
   RatingStep,
+  Record,
+  ScrollOrientation,
+  ScrollbarShow,
   SelectOption,
   ShapeName,
   ShowButtons,
   SkeletonLeading,
   SkeletonVariant,
+  SplitAxis,
   StepStatus,
   StepsOrientation,
   SurfaceLevel,
   TextAlign,
   TextOverflow,
   TextVariant,
+  Thumb,
   Tone,
   ToolbarPlacement,
   ValidateMode,
@@ -420,6 +428,13 @@ declare module "vue" {
         disabled?: boolean;
       }
     >;
+    CamoMenuSubmenu: DefineComponent<
+      HTMLAttributes & {
+        text?: string;
+        open?: boolean;
+        disabled?: boolean;
+      }
+    >;
     CamoModalDrawer: DefineComponent<
       HTMLAttributes & {
         open?: boolean;
@@ -522,6 +537,17 @@ declare module "vue" {
         onCamoPageChange?: (event: CustomEvent<CamoPageChangeDetail>) => void;
       }
     >;
+    CamoPane: DefineComponent<
+      HTMLAttributes & {
+        size?: number | null;
+        "min-size"?: number;
+        "max-size"?: number | null;
+        collapsible?: boolean;
+        label?: string;
+        dragging?: boolean;
+        scrolls?: boolean;
+      }
+    >;
     CamoPopover: DefineComponent<
       HTMLAttributes & {
         open?: boolean;
@@ -562,6 +588,7 @@ declare module "vue" {
         "window-size"?: WindowSize | null;
         input?: InputKind | null;
         platform?: string | null;
+        density?: ControlDensity | null;
       }
     >;
     CamoRadio: DefineComponent<
@@ -597,6 +624,16 @@ declare module "vue" {
         name?: string;
         hover?: number | null;
         onCamoBeforeChange?: (event: CustomEvent<CamoBeforeChangeDetail>) => void;
+      }
+    >;
+    CamoScrollbar: DefineComponent<
+      HTMLAttributes & {
+        orientation?: ScrollOrientation;
+        visibility?: ScrollbarShow;
+        label?: string | null;
+        thumbs?: Partial<Record<Axis, Thumb & { track: number }>>;
+        scrolling?: boolean;
+        dragged?: Axis | null;
       }
     >;
     CamoSearchField: DefineComponent<
@@ -718,6 +755,13 @@ declare module "vue" {
         "menu-content-description"?: string;
         disabled?: boolean;
         expanded?: boolean;
+      }
+    >;
+    CamoSplitPane: DefineComponent<
+      HTMLAttributes & {
+        axis?: SplitAxis;
+        fractions?: number[];
+        onCamoResize?: (event: CustomEvent) => void;
       }
     >;
     CamoStep: DefineComponent<

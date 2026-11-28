@@ -19,7 +19,15 @@ import { CamoAccordion, CamoAccordionGroup } from "./components/accordion.ts";
 import { CamoSkeleton } from "./components/skeleton.ts";
 import { CamoPagedList } from "./components/paged-list.ts";
 import { CamoBottomSheet } from "./components/bottom-sheet.ts";
-import { CamoMenu, CamoMenuItem, CamoMenuDivider, CamoMenuGroup } from "./components/menu.ts";
+import {
+  CamoMenu,
+  CamoMenuItem,
+  CamoMenuDivider,
+  CamoMenuGroup,
+  CamoMenuSubmenu,
+} from "./components/menu.ts";
+import { CamoPane, CamoSplitPane } from "./components/split-pane.ts";
+import { CamoScrollbar } from "./components/scrollbar.ts";
 import { CamoTooltip } from "./components/tooltip.ts";
 import { CamoTopBar } from "./components/top-bar.ts";
 import { CamoSelect, CamoOption } from "./components/select.ts";
@@ -98,6 +106,10 @@ defineElement("camo-menu", CamoMenu);
 defineElement("camo-menu-item", CamoMenuItem);
 defineElement("camo-menu-divider", CamoMenuDivider);
 defineElement("camo-menu-group", CamoMenuGroup);
+defineElement("camo-menu-submenu", CamoMenuSubmenu);
+defineElement("camo-split-pane", CamoSplitPane);
+defineElement("camo-pane", CamoPane);
+defineElement("camo-scrollbar", CamoScrollbar);
 defineElement("camo-tooltip", CamoTooltip);
 defineElement("camo-top-bar", CamoTopBar);
 defineElement("camo-select", CamoSelect);

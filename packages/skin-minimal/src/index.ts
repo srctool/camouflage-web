@@ -15,6 +15,7 @@ import {
 } from "./inputs.ts";
 import { minimalButton } from "./button.ts";
 import { minimalDivider } from "./divider.ts";
+import { minimalScrollbar, minimalSplitPane } from "./panes.ts";
 import { minimalIcon } from "./icon.ts";
 import { minimalIconButton } from "./icon-button.ts";
 import { minimalSurface } from "./surface-component.ts";
@@ -80,6 +81,8 @@ export const minimalSkin: CamoSkin = defineSkin({
   icon: minimalIcon,
   surface: minimalSurface,
   divider: minimalDivider,
+  splitPane: minimalSplitPane,
+  scrollbar: minimalScrollbar,
   button: minimalButton,
   iconButton: minimalIconButton,
   card: minimalCard,
@@ -141,6 +144,8 @@ export {
   minimalIcon,
   minimalSurface,
   minimalDivider,
+  minimalSplitPane,
+  minimalScrollbar,
   minimalButton,
   minimalIconButton,
   minimalTextField,

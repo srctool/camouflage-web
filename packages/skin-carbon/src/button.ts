@@ -94,7 +94,7 @@ export const carbonButton: Renderer<ButtonState, ButtonSlots, ButtonStyle> = {
       defaultAppearance: "solid",
       height: field(
         "height",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       minWidth: field("min-width", "48px"),
       shape: field("shape", theme.shapes.none),

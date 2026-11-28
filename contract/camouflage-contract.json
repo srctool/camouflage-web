@@ -34,6 +34,12 @@
           "type": "string"
         },
         {
+          "name": "density",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Xs", "Sm", "Md", "Lg"]
+        },
+        {
           "name": "content",
           "kind": "slot",
           "defaultSlot": true
@@ -2404,6 +2410,181 @@
           "name": "content",
           "kind": "slot",
           "defaultSlot": true
+        }
+      ]
+    },
+    {
+      "name": "MenuSubmenu",
+      "parameters": [
+        {
+          "name": "text",
+          "kind": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "open",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "enabled",
+          "kind": "value",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "leadingIcon",
+          "kind": "slot"
+        },
+        {
+          "name": "items",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ]
+    },
+    {
+      "name": "SplitPane",
+      "parameters": [
+        {
+          "name": "axis",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Horizontal", "Vertical"],
+          "default": "Horizontal"
+        },
+        {
+          "name": "fractions",
+          "kind": "value"
+        },
+        {
+          "name": "panes",
+          "kind": "slot",
+          "defaultSlot": true
+        },
+        {
+          "name": "onResize",
+          "kind": "callback"
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "thickness",
+          "type": "length"
+        },
+        {
+          "name": "hitSize",
+          "type": "length"
+        },
+        {
+          "name": "keyStep",
+          "type": "length"
+        },
+        {
+          "name": "keyStepLarge",
+          "type": "length"
+        },
+        {
+          "name": "colors",
+          "web": "gap"
+        },
+        {
+          "name": "grip",
+          "web": "gap"
+        }
+      ]
+    },
+    {
+      "name": "Pane",
+      "parameters": [
+        {
+          "name": "size",
+          "kind": "value",
+          "type": "number"
+        },
+        {
+          "name": "minSize",
+          "kind": "value",
+          "type": "number",
+          "default": 80
+        },
+        {
+          "name": "maxSize",
+          "kind": "value",
+          "type": "number"
+        },
+        {
+          "name": "collapsible",
+          "kind": "value",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ]
+    },
+    {
+      "name": "Scrollbar",
+      "parameters": [
+        {
+          "name": "orientation",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Vertical", "Horizontal", "Both"],
+          "default": "Vertical"
+        },
+        {
+          "name": "visibility",
+          "kind": "value",
+          "type": "enum",
+          "values": ["Auto", "OnScroll", "Always"],
+          "default": "Auto"
+        },
+        {
+          "name": "label",
+          "kind": "value",
+          "type": "string"
+        },
+        {
+          "name": "content",
+          "kind": "slot",
+          "defaultSlot": true
+        }
+      ],
+      "themeFields": [
+        {
+          "name": "thickness",
+          "type": "length"
+        },
+        {
+          "name": "hoverThickness",
+          "type": "length"
+        },
+        {
+          "name": "minThumb",
+          "type": "length"
+        },
+        {
+          "name": "hideDelay",
+          "type": "duration"
+        },
+        {
+          "name": "visibility",
+          "web": "gap"
+        },
+        {
+          "name": "colors",
+          "web": "gap"
         }
       ]
     },

@@ -21,7 +21,7 @@ export const fluentIconButton: Renderer<IconButtonState, IconButtonSlots, IconBu
       defaultAppearance: "ghost",
       containerSize: field(
         "container-size",
-        "var(--fluent-density-control, calc(40px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--fluent-density-control, calc(40px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       shape: field("shape", theme.shapes.small),
       iconSize: field("icon-size", "20px"),

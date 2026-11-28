@@ -7,7 +7,13 @@ import { defaultEnvironment, warnOnce } from "../controller.ts";
 import { environmentProperties, measure, watchEnvironment, withMeasured } from "../environment.ts";
 import type { Measured } from "../environment.ts";
 import { fallbackSkin, registeredSkinNames, resolveSkin, starterTheme } from "../skin/registry.ts";
-import type { CamoEnvironment, CamoSkin, InputKind, WindowSize } from "../skin/types.ts";
+import type {
+  ControlDensity,
+  CamoEnvironment,
+  CamoSkin,
+  InputKind,
+  WindowSize,
+} from "../skin/types.ts";
 import { CONTENT_RESET, schemeStylesheet, themeDeclarations } from "../theme/css.ts";
 import { createCamoTheme } from "../theme/merge.ts";
 import type { CamoScheme, CamoThemeSet, PartialThemeSet } from "../theme/types.ts";
@@ -32,6 +38,8 @@ import { cssBlock } from "../style.ts";
  * @attr {"compact"|"medium"|"expanded"|"large"} window-size - The server's guess at the window size; the client measures it.
  * @attr {"touch"|"pointer"} input - The server's guess at the input kind; the client measures it.
  * @attr {string} platform - The platform name the skins may read (`web`, or the host platform inside Tauri).
+ * @attr {"xs"|"sm"|"md"|"lg"} density - The controls' height (24, 32, 40 or 48 px) for the subtree, in skins that have
+ * densities (Carbon, Fluent); the others keep their sizes. Without it the skin's theme and the input decide.
  */
 export class CamoProvider extends LitElement {
   static override properties: PropertyDeclarations = {
@@ -41,6 +49,7 @@ export class CamoProvider extends LitElement {
     windowSize: { type: String, attribute: "window-size" },
     input: { type: String },
     platform: { type: String },
+    density: { type: String, reflect: true },
     effectiveScheme: { type: String, attribute: "data-camo-scheme", reflect: true },
     measured: { state: true, attribute: false },
   };
@@ -48,6 +57,19 @@ export class CamoProvider extends LitElement {
   static override styles: CSSResult = css`
     :host {
       display: contents;
+    }
+    /* A skin with densities reads this one variable; being CSS, it is right in server-rendered HTML. */
+    :host([density="xs"]) {
+      --camo-density-control: 24px;
+    }
+    :host([density="sm"]) {
+      --camo-density-control: 32px;
+    }
+    :host([density="md"]) {
+      --camo-density-control: 40px;
+    }
+    :host([density="lg"]) {
+      --camo-density-control: 48px;
     }
   `;
 
@@ -57,6 +79,7 @@ export class CamoProvider extends LitElement {
   declare windowSize: WindowSize | null;
   declare input: InputKind | null;
   declare platform: string | null;
+  declare density: ControlDensity | null;
   declare effectiveScheme: CamoScheme | null;
   declare measured: Measured | null;
 
@@ -81,6 +104,7 @@ export class CamoProvider extends LitElement {
     this.windowSize = null;
     this.input = null;
     this.platform = null;
+    this.density = null;
     this.effectiveScheme = null;
     this.measured = null;
   }
