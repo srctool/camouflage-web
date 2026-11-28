@@ -42,7 +42,23 @@ export { CamoAccordion, CamoAccordionGroup } from "./components/accordion.ts";
 export { CamoSkeleton } from "./components/skeleton.ts";
 export { CamoPagedList } from "./components/paged-list.ts";
 export { CamoBottomSheet } from "./components/bottom-sheet.ts";
-export { CamoMenu, CamoMenuItem, CamoMenuDivider, CamoMenuGroup } from "./components/menu.ts";
+export {
+  CamoMenu,
+  CamoMenuItem,
+  CamoMenuDivider,
+  CamoMenuGroup,
+  CamoMenuSubmenu,
+} from "./components/menu.ts";
+export { CamoPane, CamoSplitPane } from "./components/split-pane.ts";
+export type { CamoResizeDetail } from "./components/split-pane.ts";
+export { CamoScrollbar } from "./components/scrollbar.ts";
+export type { ControlDensity, ScrollOrientation, ScrollbarShow, SplitAxis } from "./skin/types.ts";
+export { collapsePane, normalizeSizes, resizeSizes, restorePane } from "./behavior/split.ts";
+export type { PaneLimits } from "./behavior/split.ts";
+export { offsetOfThumb, pageFor, thumbOf } from "./behavior/scroll-geometry.ts";
+export type { Thumb } from "./behavior/scroll-geometry.ts";
+export { scrollbarBase, splitPaneBase } from "./skin/panes.ts";
+export { themedScrollbar } from "./style.ts";
 export { CamoTooltip } from "./components/tooltip.ts";
 export { CamoTopBar } from "./components/top-bar.ts";
 export { CamoSelect, CamoOption } from "./components/select.ts";

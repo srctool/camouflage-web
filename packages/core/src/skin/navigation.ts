@@ -1,3 +1,4 @@
+import { themedScrollbar } from "../style.ts";
 // The shared drawing of the W5 navigation components: tabs and a tab, a navigation item, and the bar, rail and drawer
 // that hold items. A skin supplies `defaults(theme)` and spreads the base. Pure.
 import { css, html, nothing } from "lit";
@@ -522,7 +523,8 @@ export const navigationRailBase: Base<
   NavigationRailSlots,
   NavigationRailStyle
 > = {
-  styles: css`
+  styles: [
+    css`
     :host {
       display: block;
       block-size: 100%;
@@ -558,6 +560,8 @@ export const navigationRailBase: Base<
       display: contents;
     }
   `,
+    themedScrollbar(".items"),
+  ],
   render({ state, slots, theme, style, skin }) {
     const vars = `--nr-spacing: ${style.itemSpacing}; --nr-divider: ${style.divider}; --nr-hairline: ${style.hairline}`;
     return html`${cssBlock(`:host { inline-size: ${style.width}; }`)}${skin.surfaceTreatment.decorate(
@@ -581,7 +585,8 @@ export const navigationDrawerBase: Base<
   NavigationDrawerSlots,
   NavigationDrawerStyle
 > = {
-  styles: css`
+  styles: [
+    css`
     :host {
       display: block;
       max-inline-size: 100%;
@@ -616,6 +621,8 @@ export const navigationDrawerBase: Base<
       display: contents;
     }
   `,
+    themedScrollbar(".items"),
+  ],
   render({ state, slots, theme, style, skin }) {
     const vars = `--nd-width: ${style.width}; --nd-divider: ${state.modal ? "transparent" : style.divider}; --nd-hairline: ${style.hairline}`;
     return html`${

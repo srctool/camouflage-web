@@ -1,3 +1,4 @@
+import { themedScrollbar } from "../style.ts";
 // The shared drawing of the W6 structured data: data table and tree. Core builds the semantic markup (a real table, real
 // tree items) and the renderer gives it its look; a skin supplies `defaults(theme)` and spreads the base. Pure.
 import { css, html, nothing } from "lit";
@@ -28,7 +29,8 @@ const svg = (art: IconArtwork): ReturnType<typeof html> =>
 // --- Data table -------------------------------------------------------------------------------------------------
 
 export const dataTableBase: Base<DataTableState, DataTableSlots, DataTableStyle> = {
-  styles: css`
+  styles: [
+    css`
     :host {
       display: block;
       block-size: 100%;
@@ -161,6 +163,8 @@ export const dataTableBase: Base<DataTableState, DataTableSlots, DataTableStyle>
       margin-inline: 0;
     }
   `,
+    themedScrollbar(".scroller"),
+  ],
   render({ state, slots, style, nodes }) {
     const line = style.dividers ? `1px solid ${style.divider}` : "0";
     const vars = [

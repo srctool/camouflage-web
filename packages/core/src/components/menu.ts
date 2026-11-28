@@ -11,7 +11,67 @@ import { tokens } from "../theme/shape.ts";
 
 const ITEM_SLOTS = { "leading-icon": "leading-icon" } as const;
 const MENU_SLOTS = { entries: "" } as const;
-const ITEMS = "camo-menu-item:not([disabled])";
+const ITEMS = "camo-menu-item:not([disabled]), camo-menu-submenu:not([disabled])";
+/** The hover that opens a submenu, and the grace before one closes (base CamoMenu note, submenus). */
+const OPEN_DELAY = 250;
+const CLOSE_GRACE = 120;
+
+type Entry = HTMLElement & { text: string };
+
+/** The entries of one level: those whose nearest submenu is `level` itself (none, for the root). */
+function levelItems(root: ParentNode, level: Element | null): Entry[] {
+  return [...root.querySelectorAll<Entry>(ITEMS)].filter((item) => {
+    const owner = item.parentElement?.closest("camo-menu-submenu") ?? null;
+    return owner === level;
+  });
+}
+
+/** The keys that move within a level: arrows, Home, End and typing the start of a label. */
+class Walk {
+  #typed = "";
+  #typedAt = 0;
+
+  /** The entry to focus for a key, or `undefined` when the key does not move. */
+  next(event: KeyboardEvent, items: Entry[]): Entry | undefined {
+    const at = items.indexOf(event.target as Entry);
+    switch (event.key) {
+      case "ArrowDown":
+        return items[(at + 1) % items.length];
+      case "ArrowUp":
+        return items[(at - 1 + items.length) % items.length];
+      case "Home":
+        return items[0];
+      case "End":
+        return items.at(-1);
+    }
+    if (
+      event.key.length !== 1 ||
+      event.key === " " ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.altKey
+    )
+      return undefined;
+    // Typeahead: letters typed in quick succession make a prefix.
+    const now = performance.now();
+    this.#typed =
+      now - this.#typedAt > 700 ? event.key.toLowerCase() : this.#typed + event.key.toLowerCase();
+    this.#typedAt = now;
+    return [...items.slice(at + 1), ...items.slice(0, at + 1)].find((i) =>
+      i.text.toLowerCase().startsWith(this.#typed),
+    );
+  }
+}
+
+/** The pointer reached a row of this level: other open submenus start to close, its own stays. */
+function hovered(items: Entry[], target: EventTarget | null): void {
+  if (!items.includes(target as Entry)) return;
+  for (const item of items)
+    if (item instanceof CamoMenuSubmenu) {
+      if (item === target) item.cancelClose();
+      else item.scheduleClose();
+    }
+}
 
 /**
  * `<camo-menu-item text="Copy" trailing-text="⌘C"><camo-icon slot="leading-icon" name="…"></…></camo-menu-item>`
@@ -93,6 +153,8 @@ export class CamoMenuItem extends LitElement {
       disabled: this.disabled,
       kind: this.#kind,
       checked: this.checked,
+      hasSubmenu: false,
+      submenuOpen: false,
     };
     return html`${cssBlock(renderer.styles)}${renderer.render({
       state,
@@ -218,8 +280,7 @@ export class CamoMenu extends LitElement {
   declare itemsRoot: ParentNode | null;
 
   readonly #cx: CamouflageController = new CamouflageController(this);
-  #typed = "";
-  #typedAt = 0;
+  readonly #walk = new Walk();
   #returnFocus = false;
 
   constructor() {
@@ -230,6 +291,7 @@ export class CamoMenu extends LitElement {
     this.itemsRoot = null;
     this.addEventListener("keydown", this.#onKey);
     this.addEventListener("click", this.#onClick);
+    this.addEventListener("pointerover", (event) => hovered(this.#items(), event.target));
   }
 
   get #popup(): HTMLElement | null {
@@ -240,8 +302,8 @@ export class CamoMenu extends LitElement {
     return this.anchorElement ?? this.querySelector<HTMLElement>(':scope > [slot="anchor"]');
   }
 
-  #items(): HTMLElement[] {
-    return [...(this.itemsRoot ?? this).querySelectorAll<HTMLElement>(ITEMS)];
+  #items(): Entry[] {
+    return levelItems(this.itemsRoot ?? this, null);
   }
 
   /** Opens it and focuses the first or last item (or none). `open` does the same declaratively. */
@@ -322,50 +384,19 @@ export class CamoMenu extends LitElement {
 
   readonly #onKey = (event: KeyboardEvent): void => {
     if (!this.open || (event.target as Element).closest?.("[slot=anchor]") !== null) return;
-    const items = this.#items();
-    const at = items.indexOf(event.target as HTMLElement);
-    let next: HTMLElement | undefined;
-    switch (event.key) {
-      case "ArrowDown":
-        next = items[(at + 1) % items.length];
-        break;
-      case "ArrowUp":
-        next = items[(at - 1 + items.length) % items.length];
-        break;
-      case "Home":
-        next = items[0];
-        break;
-      case "End":
-        next = items.at(-1);
-        break;
-      case "Escape":
-        event.preventDefault();
-        this.hide();
-        return;
-      case "Tab":
-        this.hide();
-        return;
-      default:
-        if (event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey) {
-          // Typeahead: letters typed in quick succession make a prefix.
-          const now = performance.now();
-          this.#typed =
-            now - this.#typedAt > 700
-              ? event.key.toLowerCase()
-              : this.#typed + event.key.toLowerCase();
-          this.#typedAt = now;
-          const ordered = [...items.slice(at + 1), ...items.slice(0, at + 1)];
-          next = ordered.find((i) =>
-            (i as HTMLElement & { text: string }).text.toLowerCase().startsWith(this.#typed),
-          );
-          if (next === undefined) return;
-          event.preventDefault();
-          next.focus();
-        }
-        return;
+    if (event.key === "Escape") {
+      event.preventDefault();
+      this.hide();
+      return;
     }
+    if (event.key === "Tab") {
+      this.hide();
+      return;
+    }
+    const next = this.#walk.next(event, this.#items());
+    if (next === undefined) return;
     event.preventDefault();
-    next?.focus();
+    next.focus();
   };
 
   // A click on an entry runs the app's handler (already, it is the click) and closes the menu.
@@ -388,6 +419,236 @@ export class CamoMenu extends LitElement {
           slots: MENU_SLOTS,
           theme: tokens,
           style: renderer.defaults(tokens),
+          skin,
+        })}
+      </div>`;
+  }
+}
+
+/**
+ * `<camo-menu-submenu text="Reset"><camo-menu-item text="Soft"></camo-menu-item>…</camo-menu-submenu>`
+ *
+ * An entry that opens another menu beside it; submenus nest. Hovering opens it after 250 ms; a click, Enter, Space or
+ * Right (Left in right-to-left) open it at once and focus its first entry. Left (Right) and Escape close it and return
+ * focus to its row. The child opens at the end side, or the start side when there is no room.
+ *
+ * @tagname camo-menu-submenu
+ * @slot leading-icon - An icon before the text.
+ * @slot - The entries of the submenu: `camo-menu-item`, `camo-menu-divider`, `camo-menu-group`, `camo-menu-submenu`.
+ * @attr {string} text - The label.
+ * @attr {boolean} open - Whether its menu is shown (inside an open menu).
+ * @attr {boolean} disabled - Blocks opening and focus (the contract's `enabled`, inverted).
+ */
+export class CamoMenuSubmenu extends LitElement {
+  static override properties: PropertyDeclarations = {
+    text: { type: String },
+    disabled: { type: Boolean, reflect: true },
+    open: { type: Boolean, reflect: true },
+  };
+
+  static override styles: CSSResult = css`
+    :host {
+      display: block;
+    }
+    .camo-popup {
+      position: fixed;
+      inset: auto;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      overflow: visible;
+    }
+  `;
+
+  declare text: string;
+  declare disabled: boolean;
+  declare open: boolean;
+
+  readonly #internals: ElementInternals = this.attachInternals();
+  readonly #cx: CamouflageController = new CamouflageController(this);
+  readonly #press: PressController = new PressController(this, () => this.disabled);
+  readonly #walk = new Walk();
+  #opening: ReturnType<typeof setTimeout> | undefined;
+  #closing: ReturnType<typeof setTimeout> | undefined;
+
+  constructor() {
+    super();
+    this.text = "";
+    this.disabled = false;
+    this.open = false;
+    void this.#press;
+    attachActivation(this, () => this.disabled, { container: () => !this.disabled });
+    this.addEventListener("click", (event) => {
+      // A click on the row itself, not on an entry of the child (those close the whole chain, from the root).
+      if (event.composedPath()[0] === this || this.#onRow(event)) void this.show();
+    });
+    this.addEventListener("keydown", this.#onKey);
+    this.addEventListener("pointerenter", (event) => {
+      if (event.pointerType === "touch" || this.disabled) return;
+      this.cancelClose();
+      this.#opening = setTimeout(() => void this.show("none"), OPEN_DELAY);
+    });
+    this.addEventListener("pointerleave", () => clearTimeout(this.#opening));
+    this.addEventListener("pointerover", (event) => {
+      this.cancelClose();
+      hovered(this.#items(), event.target);
+    });
+  }
+
+  #onRow(event: Event): boolean {
+    const first = event.composedPath()[0];
+    return first instanceof Node && this.renderRoot.querySelector(".row")?.contains(first) === true;
+  }
+
+  get #popup(): HTMLElement | null {
+    return this.renderRoot?.querySelector<HTMLElement>(".camo-popup") ?? null;
+  }
+
+  #items(): Entry[] {
+    return levelItems(this, this);
+  }
+
+  /** Opens the submenu and, unless `focus` is `none`, focuses its first entry. */
+  async show(focus: "first" | "none" = "first"): Promise<void> {
+    clearTimeout(this.#opening);
+    this.cancelClose();
+    const popup = this.#popup;
+    if (this.disabled || popup === null || typeof popup.showPopover !== "function") return;
+    if (!popup.matches(":popover-open")) {
+      popup.showPopover();
+      this.open = true;
+      await this.updateComplete;
+      this.#place(popup);
+    }
+    if (focus === "first") this.#items()[0]?.focus();
+  }
+
+  /** Closes the submenu (and any inside it). */
+  hide(): void {
+    clearTimeout(this.#opening);
+    this.cancelClose();
+    this.#popup?.hidePopover?.();
+  }
+
+  /** Closes after the grace, unless the pointer comes back. */
+  scheduleClose(): void {
+    clearTimeout(this.#opening);
+    if (!this.open || this.#closing !== undefined) return;
+    this.#closing = setTimeout(() => this.hide(), CLOSE_GRACE);
+  }
+
+  cancelClose(): void {
+    clearTimeout(this.#closing);
+    this.#closing = undefined;
+  }
+
+  // Beside the row, its first entry level with it.
+  #place(popup: HTMLElement): void {
+    const row = this.getBoundingClientRect();
+    const first = this.#items()[0]?.getBoundingClientRect();
+    const inset = first === undefined ? 0 : first.top - popup.getBoundingClientRect().top;
+    placePopover(popup, new DOMRect(row.x, row.y - inset, row.width, row.height), {
+      rtl: getComputedStyle(this).direction === "rtl",
+      side: "inline",
+      gap: 0,
+    });
+  }
+
+  readonly #onKey = (event: KeyboardEvent): void => {
+    const rtl = getComputedStyle(this).direction === "rtl";
+    const [into, back] = rtl ? ["ArrowLeft", "ArrowRight"] : ["ArrowRight", "ArrowLeft"];
+    const own = event.target === this;
+    if (own && (event.key === into || event.key === "Enter")) {
+      event.preventDefault();
+      event.stopPropagation();
+      void this.show();
+      return;
+    }
+    // Left and Escape close this level only, from one of its entries or from its row while it is open.
+    if (this.open && (event.key === back || event.key === "Escape")) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.hide();
+      this.focus();
+      return;
+    }
+    if (own) return;
+    const items = this.#items();
+    if (!items.includes(event.target as Entry)) return;
+    const next = this.#walk.next(event, items);
+    if (next === undefined) return;
+    event.preventDefault();
+    event.stopPropagation();
+    next.focus();
+  };
+
+  readonly #onToggle = (event: Event): void => {
+    this.open = (event as ToggleEvent).newState === "open";
+    // The nested toggle is this level's business only.
+    event.stopPropagation();
+  };
+
+  // `open` set by the app (or in the markup) shows or hides it once its parent menu is up.
+  override updated(changed: PropertyValues<this>): void {
+    if (!changed.has("open")) return;
+    const shown = this.#popup?.matches(":popover-open") === true;
+    if (this.open && !shown) requestAnimationFrame(() => void this.show("none"));
+    else if (!this.open && shown) this.hide();
+  }
+
+  override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    clearTimeout(this.#opening);
+    this.cancelClose();
+  }
+
+  override willUpdate(changed: PropertyValues<this>): void {
+    void changed;
+    applyAria(this, this.#internals, {
+      role: "menuitem",
+      label: this.text === "" ? null : this.text,
+      disabled: this.disabled,
+      hasPopup: "menu",
+      expanded: this.open,
+    });
+    this.setAttribute("tabindex", "-1");
+    if (!isServer) this.toggleAttribute("data-camo-open", this.open);
+  }
+
+  override render(): TemplateResult {
+    const skin = this.#cx.skin;
+    if (skin === undefined)
+      return html`<div class="row">${this.text}</div>
+        <div class="camo-popup" popover="auto" @toggle=${this.#onToggle}><slot></slot></div>`;
+    const item = skin.menuItem;
+    const menu = skin.menu;
+    const state: MenuItemState = {
+      text: this.text,
+      trailingText: null,
+      tone: "default",
+      disabled: this.disabled,
+      kind: "menuitem",
+      checked: false,
+      hasSubmenu: true,
+      submenuOpen: this.open,
+    };
+    return html`${cssBlock(item.styles, menu.styles)}
+      <div class="row">
+        ${item.render({
+          state,
+          slots: ITEM_SLOTS,
+          theme: tokens,
+          style: item.defaults(tokens),
+          skin,
+        })}
+      </div>
+      <div class="camo-popup" popover="auto" @toggle=${this.#onToggle}>
+        ${menu.render({
+          state: { open: this.open },
+          slots: MENU_SLOTS,
+          theme: tokens,
+          style: menu.defaults(tokens),
           skin,
         })}
       </div>`;

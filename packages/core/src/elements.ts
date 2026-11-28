@@ -44,6 +44,7 @@ import type {
   CamoMenuDivider,
   CamoMenuGroup,
   CamoMenuItem,
+  CamoMenuSubmenu,
   CamoModalDrawer,
   CamoModalSideSheet,
   CamoNavItem,
@@ -55,6 +56,7 @@ import type {
   CamoPageChangeDetail,
   CamoPagedList,
   CamoPagination,
+  CamoPane,
   CamoPopover,
   CamoProgressBar,
   CamoProgressCircle,
@@ -65,6 +67,7 @@ import type {
   CamoRadioGroup,
   CamoRating,
   CamoRowClickDetail,
+  CamoScrollbar,
   CamoSearchField,
   CamoSegment,
   CamoSegmentedControl,
@@ -75,6 +78,7 @@ import type {
   CamoSnackbar,
   CamoSortChangeDetail,
   CamoSplitButton,
+  CamoSplitPane,
   CamoStep,
   CamoStepper,
   CamoSubmitDetail,
@@ -130,6 +134,7 @@ declare global {
     "camo-menu-divider": CamoMenuDivider;
     "camo-menu-group": CamoMenuGroup;
     "camo-menu-item": CamoMenuItem;
+    "camo-menu-submenu": CamoMenuSubmenu;
     "camo-modal-drawer": CamoModalDrawer;
     "camo-modal-side-sheet": CamoModalSideSheet;
     "camo-nav-item": CamoNavItem;
@@ -140,6 +145,7 @@ declare global {
     "camo-option": CamoOption;
     "camo-paged-list": CamoPagedList;
     "camo-pagination": CamoPagination;
+    "camo-pane": CamoPane;
     "camo-popover": CamoPopover;
     "camo-progress-bar": CamoProgressBar;
     "camo-progress-circle": CamoProgressCircle;
@@ -148,6 +154,7 @@ declare global {
     "camo-radio": CamoRadio;
     "camo-radio-group": CamoRadioGroup;
     "camo-rating": CamoRating;
+    "camo-scrollbar": CamoScrollbar;
     "camo-search-field": CamoSearchField;
     "camo-segment": CamoSegment;
     "camo-segmented-control": CamoSegmentedControl;
@@ -157,6 +164,7 @@ declare global {
     "camo-slider": CamoSlider;
     "camo-snackbar": CamoSnackbar;
     "camo-split-button": CamoSplitButton;
+    "camo-split-pane": CamoSplitPane;
     "camo-step": CamoStep;
     "camo-stepper": CamoStepper;
     "camo-surface": CamoSurface;
@@ -196,6 +204,7 @@ declare global {
     "camo-search": CustomEvent<{ query: string }>;
     "camo-query": CustomEvent<CamoQueryDetail>;
     "camo-action": CustomEvent;
+    "camo-resize": CustomEvent;
     "camo-selected-change": CustomEvent<CamoKeysDetail>;
     "camo-load-children": CustomEvent<CamoLoadChildrenDetail>;
   }

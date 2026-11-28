@@ -15,6 +15,9 @@ export interface AriaState {
   /** The control's value fails its rules. */
   invalid?: boolean;
   required?: boolean;
+  /** What activating it opens, and whether that is open now (a submenu's row). */
+  hasPopup?: "menu" | null;
+  expanded?: boolean | null;
   /** A second line of help: a description, a supporting text (not part of the name). */
   description?: string | null;
   /** A slider or spinbutton's value, range and its text. */
@@ -57,6 +60,9 @@ export function applyAria(host: HTMLElement, internals: ElementInternals, aria: 
   internals.ariaChecked =
     aria.checked === undefined || aria.checked === null ? null : String(aria.checked);
   internals.ariaInvalid = aria.invalid ? "true" : null;
+  internals.ariaHasPopup = aria.hasPopup ?? null;
+  internals.ariaExpanded =
+    aria.expanded === undefined || aria.expanded === null ? null : String(aria.expanded);
   internals.ariaRequired = aria.required ? "true" : null;
   internals.ariaDescription = aria.description ?? null;
   internals.ariaValueNow = aria.value === undefined ? null : String(aria.value.now);
@@ -81,6 +87,9 @@ export function applyAria(host: HTMLElement, internals: ElementInternals, aria: 
     "aria-checked":
       aria.checked === undefined || aria.checked === null ? null : String(aria.checked),
     "aria-invalid": aria.invalid ? "true" : null,
+    "aria-haspopup": aria.hasPopup ?? null,
+    "aria-expanded":
+      aria.expanded === undefined || aria.expanded === null ? null : String(aria.expanded),
     "aria-required": aria.required ? "true" : null,
     "aria-description": aria.description ?? null,
     "aria-valuenow": aria.value === undefined ? null : String(aria.value.now),

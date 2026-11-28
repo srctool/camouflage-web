@@ -17,6 +17,7 @@ import { materials } from "./material.ts";
 import type { CupertinoSurface } from "./material.ts";
 import { cupertinoButton } from "./button.ts";
 import { cupertinoDivider } from "./divider.ts";
+import { cupertinoScrollbar, cupertinoSplitPane } from "./panes.ts";
 import { cupertinoIcon } from "./icon.ts";
 import { cupertinoIconButton } from "./icon-button.ts";
 import { cupertinoSurface } from "./surface-component.ts";
@@ -78,6 +79,8 @@ const parts: CamoSkin = defineSkin({
   icon: cupertinoIcon,
   surface: cupertinoSurface,
   divider: cupertinoDivider,
+  splitPane: cupertinoSplitPane,
+  scrollbar: cupertinoScrollbar,
   button: cupertinoButton,
   iconButton: cupertinoIconButton,
   card: cupertinoCard,
@@ -157,6 +160,8 @@ export {
   cupertinoIcon,
   cupertinoSurface,
   cupertinoDivider,
+  cupertinoSplitPane,
+  cupertinoScrollbar,
   cupertinoButton,
   cupertinoIconButton,
   cupertinoTextField,

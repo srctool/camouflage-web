@@ -173,6 +173,25 @@ const SOURCES = JSON.stringify([
 ]);
 
 /** The charts. Their data are attributes, so the server draws them and the browser reads the same data. */
+/** The desktop foundations: a split with a saved layout, a scroll area and a menu with a submenu. */
+export function desktopPage(skin: string, scheme: string): TemplateResult {
+  return html`<camo-provider skin=${skin} scheme=${scheme} density="sm" class="page">
+    <camo-split-pane style="inline-size: 420px; block-size: 140px">
+      <camo-pane size="0.3" min-size="80" collapsible><camo-text text="List"></camo-text></camo-pane>
+      <camo-pane size="0.7" min-size="120"><camo-text text="Detail"></camo-text></camo-pane>
+    </camo-split-pane>
+    <camo-scrollbar label="History" style="inline-size: 240px; block-size: 90px">
+      ${[1, 2, 3, 4, 5, 6, 7, 8].map((n) => html`<camo-list-item headline="Commit ${n}"></camo-list-item>`)}
+    </camo-scrollbar>
+    <camo-menu>
+      <camo-button slot="anchor" text="Reset"></camo-button>
+      <camo-menu-submenu text="Reset to here"
+        ><camo-menu-item text="Soft"></camo-menu-item
+      ></camo-menu-submenu>
+    </camo-menu>
+  </camo-provider>`;
+}
+
 export function chartsPage(skin: string, scheme: string): TemplateResult {
   return html`<camo-provider skin=${skin} scheme=${scheme} class="page">
     <camo-sparkline values="[3,5,4,8,6,9]" description="Signups"></camo-sparkline>

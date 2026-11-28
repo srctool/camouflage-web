@@ -2,7 +2,7 @@ import { setEnvironmentSources } from "@srctool/camouflage-core";
 import type { CamoSkin } from "@srctool/camouflage-core";
 import { createCupertinoSkin } from "@srctool/camouflage-skin-cupertino";
 import { createFluentSkin } from "@srctool/camouflage-skin-fluent";
-import { html } from "lit";
+import { html, nothing } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { registerDemoIcons } from "../../../scenarios/icons.ts";
@@ -90,6 +90,7 @@ const meta: Meta = {
         })}
         .skin=${skinFor(request.skin, request.scenario.surface)}
         scheme=${request.mode}
+        density=${request.scenario.density ?? nothing}
         style="display:block;padding:24px;background:${
           request.scenario.surface === undefined ? "var(--camo-color-surface)" : "transparent"
         };color:var(--camo-color-on-surface)"

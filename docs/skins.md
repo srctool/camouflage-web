@@ -250,6 +250,19 @@ writes none, so the first paint is the safe one.
 Reduce Transparency always ends at the opaque surface. Refraction is drawn by Chromium only. Mica needs a window
 material, which a web page never has, so it is Solid.
 
+## Desktop foundations (W9)
+
+| Skin      | Split divider                       | Scrollbar (idle to hover)        |
+| --------- | ----------------------------------- | -------------------------------- |
+| Minimal   | hairline                            | 4 to 8 px                        |
+| Material  | hairline in `outlineVariant`        | 8 to 12 px with a track on hover |
+| Cupertino | hairline                            | 6 to 8 px, no track              |
+| Fluent    | `neutralStroke2`, thickens on hover | 2 to 12 px                       |
+| Carbon    | `border-subtle`, blue while dragged | 6 to 10 px, no track             |
+
+Every skin draws the focus ring on a divider focused by keyboard, and a shortest thumb of 32 px. A submenu row has a
+chevron at the end (mirrored in right-to-left) and stays marked while its menu is open.
+
 ## Size (gzip, bundled with the core parts a skin uses)
 
 Minimal 45.6 kB, Material 45.9, Fluent 46.5, Carbon 46.4, Cupertino 46.6; `tools/size-budget.mjs` holds each.

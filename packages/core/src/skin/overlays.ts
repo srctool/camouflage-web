@@ -1,3 +1,4 @@
+import { themedScrollbar } from "../style.ts";
 // The shared drawing of the W4 overlays and the bar: bottom sheet, menu and its items, tooltip, top bar. The overlay
 // frame (the native `<dialog>` or `popover`, the scrim, positioning, focus, keys) is core's; the renderer draws what is
 // inside it. A skin supplies `defaults(theme)` and spreads the base. Pure.
@@ -35,7 +36,8 @@ const CHECK = "M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z";
 // --- Bottom sheet -----------------------------------------------------------------------------------------------
 
 export const bottomSheetBase: Base<BottomSheetState, BottomSheetSlots, BottomSheetStyle> = {
-  styles: css`
+  styles: [
+    css`
     dialog {
       border: 0;
       padding: 0;
@@ -124,6 +126,8 @@ export const bottomSheetBase: Base<BottomSheetState, BottomSheetSlots, BottomShe
       display: block;
     }
   `,
+    themedScrollbar(".body"),
+  ],
   render({ state, slots, theme, style, skin }) {
     const c = theme.colors;
     const heights = { auto: "92dvh", medium: "50dvh", large: "92dvh" } as const;
@@ -213,6 +217,8 @@ export const menuBase: Base<MenuState, MenuSlots, MenuStyle> = {
   },
 };
 
+const SUBMENU = "M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z";
+
 export const menuItemBase: Base<MenuItemState, MenuItemSlots, MenuItemStyle> = {
   styles: css`
     :host {
@@ -272,6 +278,21 @@ export const menuItemBase: Base<MenuItemState, MenuItemSlots, MenuItemStyle> = {
     .tick.hide {
       display: none;
     }
+    .more {
+      inline-size: var(--mi-icon);
+      block-size: var(--mi-icon);
+      fill: currentColor;
+      flex: none;
+      color: var(--camo-color-on-surface-variant);
+      margin-inline-end: calc(var(--camo-spacing-s) * -1);
+    }
+    :host(:dir(rtl)) .more {
+      scale: -1 1;
+    }
+    /* The row whose submenu is open stays marked while the pointer is in the child. */
+    :host([data-camo-open]) .i {
+      background: color-mix(in srgb, var(--mi-fg) 10%, transparent);
+    }
     slot {
       display: contents;
     }
@@ -303,6 +324,11 @@ export const menuItemBase: Base<MenuItemState, MenuItemSlots, MenuItemStyle> = {
       <span class="text">${state.text}</span>
       <span class="trail">${state.trailingText}</span>
       ${tick("trailing")}
+      ${
+        state.hasSubmenu
+          ? html`<svg class="more" part="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d=${SUBMENU} /></svg>`
+          : nothing
+      }
     </div>`;
   },
 };

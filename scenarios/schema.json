@@ -66,6 +66,10 @@
           "description": "A skin's surface material (`liquid-glass` or `classic` for Cupertino, `acrylic` for Fluent), drawn over a patterned page so it shows. The scenario is also captured with each step of the material's fallback chain forced.",
           "type": "string"
         },
+        "density": {
+          "description": "The provider's control density, for skins that have densities.",
+          "enum": ["xs", "sm", "md", "lg"]
+        },
         "frame": {
           "description": "`element` captures the component's own box; `page` captures a fixed viewport, for overlays that leave the flow.",
           "enum": ["element", "page"]

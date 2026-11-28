@@ -21,6 +21,8 @@ export interface Scenario extends Axes {
   properties?: Record<string, unknown>;
   content?: Record<string, string>;
   frame?: "element" | "page";
+  /** The provider's control density (`xs`, `sm`, `md`, `lg`). */
+  density?: string;
   /** A skin's surface material (`liquid-glass`, `classic`, `acrylic`), drawn over a patterned page so it shows. */
   surface?: string;
 }

@@ -15,6 +15,7 @@ import {
 } from "./inputs.ts";
 import { materialButton } from "./button.ts";
 import { materialDivider } from "./divider.ts";
+import { materialScrollbar, materialSplitPane } from "./panes.ts";
 import { materialIcon } from "./icon.ts";
 import { materialIconButton } from "./icon-button.ts";
 import { materialSurface } from "./surface-component.ts";
@@ -79,6 +80,8 @@ export const materialSkin: CamoSkin = defineSkin({
   icon: materialIcon,
   surface: materialSurface,
   divider: materialDivider,
+  splitPane: materialSplitPane,
+  scrollbar: materialScrollbar,
   button: materialButton,
   iconButton: materialIconButton,
   card: materialCard,
@@ -140,6 +143,8 @@ export {
   materialIcon,
   materialSurface,
   materialDivider,
+  materialSplitPane,
+  materialScrollbar,
   materialButton,
   materialIconButton,
   materialTextField,

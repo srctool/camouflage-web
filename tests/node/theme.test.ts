@@ -333,6 +333,8 @@ describe("createCamoTheme", () => {
       "calendar",
       "timePicker",
       "surface",
+      "splitPane",
+      "scrollbar",
       "divider",
       "iconButton",
       "button",

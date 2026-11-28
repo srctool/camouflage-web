@@ -1,3 +1,4 @@
+import { themedScrollbar } from "../style.ts";
 import { LitElement, css, html, isServer, nothing } from "lit";
 import type {
   CSSResult,
@@ -112,6 +113,7 @@ export class CamoSelect extends CamoPickerField {
 
   static override styles: CSSResultGroup = [
     CamoPickerField.styles,
+    themedScrollbar(".panel"),
     css`
       .panel {
         align-items: stretch;

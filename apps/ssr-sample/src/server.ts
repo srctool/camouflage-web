@@ -5,6 +5,7 @@ import { createServer } from "node:http";
 import { fileURLToPath } from "node:url";
 import {
   chartsPage,
+  desktopPage,
   dialogPage,
   feedbackPage,
   inputsPage,
@@ -33,7 +34,13 @@ createServer(async (request, response) => {
   let title = "Camouflage spike";
   let page;
   if (url.pathname === "/") page = spikePage();
-  else if (url.pathname === "/charts") {
+  else if (url.pathname === "/desktop") {
+    title = "Camouflage desktop";
+    page = desktopPage(
+      url.searchParams.get("skin") ?? "minimal",
+      url.searchParams.get("scheme") ?? "light",
+    );
+  } else if (url.pathname === "/charts") {
     title = "Camouflage charts";
     page = chartsPage(
       url.searchParams.get("skin") ?? "minimal",

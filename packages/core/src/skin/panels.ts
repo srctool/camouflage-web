@@ -1,3 +1,4 @@
+import { themedScrollbar } from "../style.ts";
 // The shared drawing of the W6 panels: popover, side sheet and toolbar. A skin supplies `defaults(theme)` and spreads the
 // base. The frame (the popover element in the top layer, the modal dialog, the overflow menu) is core's. Pure.
 import { css, html, nothing } from "lit";
@@ -136,7 +137,8 @@ export const popoverBase: Base<PopoverState, PopoverSlots, PopoverStyle> = {
 // --- Side sheet -------------------------------------------------------------------------------------------------
 
 export const sideSheetBase: Base<SideSheetState, SideSheetSlots, SideSheetStyle> = {
-  styles: css`
+  styles: [
+    css`
     :host {
       display: block;
       block-size: 100%;
@@ -210,6 +212,8 @@ export const sideSheetBase: Base<SideSheetState, SideSheetSlots, SideSheetStyle>
       display: contents;
     }
   `,
+    themedScrollbar(".body"),
+  ],
   render({ state, slots, theme, style, skin, nodes }) {
     const vars = [
       `--ss-width: ${style.width}`,

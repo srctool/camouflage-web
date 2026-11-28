@@ -122,7 +122,7 @@ export const fluentButton: Renderer<ButtonState, ButtonSlots, ButtonStyle> = {
       defaultAppearance: "solid",
       height: field(
         "height",
-        "var(--fluent-density-control, calc(40px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--fluent-density-control, calc(40px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       minWidth: field("min-width", "64px"),
       shape: field("shape", theme.shapes.small),

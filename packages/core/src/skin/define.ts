@@ -63,6 +63,8 @@ const names = [
   "pagination",
   "breadcrumb",
   "progressSteps",
+  "splitPane",
+  "scrollbar",
 ] as const satisfies readonly ComponentName[];
 type Missing = Exclude<ComponentName, (typeof names)[number]>;
 const _complete: [Missing] extends [never] ? true : never = true;

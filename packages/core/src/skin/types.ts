@@ -706,6 +706,9 @@ export interface MenuItemState {
   /** `menuitem`, or a checkable `checkbox` or an exclusive-group `radio`. */
   kind: "menuitem" | "checkbox" | "radio";
   checked: boolean;
+  /** The entry opens another menu: it draws a chevron at the end. */
+  hasSubmenu: boolean;
+  submenuOpen: boolean;
 }
 
 export interface MenuItemStyle {
@@ -1582,6 +1585,8 @@ export interface SkinComponents {
   readonly icon: Renderer<IconState, IconSlots, IconStyle>;
   readonly surface: Renderer<SurfaceState, SurfaceSlots, SurfaceStyle>;
   readonly divider: Renderer<DividerState, DividerSlots, DividerStyle>;
+  readonly splitPane: Renderer<SplitDividerState, SplitPaneSlots, SplitPaneStyle>;
+  readonly scrollbar: Renderer<ScrollbarState, ScrollbarSlots, ScrollbarStyle>;
   readonly button: Renderer<ButtonState, ButtonSlots, ButtonStyle>;
   readonly iconButton: Renderer<IconButtonState, IconButtonSlots, IconButtonStyle>;
   readonly textField: Renderer<TextFieldState, TextFieldSlots, TextFieldStyle>;
@@ -1681,3 +1686,71 @@ export interface CamoEnvironment {
   /** `prefers-reduced-motion: reduce`, kept live. The theme's durations are already zero when it is set. */
   reducedMotion: boolean;
 }
+
+// --- Desktop foundations (W9) -----------------------------------------------------------------------------------
+
+/** The divider after a pane of a split. Core owns the hit area, the drag and the keys; the renderer draws the line. */
+export interface SplitDividerState {
+  dragging: boolean;
+  /** The pane before, or after, the divider is collapsed. */
+  collapsedBefore: boolean;
+  collapsedAfter: boolean;
+}
+
+export interface SplitPaneStyle {
+  /** The drawn line. */
+  thickness: string;
+  /** The grab area across the line (a finger gets at least 24px). */
+  hitSize: string;
+  /** How far an arrow key, and Shift with an arrow, moves the divider (pixels). */
+  keyStep: string;
+  keyStepLarge: string;
+  line: string;
+  hover: string;
+  dragging: string;
+  focus: string;
+  /** A small grip in the middle. */
+  grip: boolean;
+}
+
+export type SplitPaneSlots = never;
+
+/** A scrollbar as drawn: where the thumb starts and how long it is, as shares of the track. */
+export interface ScrollbarState {
+  orientation: "vertical" | "horizontal";
+  thumbStart: number;
+  thumbLength: number;
+  dragging: boolean;
+  visible: boolean;
+}
+
+export type ScrollbarVisibility = "on-scroll" | "always";
+
+export interface ScrollbarStyle {
+  thickness: string;
+  /** The thickness under the pointer and while dragged. */
+  hoverThickness: string;
+  /** The shortest thumb. */
+  minThumb: string;
+  visibility: ScrollbarVisibility;
+  /** How long it stays after scrolling stops, when `visibility` is `on-scroll`. */
+  hideDelay: string;
+  thumb: string;
+  thumbHover: string;
+  thumbDrag: string;
+  track: string;
+}
+
+export type ScrollbarSlots = never;
+
+/** The way the panes of a split sit. */
+export type SplitAxis = "horizontal" | "vertical";
+
+/** Which ways a scroll area scrolls. */
+export type ScrollOrientation = "vertical" | "horizontal" | "both";
+
+/** When a scroll area's bar shows; `auto` is the skin's choice. */
+export type ScrollbarShow = "auto" | "on-scroll" | "always";
+
+/** The control heights a provider may ask for: 24, 32, 40 and 48 px. */
+export type ControlDensity = "xs" | "sm" | "md" | "lg";

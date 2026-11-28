@@ -43,7 +43,7 @@ export const carbonTabs: Renderer<TabsState, TabsSlots, TabsStyle> = {
       height: field(
         "tabs",
         "height",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       heightWithIcon: field("tabs", "height-with-icon", "64px"),
       indicatorHeight: field("tabs", "indicator-height", "2px"),
@@ -194,7 +194,7 @@ export const carbonNavigationDrawer: Renderer<
       itemHeight: field(
         "navigation-drawer",
         "item-height",
-        "var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px))",
+        "var(--camo-density-control, var(--carbon-density-control, calc(48px - var(--camo-input-pointer, 0) * 8px)))",
       ),
       itemShape: field("navigation-drawer", "item-shape", theme.shapes.none),
       modalShape: field("navigation-drawer", "modal-shape", theme.shapes.none),

@@ -184,6 +184,8 @@ export interface CamoComponentThemes {
   timePicker?: TimePickerTheme;
   surface?: SurfaceTheme;
   divider?: DividerTheme;
+  splitPane?: SplitPaneTheme;
+  scrollbar?: ScrollbarTheme;
   button?: ButtonTheme;
   iconButton?: IconButtonTheme;
   dialog?: DialogTheme;
@@ -654,3 +656,19 @@ export interface PartialThemeSet {
 
 /** The scheme names. */
 export type CamoScheme = "light" | "dark";
+
+/** The fields of a splitPane theme. */
+export interface SplitPaneTheme {
+  thickness?: string;
+  hitSize?: string;
+  keyStep?: string;
+  keyStepLarge?: string;
+}
+
+/** The fields of a scrollbar theme. */
+export interface ScrollbarTheme {
+  thickness?: string;
+  hoverThickness?: string;
+  minThumb?: string;
+  hideDelay?: string;
+}

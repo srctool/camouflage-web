@@ -15,6 +15,7 @@ import {
 } from "./inputs.ts";
 import { carbonButton } from "./button.ts";
 import { carbonDivider } from "./divider.ts";
+import { carbonScrollbar, carbonSplitPane } from "./panes.ts";
 import { carbonIcon } from "./icon.ts";
 import { carbonIconButton } from "./icon-button.ts";
 import { carbonSurface } from "./surface-component.ts";
@@ -75,6 +76,8 @@ export const carbonSkin: CamoSkin = defineSkin({
   icon: carbonIcon,
   surface: carbonSurface,
   divider: carbonDivider,
+  splitPane: carbonSplitPane,
+  scrollbar: carbonScrollbar,
   button: carbonButton,
   iconButton: carbonIconButton,
   card: carbonCard,
@@ -136,6 +139,8 @@ export {
   carbonIcon,
   carbonSurface,
   carbonDivider,
+  carbonSplitPane,
+  carbonScrollbar,
   carbonButton,
   carbonIconButton,
   carbonTextField,
